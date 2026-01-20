@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{407920EC-6DB4-4271-AADA-84AF667D80D1}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>RestaurantOrderingSystem</RootNamespace>
+    <AssemblyName>RestaurantOrderingSystem</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ManageReservations\AddReservationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManageReservations\AddReservationForm.Designer.cs">
+      <DependentUpon>AddReservationForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ManageTables\AddTableForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManageTables\AddTableForm.Designer.cs">
+      <DependentUpon>AddTableForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ManageOrders\CancelOrder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManageOrders\CancelOrder.Designer.cs">
+      <DependentUpon>CancelOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProcessPayments\MakePayment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProcessPayments\MakePayment.Designer.cs">
+      <DependentUpon>MakePayment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ManageOrders\NewOrderForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManageOrders\NewOrderForm.Designer.cs">
+      <DependentUpon>NewOrderForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PerformAdmin\PrintRevenueForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PerformAdmin\PrintRevenueForm.Designer.cs">
+      <DependentUpon>PrintRevenueForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProcessPayments\ReceiptForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProcessPayments\ReceiptForm.Designer.cs">
+      <DependentUpon>ReceiptForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProcessPayments\RefundPayment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProcessPayments\RefundPayment.Designer.cs">
+      <DependentUpon>RefundPayment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ManageTables\RemoveTableForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManageTables\RemoveTableForm.Designer.cs">
+      <DependentUpon>RemoveTableForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ManageReservations\FindReservationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManageReservations\FindReservationForm.Designer.cs">
+      <DependentUpon>FindReservationForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainMenuForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainMenuForm.Designer.cs">
+      <DependentUpon>MainMenuForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LoggingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoggingForm.Designer.cs">
+      <DependentUpon>LoggingForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProcessPayments\ReprintReceipt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProcessPayments\ReprintReceipt.Designer.cs">
+      <DependentUpon>ReprintReceipt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PerformAdmin\StatisticsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PerformAdmin\StatisticsForm.Designer.cs">
+      <DependentUpon>StatisticsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ManageOrders\UpdateExisitngOrder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManageOrders\UpdateExisitngOrder.Designer.cs">
+      <DependentUpon>UpdateExisitngOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ManageReservations\UpdateReservationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManageReservations\UpdateReservationForm.Designer.cs">
+      <DependentUpon>UpdateReservationForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ManageTables\UpdateTableForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManageTables\UpdateTableForm.Designer.cs">
+      <DependentUpon>UpdateTableForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserSession.cs" />
+    <Compile Include="Validation.cs" />
+    <EmbeddedResource Include="ManageReservations\AddReservationForm.resx">
+      <DependentUpon>AddReservationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ManageTables\AddTableForm.resx">
+      <DependentUpon>AddTableForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ManageOrders\CancelOrder.resx">
+      <DependentUpon>CancelOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProcessPayments\MakePayment.resx">
+      <DependentUpon>MakePayment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ManageOrders\NewOrderForm.resx">
+      <DependentUpon>NewOrderForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PerformAdmin\PrintRevenueForm.resx">
+      <DependentUpon>PrintRevenueForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProcessPayments\ReceiptForm.resx">
+      <DependentUpon>ReceiptForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProcessPayments\RefundPayment.resx">
+      <DependentUpon>RefundPayment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ManageTables\RemoveTableForm.resx">
+      <DependentUpon>RemoveTableForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ManageReservations\FindReservationForm.resx">
+      <DependentUpon>FindReservationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoggingForm.resx">
+      <DependentUpon>LoggingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainMenuForm.resx">
+      <DependentUpon>MainMenuForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="ProcessPayments\ReprintReceipt.resx">
+      <DependentUpon>ReprintReceipt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PerformAdmin\StatisticsForm.resx">
+      <DependentUpon>StatisticsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ManageOrders\UpdateExisitngOrder.resx">
+      <DependentUpon>UpdateExisitngOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ManageReservations\UpdateReservationForm.resx">
+      <DependentUpon>UpdateReservationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ManageTables\UpdateTableForm.resx">
+      <DependentUpon>UpdateTableForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

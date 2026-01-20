@@ -1,0 +1,294 @@
+﻿namespace RestaurantOrderingSystem
+{
+    partial class frmMainMenu
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.components = new System.ComponentModel.Container();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.reservationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addReservationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.updateReservationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeReservationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tablesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addTableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.updateTableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeTableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ordersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addOrderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.updateExistingOrderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cancelOrderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.paymentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.makePaymentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reprintToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reprintReceiptToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.statisticsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.printYearlyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.displayStatisticsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.reservationToolStripMenuItem,
+            this.tablesToolStripMenuItem,
+            this.ordersToolStripMenuItem,
+            this.paymentsToolStripMenuItem,
+            this.statisticsToolStripMenuItem,
+            this.exitToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(800, 30);
+            this.menuStrip1.TabIndex = 2;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // reservationToolStripMenuItem
+            // 
+            this.reservationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addReservationToolStripMenuItem,
+            this.updateReservationToolStripMenuItem,
+            this.removeReservationToolStripMenuItem});
+            this.reservationToolStripMenuItem.Name = "reservationToolStripMenuItem";
+            this.reservationToolStripMenuItem.Size = new System.Drawing.Size(106, 24);
+            this.reservationToolStripMenuItem.Text = "Reservations";
+            // 
+            // addReservationToolStripMenuItem
+            // 
+            this.addReservationToolStripMenuItem.Name = "addReservationToolStripMenuItem";
+            this.addReservationToolStripMenuItem.Size = new System.Drawing.Size(227, 26);
+            this.addReservationToolStripMenuItem.Text = "Add Reservation";
+            this.addReservationToolStripMenuItem.Click += new System.EventHandler(this.addReservationToolStripMenuItem_Click);
+            // 
+            // updateReservationToolStripMenuItem
+            // 
+            this.updateReservationToolStripMenuItem.Name = "updateReservationToolStripMenuItem";
+            this.updateReservationToolStripMenuItem.Size = new System.Drawing.Size(227, 26);
+            this.updateReservationToolStripMenuItem.Text = "Update Reservation";
+            this.updateReservationToolStripMenuItem.Click += new System.EventHandler(this.updateReservationToolStripMenuItem_Click);
+            // 
+            // removeReservationToolStripMenuItem
+            // 
+            this.removeReservationToolStripMenuItem.Name = "removeReservationToolStripMenuItem";
+            this.removeReservationToolStripMenuItem.Size = new System.Drawing.Size(227, 26);
+            this.removeReservationToolStripMenuItem.Text = "Remove Reservation";
+            this.removeReservationToolStripMenuItem.Click += new System.EventHandler(this.removeReservationToolStripMenuItem_Click);
+            // 
+            // tablesToolStripMenuItem
+            // 
+            this.tablesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addTableToolStripMenuItem,
+            this.updateTableToolStripMenuItem,
+            this.removeTableToolStripMenuItem});
+            this.tablesToolStripMenuItem.Name = "tablesToolStripMenuItem";
+            this.tablesToolStripMenuItem.Size = new System.Drawing.Size(64, 24);
+            this.tablesToolStripMenuItem.Text = "Tables";
+            // 
+            // addTableToolStripMenuItem
+            // 
+            this.addTableToolStripMenuItem.Name = "addTableToolStripMenuItem";
+            this.addTableToolStripMenuItem.Size = new System.Drawing.Size(185, 26);
+            this.addTableToolStripMenuItem.Text = "Add Table";
+            this.addTableToolStripMenuItem.Click += new System.EventHandler(this.addTableToolStripMenuItem_Click);
+            // 
+            // updateTableToolStripMenuItem
+            // 
+            this.updateTableToolStripMenuItem.Name = "updateTableToolStripMenuItem";
+            this.updateTableToolStripMenuItem.Size = new System.Drawing.Size(185, 26);
+            this.updateTableToolStripMenuItem.Text = "Update Table";
+            this.updateTableToolStripMenuItem.Click += new System.EventHandler(this.updateTableToolStripMenuItem_Click);
+            // 
+            // removeTableToolStripMenuItem
+            // 
+            this.removeTableToolStripMenuItem.Name = "removeTableToolStripMenuItem";
+            this.removeTableToolStripMenuItem.Size = new System.Drawing.Size(185, 26);
+            this.removeTableToolStripMenuItem.Text = "Remove Table";
+            this.removeTableToolStripMenuItem.Click += new System.EventHandler(this.removeTableToolStripMenuItem_Click);
+            // 
+            // ordersToolStripMenuItem
+            // 
+            this.ordersToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addOrderToolStripMenuItem,
+            this.updateExistingOrderToolStripMenuItem,
+            this.cancelOrderToolStripMenuItem});
+            this.ordersToolStripMenuItem.Name = "ordersToolStripMenuItem";
+            this.ordersToolStripMenuItem.Size = new System.Drawing.Size(67, 24);
+            this.ordersToolStripMenuItem.Text = "Orders";
+            // 
+            // addOrderToolStripMenuItem
+            // 
+            this.addOrderToolStripMenuItem.Name = "addOrderToolStripMenuItem";
+            this.addOrderToolStripMenuItem.Size = new System.Drawing.Size(238, 26);
+            this.addOrderToolStripMenuItem.Text = "Create New Order";
+            this.addOrderToolStripMenuItem.Click += new System.EventHandler(this.addOrderToolStripMenuItem_Click);
+            // 
+            // updateExistingOrderToolStripMenuItem
+            // 
+            this.updateExistingOrderToolStripMenuItem.Name = "updateExistingOrderToolStripMenuItem";
+            this.updateExistingOrderToolStripMenuItem.Size = new System.Drawing.Size(238, 26);
+            this.updateExistingOrderToolStripMenuItem.Text = "Update Existing Order";
+            this.updateExistingOrderToolStripMenuItem.Click += new System.EventHandler(this.updateExistingOrderToolStripMenuItem_Click);
+            // 
+            // cancelOrderToolStripMenuItem
+            // 
+            this.cancelOrderToolStripMenuItem.Name = "cancelOrderToolStripMenuItem";
+            this.cancelOrderToolStripMenuItem.Size = new System.Drawing.Size(238, 26);
+            this.cancelOrderToolStripMenuItem.Text = "Cancel Order";
+            this.cancelOrderToolStripMenuItem.Click += new System.EventHandler(this.cancelOrderToolStripMenuItem_Click);
+            // 
+            // paymentsToolStripMenuItem
+            // 
+            this.paymentsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.makePaymentToolStripMenuItem,
+            this.reprintToolStripMenuItem,
+            this.reprintReceiptToolStripMenuItem});
+            this.paymentsToolStripMenuItem.Name = "paymentsToolStripMenuItem";
+            this.paymentsToolStripMenuItem.Size = new System.Drawing.Size(85, 24);
+            this.paymentsToolStripMenuItem.Text = "Payments";
+            // 
+            // makePaymentToolStripMenuItem
+            // 
+            this.makePaymentToolStripMenuItem.Name = "makePaymentToolStripMenuItem";
+            this.makePaymentToolStripMenuItem.Size = new System.Drawing.Size(199, 26);
+            this.makePaymentToolStripMenuItem.Text = "Make Payment";
+            this.makePaymentToolStripMenuItem.Click += new System.EventHandler(this.makePaymentToolStripMenuItem_Click);
+            // 
+            // reprintToolStripMenuItem
+            // 
+            this.reprintToolStripMenuItem.Name = "reprintToolStripMenuItem";
+            this.reprintToolStripMenuItem.Size = new System.Drawing.Size(199, 26);
+            this.reprintToolStripMenuItem.Text = "Refund Payment";
+            this.reprintToolStripMenuItem.Click += new System.EventHandler(this.reprintToolStripMenuItem_Click);
+            // 
+            // reprintReceiptToolStripMenuItem
+            // 
+            this.reprintReceiptToolStripMenuItem.Name = "reprintReceiptToolStripMenuItem";
+            this.reprintReceiptToolStripMenuItem.Size = new System.Drawing.Size(199, 26);
+            this.reprintReceiptToolStripMenuItem.Text = "Reprint Receipt";
+            this.reprintReceiptToolStripMenuItem.Click += new System.EventHandler(this.reprintReceiptToolStripMenuItem_Click);
+            // 
+            // statisticsToolStripMenuItem
+            // 
+            this.statisticsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.printYearlyToolStripMenuItem,
+            this.displayStatisticsToolStripMenuItem});
+            this.statisticsToolStripMenuItem.Name = "statisticsToolStripMenuItem";
+            this.statisticsToolStripMenuItem.Size = new System.Drawing.Size(67, 24);
+            this.statisticsToolStripMenuItem.Text = "Admin";
+            this.statisticsToolStripMenuItem.Click += new System.EventHandler(this.statisticsToolStripMenuItem_Click);
+            // 
+            // printYearlyToolStripMenuItem
+            // 
+            this.printYearlyToolStripMenuItem.Name = "printYearlyToolStripMenuItem";
+            this.printYearlyToolStripMenuItem.Size = new System.Drawing.Size(282, 26);
+            this.printYearlyToolStripMenuItem.Text = "Print Yearly Revenue Analysis";
+            this.printYearlyToolStripMenuItem.Click += new System.EventHandler(this.printYearlyToolStripMenuItem_Click);
+            // 
+            // displayStatisticsToolStripMenuItem
+            // 
+            this.displayStatisticsToolStripMenuItem.Name = "displayStatisticsToolStripMenuItem";
+            this.displayStatisticsToolStripMenuItem.Size = new System.Drawing.Size(282, 26);
+            this.displayStatisticsToolStripMenuItem.Text = "Display Statistics";
+            this.displayStatisticsToolStripMenuItem.Click += new System.EventHandler(this.displayStatisticsToolStripMenuItem_Click);
+            // 
+            // imageList1
+            // 
+            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.imageList1.ImageSize = new System.Drawing.Size(40, 16);
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox1.Image = global::RestaurantOrderingSystem.Properties.Resources.restaurantSystem;
+            this.pictureBox1.Location = new System.Drawing.Point(0, 30);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(800, 448);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 3;
+            this.pictureBox1.TabStop = false;
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(47, 26);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // frmMainMenu
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(800, 478);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Name = "frmMainMenu";
+            this.Text = "Main Menu";
+            this.Load += new System.EventHandler(this.MainMenuForm_Load);
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem reservationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addReservationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem updateReservationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem removeReservationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tablesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addTableToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem updateTableToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem removeTableToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ordersToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addOrderToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem paymentsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem statisticsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem updateExistingOrderToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cancelOrderToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem makePaymentToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem reprintToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem reprintReceiptToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem printYearlyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem displayStatisticsToolStripMenuItem;
+        private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+    }
+}
