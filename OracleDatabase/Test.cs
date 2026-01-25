@@ -11,6 +11,7 @@ namespace RestaurantOrderingSystem.OracleDatabase
     {
         static void Main()
         {
+        
             TestConnection();
         }
 
@@ -22,12 +23,12 @@ namespace RestaurantOrderingSystem.OracleDatabase
                        new OracleConnection(Database.connectionString))
                 {
                     conn.Open();
-                    Console.WriteLine("✅ Подключение к Oracle успешно!");
-                } // conn.Close() вызывается автоматически
+                    Console.WriteLine("Connected to Oracle succesfully!");
+                } 
             }
             catch (OracleException ex)
             {
-                Console.WriteLine("❌ Ошибка подключения к Oracle");
+                Console.WriteLine("Oracle connection error");
                 Console.WriteLine(ex.Message);
             }
         }
