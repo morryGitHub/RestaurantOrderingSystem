@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Oracle.ManagedDataAccess.Client;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,6 +18,25 @@ namespace RestaurantOrderingSystem
             InitializeComponent();
         }
 
+        public static bool TestConnection()
+        {
+            try
+            {
+                using (OracleConnection conn = OracleDatabase.Database.GetConnection())
+                {
+                    return conn.State == ConnectionState.Open;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        
+
+
+
         private void label2_Click(object sender, EventArgs e)
         {
 
@@ -27,7 +47,7 @@ namespace RestaurantOrderingSystem
             UserSession.UserType = "Manager";
 
             frmMainMenu menu = new frmMainMenu();
-            menu.FormClosed += (s, args) => this.Close(); 
+            menu.FormClosed += (s, args) => this.Close();
             menu.Show();
             this.Hide();
 
@@ -60,5 +80,7 @@ namespace RestaurantOrderingSystem
         {
 
         }
+
+        
     }
 }

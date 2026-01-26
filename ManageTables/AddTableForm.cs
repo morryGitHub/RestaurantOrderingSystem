@@ -20,30 +20,28 @@ namespace RestaurantOrderingSystem
         private void btnAddTable_Click(object sender, EventArgs e)
         {
             string tableCheck = Validation.IsSeatingCapacityValid(numericTableNo.Value);
-            if (tableCheck != "valid")
+            string seatingCheck = Validation.IsSeatingCapacityValid(numericSeatingCap.Value);
+
+            if (tableCheck != "valid" || seatingCheck != "valid")
             {
-                MessageBox.Show(tableCheck, "Validation Error");
+                string errorMsg = tableCheck != "valid" ? tableCheck : seatingCheck;
+                MessageBox.Show(errorMsg, "Validation Error");
                 return;
             }
 
-            string seatingCheck = Validation.IsSeatingCapacityValid(numericSeatingCap.Value);
-            if (seatingCheck != "valid")
-            {
-                MessageBox.Show(seatingCheck, "Validation Error");
-                return;
-            }
+            Table table = new Table((int)numericTableNo.Value, (int)numericSeatingCap.Value);
+            table.AddTable();
 
             MessageBox.Show(
-                $"Table {numericTableNo.Value.ToString()} has been added!",
+                $"Table {numericTableNo.Value} has been added!",
                 "Success",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information
             );
 
             this.Close();
-
-
         }
+
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
@@ -53,7 +51,7 @@ namespace RestaurantOrderingSystem
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
 
-            this.Close(); // закрыть окно Add Table
+            this.Close();
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)
