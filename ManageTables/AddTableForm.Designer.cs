@@ -31,12 +31,11 @@
             this.lblTitle = new System.Windows.Forms.Label();
             this.lblTableNo = new System.Windows.Forms.Label();
             this.lblCapacity = new System.Windows.Forms.Label();
-            this.numericTableNo = new System.Windows.Forms.NumericUpDown();
             this.numericSeatingCap = new System.Windows.Forms.NumericUpDown();
             this.btnAddTable = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            ((System.ComponentModel.ISupportInitialize)(this.numericTableNo)).BeginInit();
+            this.tableNum = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericSeatingCap)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -48,7 +47,7 @@
             this.lblTitle.Location = new System.Drawing.Point(126, 31);
             this.lblTitle.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(148, 38);
+            this.lblTitle.Size = new System.Drawing.Size(117, 30);
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "Add Table";
             // 
@@ -59,10 +58,9 @@
             this.lblTableNo.Location = new System.Drawing.Point(21, 52);
             this.lblTableNo.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblTableNo.Name = "lblTableNo";
-            this.lblTableNo.Size = new System.Drawing.Size(134, 28);
+            this.lblTableNo.Size = new System.Drawing.Size(107, 21);
             this.lblTableNo.TabIndex = 1;
             this.lblTableNo.Text = "Table Number";
-            this.lblTableNo.Click += new System.EventHandler(this.lblTableNo_Click);
             // 
             // lblCapacity
             // 
@@ -71,18 +69,9 @@
             this.lblCapacity.Location = new System.Drawing.Point(21, 107);
             this.lblCapacity.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblCapacity.Name = "lblCapacity";
-            this.lblCapacity.Size = new System.Drawing.Size(158, 28);
+            this.lblCapacity.Size = new System.Drawing.Size(125, 21);
             this.lblCapacity.TabIndex = 2;
             this.lblCapacity.Text = "Seating Capacity";
-            // 
-            // numericTableNo
-            // 
-            this.numericTableNo.Font = new System.Drawing.Font("Segoe UI", 10.2F);
-            this.numericTableNo.Location = new System.Drawing.Point(205, 55);
-            this.numericTableNo.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
-            this.numericTableNo.Name = "numericTableNo";
-            this.numericTableNo.Size = new System.Drawing.Size(123, 30);
-            this.numericTableNo.TabIndex = 3;
             // 
             // numericSeatingCap
             // 
@@ -90,7 +79,7 @@
             this.numericSeatingCap.Location = new System.Drawing.Point(205, 110);
             this.numericSeatingCap.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.numericSeatingCap.Name = "numericSeatingCap";
-            this.numericSeatingCap.Size = new System.Drawing.Size(123, 30);
+            this.numericSeatingCap.Size = new System.Drawing.Size(123, 26);
             this.numericSeatingCap.TabIndex = 4;
             // 
             // btnAddTable
@@ -119,8 +108,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.tableNum);
             this.groupBox1.Controls.Add(this.numericSeatingCap);
-            this.groupBox1.Controls.Add(this.numericTableNo);
             this.groupBox1.Controls.Add(this.lblCapacity);
             this.groupBox1.Controls.Add(this.lblTableNo);
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -132,11 +121,20 @@
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Table Details";
-            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // tableNum
+            // 
+            this.tableNum.Font = new System.Drawing.Font("Segoe UI", 10.2F);
+            this.tableNum.Location = new System.Drawing.Point(205, 51);
+            this.tableNum.Name = "tableNum";
+            this.tableNum.ReadOnly = true;
+            this.tableNum.Size = new System.Drawing.Size(123, 26);
+            this.tableNum.TabIndex = 5;
+            this.tableNum.TextChanged += new System.EventHandler(this.tableNum_TextChanged);
             // 
             // AddTableForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 37F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 30F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(428, 413);
             this.Controls.Add(this.groupBox1);
@@ -147,7 +145,7 @@
             this.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.Name = "AddTableForm";
             this.Text = "AddTableForm";
-            ((System.ComponentModel.ISupportInitialize)(this.numericTableNo)).EndInit();
+            this.Load += new System.EventHandler(this.AddTableForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericSeatingCap)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -161,10 +159,10 @@
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Label lblTableNo;
         private System.Windows.Forms.Label lblCapacity;
-        private System.Windows.Forms.NumericUpDown numericTableNo;
         private System.Windows.Forms.NumericUpDown numericSeatingCap;
         private System.Windows.Forms.Button btnAddTable;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.TextBox tableNum;
     }
 }
