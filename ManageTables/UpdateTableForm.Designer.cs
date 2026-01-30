@@ -59,12 +59,13 @@
             this.cmbStatus.Font = new System.Drawing.Font("Segoe UI", 10.2F);
             this.cmbStatus.FormattingEnabled = true;
             this.cmbStatus.Items.AddRange(new object[] {
-            "A (Available)",
-            "O (Occupied)"});
+            "Available",
+            "Unavailable"});
             this.cmbStatus.Location = new System.Drawing.Point(202, 167);
             this.cmbStatus.Name = "cmbStatus";
             this.cmbStatus.Size = new System.Drawing.Size(174, 31);
             this.cmbStatus.TabIndex = 10;
+            this.cmbStatus.SelectedIndexChanged += new System.EventHandler(this.cmbStatus_SelectedIndexChanged);
             // 
             // groupBox1
             // 
@@ -95,7 +96,7 @@
             this.cmbTableNo.Name = "cmbTableNo";
             this.cmbTableNo.Size = new System.Drawing.Size(174, 31);
             this.cmbTableNo.TabIndex = 13;
-            this.cmbTableNo.SelectedIndexChanged += new System.EventHandler(this.cmbTableNo_SelectedIndexChanged);
+            this.cmbTableNo.SelectedIndexChanged += new System.EventHandler(this.CmbTableNo_SelectedIndexChanged);
             // 
             // numSeats
             // 
@@ -105,6 +106,7 @@
             this.numSeats.Name = "numSeats";
             this.numSeats.Size = new System.Drawing.Size(174, 30);
             this.numSeats.TabIndex = 4;
+            this.numSeats.ValueChanged += new System.EventHandler(this.numSeats_ValueChanged);
             // 
             // lblCapacity
             // 
@@ -138,7 +140,7 @@
             this.btnCancel.TabIndex = 13;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnExit_Click);
+            this.btnCancel.Click += new System.EventHandler(this.BtnExit_Click);
             // 
             // btnUpdateTable
             // 

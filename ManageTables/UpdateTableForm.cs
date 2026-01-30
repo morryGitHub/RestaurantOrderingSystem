@@ -18,23 +18,40 @@ namespace RestaurantOrderingSystem
             InitializeComponent();
         }
 
+        private void LoadTables()
+        {
+            DataSet ds = Table.GetAllTables();
+
+            cmbTableNo.Items.Clear();
+            numSeats.Value = 0;
+
+            for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+            {
+                int tableNo = Convert.ToInt32(ds.Tables[0].Rows[i]["TABLE_NO"]);
+                int seats = Convert.ToInt32(ds.Tables[0].Rows[i]["CAPACITY"]);
+                string status = ds.Tables[0].Rows[i]["STATUS"].ToString();
+
+                cmbTableNo.Items.Add(new Table(tableNo, seats, status));
+            }
+        }
 
 
-   
+
+
+
         private void label4_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void UpdateTableForm_Load(object sender, EventArgs e)
         {
-           
-
+            LoadTables();
         }
 
-      
 
-        private void btnExit_Click(object sender, EventArgs e)
+
+        private void BtnExit_Click(object sender, EventArgs e)
         {
             MessageBox.Show(
                 "Table updating cancelled.",
@@ -45,18 +62,15 @@ namespace RestaurantOrderingSystem
             this.Close();
         }
 
-        private void cmbTableNo_SelectedIndexChanged(object sender, EventArgs e)
+        private void CmbTableNo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cmbTableNo.SelectedIndex == 0)
-            {
-                cmbStatus.Text = "A (Available)";
-                numSeats.Value = 3;
-            }
-            else 
-            {
-                cmbStatus.Text = "O (Occupied)";
-                numSeats.Value = 5;
-            }
+            Table selectedTable = cmbTableNo.SelectedItem as Table;
+            _ = selectedTable.TableId;
+            string status = selectedTable.Status;
+            int seats = selectedTable.Capacity;
+            
+            cmbStatus.SelectedItem = status;
+            numSeats.Value = seats;
 
         }
 
@@ -70,10 +84,10 @@ namespace RestaurantOrderingSystem
                                 MessageBoxIcon.Error);
                 return;
             }
-
-            string tableNo = cmbTableNo.SelectedItem.ToString();
+            Table selectedTable = cmbTableNo.SelectedItem as Table;
+            int tableNo = selectedTable.TableNumber;
             int seatingCapacity = (int)numSeats.Value;
-            string status = cmbStatus.SelectedItem?.ToString() ?? "";
+            string status = cmbStatus.Text;
 
             string seatingCheck = Validation.IsSeatingCapacityValid(numSeats.Value);
             if (seatingCheck != "valid")
@@ -94,6 +108,16 @@ namespace RestaurantOrderingSystem
                 return;
             }
 
+            Table table = new Table
+            {
+                Capacity = seatingCapacity,
+                Status = status,
+                TableNumber = tableNo
+            };
+
+            table.UpdateTable();
+           
+
             MessageBox.Show(
                 $"Table {tableNo} was successfully updated!\n\n" +
                 $"New seating capacity: {seatingCapacity}\n" +
@@ -103,7 +127,19 @@ namespace RestaurantOrderingSystem
                 MessageBoxIcon.Information
             );
 
+            //LoadTables();
+
             this.Close();
+        }
+
+        private void numSeats_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cmbStatus_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

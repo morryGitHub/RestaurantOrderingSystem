@@ -14,9 +14,11 @@ namespace RestaurantOrderingSystem
     public class Table
     {
         //Properties of the class
+        public int TableId { get; set; }     // DB ID
         public int TableNumber { get; set; }
-        public string Status { get; set; }
         public int Capacity { get; set; }
+        public string Status { get; set; } = "Available";
+
 
         public Table()
         {
@@ -24,8 +26,9 @@ namespace RestaurantOrderingSystem
 
         }
 
-        public Table(int capacity)
+        public Table(int tableNumber, int capacity)
         {
+            TableNumber = tableNumber;
             Capacity = capacity;
             Status = "Available";
         }
@@ -42,90 +45,70 @@ namespace RestaurantOrderingSystem
         {
             return $"Table #{TableNumber} ({Capacity} seats)";
         }
-
         public void AddTable()
         {
-            Debug.WriteLine(this); //displaying the state of the Product object (for test purposes)
-
             //Define the SQL query to be executed
-            string sqlQuery = "INSERT INTO RESTAURANT_TABLES (CAPACITY, STATUS) " +
-                  "VALUES (" + Capacity + ", '" + Status + "')";
 
+            string sql = $@"
+                INSERT INTO RESTAURANT_TABLES (TABLE_NO, CAPACITY, STATUS)
+                VALUES ({TableNumber}, {Capacity}, '{Status}')";
 
             //Execute the SQL query
-            Database.ExecuteNonQuery(sqlQuery);
-
+            Database.ExecuteNonQuery(sql);
         }
 
         public static DataSet GetAllTables()
         {
             //Define the SQL query to be executed
-            string sqlQuery = "SELECT TABLE_ID, CAPACITY, STATUS FROM RESTAURANT_TABLES ORDER BY TABLE_ID";
+            string sql = @"
+                SELECT TABLE_ID, TABLE_NO, CAPACITY, STATUS
+                FROM RESTAURANT_TABLES
+                ORDER BY TABLE_NO
+            ";
 
             //Execute the SQL query
-            return Database.ExecuteMultiRowQuery(sqlQuery);
+            return Database.ExecuteMultiRowQuery(sql);
         }
 
- 
-        public static void DeleteTable(int tableId)
+        public void UpdateTable() {
+            string sqlQuery = "UPDATE RESTAURANT_TABLES SET " +
+               "CAPACITY = '" + Capacity + "'," +
+               "STATUS = '" + Status + "' " +
+               "WHERE TABLE_NO = " + TableNumber;
+
+            //Execute the SQL query
+            Database.ExecuteNonQuery(sqlQuery);
+        }
+
+        public static void DeleteTable(int tableNo)
         {
             //Define the SQL query to be executed
-            string sqlQuery = $"DELETE FROM RESTAURANT_TABLES WHERE TABLE_ID = {tableId}";
+            string sqlQuery = $"DELETE FROM RESTAURANT_TABLES WHERE TABLE_NO = {tableNo}";
 
 
             //Execute the SQL query
             Database.ExecuteNonQuery(sqlQuery);
 
         }
-        public static int GetNextTableID()
+        public static int? GetNextFreeTableNumber()
         {
+            string sql = @"
+                SELECT MIN(n)
+                FROM (
+                    SELECT LEVEL n FROM dual CONNECT BY LEVEL <= 20
+                )
+                WHERE n NOT IN (
+                    SELECT TABLE_NO FROM RESTAURANT_TABLES
+                )
+            ";
 
-            //Define the SQL query to be executed - only one value returned here
-            string sqlQuery = "SELECT MAX(TABLE_ID) FROM RESTAURANT_TABLES";
-
-            //Execute the SQL query
-            OracleDataReader dr = Database.ExecuteSingleRowQuery(sqlQuery);
-
-            //Does data reader contain a value or is it null?
-            int nextId;
+            OracleDataReader dr = Database.ExecuteSingleRowQuery(sql);
             dr.Read();
 
-            if (dr.IsDBNull(0)) //the data reader is empty so no rows have yet been added to the table
-                nextId = 1;
-            else
-                nextId = dr.GetInt32(0) + 1;
+            if (dr.IsDBNull(0))
+                return null;
 
-            //close the OracleDataReader and the DB connection
-            dr.Close();
-
-            return nextId;
+            return dr.GetInt32(0);
         }
-
-        /* 🥈 OPTION 2: Truncate + reset identity (Oracle 18c+)
-
-If your Oracle version supports it:
-
-TRUNCATE TABLE RESTAURANT_TABLES;
-
-ALTER TABLE RESTAURANT_TABLES
-MODIFY table_id GENERATED ALWAYS AS IDENTITY (START WITH 1);
-
-
-⚠️ Works only on newer Oracle versions]
-
-
-
-        CREATE TABLE RESTAURANT_TABLES (
-    table_id INT GENERATED ALWAYS AS IDENTITY,
-    capacity INT NOT NULL CHECK (capacity > 0),
-    status   VARCHAR2(20) NOT NULL
-        CHECK (status IN ('Available', 'Reserved', 'Occupied'))
-);
-
-         */
-
-
-
-
     }
 }

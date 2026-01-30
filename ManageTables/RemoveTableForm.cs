@@ -41,7 +41,7 @@ namespace RestaurantOrderingSystem
             if (selectedTable == null) {
                 throw new Exception("Table Not Found");
             }
-            int tableId = selectedTable.TableNumber;
+            int tableId = selectedTable.TableId;
 
             if (cmbTableNo.SelectedIndex == -1)
             {
@@ -51,8 +51,6 @@ namespace RestaurantOrderingSystem
                                 MessageBoxIcon.Error);
                 return;
             }
-
-            string tableNo = cmbTableNo.SelectedItem.ToString();
 
             var confirm = MessageBox.Show(
                 $"Are you sure you want to delete Table #{tableId}?",
@@ -78,7 +76,7 @@ namespace RestaurantOrderingSystem
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
 
-            Table.DeleteTable(tableId);
+            Table.DeleteTable(selectedTable.TableNumber);
 
             this.Close();
         }
@@ -98,12 +96,12 @@ namespace RestaurantOrderingSystem
 
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
-                int tableId = Convert.ToInt32(ds.Tables[0].Rows[i]["TABLE_ID"]);
+                int tableNo = Convert.ToInt32(ds.Tables[0].Rows[i]["TABLE_NO"]);
                 int seats = Convert.ToInt32(ds.Tables[0].Rows[i]["CAPACITY"]);
                 string status = ds.Tables[0].Rows[i]["STATUS"].ToString();
 
                 cmbTableNo.Items.Add(
-                    new Table(tableId, seats, status)
+                    new Table(tableNo, seats, status)
                 );
             }
 

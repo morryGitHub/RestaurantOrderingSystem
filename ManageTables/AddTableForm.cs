@@ -28,7 +28,7 @@ namespace RestaurantOrderingSystem
             }
 
 
-            Table table = new Table((int)numericSeatingCap.Value);
+            Table table = new Table(Convert.ToInt16(tableNum.Text),(int)numericSeatingCap.Value);
             table.AddTable();
 
             MessageBox.Show(
@@ -54,7 +54,15 @@ namespace RestaurantOrderingSystem
         }
         private void AddTableForm_Load(object sender, EventArgs e)
         {
-            tableNum.Text = Table.GetNextTableID().ToString("0000");
+            int? freeNo = Table.GetNextFreeTableNumber();
+            if (freeNo != null)
+            {
+                tableNum.Text = freeNo.Value.ToString();
+            }
+            else {
+                tableNum.Text = "No Tables Found";
+            }
+            
         }
 
         private void tableNum_TextChanged(object sender, EventArgs e)
