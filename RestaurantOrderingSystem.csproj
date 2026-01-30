@@ -210,7 +210,7 @@
     <Compile Include="ManageTables\UpdateTableForm.Designer.cs">
       <DependentUpon>UpdateTableForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Table.cs" />
+    <Compile Include="ManageTables\Table.cs" />
     <Compile Include="UserSession.cs" />
     <Compile Include="Validation.cs" />
     <EmbeddedResource Include="ManageReservations\AddReservationForm.resx">
