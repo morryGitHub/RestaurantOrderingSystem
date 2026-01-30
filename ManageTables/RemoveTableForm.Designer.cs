@@ -49,6 +49,7 @@
             this.cmbTableNo.Name = "cmbTableNo";
             this.cmbTableNo.Size = new System.Drawing.Size(169, 28);
             this.cmbTableNo.TabIndex = 12;
+            this.cmbTableNo.SelectedIndexChanged += new System.EventHandler(this.cmbTableNo_SelectedIndexChanged);
             // 
             // lblTableNo
             // 
@@ -119,6 +120,7 @@
             this.Controls.Add(this.label1);
             this.Name = "frmRemoveTable";
             this.Text = "DeleteTableForm";
+            this.Load += new System.EventHandler(this.frmRemoveTable_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

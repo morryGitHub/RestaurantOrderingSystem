@@ -17,7 +17,7 @@ namespace RestaurantOrderingSystem
             InitializeComponent();
         }
 
-     
+
 
         private void lblTableNo_Click(object sender, EventArgs e)
         {
@@ -37,6 +37,12 @@ namespace RestaurantOrderingSystem
 
         private void btnRemoveTable_Click(object sender, EventArgs e)
         {
+            Table selectedTable = (Table)cmbTableNo.SelectedItem;
+            if (selectedTable == null) {
+                throw new Exception("Table Not Found");
+            }
+            int tableId = selectedTable.TableNumber;
+
             if (cmbTableNo.SelectedIndex == -1)
             {
                 MessageBox.Show("Please select a table number.",
@@ -49,7 +55,7 @@ namespace RestaurantOrderingSystem
             string tableNo = cmbTableNo.SelectedItem.ToString();
 
             var confirm = MessageBox.Show(
-                $"Are you sure you want to delete table {tableNo}?",
+                $"Are you sure you want to delete Table #{tableId}?",
                 "Confirm Deletion",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Warning);
@@ -67,12 +73,40 @@ namespace RestaurantOrderingSystem
             }
 
             MessageBox.Show(
-                $"Table {tableNo} was deleted successfully!",
+                $"Table {tableId} was deleted successfully!",
                 "Success",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
 
+            Table.DeleteTable(tableId);
+
             this.Close();
+        }
+
+        private void cmbTableNo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void frmRemoveTable_Load(object sender, EventArgs e)
+        {
+
+            DataSet ds = Table.GetAllTables();
+            Console.WriteLine(ds);
+
+            cmbTableNo.Items.Clear();
+
+            for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+            {
+                int tableId = Convert.ToInt32(ds.Tables[0].Rows[i]["TABLE_ID"]);
+                int seats = Convert.ToInt32(ds.Tables[0].Rows[i]["CAPACITY"]);
+                string status = ds.Tables[0].Rows[i]["STATUS"].ToString();
+
+                cmbTableNo.Items.Add(
+                    new Table(tableId, seats, status)
+                );
+            }
+
         }
     }
 }

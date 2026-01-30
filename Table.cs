@@ -2,6 +2,7 @@
 using RestaurantOrderingSystem.OracleDatabase;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -27,7 +28,6 @@ namespace RestaurantOrderingSystem
         {
             Capacity = capacity;
             Status = "Available";
-
         }
 
         public Table(int tableNumber, int capacity, string status)
@@ -40,7 +40,7 @@ namespace RestaurantOrderingSystem
 
         public override string ToString()
         {
-            return "Table Number: " + TableNumber + "\tCapacity: " + Capacity + "\tStatus: " + Status;
+            return $"Table #{TableNumber} ({Capacity} seats)";
         }
 
         public void AddTable()
@@ -50,6 +50,27 @@ namespace RestaurantOrderingSystem
             //Define the SQL query to be executed
             string sqlQuery = "INSERT INTO RESTAURANT_TABLES (CAPACITY, STATUS) " +
                   "VALUES (" + Capacity + ", '" + Status + "')";
+
+
+            //Execute the SQL query
+            Database.ExecuteNonQuery(sqlQuery);
+
+        }
+
+        public static DataSet GetAllTables()
+        {
+            //Define the SQL query to be executed
+            string sqlQuery = "SELECT TABLE_ID, CAPACITY, STATUS FROM RESTAURANT_TABLES ORDER BY TABLE_ID";
+
+            //Execute the SQL query
+            return Database.ExecuteMultiRowQuery(sqlQuery);
+        }
+
+ 
+        public static void DeleteTable(int tableId)
+        {
+            //Define the SQL query to be executed
+            string sqlQuery = $"DELETE FROM RESTAURANT_TABLES WHERE TABLE_ID = {tableId}";
 
 
             //Execute the SQL query
