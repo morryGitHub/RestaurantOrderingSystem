@@ -40,7 +40,7 @@ namespace RestaurantOrderingSystem
             Table selectedTable = (Table)cmbTableNo.SelectedItem;
             if (selectedTable == null)
             {
-                throw new Exception("Table Not Found");
+                return;
             }
             int tableId = selectedTable.TableNumber;
 
@@ -84,7 +84,15 @@ namespace RestaurantOrderingSystem
 
         private void cmbTableNo_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (cmbTableNo.SelectedIndex == 0)
+            {
+                // placeholder selected → invalid
+                btnRemoveTable.Enabled = false;
+                return;
+            }
 
+            cmbTableNo.Items.Remove("Select the Table");
+            btnRemoveTable.Enabled = true;
         }
 
         private void frmRemoveTable_Load(object sender, EventArgs e)
@@ -98,7 +106,19 @@ namespace RestaurantOrderingSystem
         {
             cmbTableNo.Items.Clear();
 
-            List<Table> tables = Table.GetTables();
+            List<Table> tables = Table.GetAvailableTables();
+            Console.WriteLine(tables.Count);
+
+            if (tables.Count == 0)
+            {
+                cmbTableNo.Items.Add("No Tables Available");
+                cmbTableNo.SelectedIndex = 0;
+                cmbTableNo.Enabled = false;
+                return;
+            }
+
+            cmbTableNo.Items.Add("Select the Table");
+            cmbTableNo.SelectedIndex = 0;
 
             foreach (Table table in tables)
             {
