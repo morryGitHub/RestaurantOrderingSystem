@@ -35,10 +35,6 @@
             this.lblTotal = new System.Windows.Forms.Label();
             this.lblTotalText = new System.Windows.Forms.Label();
             this.dgvOrderItems = new System.Windows.Forms.DataGridView();
-            this.Item = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.UnitPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Qty = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Subtotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnAddItem = new System.Windows.Forms.Button();
             this.numQty = new System.Windows.Forms.NumericUpDown();
@@ -46,10 +42,15 @@
             this.cmbItems = new System.Windows.Forms.ComboBox();
             this.lblSelectItems = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.cmbTables = new System.Windows.Forms.ComboBox();
+            this.cmbAvailableTables = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.btnExit = new System.Windows.Forms.Button();
             this.btnConfirm = new System.Windows.Forms.Button();
+            this.Item = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UnitPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Qty = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Subtotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MenuItemID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOrderItems)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -73,12 +74,13 @@
             this.groupBox3.Controls.Add(this.lblTotalText);
             this.groupBox3.Controls.Add(this.dgvOrderItems);
             this.groupBox3.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold);
-            this.groupBox3.Location = new System.Drawing.Point(318, 121);
+            this.groupBox3.Location = new System.Drawing.Point(423, 121);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(524, 322);
+            this.groupBox3.Size = new System.Drawing.Size(664, 322);
             this.groupBox3.TabIndex = 9;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Order Summary";
+            this.groupBox3.Enter += new System.EventHandler(this.groupBox3_Enter);
             // 
             // lblTotal
             // 
@@ -104,13 +106,12 @@
             // dgvOrderItems
             // 
             this.dgvOrderItems.AllowUserToAddRows = false;
-            this.dgvOrderItems.AllowUserToDeleteRows = false;
             this.dgvOrderItems.AllowUserToResizeColumns = false;
             this.dgvOrderItems.AllowUserToResizeRows = false;
             this.dgvOrderItems.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.WhiteSmoke;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
@@ -121,10 +122,11 @@
             this.Item,
             this.UnitPrice,
             this.Qty,
-            this.Subtotal});
+            this.Subtotal,
+            this.MenuItemID});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.White;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
@@ -140,36 +142,9 @@
             this.dgvOrderItems.RowHeadersWidth = 25;
             this.dgvOrderItems.RowTemplate.Height = 24;
             this.dgvOrderItems.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvOrderItems.Size = new System.Drawing.Size(509, 232);
+            this.dgvOrderItems.Size = new System.Drawing.Size(652, 232);
             this.dgvOrderItems.TabIndex = 3;
-            // 
-            // Item
-            // 
-            this.Item.HeaderText = "Item Name";
-            this.Item.MinimumWidth = 6;
-            this.Item.Name = "Item";
-            this.Item.ReadOnly = true;
-            // 
-            // UnitPrice
-            // 
-            this.UnitPrice.HeaderText = "Unit Price";
-            this.UnitPrice.MinimumWidth = 6;
-            this.UnitPrice.Name = "UnitPrice";
-            this.UnitPrice.ReadOnly = true;
-            // 
-            // Qty
-            // 
-            this.Qty.HeaderText = "Quantity";
-            this.Qty.MinimumWidth = 6;
-            this.Qty.Name = "Qty";
-            this.Qty.ReadOnly = true;
-            // 
-            // Subtotal
-            // 
-            this.Subtotal.HeaderText = "Subtotal";
-            this.Subtotal.MinimumWidth = 6;
-            this.Subtotal.Name = "Subtotal";
-            this.Subtotal.ReadOnly = true;
+            this.dgvOrderItems.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvOrderItems_CellContentClick);
             // 
             // groupBox2
             // 
@@ -181,7 +156,7 @@
             this.groupBox2.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold);
             this.groupBox2.Location = new System.Drawing.Point(28, 242);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(266, 201);
+            this.groupBox2.Size = new System.Drawing.Size(362, 201);
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Menu Items";
@@ -189,7 +164,7 @@
             // btnAddItem
             // 
             this.btnAddItem.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddItem.Location = new System.Drawing.Point(69, 143);
+            this.btnAddItem.Location = new System.Drawing.Point(21, 152);
             this.btnAddItem.Name = "btnAddItem";
             this.btnAddItem.Size = new System.Drawing.Size(141, 36);
             this.btnAddItem.TabIndex = 6;
@@ -217,15 +192,13 @@
             // 
             // cmbItems
             // 
+            this.cmbItems.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbItems.Font = new System.Drawing.Font("Segoe UI", 10.2F);
             this.cmbItems.FormattingEnabled = true;
-            this.cmbItems.Items.AddRange(new object[] {
-            "Burger - €8.50",
-            "Pizza - €11.00",
-            "Pasta - €9.30"});
-            this.cmbItems.Location = new System.Drawing.Point(92, 41);
+            this.cmbItems.Location = new System.Drawing.Point(85, 39);
             this.cmbItems.Name = "cmbItems";
-            this.cmbItems.Size = new System.Drawing.Size(152, 31);
+            this.cmbItems.Size = new System.Drawing.Size(271, 31);
+            this.cmbItems.Sorted = true;
             this.cmbItems.TabIndex = 3;
             // 
             // lblSelectItems
@@ -240,29 +213,26 @@
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.cmbTables);
+            this.groupBox4.Controls.Add(this.cmbAvailableTables);
             this.groupBox4.Controls.Add(this.label2);
             this.groupBox4.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox4.Location = new System.Drawing.Point(28, 121);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(266, 96);
+            this.groupBox4.Size = new System.Drawing.Size(362, 96);
             this.groupBox4.TabIndex = 7;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Select Table";
             // 
-            // cmbTables
+            // cmbAvailableTables
             // 
-            this.cmbTables.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbTables.Font = new System.Drawing.Font("Segoe UI", 10.2F);
-            this.cmbTables.FormattingEnabled = true;
-            this.cmbTables.Items.AddRange(new object[] {
-            "Table 4",
-            "Table 10"});
-            this.cmbTables.Location = new System.Drawing.Point(85, 41);
-            this.cmbTables.Name = "cmbTables";
-            this.cmbTables.Size = new System.Drawing.Size(159, 31);
-            this.cmbTables.TabIndex = 1;
-            this.cmbTables.SelectedIndexChanged += new System.EventHandler(this.cmbTables_SelectedIndexChanged);
+            this.cmbAvailableTables.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbAvailableTables.Font = new System.Drawing.Font("Segoe UI", 10.2F);
+            this.cmbAvailableTables.FormattingEnabled = true;
+            this.cmbAvailableTables.Location = new System.Drawing.Point(121, 41);
+            this.cmbAvailableTables.Name = "cmbAvailableTables";
+            this.cmbAvailableTables.Size = new System.Drawing.Size(186, 31);
+            this.cmbAvailableTables.TabIndex = 1;
+            this.cmbAvailableTables.SelectedIndexChanged += new System.EventHandler(this.cmbTables_SelectedIndexChanged);
             // 
             // label2
             // 
@@ -296,11 +266,47 @@
             this.btnConfirm.UseVisualStyleBackColor = true;
             this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
             // 
+            // Item
+            // 
+            this.Item.HeaderText = "Item Name";
+            this.Item.MinimumWidth = 6;
+            this.Item.Name = "Item";
+            this.Item.ReadOnly = true;
+            // 
+            // UnitPrice
+            // 
+            this.UnitPrice.HeaderText = "UnitPrice";
+            this.UnitPrice.MinimumWidth = 6;
+            this.UnitPrice.Name = "UnitPrice";
+            this.UnitPrice.ReadOnly = true;
+            // 
+            // Qty
+            // 
+            this.Qty.HeaderText = "Quantity";
+            this.Qty.MinimumWidth = 6;
+            this.Qty.Name = "Qty";
+            this.Qty.ReadOnly = true;
+            // 
+            // Subtotal
+            // 
+            this.Subtotal.HeaderText = "Subtotal";
+            this.Subtotal.MinimumWidth = 6;
+            this.Subtotal.Name = "Subtotal";
+            this.Subtotal.ReadOnly = true;
+            // 
+            // MenuItemID
+            // 
+            this.MenuItemID.HeaderText = "MenuItemID";
+            this.MenuItemID.MinimumWidth = 6;
+            this.MenuItemID.Name = "MenuItemID";
+            this.MenuItemID.ReadOnly = true;
+            this.MenuItemID.Visible = false;
+            // 
             // frmNewOrder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(873, 570);
+            this.ClientSize = new System.Drawing.Size(1099, 570);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnConfirm);
             this.Controls.Add(this.groupBox4);
@@ -330,10 +336,6 @@
         private System.Windows.Forms.Label lblTotal;
         private System.Windows.Forms.Label lblTotalText;
         private System.Windows.Forms.DataGridView dgvOrderItems;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Item;
-        private System.Windows.Forms.DataGridViewTextBoxColumn UnitPrice;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Qty;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Subtotal;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button btnAddItem;
         private System.Windows.Forms.NumericUpDown numQty;
@@ -341,9 +343,15 @@
         private System.Windows.Forms.ComboBox cmbItems;
         private System.Windows.Forms.Label lblSelectItems;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.ComboBox cmbTables;
+        private System.Windows.Forms.ComboBox cmbAvailableTables;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.Button btnConfirm;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Price;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Item;
+        private System.Windows.Forms.DataGridViewTextBoxColumn UnitPrice;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Qty;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Subtotal;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MenuItemID;
     }
 }

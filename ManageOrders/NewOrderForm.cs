@@ -15,16 +15,17 @@ namespace RestaurantOrderingSystem
         public frmNewOrder()
         {
             InitializeComponent();
-        }    
+        }
 
         private void NewOrderForm_Load(object sender, EventArgs e)
         {
-
+            LoadTables();
+            LoadMenuItems();
         }
 
         private void btnConfirm_Click(object sender, EventArgs e)
         {
-            if (cmbTables.SelectedIndex == -1)
+            if (cmbAvailableTables.SelectedIndex == -1)
             {
                 MessageBox.Show("Please select a table.");
                 return;
@@ -36,12 +37,34 @@ namespace RestaurantOrderingSystem
                 return;
             }
 
+            var selectedTable = cmbAvailableTables.SelectedItem as Table;
+            int tableID = Convert.ToInt16(selectedTable.TableId);
+            DateTime dateTime = DateTime.Now;
+            decimal total = Convert.ToDecimal(lblTotal.Text.Split('€')[1]);
+
+            Order order = new Order(tableID, dateTime, total);
+
+            order.AddOrder();
+            int newOrderID = OrderItem.GetLastOrderID();
+    
+
+            foreach (DataGridViewRow row in dgvOrderItems.Rows)
+            {
+                if (row.IsNewRow) { continue; }
+                int menuItemID = Convert.ToInt32(row.Cells["MenuItemID"].Value);
+                int qty = Convert.ToInt32(row.Cells["Qty"].Value);
+                decimal price = Convert.ToDecimal(row.Cells["UnitPrice"].Value);
+
+                OrderItem orderItem = new OrderItem(newOrderID, menuItemID, qty, price);
+                orderItem.AddOrderItems();
+            }
+
             MessageBox.Show(
-                $"Order created successfully!\nTotal Amount: {lblTotal.Text}",
-                 "Success",
-                 MessageBoxButtons.OK,
-                 MessageBoxIcon.Information
-            );
+                    $"Order created successfully!\nTotal Amount: {lblTotal.Text}",
+                     "Success",
+                     MessageBoxButtons.OK,
+                     MessageBoxIcon.Information
+                );
 
             this.Close();
         }
@@ -64,10 +87,11 @@ namespace RestaurantOrderingSystem
                 return;
             }
 
-            string selected = cmbItems.SelectedItem.ToString();
+            MenuItem menuItem = cmbItems.SelectedItem as MenuItem;
 
-            string itemName = selected.Split('-')[0].Trim();
-            decimal unitPrice = decimal.Parse(selected.Split('€')[1].Trim());
+            string itemName = menuItem.Name;
+            decimal unitPrice = menuItem.Price;
+            int menuItemID = menuItem.ItemID;
 
             int qty = (int)numQty.Value;
 
@@ -79,7 +103,7 @@ namespace RestaurantOrderingSystem
 
             decimal subtotal = qty * unitPrice;
 
-            dgvOrderItems.Rows.Add(itemName, unitPrice.ToString("F2"), qty, subtotal.ToString("F2"));
+            dgvOrderItems.Rows.Add(itemName, unitPrice.ToString("F2"), qty, subtotal.ToString("F2"), menuItemID);
             Validation.UpdateTotal(dgvOrderItems, lblTotal);
 
             cmbItems.SelectedIndex = -1;
@@ -95,6 +119,57 @@ namespace RestaurantOrderingSystem
         private void lblTotal_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void dgvOrderItems_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+            var result = MessageBox.Show(
+            "Remove this item?",
+            "Confirm",
+            MessageBoxButtons.YesNo,
+            MessageBoxIcon.Warning);
+
+
+            if (result == DialogResult.Yes)
+            {
+                if (e.RowIndex >= 0)
+                {
+                    dgvOrderItems.Rows.RemoveAt(e.RowIndex);
+                    Validation.UpdateTotal(dgvOrderItems, lblTotal);
+                }
+
+            }
+        }
+
+        private void groupBox3_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void LoadTables()
+        {
+            cmbAvailableTables.Items.Clear();
+
+            List<Table> tables = Table.GetAvailableTables();
+
+            foreach (Table table in tables)
+            {
+                Console.WriteLine(table.ToString());
+                Console.WriteLine(table.TableId);
+                cmbAvailableTables.Items.Add(table);
+            }
+        }
+
+        private void LoadMenuItems()
+        {
+            cmbItems.Items.Clear();
+            List<MenuItem> menuItems = MenuItem.GetMenuItems();
+
+            foreach (MenuItem item in menuItems)
+            {
+                cmbItems.Items.Add(item);
+            }
         }
     }
 }

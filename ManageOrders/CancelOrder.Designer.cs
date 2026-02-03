@@ -114,7 +114,7 @@
             // 
             // UnitPrice
             // 
-            this.UnitPrice.HeaderText = "Unit Price";
+            this.UnitPrice.HeaderText = "Unit UnitPrice";
             this.UnitPrice.MinimumWidth = 6;
             this.UnitPrice.Name = "UnitPrice";
             this.UnitPrice.ReadOnly = true;
