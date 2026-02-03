@@ -105,33 +105,56 @@ namespace RestaurantOrderingSystem
         public static void DeleteTable(int tableNo)
         {
             //Define the SQL query to be executed
-            string sqlQuery = $"DELETE FROM RESTAURANT_TABLES WHERE TABLE_NO = {tableNo}";
+            string sqlQuery = $"UPDATE RESTAURANT_TABLES SET STATUS = 'Unavailable' WHERE TABLE_NO = {tableNo}";
 
 
             //Execute the SQL query
             Database.ExecuteNonQuery(sqlQuery);
 
         }
-        public static int? GetNextFreeTableNumber()
+
+        public static int GetLastTableID()
         {
-            string sql = @"
-                SELECT MIN(n)
-                FROM (
-                    SELECT LEVEL n FROM dual CONNECT BY LEVEL <= 20
-                )
-                WHERE n NOT IN (
-                    SELECT TABLE_NO FROM RESTAURANT_TABLES
-                )
-            ";
+            string sql = "SELECT MAX(TABLE_ID) FROM RESTAURANT_TABLES";
 
-            OracleDataReader dr = Database.ExecuteSingleRowQuery(sql);
-            dr.Read();
+            OracleDataReader reader = Database.ExecuteSingleRowQuery(sql);
 
-            if (dr.IsDBNull(0))
-                return null;
+            if (reader != null)
+            {
+                if (reader.Read())
+                {
+                    if (!reader.IsDBNull(0))
+                    {
+                        int newOrderID = reader.GetInt32(0) + 1;
+                        reader.Close();
+                        return newOrderID;
+                    }
+                }
+                reader.Close();
+            }
 
-            return dr.GetInt32(0);
+            return 1;
         }
+        //public static int? GetNextFreeTableNumber()
+        //{
+        //    string sql = @"
+        //        SELECT MIN(n)
+        //        FROM (
+        //            SELECT LEVEL n FROM dual CONNECT BY LEVEL <= 20
+        //        )
+        //        WHERE n NOT IN (
+        //            SELECT TABLE_NO FROM RESTAURANT_TABLES
+        //        )
+        //    ";
+
+        //    OracleDataReader dr = Database.ExecuteSingleRowQuery(sql);
+        //    dr.Read();
+
+        //    if (dr.IsDBNull(0))
+        //        return null;
+
+        //    return dr.GetInt32(0);
+        //}
 
         public static List<Table> GetTables()
         {

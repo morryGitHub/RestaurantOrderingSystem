@@ -54,14 +54,9 @@ namespace RestaurantOrderingSystem
         }
         private void AddTableForm_Load(object sender, EventArgs e)
         {
-            int? freeNo = Table.GetNextFreeTableNumber();
-            if (freeNo != null)
-            {
-                tableNum.Text = freeNo.Value.ToString();
-            }
-            else {
-                tableNum.Text = "No Tables Found";
-            }
+            int freeNo = Table.GetLastTableID();
+            tableNum.Text = freeNo.ToString();
+           
             
         }
 

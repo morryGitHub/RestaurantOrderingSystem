@@ -46,7 +46,7 @@ namespace RestaurantOrderingSystem
 
             order.AddOrder();
             int newOrderID = OrderItem.GetLastOrderID();
-    
+
 
             foreach (DataGridViewRow row in dgvOrderItems.Rows)
             {
@@ -153,6 +153,17 @@ namespace RestaurantOrderingSystem
 
             List<Table> tables = Table.GetAvailableTables();
 
+            if (tables.Count == 0)
+            {
+                cmbAvailableTables.Items.Add("No Tables Available");
+                cmbAvailableTables.SelectedIndex = 0;
+                cmbAvailableTables.Enabled = false;
+                return;
+            }
+
+            cmbAvailableTables.Items.Add("Select the table");
+            cmbAvailableTables.SelectedIndex = 0;
+
             foreach (Table table in tables)
             {
                 Console.WriteLine(table.ToString());
@@ -166,10 +177,37 @@ namespace RestaurantOrderingSystem
             cmbItems.Items.Clear();
             List<MenuItem> menuItems = MenuItem.GetMenuItems();
 
+            if (menuItems.Count == 0)
+            {
+                cmbItems.Items.Add("No Items Available");
+                cmbItems.SelectedIndex = 0;
+                cmbItems.Enabled = false;
+                return;
+            }
+
+            cmbItems.Items.Add("Select the Item");
+            cmbItems.SelectedIndex = 0;
+
             foreach (MenuItem item in menuItems)
             {
                 cmbItems.Items.Add(item);
             }
+        }
+
+        private void cmbItems_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbItems.SelectedIndex == 0)
+            {
+                btnAddItem.Enabled = false;
+                btnConfirm.Enabled = false;
+                return;
+
+            }
+
+            btnAddItem.Enabled = true;
+            btnConfirm.Enabled = true;
+            cmbItems.Items.Remove("Select the Item");  // removes the placeholder
+
         }
     }
 }

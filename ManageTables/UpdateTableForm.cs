@@ -42,11 +42,24 @@ namespace RestaurantOrderingSystem
 
         private void CmbTableNo_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (cmbTableNo.SelectedIndex == 0)
+            {
+                // placeholder selected → invalid
+                btnUpdateTable.Enabled = false;
+                numSeats.Enabled = false;
+                cmbStatus.Enabled = false;
+                return;
+            }
+
+            btnUpdateTable.Enabled = true;
+            numSeats.Enabled = true;
+            cmbStatus.Enabled = true;
+
             Table selectedTable = cmbTableNo.SelectedItem as Table;
             _ = selectedTable.TableId;
             string status = selectedTable.Status;
             int seats = selectedTable.Capacity;
-            
+
             cmbStatus.SelectedItem = status;
             numSeats.Value = seats;
 
@@ -94,7 +107,7 @@ namespace RestaurantOrderingSystem
             };
 
             table.UpdateTable();
-           
+
 
             MessageBox.Show(
                 $"Table {tableNo} was successfully updated!\n\n" +
@@ -125,6 +138,18 @@ namespace RestaurantOrderingSystem
             cmbTableNo.Items.Clear();
 
             List<Table> tables = Table.GetTables();
+
+            if (tables.Count == 0)
+            {
+                cmbTableNo.Items.Add("No Tables Available");
+                cmbTableNo.SelectedIndex = 0;
+                cmbTableNo.Enabled = false;
+                return;
+            }
+
+            cmbTableNo.Items.Add("Select the table");
+            cmbTableNo.SelectedIndex = 0;
+
 
             foreach (Table table in tables)
             {
