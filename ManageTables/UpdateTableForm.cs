@@ -17,28 +17,6 @@ namespace RestaurantOrderingSystem
         {
             InitializeComponent();
         }
-
-        private void LoadTables()
-        {
-            DataSet ds = Table.GetAllTables();
-
-            cmbTableNo.Items.Clear();
-            numSeats.Value = 0;
-
-            for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
-            {
-                int tableNo = Convert.ToInt32(ds.Tables[0].Rows[i]["TABLE_NO"]);
-                int seats = Convert.ToInt32(ds.Tables[0].Rows[i]["CAPACITY"]);
-                string status = ds.Tables[0].Rows[i]["STATUS"].ToString();
-
-                cmbTableNo.Items.Add(new Table(tableNo, seats, status));
-            }
-        }
-
-
-
-
-
         private void label4_Click(object sender, EventArgs e)
         {
 
@@ -141,5 +119,19 @@ namespace RestaurantOrderingSystem
         {
 
         }
+
+        private void LoadTables()
+        {
+            cmbTableNo.Items.Clear();
+
+            List<Table> tables = Table.GetTables();
+
+            foreach (Table table in tables)
+            {
+                cmbTableNo.Items.Add(table);
+            }
+        }
+
+
     }
 }

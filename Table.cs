@@ -11,7 +11,7 @@ using System.Xml.Linq;
 
 namespace RestaurantOrderingSystem
 {
-    public class Table
+    class Table
     {
         //Properties of the class
         public int TableId { get; set; }     // DB ID
@@ -35,7 +35,14 @@ namespace RestaurantOrderingSystem
 
         public Table(int tableNumber, int capacity, string status)
         {
-            TableNumber = tableNumber; // DB-generated ID
+            TableNumber = tableNumber;
+            Capacity = capacity;
+            Status = status;
+        }
+        public Table(int tableID, int tableNumber, int capacity, string status)
+        {
+            TableId = tableID;
+            TableNumber = tableNumber;
             Capacity = capacity;
             Status = status;
         }
@@ -57,7 +64,7 @@ namespace RestaurantOrderingSystem
             Database.ExecuteNonQuery(sql);
         }
 
-        public static DataSet GetAllTables()
+        public static DataSet LoadAllTables()
         {
             //Define the SQL query to be executed
             string sql = @"
@@ -70,7 +77,22 @@ namespace RestaurantOrderingSystem
             return Database.ExecuteMultiRowQuery(sql);
         }
 
-        public void UpdateTable() {
+        public static DataSet LoadAvailableTables()
+        {
+            //Define the SQL query to be executed
+            string sql = @"
+                SELECT TABLE_ID, TABLE_NO, CAPACITY, STATUS
+                FROM RESTAURANT_TABLES
+                WHERE STATUS = 'Available'
+                ORDER BY TABLE_NO
+            ";
+
+            //Execute the SQL query
+            return Database.ExecuteMultiRowQuery(sql);
+        }
+
+        public void UpdateTable()
+        {
             string sqlQuery = "UPDATE RESTAURANT_TABLES SET " +
                "CAPACITY = '" + Capacity + "'," +
                "STATUS = '" + Status + "' " +
@@ -110,5 +132,43 @@ namespace RestaurantOrderingSystem
 
             return dr.GetInt32(0);
         }
+
+        public static List<Table> GetTables()
+        {
+            DataSet ds = LoadAllTables();
+            List<Table> tables = new List<Table>();
+
+            foreach (DataRow row in ds.Tables[0].Rows)
+            {
+                tables.Add(new Table(
+                    Convert.ToInt32(row["TABLE_NO"]),
+                    Convert.ToInt32(row["CAPACITY"]),
+                    row["STATUS"].ToString()
+                ));
+            }
+
+            return tables;
+        }
+
+        public static List<Table> GetAvailableTables()
+        {
+            DataSet ds = LoadAvailableTables();
+            List<Table> tables = new List<Table>();
+
+            foreach (DataRow row in ds.Tables[0].Rows)
+            {
+                tables.Add(new Table(
+                    Convert.ToInt32(row["TABLE_ID"]),
+                    Convert.ToInt32(row["TABLE_NO"]),
+                    Convert.ToInt32(row["CAPACITY"]),
+                    row["STATUS"].ToString()
+                ));
+            }
+
+            return tables;
+        }
+
+
+
     }
 }
