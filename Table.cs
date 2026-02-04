@@ -115,7 +115,7 @@ namespace RestaurantOrderingSystem
 
         public static int GetLastTableID()
         {
-            string sql = "SELECT MAX(TABLE_ID) FROM RESTAURANT_TABLES";
+            string sql = "SELECT MAX(TABLE_NO) FROM RESTAURANT_TABLES";
 
             OracleDataReader reader = Database.ExecuteSingleRowQuery(sql);
 
