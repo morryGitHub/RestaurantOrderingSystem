@@ -209,5 +209,10 @@ namespace RestaurantOrderingSystem
             cmbItems.Items.Remove("Select the Item");  // removes the placeholder
 
         }
+
+        private void groupBox2_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -19,7 +19,8 @@ namespace RestaurantOrderingSystem
 
         private void frmUpdateOrder_Load(object sender, EventArgs e)
         {
-            LoadMenuItems();
+            FillActiveOrdersComboBox();
+            FillMenuItemsComboBox();
             dgvOrderItems.ClearSelection();
         }
 
@@ -27,17 +28,37 @@ namespace RestaurantOrderingSystem
         {
             dgvOrderItems.Rows.Clear();
 
-            if (cmbOrders.SelectedIndex == 0)
+            Order order = cmbOrders.SelectedItem as Order;
+
+            int orderID = order.OrderID;
+
+            DataSet ds = OrderItem.GetMenuItemsFromOrder(orderID);
+
+            foreach (DataRow row in ds.Tables[0].Rows)
             {
-                dgvOrderItems.Rows.Add("Lasagna", "8.50", 2, "17.00");
-                dgvOrderItems.Rows.Add("Lasagna", "11.00", 1, "11.00");
-            }
-            else if (cmbOrders.SelectedIndex == 1)
-            {
-                dgvOrderItems.Rows.Add("Lasagna", "9.30", 3, "27.90");
+                string itemName = row["ItemName"].ToString();
+                decimal unitPrice = Convert.ToDecimal(row["UnitPrice"]);
+                int qty = Convert.ToInt32(row["Quantity"]);
+                decimal subtotal = unitPrice * qty;
+                int menuItemID = Convert.ToInt32(row["MenuItemID"]);
+
+
+                dgvOrderItems.Rows.Add(
+                    itemName,
+                    unitPrice.ToString("F2"),
+                    qty,
+                    subtotal.ToString("F2"),
+                    menuItemID
+                );
             }
 
+
+
+
             Validation.UpdateTotal(dgvOrderItems, lblTotal);
+
+
+
 
         }
 
@@ -177,7 +198,7 @@ namespace RestaurantOrderingSystem
             Validation.UpdateTotal(dgvOrderItems, lblTotal);
         }
 
-        public void LoadMenuItems()
+        public void FillMenuItemsComboBox()
         {
             cmbItems.Items.Clear();
             List<MenuItem> menuItems = MenuItem.GetMenuItems();
@@ -185,6 +206,18 @@ namespace RestaurantOrderingSystem
             foreach (MenuItem menuItem in menuItems)
             {
                 cmbItems.Items.Add(menuItem);
+
+            }
+        }
+
+        public void FillActiveOrdersComboBox()
+        {
+            cmbOrders.Items.Clear();
+            List<Order> orders = Order.LoadOrders();
+
+            foreach (Order order in orders)
+            {
+                cmbOrders.Items.Add(order);
 
             }
         }
