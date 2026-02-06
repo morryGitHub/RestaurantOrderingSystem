@@ -45,7 +45,25 @@ namespace RestaurantOrderingSystem
             Database.ExecuteNonQuery(sql);
         }
 
-  
+        public void ChangeTableStatus(int tableID)
+        {
+            string sql = $@"
+                    UPDATE ORDERS
+                    SET Status = ''
+                    ";
+        }
+
+        public void CancelOrder(int orderID)
+        {
+            string sql = $@"
+                UPDATE ORDERS
+                SET STATUS = 'Cancelled'
+                WHERE ORDERID = {orderID}";
+
+            Database.ExecuteNonQuery(sql);
+        }
+
+
         public static DataSet GetActiveOrders()
         {
             string sql = $@"

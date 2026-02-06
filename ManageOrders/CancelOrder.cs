@@ -20,7 +20,9 @@ namespace RestaurantOrderingSystem
         private void frmCancelOrder_Load(object sender, EventArgs e)
         {
             {
-                var normal = new Font("Segoe UI", 10, FontStyle.Regular);
+                FillActiveOrdersComboBox();
+
+                var normal = new Font("Segoe UI", 12, FontStyle.Regular);
 
                 dgvOrderItems.Font = normal;
                 dgvOrderItems.DefaultCellStyle.Font = normal;
@@ -35,19 +37,54 @@ namespace RestaurantOrderingSystem
                 dgvOrderItems.MultiSelect = false;
 
                 dgvOrderItems.ClearSelection();
+
+
             }
         }
 
         private void cmbOrders_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             dgvOrderItems.Rows.Clear();
+            lblTotal.Text = "€0.00";
 
-            if (cmbOrders.SelectedIndex == 0)
+            if (cmbOrders.Text.Equals("Select the Order"))
             {
-                dgvOrderItems.Rows.Add("Burger", "8.50", 2, "17.00");
-                dgvOrderItems.Rows.Add("Cola", "3.00", 1, "3.00");
-                lblTotal.Text = "€20.00";
+                btnCancel.Enabled = false;
+                return;
+
             }
+
+            btnCancel.Enabled = false;
+            cmbOrders.Items.Remove("Select the Order");
+
+
+            dgvOrderItems.Rows.Clear();
+
+            Order order = cmbOrders.SelectedItem as Order;
+
+            int orderID = order.OrderID;
+
+            DataSet ds = OrderItem.GetMenuItemsFromOrder(orderID);
+
+            foreach (DataRow row in ds.Tables[0].Rows)
+            {
+                string itemName = row["ItemName"].ToString();
+                decimal unitPrice = Convert.ToDecimal(row["UnitPrice"]);
+                int qty = Convert.ToInt32(row["Quantity"]);
+                decimal subtotal = unitPrice * qty;
+                int menuItemID = Convert.ToInt32(row["MenuItemID"]);
+
+
+                dgvOrderItems.Rows.Add(
+                    itemName,
+                    unitPrice.ToString("F2"),
+                    qty,
+                    subtotal.ToString("F2"),
+                    menuItemID
+                );
+            }
+
+            Validation.UpdateTotal(dgvOrderItems, lblTotal);
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -58,10 +95,11 @@ namespace RestaurantOrderingSystem
                 return;
             }
 
-            string orderName = cmbOrders.SelectedItem.ToString();
+            var order = cmbOrders.SelectedItem as Order;
+            int orderID = order.OrderID;
 
             DialogResult result = MessageBox.Show(
-                $"Are you sure you want to cancel {orderName}?",
+                $"Are you sure you want to cancel {orderID}?",
                 "Confirm Cancellation",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Warning
@@ -70,9 +108,11 @@ namespace RestaurantOrderingSystem
             if (result != DialogResult.Yes)
                 return;
 
+            order.CancelOrder(orderID);
+
 
             MessageBox.Show(
-                $"Order {orderName} was successfully cancelled.\nTable is now available.",
+                $"Order {orderID} was successfully cancelled.\nTable is now available.",
                 "Success",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information
@@ -90,6 +130,20 @@ namespace RestaurantOrderingSystem
         private void dgvOrderItems_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+        public void FillActiveOrdersComboBox()
+        {
+            cmbOrders.Items.Clear();
+            List<Order> orders = Order.LoadOrders();
+
+            cmbOrders.Items.Add("Select the Order");
+            cmbOrders.SelectedIndex = 0;
+
+            foreach (Order order in orders)
+            {
+                cmbOrders.Items.Add(order);
+
+            }            
         }
     }
 }
