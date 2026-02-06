@@ -31,7 +31,7 @@ namespace RestaurantOrderingSystem
             string sql = @"
                 SELECT MenuItemID, Name, UnitPrice
                 FROM Menu_Items
-                ORDER BY MenuItemID
+                ORDER BY Name
             ";
 
             return Database.ExecuteMultiRowQuery(sql);
