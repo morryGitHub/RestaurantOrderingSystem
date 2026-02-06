@@ -153,6 +153,7 @@
             this.tbCustName.Name = "tbCustName";
             this.tbCustName.Size = new System.Drawing.Size(178, 34);
             this.tbCustName.TabIndex = 10;
+            this.tbCustName.TextChanged += new System.EventHandler(this.tbCustName_TextChanged);
             // 
             // tbPhoneNumber
             // 
@@ -194,7 +195,7 @@
             this.dgvTables.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.WhiteSmoke;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
@@ -219,6 +220,7 @@
             this.dgvTables.MultiSelect = false;
             this.dgvTables.Name = "dgvTables";
             this.dgvTables.ReadOnly = true;
+            this.dgvTables.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.dgvTables.RowHeadersVisible = false;
             this.dgvTables.RowHeadersWidth = 51;
             dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

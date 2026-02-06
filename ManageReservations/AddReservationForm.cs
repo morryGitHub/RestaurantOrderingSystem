@@ -130,7 +130,7 @@ namespace RestaurantOrderingSystem
             );
 
             this.Close();
-            
+
 
         }
 
@@ -144,25 +144,36 @@ namespace RestaurantOrderingSystem
         {
             dgvTables.Rows.Clear();
 
+            int numOfGuest = (int)numericNumOfGuests.Value;
+
             // Validate Date & Time
-            string dateCheck = Validation.IsDateValid(datePicker.Value, timePicker.Value);
-            if (dateCheck != "valid")
+            //string dateCheck = Validation.IsDateValid(datePicker.Value, timePicker.Value);
+            //if (dateCheck != "valid")
+            //{
+            //    MessageBox.Show(dateCheck, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    return;
+            //}
+
+            //// Validate Guests
+            //string guestCheck = Validation.IsGuestsValid(numOfGuest);
+            //if (guestCheck != "valid")
+            //{
+            //    MessageBox.Show(guestCheck, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    return;
+            //}
+
+            DataSet ds = Reservation.GetAvailableTablesForReservation(numOfGuest);
+
+            foreach (DataRow row in ds.Tables[0].Rows)
             {
-                MessageBox.Show(dateCheck, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                int tableNo = Convert.ToInt32(row["Table_No"]);
+                int capacity = Convert.ToInt32(row["Capacity"]);
+                string status = row["Status"].ToString();
+
+                dgvTables.Rows.Add(tableNo, capacity, status);
             }
 
-            // Validate Guests
-            string guestCheck = Validation.IsGuestsValid((int)numericNumOfGuests.Value);
-            if (guestCheck != "valid")
-            {
-                MessageBox.Show(guestCheck, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
 
-            dgvTables.Rows.Add("1", "2", "Available");
-            dgvTables.Rows.Add("5", "4", "Available");
-            dgvTables.Rows.Add("7", "6", "Available"); ;
         }
 
         private void dateTimePicker1_ValueChanged_1(object sender, EventArgs e)
@@ -188,6 +199,11 @@ namespace RestaurantOrderingSystem
         private void btnCancel_Click_1(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void tbCustName_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
