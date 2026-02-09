@@ -45,15 +45,17 @@
             this.numericNumOfGuests = new System.Windows.Forms.NumericUpDown();
             this.datePicker = new System.Windows.Forms.DateTimePicker();
             this.dgvTables = new System.Windows.Forms.DataGridView();
-            this.TableNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Capacity = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.timePicker = new System.Windows.Forms.DateTimePicker();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.lblErrorMsg = new System.Windows.Forms.Label();
+            this.TableID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TableNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Capacity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.numericNumOfGuests)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTables)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -203,6 +205,7 @@
             this.dgvTables.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvTables.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvTables.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.TableID,
             this.TableNo,
             this.Capacity,
             this.Status});
@@ -231,29 +234,6 @@
             this.dgvTables.Size = new System.Drawing.Size(413, 261);
             this.dgvTables.TabIndex = 16;
             this.dgvTables.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTables_CellContentClick);
-            // 
-            // TableNo
-            // 
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TableNo.DefaultCellStyle = dataGridViewCellStyle3;
-            this.TableNo.HeaderText = "TableNo";
-            this.TableNo.MinimumWidth = 6;
-            this.TableNo.Name = "TableNo";
-            this.TableNo.ReadOnly = true;
-            // 
-            // Capacity
-            // 
-            this.Capacity.HeaderText = "Capacity";
-            this.Capacity.MinimumWidth = 6;
-            this.Capacity.Name = "Capacity";
-            this.Capacity.ReadOnly = true;
-            // 
-            // Status
-            // 
-            this.Status.HeaderText = "Status";
-            this.Status.MinimumWidth = 6;
-            this.Status.Name = "Status";
-            this.Status.ReadOnly = true;
             // 
             // groupBox1
             // 
@@ -309,6 +289,7 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.lblErrorMsg);
             this.groupBox3.Controls.Add(this.btnFindAvailableTables);
             this.groupBox3.Controls.Add(this.dgvTables);
             this.groupBox3.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -333,6 +314,47 @@
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click_1);
+            // 
+            // lblErrorMsg
+            // 
+            this.lblErrorMsg.ForeColor = System.Drawing.Color.Red;
+            this.lblErrorMsg.Location = new System.Drawing.Point(19, 93);
+            this.lblErrorMsg.Name = "lblErrorMsg";
+            this.lblErrorMsg.Size = new System.Drawing.Size(409, 52);
+            this.lblErrorMsg.TabIndex = 17;
+            this.lblErrorMsg.Text = "No Available Tables For This Date";
+            this.lblErrorMsg.Visible = false;
+            // 
+            // TableID
+            // 
+            this.TableID.HeaderText = "TableID";
+            this.TableID.MinimumWidth = 6;
+            this.TableID.Name = "TableID";
+            this.TableID.ReadOnly = true;
+            this.TableID.Visible = false;
+            // 
+            // TableNo
+            // 
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TableNo.DefaultCellStyle = dataGridViewCellStyle3;
+            this.TableNo.HeaderText = "TableNo";
+            this.TableNo.MinimumWidth = 6;
+            this.TableNo.Name = "TableNo";
+            this.TableNo.ReadOnly = true;
+            // 
+            // Capacity
+            // 
+            this.Capacity.HeaderText = "Capacity";
+            this.Capacity.MinimumWidth = 6;
+            this.Capacity.Name = "Capacity";
+            this.Capacity.ReadOnly = true;
+            // 
+            // Status
+            // 
+            this.Status.HeaderText = "Status";
+            this.Status.MinimumWidth = 6;
+            this.Status.Name = "Status";
+            this.Status.ReadOnly = true;
             // 
             // frmAddReservation
             // 
@@ -380,9 +402,11 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DateTimePicker timePicker;
         private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Label lblErrorMsg;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TableID;
         private System.Windows.Forms.DataGridViewTextBoxColumn TableNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Capacity;
         private System.Windows.Forms.DataGridViewTextBoxColumn Status;
-        private System.Windows.Forms.Button btnCancel;
     }
 }

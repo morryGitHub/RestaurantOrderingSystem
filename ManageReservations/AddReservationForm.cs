@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace RestaurantOrderingSystem
 {
@@ -122,12 +124,46 @@ namespace RestaurantOrderingSystem
                 return;
             }
 
+            DataGridViewRow row = dgvTables.SelectedRows[0];
+            int tableID = Convert.ToInt32(row.Cells["TableID"].Value);
+
+            int numOfGuest = (int)numericNumOfGuests.Value;
+            DateTime startDateTime = datePicker.Value.Date
+                         + timePicker.Value.TimeOfDay;
+
+            string start = startDateTime.ToString("dd-MM-yyyy HH:mm");
+
+            DateTime date = datePicker.Value.Date;
+            TimeSpan time = timePicker.Value.TimeOfDay;
+            DateTime endDateTime = date + time + TimeSpan.FromHours(2);
+
+            string end = endDateTime.ToString("dd-MM-yyyy HH:mm");
+
+            string customerName = tbCustName.Text;
+            string customerPhone = tbPhoneNumber.Text;
+
+            Reservation reservation = new Reservation(
+                tableID,
+                customerName,
+                customerPhone,
+                end,
+                start,
+                numOfGuest);
+
+
+            reservation.AddReservation();
+
+
+
             DialogResult confirm = MessageBox.Show(
                 "Reservation was successfully added!",
                 "Success",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information
             );
+
+            
+            
 
             this.Close();
 
@@ -144,7 +180,20 @@ namespace RestaurantOrderingSystem
         {
             dgvTables.Rows.Clear();
 
+            lblErrorMsg.Visible = false;
+            dgvTables.Visible = true;
+
             int numOfGuest = (int)numericNumOfGuests.Value;
+            DateTime startDateTime = datePicker.Value.Date
+                         + timePicker.Value.TimeOfDay;
+
+            string start = startDateTime.ToString("dd-MM-yyyy HH:mm");
+
+            DateTime date = datePicker.Value.Date;
+            TimeSpan time = timePicker.Value.TimeOfDay;
+            DateTime endDateTime = date + time + TimeSpan.FromHours(2);
+
+            string end = endDateTime.ToString("dd-MM-yyyy HH:mm");
 
             // Validate Date & Time
             //string dateCheck = Validation.IsDateValid(datePicker.Value, timePicker.Value);
@@ -162,16 +211,27 @@ namespace RestaurantOrderingSystem
             //    return;
             //}
 
-            DataSet ds = Reservation.GetAvailableTablesForReservation(numOfGuest);
+            DataSet ds = Reservation.GetAvailableTablesForReservation(numOfGuest, start, end);
 
-            foreach (DataRow row in ds.Tables[0].Rows)
+            if (ds.Tables[0].Rows.Count == 0)
             {
-                int tableNo = Convert.ToInt32(row["Table_No"]);
-                int capacity = Convert.ToInt32(row["Capacity"]);
-                string status = row["Status"].ToString();
-
-                dgvTables.Rows.Add(tableNo, capacity, status);
+                lblErrorMsg.Visible = true;
+                dgvTables.Visible = false;
             }
+            else
+            {
+
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    int tableID = Convert.ToInt32(row["Table_ID"]);
+                    int tableNo = Convert.ToInt32(row["Table_No"]);
+                    int capacity = Convert.ToInt32(row["Capacity"]);
+                    string status = row["Status"].ToString();
+
+                    dgvTables.Rows.Add(tableID, tableNo, capacity, status);
+                }
+            }
+
 
 
         }
