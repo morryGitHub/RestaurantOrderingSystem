@@ -124,11 +124,7 @@ namespace RestaurantOrderingSystem
 
 
 
-        private void lblQty_Click(object sender, EventArgs e)
-        {
-
-        }
-
+      
         private void lblTotalText_Click(object sender, EventArgs e)
         {
 

@@ -172,17 +172,12 @@
             this.lblQty.Size = new System.Drawing.Size(92, 28);
             this.lblQty.TabIndex = 4;
             this.lblQty.Text = "Quantity:";
-            this.lblQty.Click += new System.EventHandler(this.lblQty_Click);
             // 
             // cmbItems
             // 
             this.cmbItems.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbItems.Font = new System.Drawing.Font("Segoe UI", 10.2F);
             this.cmbItems.FormattingEnabled = true;
-            this.cmbItems.Items.AddRange(new object[] {
-            "Burger - €8.50",
-            "Pizza - €11.00",
-            "Pasta - €9.30"});
             this.cmbItems.Location = new System.Drawing.Point(92, 46);
             this.cmbItems.Name = "cmbItems";
             this.cmbItems.Size = new System.Drawing.Size(215, 31);
