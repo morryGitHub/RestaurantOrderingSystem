@@ -12,18 +12,33 @@ namespace RestaurantOrderingSystem
 {
     public partial class FrmNewOrder : Form
     {
+        public int TableID { get; }
+
         public FrmNewOrder()
         {
             InitializeComponent();
         }
 
+        public FrmNewOrder(int tableID)
+        {
+            InitializeComponent();
+            TableID = tableID;
+        }
+
         private void NewOrderForm_Load(object sender, EventArgs e)
         {
             LoadTables();
+
+            if (TableID != 0)
+            {
+                LoadBookedTable();
+            }
+
             LoadMenuItems();
         }
 
-        private void btnConfirm_Click(object sender, EventArgs e)
+
+        private void BtnConfirm_Click(object sender, EventArgs e)
         {
             if (cmbAvailableTables.SelectedIndex == -1)
             {
@@ -69,7 +84,7 @@ namespace RestaurantOrderingSystem
             this.Close();
         }
 
-        private void btnExit_Click(object sender, EventArgs e)
+        private void BtnExit_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Order creation cancelled.",
                            "Cancelled",
@@ -79,7 +94,7 @@ namespace RestaurantOrderingSystem
             this.Close();
         }
 
-        private void btnAddItem_Click_1(object sender, EventArgs e)
+        private void BtnAddItem_Click_1(object sender, EventArgs e)
         {
             if (cmbItems.SelectedIndex == -1)
             {
@@ -110,7 +125,7 @@ namespace RestaurantOrderingSystem
             numQty.Value = numQty.Minimum;
         }
 
-        private void cmbTables_SelectedIndexChanged(object sender, EventArgs e)
+        private void CmbTables_SelectedIndexChanged(object sender, EventArgs e)
         {
             dgvOrderItems.Rows.Clear();
             lblTotal.Text = "€0.00";
@@ -121,7 +136,7 @@ namespace RestaurantOrderingSystem
 
         }
 
-        private void dgvOrderItems_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void DgvOrderItems_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
             var result = MessageBox.Show(
@@ -194,7 +209,7 @@ namespace RestaurantOrderingSystem
             }
         }
 
-        private void cmbItems_SelectedIndexChanged(object sender, EventArgs e)
+        private void CmbItems_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cmbItems.SelectedIndex == 0)
             {
@@ -208,6 +223,15 @@ namespace RestaurantOrderingSystem
             btnConfirm.Enabled = true;
             cmbItems.Items.Remove("Select the Item");  // removes the placeholder
 
+        }
+
+        private void LoadBookedTable()
+        {
+            cmbAvailableTables.Items.Clear();
+            Table bookedTable = Table.GetTable(TableID);
+            cmbAvailableTables.Items.Add(bookedTable);
+            cmbAvailableTables.SelectedIndex = 0;
+            cmbAvailableTables.Enabled = false;
         }
     }
 }

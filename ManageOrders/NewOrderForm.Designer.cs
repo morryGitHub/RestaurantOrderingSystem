@@ -150,7 +150,7 @@
             this.dgvOrderItems.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvOrderItems.Size = new System.Drawing.Size(489, 188);
             this.dgvOrderItems.TabIndex = 3;
-            this.dgvOrderItems.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvOrderItems_CellContentClick);
+            this.dgvOrderItems.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvOrderItems_CellContentClick);
             // 
             // Item
             // 
@@ -215,7 +215,7 @@
             this.btnAddItem.TabIndex = 6;
             this.btnAddItem.Text = "Add Item";
             this.btnAddItem.UseVisualStyleBackColor = true;
-            this.btnAddItem.Click += new System.EventHandler(this.btnAddItem_Click_1);
+            this.btnAddItem.Click += new System.EventHandler(this.BtnAddItem_Click_1);
             // 
             // numQty
             // 
@@ -248,7 +248,7 @@
             this.cmbItems.Size = new System.Drawing.Size(195, 27);
             this.cmbItems.Sorted = true;
             this.cmbItems.TabIndex = 3;
-            this.cmbItems.SelectedIndexChanged += new System.EventHandler(this.cmbItems_SelectedIndexChanged);
+            this.cmbItems.SelectedIndexChanged += new System.EventHandler(this.CmbItems_SelectedIndexChanged);
             // 
             // lblSelectItems
             // 
@@ -285,7 +285,7 @@
             this.cmbAvailableTables.Name = "cmbAvailableTables";
             this.cmbAvailableTables.Size = new System.Drawing.Size(140, 27);
             this.cmbAvailableTables.TabIndex = 1;
-            this.cmbAvailableTables.SelectedIndexChanged += new System.EventHandler(this.cmbTables_SelectedIndexChanged);
+            this.cmbAvailableTables.SelectedIndexChanged += new System.EventHandler(this.CmbTables_SelectedIndexChanged);
             // 
             // label2
             // 
@@ -308,7 +308,7 @@
             this.btnExit.TabIndex = 7;
             this.btnExit.Text = "Exit";
             this.btnExit.UseVisualStyleBackColor = true;
-            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            this.btnExit.Click += new System.EventHandler(this.BtnExit_Click);
             // 
             // btnConfirm
             // 
@@ -320,7 +320,7 @@
             this.btnConfirm.TabIndex = 6;
             this.btnConfirm.Text = "Confirm Order";
             this.btnConfirm.UseVisualStyleBackColor = true;
-            this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
+            this.btnConfirm.Click += new System.EventHandler(this.BtnConfirm_Click);
             // 
             // frmNewOrder
             // 

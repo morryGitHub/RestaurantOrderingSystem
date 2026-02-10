@@ -12,7 +12,7 @@ namespace RestaurantOrderingSystem.OracleDatabase
     public static class Database
     {
         private static readonly string _connectionString =
-            ConfigurationManager.ConnectionStrings["OracleLocal"].ConnectionString;
+            ConfigurationManager.ConnectionStrings["OracleRemote"].ConnectionString;
 
         public static OracleConnection GetConnection()
         {

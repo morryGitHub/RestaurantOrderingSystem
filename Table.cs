@@ -64,6 +64,30 @@ namespace RestaurantOrderingSystem
             Database.ExecuteNonQuery(sql);
         }
 
+        public static Table GetTable(int tableID)
+        {
+            string sql = $@"
+                    SELECT TABLE_ID, TABLE_NO, CAPACITY
+                    FROM RESTAURANT_TABLES
+                    WHERE TABLE_ID = {tableID}
+                    ";
+
+            using (IDataReader reader = Database.ExecuteSingleRowQuery(sql))
+            {
+                if (reader.Read())
+                {
+                    int id = Convert.ToInt32(reader["TABLE_ID"]);
+                    int no = Convert.ToInt32(reader["TABLE_NO"]);
+                    return new Table(id, no);
+                }
+
+            }
+            return null;
+
+
+
+        }
+
         public static DataSet LoadAllTables()
         {
             //Define the SQL query to be executed

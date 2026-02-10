@@ -24,12 +24,12 @@ namespace RestaurantOrderingSystem
 
             if (UserSession.ReservationAction == "Update")
             {
-                btnCancelReservation.Text = "Update Reservation";
+                btnCreateNewOrder.Text = "Update Reservation";
                 this.Text = "Update Reservation";
             }
             else if (UserSession.ReservationAction == "Remove")
             {
-                btnCancelReservation.Text = "Cancel Reservation";
+                btnCreateNewOrder.Text = "Cancel Reservation";
                 this.Text = "Cancel Reservation";
 
             }
@@ -60,7 +60,7 @@ namespace RestaurantOrderingSystem
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-           
+
 
 
         }
@@ -88,9 +88,9 @@ namespace RestaurantOrderingSystem
 
             dgvMatchingReservation.Rows.Clear();
 
-            dgvMatchingReservation.Rows.Add("Kolya", "+3538332", "12/12/2025" ,"12:00", "4", "12");
+            dgvMatchingReservation.Rows.Add("Kolya", "+3538332", "12/12/2025", "12:00", "4", "12");
             dgvMatchingReservation.Rows.Add("Nick", "+3531254", "11/12/2025", "14:00", "2", "1");
-            dgvMatchingReservation.Rows.Add("Artem", "+353044543", "12/04/2025", "16:00", "5", "2");;
+            dgvMatchingReservation.Rows.Add("Artem", "+353044543", "12/04/2025", "16:00", "5", "2"); ;
 
         }
 
@@ -101,7 +101,7 @@ namespace RestaurantOrderingSystem
                 tbCustName.ReadOnly = false;
                 tbPhoneNum.ReadOnly = true;
 
-                tbPhoneNum.Text = "";   
+                tbPhoneNum.Text = "";
                 tbCustName.Focus();
             }
         }
@@ -125,7 +125,7 @@ namespace RestaurantOrderingSystem
 
         }
 
-     
+
 
         private void btnCancelReservation_Click(object sender, EventArgs e)
         {
@@ -189,10 +189,43 @@ namespace RestaurantOrderingSystem
 
         private void tbPhoneNum_TextChanged(object sender, EventArgs e)
         {
-           
+
         }
 
         private void btnExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnCancelReservation_Click_1(object sender, EventArgs e)
+        {
+            //DataGridViewRow row = dgvMatchingReservation.Rows[0];
+            //if (row != null)
+            //{
+            //    int tableID = Convert.ToInt32(row.Cells["TableID"].Value);
+            //    FrmNewOrder newOrder = new FrmNewOrder(tableID);
+            //    newOrder.ShowDialog();
+            //}
+            FrmNewOrder newOrder = new FrmNewOrder(3);
+            newOrder.ShowDialog();
+
+
+        }
+
+        private void dgvMatchingReservation_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            
+        }
+
+        private void btnSearch_Click_1(object sender, EventArgs e)
+        {
+            if (dgvMatchingReservation.Rows.Count == 0)
+            {
+                btnCreateNewOrder.Enabled = false;
+            }
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
