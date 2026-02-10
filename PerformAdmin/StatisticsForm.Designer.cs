@@ -1,6 +1,6 @@
 ﻿namespace RestaurantOrderingSystem
 {
-    partial class frmStatistics
+    partial class FrmStatistics
     {
         /// <summary>
         /// Required designer variable.

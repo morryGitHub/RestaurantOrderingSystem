@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace RestaurantOrderingSystem
 {
-    public partial class frmRefundPayment : Form
+    public partial class FrmRefundPayment : Form
     {
-        public frmRefundPayment()
+        public FrmRefundPayment()
         {
             InitializeComponent();
         }

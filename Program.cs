@@ -16,7 +16,7 @@ namespace RestaurantOrderingSystem
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmLogging());
+            Application.Run(new FrmLogging());
         }
     }
 }

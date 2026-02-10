@@ -1,6 +1,6 @@
 ﻿namespace RestaurantOrderingSystem
 {
-    partial class frmMakePayment
+    partial class FrmMakePayment
     {
         /// <summary>
         /// Required designer variable.

@@ -10,14 +10,14 @@ using System.Windows.Forms;
 
 namespace RestaurantOrderingSystem
 {
-    public partial class frmReceipt : Form
+    public partial class FrmReceipt : Form
     {
         private string _orderNumber;
         private string _paymentMethod;
         private decimal _total;
         private DataGridView _items;
 
-        public frmReceipt(string orderNumber, string paymentMethod, decimal total, DataGridView items)
+        public FrmReceipt(string orderNumber, string paymentMethod, decimal total, DataGridView items)
         {
             InitializeComponent();
             _orderNumber = orderNumber;

@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace RestaurantOrderingSystem
 {
-    public partial class frmMakePayment : Form
+    public partial class FrmMakePayment : Form
     {
-        public frmMakePayment()
+        public FrmMakePayment()
         {
             InitializeComponent();
         }
@@ -45,7 +45,7 @@ namespace RestaurantOrderingSystem
             string orderName = cmbOrders.SelectedItem.ToString();
             string method = cmbMethod.SelectedItem.ToString();
 
-            frmReceipt receipt = new frmReceipt(orderName, method, total, dgvOrderItems);
+            FrmReceipt receipt = new FrmReceipt(orderName, method, total, dgvOrderItems);
             receipt.ShowDialog();
 
             this.Close();

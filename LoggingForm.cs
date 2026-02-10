@@ -11,9 +11,9 @@ using System.Windows.Forms;
 
 namespace RestaurantOrderingSystem
 {
-    public partial class frmLogging : Form
+    public partial class FrmLogging : Form
     {
-        public frmLogging()
+        public FrmLogging()
         {
             InitializeComponent();
         }
@@ -46,7 +46,7 @@ namespace RestaurantOrderingSystem
         {
             UserSession.UserType = "Manager";
 
-            frmMainMenu menu = new frmMainMenu();
+            FrmMainMenu menu = new FrmMainMenu();
             menu.FormClosed += (s, args) => this.Close();
             menu.Show();
             this.Hide();
@@ -58,7 +58,7 @@ namespace RestaurantOrderingSystem
         {
             UserSession.UserType = "Waiter";
 
-            frmMainMenu menu = new frmMainMenu();
+            FrmMainMenu menu = new FrmMainMenu();
             menu.FormClosed += (s, args) => this.Close();
             menu.Show();
             this.Hide();

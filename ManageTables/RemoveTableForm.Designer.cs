@@ -1,6 +1,6 @@
 ﻿namespace RestaurantOrderingSystem
 {
-    partial class frmRemoveTable
+    partial class FrmRemoveTable
     {
         /// <summary>
         /// Required designer variable.

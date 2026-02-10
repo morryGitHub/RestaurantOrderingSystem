@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace RestaurantOrderingSystem
 {
-    public partial class frmMainMenu : Form
+    public partial class FrmMainMenu : Form
     {
-        public frmMainMenu()
+        public FrmMainMenu()
         {
             InitializeComponent();
         }
@@ -27,103 +27,103 @@ namespace RestaurantOrderingSystem
             }
         }
 
-        private void addOrderToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AddOrderToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmNewOrder newOrder = new frmNewOrder();
+            FrmNewOrder newOrder = new FrmNewOrder();
             newOrder.ShowDialog();
         }
 
-        private void addReservationToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AddReservationToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmAddReservation form = new frmAddReservation();
+            FrmAddReservation form = new FrmAddReservation();
             form.ShowDialog();
 
 
         }
 
-        private void updateReservationToolStripMenuItem_Click(object sender, EventArgs e)
+        private void UpdateReservationToolStripMenuItem_Click(object sender, EventArgs e)
         {
             UserSession.ReservationAction = "Update";
-            frmFindReservation form = new frmFindReservation();
+            FrmFindReservation form = new FrmFindReservation();
             form.ShowDialog();
         }
 
-        private void removeReservationToolStripMenuItem_Click(object sender, EventArgs e)
+        private void RemoveReservationToolStripMenuItem_Click(object sender, EventArgs e)
         {
             UserSession.ReservationAction = "Remove";
-            frmFindReservation form = new frmFindReservation();
+            FrmFindReservation form = new FrmFindReservation();
             form.ShowDialog();
 
         }
 
-        private void addTableToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AddTableToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AddTableForm addTable = new AddTableForm();
+            FrmAddTable addTable = new FrmAddTable();
             addTable.ShowDialog();
 
         }
 
-        private void updateTableToolStripMenuItem_Click(object sender, EventArgs e)
+        private void UpdateTableToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmUpdateTable updateTable = new frmUpdateTable();
+            FrmUpdateTable updateTable = new FrmUpdateTable();
             updateTable.ShowDialog();
         }
 
-        private void removeTableToolStripMenuItem_Click(object sender, EventArgs e)
+        private void RemoveTableToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmRemoveTable removeTable = new frmRemoveTable();
+            FrmRemoveTable removeTable = new FrmRemoveTable();
             removeTable.ShowDialog();
         }
 
-        private void updateExistingOrderToolStripMenuItem_Click(object sender, EventArgs e)
+        private void UpdateExistingOrderToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmUpdateOrder frmUpdate = new frmUpdateOrder();
+            FrmUpdateOrder frmUpdate = new FrmUpdateOrder();
             frmUpdate.ShowDialog();
         }
 
-        private void cancelOrderToolStripMenuItem_Click(object sender, EventArgs e)
+        private void CancelOrderToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmCancelOrder frmCancelOrder = new frmCancelOrder();
+            FrmCancelOrder frmCancelOrder = new FrmCancelOrder();
             frmCancelOrder.ShowDialog();
         }
 
-        private void makePaymentToolStripMenuItem_Click(object sender, EventArgs e)
+        private void MakePaymentToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmMakePayment frmMakePayment = new frmMakePayment();
+            FrmMakePayment frmMakePayment = new FrmMakePayment();
             frmMakePayment.ShowDialog();
         }
 
-        private void reprintToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ReprintToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmRefundPayment frmRefund = new frmRefundPayment();
+            FrmRefundPayment frmRefund = new FrmRefundPayment();
             frmRefund.ShowDialog();
         }
 
-        private void reprintReceiptToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ReprintReceiptToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmReprintReceipt reprintReceipt = new frmReprintReceipt();
+            FrmReprintReceipt reprintReceipt = new FrmReprintReceipt();
             reprintReceipt.ShowDialog();
         }
 
-        private void printYearlyToolStripMenuItem_Click(object sender, EventArgs e)
+        private void PrintYearlyToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmPrintRevenue printRevenue = new frmPrintRevenue();
+            FrmPrintRevenue printRevenue = new FrmPrintRevenue();
             printRevenue.ShowDialog();
         }
 
-        private void displayStatisticsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void DisplayStatisticsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmStatistics statisticsForm = new frmStatistics();
+            FrmStatistics statisticsForm = new FrmStatistics();
             statisticsForm.ShowDialog();
         }
 
-        private void statisticsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void StatisticsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             
             
         }
 
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DialogResult result = MessageBox.Show(
                 "Are you sure?",
@@ -140,6 +140,14 @@ namespace RestaurantOrderingSystem
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void FindReservationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UserSession.ReservationAction = "Find";
+            FrmFindReservation frmFindReservation = new FrmFindReservation();
+            frmFindReservation.ShowDialog();
 
         }
     }

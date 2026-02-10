@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace RestaurantOrderingSystem
 {
-    public partial class frmReprintReceipt : Form
+    public partial class FrmReprintReceipt : Form
     {
-        public frmReprintReceipt()
+        public FrmReprintReceipt()
         {
             InitializeComponent();
         }
@@ -68,7 +68,7 @@ namespace RestaurantOrderingSystem
             string method = dgvPayments.Rows[0].Cells[1].Value.ToString();
             decimal total = Convert.ToDecimal(dgvPayments.Rows[0].Cells[2].Value);
 
-            frmReceipt receipt = new frmReceipt(orderName, method, total, dgvOrderDetails);
+            FrmReceipt receipt = new FrmReceipt(orderName, method, total, dgvOrderDetails);
             receipt.ShowDialog();
         }
 

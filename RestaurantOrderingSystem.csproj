@@ -111,6 +111,18 @@
     <Compile Include="ManageReservations\AddReservationForm.Designer.cs">
       <DependentUpon>AddReservationForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ManageReservations\CancelReservation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManageReservations\CancelReservation.Designer.cs">
+      <DependentUpon>CancelReservation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ManageReservations\FindReservationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManageReservations\FindReservationForm.Designer.cs">
+      <DependentUpon>FindReservationForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="ManageTables\AddTableForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -163,12 +175,6 @@
     <Compile Include="ManageTables\RemoveTableForm.Designer.cs">
       <DependentUpon>RemoveTableForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ManageReservations\FindReservationForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ManageReservations\FindReservationForm.Designer.cs">
-      <DependentUpon>FindReservationForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="MainMenuForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -219,6 +225,12 @@
     <EmbeddedResource Include="ManageReservations\AddReservationForm.resx">
       <DependentUpon>AddReservationForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ManageReservations\CancelReservation.resx">
+      <DependentUpon>CancelReservation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ManageReservations\FindReservationForm.resx">
+      <DependentUpon>FindReservationForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ManageTables\AddTableForm.resx">
       <DependentUpon>AddTableForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -242,9 +254,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ManageTables\RemoveTableForm.resx">
       <DependentUpon>RemoveTableForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ManageReservations\FindReservationForm.resx">
-      <DependentUpon>FindReservationForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoggingForm.resx">
       <DependentUpon>LoggingForm.cs</DependentUpon>

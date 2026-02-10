@@ -11,9 +11,9 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace RestaurantOrderingSystem
 {
-    public partial class frmUpdateTable : Form
+    public partial class FrmUpdateTable: Form
     {
-        public frmUpdateTable()
+        public FrmUpdateTable()
         {
             InitializeComponent();
         }

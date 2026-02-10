@@ -1,6 +1,6 @@
 ﻿namespace RestaurantOrderingSystem
 {
-    partial class FrmFindReservation
+    partial class FrmCancelReservation
     {
         /// <summary>
         /// Required designer variable.

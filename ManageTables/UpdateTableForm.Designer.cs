@@ -1,6 +1,6 @@
 ﻿namespace RestaurantOrderingSystem
 {
-    partial class frmUpdateTable
+    partial class FrmUpdateTable
     {
         /// <summary>
         /// Required designer variable.
