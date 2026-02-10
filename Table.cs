@@ -105,9 +105,12 @@ namespace RestaurantOrderingSystem
         {
             //Define the SQL query to be executed
             string sql = @"
-                SELECT TABLE_ID, TABLE_NO, CAPACITY, STATUS
-                FROM RESTAURANT_TABLES
-                WHERE STATUS = 'Available'
+                SELECT t.TABLE_ID, t.TABLE_NO, t.CAPACITY, t.STATUS, o.Status
+                FROM RESTAURANT_TABLES t
+                LEFT JOIN ORDERS o 
+                    ON t.Table_ID = o.TableID
+                WHERE t.STATUS = 'Available' 
+                    AND (o.Status IS NULL or o.STATUS != 'Active')
                 ORDER BY TABLE_NO
             ";
 
@@ -139,7 +142,7 @@ namespace RestaurantOrderingSystem
 
         public static int GetLastTableID()
         {
-            string sql = "SELECT MAX(TABLE_ID) FROM RESTAURANT_TABLES";
+            string sql = "SELECT MAX(TABLE_NO) FROM RESTAURANT_TABLES";
 
             OracleDataReader reader = Database.ExecuteSingleRowQuery(sql);
 

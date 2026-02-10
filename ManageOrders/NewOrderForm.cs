@@ -35,6 +35,22 @@ namespace RestaurantOrderingSystem
             }
 
             LoadMenuItems();
+
+            var normal = new Font("Segoe UI", 12, FontStyle.Regular);
+      
+            dgvOrderItems.Font = normal;
+            dgvOrderItems.DefaultCellStyle.Font = normal;
+            dgvOrderItems.RowsDefaultCellStyle.Font = normal;
+            dgvOrderItems.AlternatingRowsDefaultCellStyle.Font = normal;
+
+            dgvOrderItems.ColumnHeadersDefaultCellStyle.Font = normal;
+            dgvOrderItems.RowHeadersDefaultCellStyle.Font = normal;
+
+            dgvOrderItems.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvOrderItems.ReadOnly = true;
+            dgvOrderItems.MultiSelect = false;
+
+            dgvOrderItems.ClearSelection();
         }
 
 
@@ -117,8 +133,32 @@ namespace RestaurantOrderingSystem
             }
 
             decimal subtotal = qty * unitPrice;
+            bool isRowExist = false;
 
-            dgvOrderItems.Rows.Add(itemName, unitPrice.ToString("F2"), qty, subtotal.ToString("F2"), menuItemID);
+            foreach (DataGridViewRow rows in dgvOrderItems.Rows)
+            {
+                if (rows.Cells["ItemName"].Value != null &&
+                    rows.Cells["ItemName"].Value.ToString() == itemName)
+                {
+                    DataGridViewRow row = rows;
+                    int currentQty = 0;
+                    if (row.Cells["Qty"].Value != null)
+                        currentQty = Convert.ToInt32(row.Cells["Qty"].Value);
+
+
+
+                    row.Cells["Qty"].Value = currentQty + qty;
+                    row.Cells["Subtotal"].Value = ((currentQty + qty) * unitPrice).ToString("F2");
+                    isRowExist = true;
+                    break;
+                }
+            }
+
+            if (!isRowExist)
+            {
+                dgvOrderItems.Rows.Add(itemName, unitPrice.ToString("F2"), qty, subtotal.ToString("F2"), menuItemID);
+            }
+
             Validation.UpdateTotal(dgvOrderItems, lblTotal);
 
             cmbItems.SelectedIndex = -1;
@@ -129,6 +169,18 @@ namespace RestaurantOrderingSystem
         {
             dgvOrderItems.Rows.Clear();
             lblTotal.Text = "€0.00";
+
+            if (cmbAvailableTables.Text.Equals("Select the Table"))
+            {
+                btnAddItem.Enabled = false;
+                btnConfirm.Enabled = false;
+                return;
+
+            }
+
+            btnAddItem.Enabled = false;
+            btnConfirm.Enabled = false;
+            cmbAvailableTables.Items.Remove("Select the Table");
         }
 
         private void lblTotal_Click(object sender, EventArgs e)
@@ -145,6 +197,7 @@ namespace RestaurantOrderingSystem
             MessageBoxButtons.YesNo,
             MessageBoxIcon.Warning);
 
+            
 
             if (result == DialogResult.Yes)
             {
@@ -176,13 +229,11 @@ namespace RestaurantOrderingSystem
                 return;
             }
 
-            cmbAvailableTables.Items.Add("Select the table");
+            cmbAvailableTables.Items.Add("Select the Table");
             cmbAvailableTables.SelectedIndex = 0;
 
             foreach (Table table in tables)
             {
-                Console.WriteLine(table.ToString());
-                Console.WriteLine(table.TableId);
                 cmbAvailableTables.Items.Add(table);
             }
         }
@@ -232,6 +283,11 @@ namespace RestaurantOrderingSystem
             cmbAvailableTables.Items.Add(bookedTable);
             cmbAvailableTables.SelectedIndex = 0;
             cmbAvailableTables.Enabled = false;
+        }
+
+        private void groupBox2_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }
