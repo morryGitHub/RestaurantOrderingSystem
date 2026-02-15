@@ -17,41 +17,6 @@ namespace RestaurantOrderingSystem
             InitializeComponent();
         }
 
-        private void FindReservationForm_Load(object sender, EventArgs e)
-        {
-
-            tbPhoneNum.ReadOnly = true;
-
-            if (UserSession.ReservationAction == "Update")
-            {
-                btnCreateNewOrder.Text = "Update Reservation";
-                this.Text = "Update Reservation";
-            }
-            else if (UserSession.ReservationAction == "Remove")
-            {
-                btnCreateNewOrder.Text = "Cancel Reservation";
-                this.Text = "Cancel Reservation";
-
-            }
-
-            var normal = new Font("Segoe UI", 10, FontStyle.Regular);
-
-            dgvMatchingReservation.Font = normal;
-            dgvMatchingReservation.DefaultCellStyle.Font = normal;
-            dgvMatchingReservation.RowsDefaultCellStyle.Font = normal;
-            dgvMatchingReservation.AlternatingRowsDefaultCellStyle.Font = normal;
-
-            dgvMatchingReservation.ColumnHeadersDefaultCellStyle.Font = normal;
-            dgvMatchingReservation.RowHeadersDefaultCellStyle.Font = normal;
-
-            dgvMatchingReservation.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvMatchingReservation.ReadOnly = true;
-            dgvMatchingReservation.MultiSelect = false;
-
-            dgvMatchingReservation.ClearSelection();
-
-        }
-
         private void label1_Click(object sender, EventArgs e)
         {
 
@@ -65,59 +30,35 @@ namespace RestaurantOrderingSystem
 
         }
 
-        private void btnSearch_Click(object sender, EventArgs e)
-        {
-            if (rbCustName.Checked)
-            {
-                string nameCheck = Validation.IsNameValid(tbCustName.Text);
-                if (nameCheck != "valid")
-                {
-                    MessageBox.Show(nameCheck, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-            }
-            else
-            {
-                string phoneCheck = Validation.IsPhoneValid(tbPhoneNum.Text);
-                if (phoneCheck != "valid")
-                {
-                    MessageBox.Show(phoneCheck, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-            }
+        //private void btnSearch_Click(object sender, EventArgs e)
+        //{
+        //    if (rbCustName.Checked)
+        //    {
+        //        string nameCheck = Validation.IsNameValid(tbCustName.Text);
+        //        if (nameCheck != "Valid")
+        //        {
+        //            MessageBox.Show(nameCheck, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //            return;
+        //        }
+        //    }
+        //    else
+        //    {
+        //        string phoneCheck = Validation.IsPhoneValid(tbPhoneNum.Text);
+        //        if (phoneCheck != "Valid")
+        //        {
+        //            MessageBox.Show(phoneCheck, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //            return;
+        //        }
+        //    }
 
-            dgvMatchingReservation.Rows.Clear();
+        //    dgvMatchingReservation.Rows.Clear();
 
-            dgvMatchingReservation.Rows.Add("Kolya", "+3538332", "12/12/2025", "12:00", "4", "12");
-            dgvMatchingReservation.Rows.Add("Nick", "+3531254", "11/12/2025", "14:00", "2", "1");
-            dgvMatchingReservation.Rows.Add("Artem", "+353044543", "12/04/2025", "16:00", "5", "2"); ;
+        //    dgvMatchingReservation.Rows.Add("Kolya", "+3538332", "12/12/2025", "12:00", "4", "12");
+        //    dgvMatchingReservation.Rows.Add("Nick", "+3531254", "11/12/2025", "14:00", "2", "1");
+        //    dgvMatchingReservation.Rows.Add("Artem", "+353044543", "12/04/2025", "16:00", "5", "2"); ;
 
-        }
+        //}
 
-        private void rbCustName_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rbCustName.Checked)
-            {
-                tbCustName.ReadOnly = false;
-                tbPhoneNum.ReadOnly = true;
-
-                tbPhoneNum.Text = "";
-                tbCustName.Focus();
-            }
-        }
-
-
-        private void rbPhone_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rbPhoneNum.Checked)
-            {
-                tbPhoneNum.ReadOnly = false;
-                tbCustName.ReadOnly = true;
-
-                tbCustName.Text = "";
-                tbPhoneNum.Focus();
-            }
-        }
 
 
         private void tbCustName_TextChanged(object sender, EventArgs e)
@@ -133,7 +74,7 @@ namespace RestaurantOrderingSystem
             {
                 string check = Validation.IsGridSelected(dgvMatchingReservation);
 
-                if (check != "valid")
+                if (check != "Valid")
                 {
                     MessageBox.Show(check, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
@@ -152,7 +93,7 @@ namespace RestaurantOrderingSystem
             {
                 string check = Validation.IsGridSelected(dgvMatchingReservation);
 
-                if (check != "valid")
+                if (check != "Valid")
                 {
                     MessageBox.Show(check, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
@@ -199,35 +140,154 @@ namespace RestaurantOrderingSystem
 
         private void btnCancelReservation_Click_1(object sender, EventArgs e)
         {
-            //DataGridViewRow row = dgvMatchingReservation.Rows[0];
-            //if (row != null)
-            //{
-            //    int tableID = Convert.ToInt32(row.Cells["TableID"].Value);
-            //    FrmNewOrder newOrder = new FrmNewOrder(tableID);
-            //    newOrder.ShowDialog();
-            //}
-            FrmNewOrder newOrder = new FrmNewOrder(3);
-            newOrder.ShowDialog();
+            DataGridViewRow row = dgvMatchingReservation.Rows[0];
+            if (row != null)
+            {
+                int tableID = Convert.ToInt32(row.Cells["TableID"].Value);
+                FrmNewOrder newOrder = new FrmNewOrder(tableID);
+                newOrder.ShowDialog();
+            }
+  
 
 
         }
 
         private void dgvMatchingReservation_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            
+
         }
 
         private void btnSearch_Click_1(object sender, EventArgs e)
         {
-            if (dgvMatchingReservation.Rows.Count == 0)
+            string phone = null;
+            string name = null;
+            if (rbCustName.Checked)
             {
-                btnCreateNewOrder.Enabled = false;
+                name = tbCustName.Text;
+                if (Validation.IsNameValid(name) != "Valid")
+                {
+                    MessageBox.Show("Error Name");
+                    return;
+                }
             }
+            else
+            {
+                phone = tbPhoneNum.Text;
+                if (Validation.IsPhoneValid(phone) != "Valid")
+                {
+                    MessageBox.Show("Error Phone");
+                    return;
+                }
+            }
+
+            DataSet ds = Reservation.GetReservationDetails(phone, name);
+            if (ds != null)
+            {
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    string custName = Convert.ToString(row["CUSTOMERNAME"]);
+                    string custPhone = Convert.ToString(row["CUSTOMERPHONE"]);
+                    string date = Convert.ToString(row["RESERVATIONDATETIMESTART"]);
+                    int numOfGuest = Convert.ToInt32(row["NUMBEROFGUESTS"]);
+                    int tableNo = Convert.ToInt32(row["TableNo"]);
+                    int tableID = Convert.ToInt32(row["TableID"]);
+
+
+
+                    dgvMatchingReservation.Rows.Add(
+                        custName,
+                        custPhone,
+                        date,
+                        numOfGuest,
+                        tableNo,
+                        tableID
+                        );
+                }
+            }
+
+
+
+
+
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void FrmFindReservation_Load(object sender, EventArgs e)
+        {
+            tbPhoneNum.ReadOnly = true;
+
+            if (UserSession.ReservationAction == "Update")
+            {
+                btnNext.Text = "Update Reservation";
+                this.Text = "Update Reservation";
+            }
+            else if (UserSession.ReservationAction == "Remove")
+            {
+                btnNext.Text = "Cancel Reservation";
+                this.Text = "Cancel Reservation";
+
+            }
+            else
+            {
+                btnNext.Text = "Create New Order";
+                this.Text = "Find Reservation";
+
+            }
+
+            var normal = new Font("Segoe UI", 10, FontStyle.Regular);
+
+            dgvMatchingReservation.Font = normal;
+            dgvMatchingReservation.DefaultCellStyle.Font = normal;
+            dgvMatchingReservation.RowsDefaultCellStyle.Font = normal;
+            dgvMatchingReservation.AlternatingRowsDefaultCellStyle.Font = normal;
+
+            dgvMatchingReservation.ColumnHeadersDefaultCellStyle.Font = normal;
+            dgvMatchingReservation.RowHeadersDefaultCellStyle.Font = normal;
+
+            dgvMatchingReservation.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvMatchingReservation.ReadOnly = true;
+            dgvMatchingReservation.MultiSelect = false;
+
+            dgvMatchingReservation.ClearSelection();
+        }
+
+        private void tbPhoneNum_TextChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tbPhoneNum_Click(object sender, EventArgs e)
+        {
+            rbPhoneNum.Checked = true;
+            tbPhoneNum.ReadOnly = false;
+            tbCustName.ReadOnly = true;
+
+
+        }
+
+        private void tbCustName_Click(object sender, EventArgs e)
+        {
+            rbCustName.Checked = true;
+            tbPhoneNum.ReadOnly = true;
+            tbCustName.ReadOnly = false;
+        }
+
+        private void rbCustName_CheckedChanged_1(object sender, EventArgs e)
+        {
+            tbCustName.Focus();
+            tbPhoneNum.ReadOnly = true;
+            tbCustName.ReadOnly = false;
+        }
+
+        private void rbPhoneNum_CheckedChanged(object sender, EventArgs e)
+        {
+            tbPhoneNum.Focus();
+            tbPhoneNum.ReadOnly = false;
+            tbCustName.ReadOnly = true;
         }
     }
 }

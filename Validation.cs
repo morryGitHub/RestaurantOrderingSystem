@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace RestaurantOrderingSystem
 {
@@ -11,43 +13,71 @@ namespace RestaurantOrderingSystem
     {
         public static string IsNameValid(string name)
         {
-            if (string.IsNullOrWhiteSpace(name))
-                return "Name is required.";
+            //if (string.IsNullOrWhiteSpace(name))
+            //    return "Name is required.";
 
-            foreach (char c in name)
+            //foreach (char c in name)
+            //{
+            //    if (!char.IsLetter(c) && c != ' ')
+            //        return "Name must contain only letters.";
+            //}
+
+            //return "valid";
+
+            name = name.Trim();
+
+            string pattern = @"^[A-Za-z]+( [A-Za-z]+)*$";
+            Regex reg = new Regex(pattern);
+            Match match = reg.Match(name);
+            if (match.Success)
             {
-                if (!char.IsLetter(c) && c != ' ')
-                    return "Name must contain only letters.";
+                return "Valid";
+            }
+            else
+            {
+                return "Invalid name. Example of valid format: John Brosnan";
             }
 
-            return "valid";
         }
 
         public static string IsPhoneValid(string phone)
         {
-            if (string.IsNullOrWhiteSpace(phone))
-                return "Phone number is required.";
+            //if (string.IsNullOrWhiteSpace(phone))
+            //    return "Phone number is required.";
 
-            int digitCount = 0;
-            int startIndex = 0;
+            //int digitCount = 0;
+            //int startIndex = 0;
 
-            if (phone[0] == '+')
+            //if (phone[0] == '+')
+            //{
+            //    startIndex = 1;
+            //}
+
+            //for (int i = startIndex; i < phone.Length; i++)
+            //{
+            //    if (!char.IsDigit(phone[i]))
+            //        return "Phone number must contain only digits (after +).";
+
+            //    digitCount++;
+            //}
+
+            //if (digitCount < 7 || digitCount > 15)
+            //    return "Phone number must contain 7–15 digits.";
+
+            //return "valid";
+
+
+            string pattern = @"^\+?\d{10,15}$";
+            Regex reg = new Regex(pattern);
+            Match match = reg.Match(phone);
+            if (match.Success)
             {
-                startIndex = 1;
+                return "Valid";
             }
-
-            for (int i = startIndex; i < phone.Length; i++)
+            else
             {
-                if (!char.IsDigit(phone[i]))
-                    return "Phone number must contain only digits (after +).";
-
-                digitCount++;
+                return "Invalid phone number. Example of valid format: +1234567890";
             }
-
-            if (digitCount < 7 || digitCount > 15)
-                return "Phone number must contain 7–15 digits.";
-
-            return "valid";
         }
 
         public static string IsGuestsValid(decimal num)
@@ -58,10 +88,11 @@ namespace RestaurantOrderingSystem
             if (num > 20)
                 return "Number of guests exceeds restaurant limit (max 20).";
 
-            return "valid";
+            return "Valid";
         }
 
-        public static string IsDateValid(DateTime date, DateTime time) {
+        public static string IsDateValid(DateTime date, DateTime time)
+        {
             DateTime reservationDateTime = date.Date + time.TimeOfDay;
             DateTime now = DateTime.Now;
 
@@ -70,7 +101,7 @@ namespace RestaurantOrderingSystem
                 return "Reservation date and time must be in the future";
             }
 
-            return "valid";
+            return "Valid";
         }
 
         public static string IsComboBoxSelected(ComboBox combo, string fieldName)
@@ -78,7 +109,7 @@ namespace RestaurantOrderingSystem
             if (combo.SelectedIndex == -1 || string.IsNullOrWhiteSpace(combo.Text))
                 return $"{fieldName} must be selected.";
 
-            return "valid";
+            return "Valid";
         }
 
         public static string IsGridSelected(DataGridView dataGrid, string fieldName)
@@ -86,7 +117,7 @@ namespace RestaurantOrderingSystem
             if (dataGrid.SelectedRows.Count == 0)
                 return $"{fieldName} must be selected.";
 
-            return "valid";
+            return "Valid";
         }
 
 
@@ -98,7 +129,7 @@ namespace RestaurantOrderingSystem
             if (grid.SelectedRows.Count == 0)
                 return "Please select a reservation first.";
 
-            return "valid";
+            return "Valid";
         }
 
         public static string IsSeatingCapacityValid(decimal num)
@@ -109,7 +140,7 @@ namespace RestaurantOrderingSystem
             if (num > 20)
                 return "Seating capacity cannot exceed 20.";
 
-            return "valid";
+            return "Valid";
         }
         public static string IsTableNumberValid(decimal tableNo)
         {
@@ -118,7 +149,7 @@ namespace RestaurantOrderingSystem
                 return "Table number must be greater tahn zero.";
 
 
-            return "valid";
+            return "Valid";
         }
 
         public static void UpdateTotal(DataGridView gridView, Label label)

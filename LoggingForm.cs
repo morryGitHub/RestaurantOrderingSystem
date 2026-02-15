@@ -18,25 +18,7 @@ namespace RestaurantOrderingSystem
             InitializeComponent();
         }
 
-        public static bool TestConnection()
-        {
-            try
-            {
-                using (OracleConnection conn = OracleDatabase.Database.GetConnection())
-                {
-                    return conn.State == ConnectionState.Open;
-                }
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        
-
-
-
+     
         private void label2_Click(object sender, EventArgs e)
         {
 

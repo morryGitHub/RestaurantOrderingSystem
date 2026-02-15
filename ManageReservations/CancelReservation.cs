@@ -17,41 +17,6 @@ namespace RestaurantOrderingSystem
             InitializeComponent();
         }
 
-        private void FindReservationForm_Load(object sender, EventArgs e)
-        {
-
-            tbPhoneNum.ReadOnly = true;
-
-            if (UserSession.ReservationAction == "Update")
-            {
-                btnCancelReservation.Text = "Update Reservation";
-                this.Text = "Update Reservation";
-            }
-            else if (UserSession.ReservationAction == "Remove")
-            {
-                btnCancelReservation.Text = "Cancel Reservation";
-                this.Text = "Cancel Reservation";
-
-            }
-
-            var normal = new Font("Segoe UI", 10, FontStyle.Regular);
-
-            dgvMatchingReservation.Font = normal;
-            dgvMatchingReservation.DefaultCellStyle.Font = normal;
-            dgvMatchingReservation.RowsDefaultCellStyle.Font = normal;
-            dgvMatchingReservation.AlternatingRowsDefaultCellStyle.Font = normal;
-
-            dgvMatchingReservation.ColumnHeadersDefaultCellStyle.Font = normal;
-            dgvMatchingReservation.RowHeadersDefaultCellStyle.Font = normal;
-
-            dgvMatchingReservation.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvMatchingReservation.ReadOnly = true;
-            dgvMatchingReservation.MultiSelect = false;
-
-            dgvMatchingReservation.ClearSelection();
-
-        }
-
         private void label1_Click(object sender, EventArgs e)
         {
 
@@ -70,7 +35,7 @@ namespace RestaurantOrderingSystem
             if (rbCustName.Checked)
             {
                 string nameCheck = Validation.IsNameValid(tbCustName.Text);
-                if (nameCheck != "valid")
+                if (nameCheck != "Valid")
                 {
                     MessageBox.Show(nameCheck, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -79,7 +44,7 @@ namespace RestaurantOrderingSystem
             else
             {
                 string phoneCheck = Validation.IsPhoneValid(tbPhoneNum.Text);
-                if (phoneCheck != "valid")
+                if (phoneCheck != "Valid")
                 {
                     MessageBox.Show(phoneCheck, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;

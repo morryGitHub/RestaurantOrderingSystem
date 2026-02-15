@@ -6,25 +6,36 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace RestaurantOrderingSystem.OracleDatabase
 {
     public static class Database
     {
         private static readonly string _connectionString =
-            ConfigurationManager.ConnectionStrings["OracleRemote"].ConnectionString;
+            ConfigurationManager.ConnectionStrings["OracleLocal"].ConnectionString;
 
         public static OracleConnection GetConnection()
         {
-            OracleConnection conn = new OracleConnection(_connectionString);
-            conn.Open();
-            return conn;
+            try
+            {
+                OracleConnection conn = new OracleConnection(_connectionString);
+                conn.Open();
+                return conn;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("No Oracle Connection\n" + ex.Message);
+                return null;
+            }
         }
+
 
         public static DataSet ExecuteMultiRowQuery(string query)
         {
             //Open a connection to an Oracle database
             OracleConnection conn = GetConnection();
+
 
             //Formulate the DB request
             OracleCommand cmd = new OracleCommand(query, conn);

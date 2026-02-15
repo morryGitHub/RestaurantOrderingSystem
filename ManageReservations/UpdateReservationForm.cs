@@ -92,7 +92,7 @@ namespace RestaurantOrderingSystem
         {
             // Validate Name
             string nameCheck = Validation.IsNameValid(tbCustName.Text);
-            if (nameCheck != "valid")
+            if (nameCheck != "Valid")
             {
                 MessageBox.Show(nameCheck, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -100,7 +100,7 @@ namespace RestaurantOrderingSystem
 
             // Validate Phone
             string phoneCheck = Validation.IsPhoneValid(tbPhoneNumber.Text);
-            if (phoneCheck != "valid")
+            if (phoneCheck != "Valid")
             {
                 MessageBox.Show(phoneCheck, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -108,7 +108,7 @@ namespace RestaurantOrderingSystem
 
             // Validate Date
             string dateCheck = Validation.IsDateValid(datePicker.Value, timePicker.Value);
-            if (dateCheck != "valid")
+            if (dateCheck != "Valid")
             {
                 MessageBox.Show(dateCheck, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -155,7 +155,7 @@ namespace RestaurantOrderingSystem
 
             // Validate Date & Time
             string dateCheck = Validation.IsDateValid(datePicker.Value, timePicker.Value);
-            if (dateCheck != "valid")
+            if (dateCheck != "Valid")
             {
                 MessageBox.Show(dateCheck, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -163,7 +163,7 @@ namespace RestaurantOrderingSystem
 
             // Validate Guests
             string guestCheck = Validation.IsGuestsValid((int)numericNumOfGuests.Value);
-            if (guestCheck != "valid")
+            if (guestCheck != "Valid")
             {
                 MessageBox.Show(guestCheck, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -190,6 +190,11 @@ namespace RestaurantOrderingSystem
         }
 
         private void lblTableInfo_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblStatus_Click(object sender, EventArgs e)
         {
 
         }

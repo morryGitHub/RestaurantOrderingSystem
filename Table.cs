@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace RestaurantOrderingSystem
 {
@@ -32,6 +33,12 @@ namespace RestaurantOrderingSystem
             Capacity = capacity;
             Status = "Available";
         }
+        public Table(int tableID, int tableNumber, int capacity)
+        {
+            TableId = tableID;
+            TableNumber = tableNumber;
+            Capacity = capacity;
+        }
 
         public Table(int tableNumber, int capacity, string status)
         {
@@ -46,7 +53,6 @@ namespace RestaurantOrderingSystem
             Capacity = capacity;
             Status = status;
         }
-
 
         public override string ToString()
         {
@@ -78,7 +84,8 @@ namespace RestaurantOrderingSystem
                 {
                     int id = Convert.ToInt32(reader["TABLE_ID"]);
                     int no = Convert.ToInt32(reader["TABLE_NO"]);
-                    return new Table(id, no);
+                    int capacity = Convert.ToInt32(reader["CAPACITY"]);
+                    return new Table(id, no, capacity);
                 }
 
             }
