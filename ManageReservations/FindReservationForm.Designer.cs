@@ -46,6 +46,7 @@
             this.Guests = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TableNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TableID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ResID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMatchingReservation)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -118,7 +119,8 @@
             this.Date,
             this.Guests,
             this.TableNo,
-            this.TableID});
+            this.TableID,
+            this.ResID});
             this.dgvMatchingReservation.EnableHeadersVisualStyles = false;
             this.dgvMatchingReservation.Location = new System.Drawing.Point(5, 37);
             this.dgvMatchingReservation.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -212,7 +214,7 @@
             this.btnNext.Size = new System.Drawing.Size(185, 39);
             this.btnNext.TabIndex = 22;
             this.btnNext.UseVisualStyleBackColor = true;
-            this.btnNext.Click += new System.EventHandler(this.btnCancelReservation_Click_1);
+            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
             // 
             // colName
             // 
@@ -262,6 +264,14 @@
             this.TableID.ReadOnly = true;
             this.TableID.Visible = false;
             // 
+            // ResID
+            // 
+            this.ResID.HeaderText = "ReservationID";
+            this.ResID.MinimumWidth = 6;
+            this.ResID.Name = "ResID";
+            this.ResID.ReadOnly = true;
+            this.ResID.Visible = false;
+            // 
             // FrmFindReservation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -304,5 +314,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Guests;
         private System.Windows.Forms.DataGridViewTextBoxColumn TableNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn TableID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ResID;
     }
 }

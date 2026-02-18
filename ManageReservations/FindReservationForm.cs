@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -17,18 +18,7 @@ namespace RestaurantOrderingSystem
             InitializeComponent();
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
 
-        }
-
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-
-
-        }
 
         //private void btnSearch_Click(object sender, EventArgs e)
         //{
@@ -61,96 +51,9 @@ namespace RestaurantOrderingSystem
 
 
 
-        private void tbCustName_TextChanged(object sender, EventArgs e)
-        {
-
-        }
 
 
 
-        private void btnCancelReservation_Click(object sender, EventArgs e)
-        {
-            if (UserSession.ReservationAction == "Update")
-            {
-                string check = Validation.IsGridSelected(dgvMatchingReservation);
-
-                if (check != "Valid")
-                {
-                    MessageBox.Show(check, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
-                DataGridViewRow row = dgvMatchingReservation.SelectedRows[0];
-
-
-                frmUpdateReservation updateForm = new frmUpdateReservation(row);
-                updateForm.TopMost = true;
-                updateForm.Show();
-
-                this.Close();
-            }
-            else if (UserSession.ReservationAction == "Remove")
-            {
-                string check = Validation.IsGridSelected(dgvMatchingReservation);
-
-                if (check != "Valid")
-                {
-                    MessageBox.Show(check, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
-                DataGridViewRow row = dgvMatchingReservation.SelectedRows[0];
-
-                string customerName = row.Cells["colName"].Value.ToString();
-                string phone = row.Cells["Phone"].Value.ToString();
-                string date = row.Cells["Date"].Value.ToString();
-                string time = row.Cells["Time"].Value.ToString();
-                string numberOfGuests = row.Cells["Guests"].Value.ToString();
-                string table = row.Cells["Table"].Value.ToString();
-
-
-                var confirm = MessageBox.Show(
-                    $"Are you sure you want to remove this reservation?\n\n" +
-                    $"Customer: {customerName}\nPhone: {phone}\nDate: {date}",
-                    "Confirm Removal",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Warning);
-
-                if (confirm != DialogResult.Yes)
-                    return;
-
-                MessageBox.Show("Reservation was successfully removed!",
-                                "Success",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Information);
-
-                dgvMatchingReservation.Rows.Remove(row);
-            }
-        }
-
-        private void tbPhoneNum_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnExit_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void btnCancelReservation_Click_1(object sender, EventArgs e)
-        {
-            DataGridViewRow row = dgvMatchingReservation.Rows[0];
-            if (row != null)
-            {
-                int tableID = Convert.ToInt32(row.Cells["TableID"].Value);
-                FrmNewOrder newOrder = new FrmNewOrder(tableID);
-                newOrder.ShowDialog();
-            }
-  
-
-
-        }
 
         private void dgvMatchingReservation_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -159,6 +62,8 @@ namespace RestaurantOrderingSystem
 
         private void btnSearch_Click_1(object sender, EventArgs e)
         {
+            dgvMatchingReservation.Rows.Clear();
+
             string phone = null;
             string name = null;
             if (rbCustName.Checked)
@@ -191,6 +96,8 @@ namespace RestaurantOrderingSystem
                     int numOfGuest = Convert.ToInt32(row["NUMBEROFGUESTS"]);
                     int tableNo = Convert.ToInt32(row["TableNo"]);
                     int tableID = Convert.ToInt32(row["TableID"]);
+                    int resID = Convert.ToInt32(row["RESERVATIONID"]);
+
 
 
 
@@ -200,7 +107,8 @@ namespace RestaurantOrderingSystem
                         date,
                         numOfGuest,
                         tableNo,
-                        tableID
+                        tableID,
+                        resID
                         );
                 }
             }
@@ -288,6 +196,41 @@ namespace RestaurantOrderingSystem
             tbPhoneNum.Focus();
             tbPhoneNum.ReadOnly = false;
             tbCustName.ReadOnly = true;
+        }
+
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+
+            DataGridViewRow row = dgvMatchingReservation.Rows[0];
+            string nextPage = UserSession.ReservationAction;
+
+
+            if (row != null)
+            {
+                int tableID = Convert.ToInt32(row.Cells["TableID"].Value);
+                switch (nextPage)
+                {
+
+                    case ("Find"):
+                        FrmNewOrder newOrder = new FrmNewOrder(tableID);
+                        newOrder.ShowDialog();
+                        break;
+
+                    case ("Update"):
+                        int resID = Convert.ToInt32(dgvMatchingReservation.SelectedRows[0].Cells["ResID"].Value);
+                        FrmUpdateReservation frmUpdateReservation = new FrmUpdateReservation(resID, tableID);
+                        frmUpdateReservation.ShowDialog();
+                        break;
+
+                    case ("Remove"):
+                        FrmCancelReservation frmCancelReservation = new FrmCancelReservation();
+                        frmCancelReservation.ShowDialog();
+                        break;
+                }
+
+            }
+
+
         }
     }
 }

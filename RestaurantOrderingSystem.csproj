@@ -283,6 +283,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ManageReservations\UpdateReservationForm.resx">
       <DependentUpon>UpdateReservationForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="ManageTables\UpdateTableForm.resx">
       <DependentUpon>UpdateTableForm.cs</DependentUpon>
