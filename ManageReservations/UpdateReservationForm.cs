@@ -1,39 +1,85 @@
-﻿using System;
+﻿using Oracle.ManagedDataAccess.Client;
+using System;
+using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Xml.Linq;
 
 namespace RestaurantOrderingSystem
 {
-    public partial class frmUpdateReservation : Form
+    public partial class FrmUpdateReservation : Form
     {
 
-        private DataGridViewRow row;
-        public frmUpdateReservation(DataGridViewRow reservation)
+        private readonly int reservationID;
+        private int tableID;
+        public FrmUpdateReservation(int reservationID, int tableID)
         {
             InitializeComponent();
-            this.row = reservation;
-
-            string customerName = row.Cells["colName"].Value.ToString();
-            string phone = row.Cells["Phone"].Value.ToString();
-            string date = row.Cells["Date"].Value.ToString();
-            string time = row.Cells["Time"].Value.ToString();
-            string numberOfGuests = row.Cells["Guests"].Value.ToString();
-            string table = row.Cells["Table"].Value.ToString();
-
-            tbCustName.Text = customerName;
-            tbPhoneNumber.Text = phone;
-            datePicker.Value = DateTime.Parse(date);
-            timePicker.Value = DateTime.Parse(time);
-            numericNumOfGuests.Value = Decimal.Parse(numberOfGuests);
-            tbTableNo.Text = table;
-
+            this.reservationID = reservationID;
+            this.tableID = tableID;
         }
 
         private void UpdateReservationForm_Load(object sender, EventArgs e)
         {
 
+            cmbStatus.Items.Add("SEATED");
+            cmbStatus.Items.Add("BOOKED");
+            cmbStatus.Items.Add("CANCELLED");
+
+
+            try
+            {
+                DataSet ds = Reservation.GetReservationDetails(reservationID);
+
+                if (ds != null)
+                {
+                    DataRow row = ds.Tables[0].Rows[0];
+
+                    string custName = Convert.ToString(row["CUSTOMERNAME"]);
+                    string custPhone = Convert.ToString(row["CUSTOMERPHONE"]);
+                    DateTime dateTime = Convert.ToDateTime(row["RESERVATIONDATETIMESTART"]);
+                    int numOfGuest = Convert.ToInt32(row["NUMBEROFGUESTS"]);
+                    string tableNo = row["TableNo"].ToString();
+                    int tableID = Convert.ToInt32(row["TableID"]);         // redundant value ???
+                    int resID = Convert.ToInt32(row["RESERVATIONID"]);
+                    string status = row["STATUS"].ToString().Trim();
+
+                    string datePart = dateTime.ToString("yyyy-MM-dd");     // only date
+                    string timePart = dateTime.ToString("HH:mm:ss");       // only time
+
+
+                    tbCustName.Text = custName;
+                    tbPhoneNumber.Text = custPhone;
+
+                    datePicker.Text = datePart;
+                    timePicker.Text = timePart;
+                    tbTableNo.Text = tableNo;
+                    numericNumOfGuests.Value = numOfGuest;
+                    cmbStatus.SelectedItem = status;
+
+
+                }
+            }
+
+
+            catch
+            {
+                MessageBox.Show("Ebat tu lox");
+            }
+
+
+
+
+
+
+
+
         }
+
+
+
+
 
         private void label1_Click(object sender, EventArgs e)
         {
@@ -68,11 +114,11 @@ namespace RestaurantOrderingSystem
         {
         }
 
-      
+
         private void btnCancel_Click(object sender, EventArgs e)
         {
             MessageBox.Show(
-        "Update of reservation was cancelled." , "Succes", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        "Update of reservation was cancelled.", "Succes", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             this.Close();
         }
@@ -88,7 +134,116 @@ namespace RestaurantOrderingSystem
             this.Close();
         }
 
-        private void btnAddReservation_Click(object sender, EventArgs e)
+
+        private void lblTableInfoText_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void numericNumOfGuests_ValueChanged(object sender, EventArgs e)
+        {
+            //lblTableInfo.ForeColor = Color.Red;
+            //lblTableInfo.Text = "Table Not Suitable\nSelect a new table";
+
+            dgvTables.Rows.Clear();
+        }
+
+        private void btnFindAvailableTables_Click(object sender, EventArgs e)
+        {
+            dgvTables.Rows.Clear();
+
+            //lblErrorMsg.Visible = false;
+            dgvTables.Visible = true;
+
+            int numOfGuest = (int)numericNumOfGuests.Value;
+            DateTime startDateTime = datePicker.Value.Date
+                         + timePicker.Value.TimeOfDay;
+
+            string start = startDateTime.ToString("dd-MM-yyyy HH:mm");
+
+            DateTime date = datePicker.Value.Date;
+            TimeSpan time = timePicker.Value.TimeOfDay;
+            DateTime endDateTime = date + time + TimeSpan.FromHours(2);
+
+            string end = endDateTime.ToString("dd-MM-yyyy HH:mm");
+
+            // Validate Date & Time
+            //string dateCheck = Validation.IsDateValid(datePicker.Value, timePicker.Value);
+            //if (dateCheck != "valid")
+            //{
+            //    MessageBox.Show(dateCheck, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    return;
+            //}
+
+            //// Validate Guests
+            //string guestCheck = Validation.IsGuestsValid(numOfGuest);
+            //if (guestCheck != "valid")
+            //{
+            //    MessageBox.Show(guestCheck, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    return;
+            //}
+
+            DataSet ds = Reservation.GetAvailableTablesForReservation(numOfGuest, start, end);
+
+            if (ds.Tables[0].Rows.Count == 0)
+            {
+                //lblErrorMsg.Visible = true;
+                dgvTables.Visible = false;
+            }
+            else
+            {
+
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    int tableID = Convert.ToInt32(row["Table_ID"]);
+                    int tableNo = Convert.ToInt32(row["Table_No"]);
+                    int capacity = Convert.ToInt32(row["Capacity"]);
+                    string status = row["Status"].ToString();
+
+                    dgvTables.Rows.Add(tableID, tableNo, capacity, status);
+                }
+            }
+
+
+
+        }
+
+        private void dgvTables_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0) //  header click
+            {
+                DataGridViewRow row = dgvTables.Rows[e.RowIndex];
+
+                string tableNo = row.Cells["TableNo"].Value.ToString();
+                this.tableID = Convert.ToInt32(row.Cells["TableID"].Value);
+
+                tbTableNo.Text = tableNo;
+                //lblTableInfo.Text = "The current table meets all requirements.";
+                //lblTableInfo.ForeColor = Color.Green;
+            }
+        }
+
+        private void lblTableInfo_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblStatus_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cmbStatus_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tbTableNo_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnUpdateReservation_Click(object sender, EventArgs e)
         {
             // Validate Name
             string nameCheck = Validation.IsNameValid(tbCustName.Text);
@@ -121,13 +276,35 @@ namespace RestaurantOrderingSystem
                 return;
             }
 
-            // If all good → update the row
-            row.Cells[0].Value = tbCustName.Text;
-            row.Cells[1].Value = tbPhoneNumber.Text;
-            row.Cells[2].Value = datePicker.Value.ToShortDateString();
-            row.Cells[3].Value = timePicker.Value.ToShortTimeString();
-            row.Cells[4].Value = numericNumOfGuests.Value.ToString();
-            row.Cells[5].Value = tbTableNo.Text;
+            DateTime dateStart = datePicker.Value.Date;
+            TimeSpan timeStart = timePicker.Value.TimeOfDay;
+            DateTime startDateTime = dateStart + timeStart;
+
+            DateTime dateEnd = datePicker.Value.Date;
+            TimeSpan timeEnd = timePicker.Value.TimeOfDay;
+            DateTime endDateTime = dateEnd + timeEnd + TimeSpan.FromHours(2);
+
+            string start = startDateTime.ToString("yyyy-MM-dd HH:mm:ss");
+            string end = endDateTime.ToString("yyyy-MM-dd HH:mm:ss");
+
+            string customerName = tbCustName.Text;
+            string customerPhone = tbPhoneNumber.Text;
+            int numOfGuest = (int)numericNumOfGuests.Value;
+            string status = cmbStatus.SelectedItem.ToString();
+
+            Reservation reservation = new Reservation(
+               reservationID,
+               tableID,
+               customerName,
+               customerPhone,
+               start,
+               end,
+               numOfGuest,
+               status);
+
+            reservation.UpdateReservationDetails();
+
+
 
             // Success message
             MessageBox.Show("The reservation was successfully updated!",
@@ -136,67 +313,7 @@ namespace RestaurantOrderingSystem
                 MessageBoxIcon.Information);
 
             this.Close();
-        }
-
-        private void lblTableInfoText_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void numericNumOfGuests_ValueChanged(object sender, EventArgs e)
-        {
-            lblTableInfo.ForeColor = Color.Red;
-            lblTableInfo.Text = "Table Not Suitable\nSelect a new table";
-        }
-
-        private void btnFindAvailableTables_Click(object sender, EventArgs e)
-        {
-            dgvTables.Rows.Clear();
-
-            // Validate Date & Time
-            string dateCheck = Validation.IsDateValid(datePicker.Value, timePicker.Value);
-            if (dateCheck != "Valid")
-            {
-                MessageBox.Show(dateCheck, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            // Validate Guests
-            string guestCheck = Validation.IsGuestsValid((int)numericNumOfGuests.Value);
-            if (guestCheck != "Valid")
-            {
-                MessageBox.Show(guestCheck, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            dgvTables.Rows.Add("1", "2", "Available");
-            dgvTables.Rows.Add("5", "4", "Available");
-            dgvTables.Rows.Add("7", "6", "Available"); ;
-        }
-
-        private void dgvTables_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex >= 0) // защитa от header click
-            {
-                DataGridViewRow row = dgvTables.Rows[e.RowIndex];
-
-                // например, взять TableNo из первой колонки
-                string tableNo = row.Cells[0].Value.ToString();
-
-                tbTableNo.Text = tableNo;
-                lblTableInfo.Text = "The current table meets all requirements.";
-                lblTableInfo.ForeColor = Color.Green;
-            }
-        }
-
-        private void lblTableInfo_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblStatus_Click(object sender, EventArgs e)
-        {
-
+ 
         }
     }
 }

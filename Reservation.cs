@@ -1,10 +1,12 @@
 ﻿using RestaurantOrderingSystem.OracleDatabase;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace RestaurantOrderingSystem
 {
@@ -20,8 +22,9 @@ namespace RestaurantOrderingSystem
         public string Status;
 
 
-        public Reservation(int tableID, string customerName, string customerPhone, string reservationDateStart, string reservationDateEnd, int numOfGuest, string status)
+        public Reservation(int reservationID, int tableID, string customerName, string customerPhone, string reservationDateStart, string reservationDateEnd, int numOfGuest, string status)
         {
+            ReservationID = reservationID;
             TableID = tableID;
             CustomerName = customerName;
             CustomerPhone = customerPhone;
@@ -62,31 +65,70 @@ namespace RestaurantOrderingSystem
                       WHERE r.tableID = t.table_ID
                         AND TO_DATE('{start}', 'DD-MM-YYYY HH24:MI') < r.reservationDateTimeEnd
                         AND TO_DATE('{end}', 'DD-MM-YYYY HH24:MI') > r.reservationDateTimeStart
-                    )";
+                    )
+                ORDER BY t.Capacity";
             return Database.ExecuteMultiRowQuery(sql);
+        }
+
+        public static DataSet GetReservationDetails(int id)
+        {
+
+            return GetReservationDetailsInternal(id, null, null);
         }
 
         public static DataSet GetReservationDetails(string phone, string name)
         {
 
+            return GetReservationDetailsInternal(null, phone, name);
+        }
+
+        private static DataSet GetReservationDetailsInternal(int? id, string phone, string name)
+        {
+
             string sql = $@"
-                SELECT t.TABLE_NO AS TableNo, r.TableID, r.CUSTOMERNAME,  r.CUSTOMERPHONE, r.RESERVATIONDATETIMESTART, r.NUMBEROFGUESTS
+                SELECT t.TABLE_NO AS TableNo, r.TableID, r.CUSTOMERNAME,  r.CUSTOMERPHONE, r.RESERVATIONDATETIMESTART, r.NUMBEROFGUESTS, r.RESERVATIONID, r.STATUS
                 FROM RESERVATIONS r
                 JOIN RESTAURANT_TABLES t ON r.TABLEID = t.Table_ID
                 WHERE 1=0";
 
-            if (!string.IsNullOrEmpty(phone))
+            if (id.HasValue)
             {
-                sql += $@" OR CUSTOMERPHONE = '{phone}'";
+                sql += $@" OR RESERVATIONID = {id}";
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(phone))
+                {
+                    sql += $@" OR CUSTOMERPHONE = '{phone}'";
+                }
+
+                if (!string.IsNullOrEmpty(name))
+                {
+                    sql += $@" OR CUSTOMERNAME LIKE '%{name}%'";
+                }
             }
 
-            if (!string.IsNullOrEmpty(name))
-            {
-                sql += $@" OR CUSTOMERNAME LIKE '%{name}%'";
-            }
+
 
             return Database.ExecuteMultiRowQuery(sql);
 
+        }
+
+        public void UpdateReservationDetails()
+        {
+            string sql = $@"
+                UPDATE RESERVATIONS
+                SET CUSTOMERNAME = '{CustomerName}',
+                    CUSTOMERPHONE = '{CustomerPhone}',
+                    RESERVATIONDATETIMESTART = TO_DATE('{ReservationDateStart}', 'YYYY-MM-DD HH24:MI:SS'),
+                    RESERVATIONDATETIMEEND = TO_DATE('{ReservationDateEnd}', 'YYYY-MM-DD HH24:MI:SS'),
+                    NUMBEROFGUESTS = {NumOfGuest},
+                    TABLEID = {TableID},
+                    STATUS = '{Status}'
+                WHERE RESERVATIONID = {ReservationID}";
+
+
+            Database.ExecuteNonQuery(sql);
         }
 
         public void AddReservation()
