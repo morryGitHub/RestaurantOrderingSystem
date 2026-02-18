@@ -92,65 +92,7 @@ namespace RestaurantOrderingSystem
 
      
 
-        private void btnCancelReservation_Click(object sender, EventArgs e)
-        {
-            if (UserSession.ReservationAction == "Update")
-            {
-                string check = Validation.IsGridSelected(dgvMatchingReservation);
-
-                if (check != "valid")
-                {
-                    MessageBox.Show(check, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
-                DataGridViewRow row = dgvMatchingReservation.SelectedRows[0];
-
-
-                frmUpdateReservation updateForm = new frmUpdateReservation(row);
-                updateForm.TopMost = true;
-                updateForm.Show();
-
-                this.Close();
-            }
-            else if (UserSession.ReservationAction == "Remove")
-            {
-                string check = Validation.IsGridSelected(dgvMatchingReservation);
-
-                if (check != "valid")
-                {
-                    MessageBox.Show(check, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
-                DataGridViewRow row = dgvMatchingReservation.SelectedRows[0];
-
-                string customerName = row.Cells["colName"].Value.ToString();
-                string phone = row.Cells["Phone"].Value.ToString();
-                string date = row.Cells["Date"].Value.ToString();
-                string time = row.Cells["Time"].Value.ToString();
-                string numberOfGuests = row.Cells["Guests"].Value.ToString();
-                string table = row.Cells["Table"].Value.ToString();
-
-
-                var confirm = MessageBox.Show(
-                    $"Are you sure you want to remove this reservation?\n\n" +
-                    $"Customer: {customerName}\nPhone: {phone}\nDate: {date}",
-                    "Confirm Removal",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Warning);
-
-                if (confirm != DialogResult.Yes)
-                    return;
-
-                MessageBox.Show("Reservation was successfully removed!",
-                                "Success",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Information);
-
-                dgvMatchingReservation.Rows.Remove(row);
-            }
-        }
+     
 
         private void tbPhoneNum_TextChanged(object sender, EventArgs e)
         {
@@ -160,6 +102,11 @@ namespace RestaurantOrderingSystem
         private void btnExit_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void FrmCancelReservation_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

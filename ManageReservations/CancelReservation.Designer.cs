@@ -34,18 +34,18 @@
             this.tbCustName = new System.Windows.Forms.TextBox();
             this.tbPhoneNum = new System.Windows.Forms.TextBox();
             this.dgvMatchingReservation = new System.Windows.Forms.DataGridView();
-            this.rbCustName = new System.Windows.Forms.RadioButton();
-            this.rbPhoneNum = new System.Windows.Forms.RadioButton();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.btnCancel = new System.Windows.Forms.Button();
-            this.btnCancelReservation = new System.Windows.Forms.Button();
             this.colName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Phone = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Time = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Guests = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Table = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rbCustName = new System.Windows.Forms.RadioButton();
+            this.rbPhoneNum = new System.Windows.Forms.RadioButton();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.btnCancelReservation = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMatchingReservation)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -98,7 +98,7 @@
             this.dgvMatchingReservation.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
@@ -123,6 +123,54 @@
             this.dgvMatchingReservation.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvMatchingReservation.Size = new System.Drawing.Size(667, 146);
             this.dgvMatchingReservation.TabIndex = 4;
+            // 
+            // colName
+            // 
+            this.colName.FillWeight = 113.5829F;
+            this.colName.HeaderText = "Name";
+            this.colName.MinimumWidth = 6;
+            this.colName.Name = "colName";
+            this.colName.ReadOnly = true;
+            // 
+            // Phone
+            // 
+            this.Phone.FillWeight = 113.5829F;
+            this.Phone.HeaderText = "Phone";
+            this.Phone.MinimumWidth = 6;
+            this.Phone.Name = "Phone";
+            this.Phone.ReadOnly = true;
+            // 
+            // Date
+            // 
+            this.Date.FillWeight = 113.5829F;
+            this.Date.HeaderText = "Date";
+            this.Date.MinimumWidth = 6;
+            this.Date.Name = "Date";
+            this.Date.ReadOnly = true;
+            // 
+            // Time
+            // 
+            this.Time.FillWeight = 113.5829F;
+            this.Time.HeaderText = "Time";
+            this.Time.MinimumWidth = 6;
+            this.Time.Name = "Time";
+            this.Time.ReadOnly = true;
+            // 
+            // Guests
+            // 
+            this.Guests.FillWeight = 70F;
+            this.Guests.HeaderText = "Guests";
+            this.Guests.MinimumWidth = 6;
+            this.Guests.Name = "Guests";
+            this.Guests.ReadOnly = true;
+            // 
+            // Table
+            // 
+            this.Table.FillWeight = 60F;
+            this.Table.HeaderText = "Table";
+            this.Table.MinimumWidth = 6;
+            this.Table.Name = "Table";
+            this.Table.ReadOnly = true;
             // 
             // rbCustName
             // 
@@ -196,55 +244,7 @@
             this.btnCancelReservation.Text = "Cancel Reservation";
             this.btnCancelReservation.UseVisualStyleBackColor = true;
             // 
-            // colName
-            // 
-            this.colName.FillWeight = 113.5829F;
-            this.colName.HeaderText = "Name";
-            this.colName.MinimumWidth = 6;
-            this.colName.Name = "colName";
-            this.colName.ReadOnly = true;
-            // 
-            // Phone
-            // 
-            this.Phone.FillWeight = 113.5829F;
-            this.Phone.HeaderText = "Phone";
-            this.Phone.MinimumWidth = 6;
-            this.Phone.Name = "Phone";
-            this.Phone.ReadOnly = true;
-            // 
-            // Date
-            // 
-            this.Date.FillWeight = 113.5829F;
-            this.Date.HeaderText = "Date";
-            this.Date.MinimumWidth = 6;
-            this.Date.Name = "Date";
-            this.Date.ReadOnly = true;
-            // 
-            // Time
-            // 
-            this.Time.FillWeight = 113.5829F;
-            this.Time.HeaderText = "Time";
-            this.Time.MinimumWidth = 6;
-            this.Time.Name = "Time";
-            this.Time.ReadOnly = true;
-            // 
-            // Guests
-            // 
-            this.Guests.FillWeight = 70F;
-            this.Guests.HeaderText = "Guests";
-            this.Guests.MinimumWidth = 6;
-            this.Guests.Name = "Guests";
-            this.Guests.ReadOnly = true;
-            // 
-            // Table
-            // 
-            this.Table.FillWeight = 60F;
-            this.Table.HeaderText = "Table";
-            this.Table.MinimumWidth = 6;
-            this.Table.Name = "Table";
-            this.Table.ReadOnly = true;
-            // 
-            // frmFindReservation
+            // FrmCancelReservation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -254,8 +254,9 @@
             this.Controls.Add(this.btnCancelReservation);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.lblTitle);
-            this.Name = "frmFindReservation";
+            this.Name = "FrmCancelReservation";
             this.Text = "Find Reservation";
+            this.Load += new System.EventHandler(this.FrmCancelReservation_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvMatchingReservation)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
