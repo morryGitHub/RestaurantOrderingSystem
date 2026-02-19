@@ -12,16 +12,20 @@ namespace RestaurantOrderingSystem
 {
     internal class Reservation
     {
-        public int ReservationID;
-        public int TableID;
-        public string CustomerName;
-        public string CustomerPhone;
-        public string ReservationDateStart;
-        public string ReservationDateEnd;
-        public int NumOfGuest;
-        public string Status;
+        private int ReservationID;
+        private int TableID;
+        private string CustomerName;
+        private string CustomerPhone;
+        private string ReservationDateStart;
+        private string ReservationDateEnd;
+        private int NumOfGuest;
+        private string Status;
 
+        public Reservation(int reservationID)
+        {
+            ReservationID = reservationID;
 
+        }
         public Reservation(int reservationID, int tableID, string customerName, string customerPhone, string reservationDateStart, string reservationDateEnd, int numOfGuest, string status)
         {
             ReservationID = reservationID;
@@ -50,6 +54,16 @@ namespace RestaurantOrderingSystem
             CustomerPhone = customerPhone;
             ReservationDateStart = reservationDateStart;
             NumOfGuest = numOfGuest;
+        }
+
+        public void DeleteReservation()
+        {
+            string sql = $@"
+                    UPDATE RESERVATIONS
+                    SET STATUS = 'CANCELLED'
+                    WHERE RESERVATIONID = {ReservationID}
+                ";
+            Database.ExecuteNonQuery(sql);
         }
 
         public static DataSet GetAvailableTablesForReservation(int numOfGuest, string start, string end)
@@ -89,22 +103,22 @@ namespace RestaurantOrderingSystem
                 SELECT t.TABLE_NO AS TableNo, r.TableID, r.CUSTOMERNAME,  r.CUSTOMERPHONE, r.RESERVATIONDATETIMESTART, r.NUMBEROFGUESTS, r.RESERVATIONID, r.STATUS
                 FROM RESERVATIONS r
                 JOIN RESTAURANT_TABLES t ON r.TABLEID = t.Table_ID
-                WHERE 1=0";
+                WHERE r.STATUS = 'BOOKED'";
 
             if (id.HasValue)
             {
-                sql += $@" OR RESERVATIONID = {id}";
+                sql += $@" AND RESERVATIONID = {id}";
             }
             else
             {
                 if (!string.IsNullOrEmpty(phone))
                 {
-                    sql += $@" OR CUSTOMERPHONE = '{phone}'";
+                    sql += $@" AND CUSTOMERPHONE = '{phone}'";
                 }
 
                 if (!string.IsNullOrEmpty(name))
                 {
-                    sql += $@" OR CUSTOMERNAME LIKE '%{name}%'";
+                    sql += $@" AND CUSTOMERNAME LIKE '%{name}%'";
                 }
             }
 

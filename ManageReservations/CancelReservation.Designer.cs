@@ -28,239 +28,169 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.lblTitle = new System.Windows.Forms.Label();
-            this.btnSearch = new System.Windows.Forms.Button();
-            this.tbCustName = new System.Windows.Forms.TextBox();
-            this.tbPhoneNum = new System.Windows.Forms.TextBox();
-            this.dgvMatchingReservation = new System.Windows.Forms.DataGridView();
-            this.colName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Phone = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Time = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Guests = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Table = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.rbCustName = new System.Windows.Forms.RadioButton();
-            this.rbPhoneNum = new System.Windows.Forms.RadioButton();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.btnCancel = new System.Windows.Forms.Button();
+            this.lblHeader = new System.Windows.Forms.Label();
+            this.lblName = new System.Windows.Forms.Label();
+            this.lblPhone = new System.Windows.Forms.Label();
+            this.lblDate = new System.Windows.Forms.Label();
+            this.lblGuests = new System.Windows.Forms.Label();
+            this.lblStatus = new System.Windows.Forms.Label();
+            this.lblResID = new System.Windows.Forms.Label();
             this.btnCancelReservation = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvMatchingReservation)).BeginInit();
-            this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.tbResID = new System.Windows.Forms.TextBox();
+            this.tbPhone = new System.Windows.Forms.TextBox();
+            this.tbName = new System.Windows.Forms.TextBox();
+            this.tbDate = new System.Windows.Forms.TextBox();
+            this.tbGuests = new System.Windows.Forms.TextBox();
+            this.tbStatus = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
-            // lblTitle
+            // lblHeader
             // 
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.Location = new System.Drawing.Point(299, 21);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(236, 38);
-            this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "Find Reservation";
-            this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblHeader.AutoSize = true;
+            this.lblHeader.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold);
+            this.lblHeader.Location = new System.Drawing.Point(205, 44);
+            this.lblHeader.Name = "lblHeader";
+            this.lblHeader.Size = new System.Drawing.Size(351, 38);
+            this.lblHeader.TabIndex = 0;
+            this.lblHeader.Text = "--- Reservation Details ---";
             // 
-            // btnSearch
+            // lblName
             // 
-            this.btnSearch.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSearch.Location = new System.Drawing.Point(97, 150);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(211, 34);
-            this.btnSearch.TabIndex = 3;
-            this.btnSearch.Text = "Search";
-            this.btnSearch.UseVisualStyleBackColor = true;
+            this.lblName.AutoSize = true;
+            this.lblName.Location = new System.Drawing.Point(33, 165);
+            this.lblName.Name = "lblName";
+            this.lblName.Size = new System.Drawing.Size(47, 16);
+            this.lblName.TabIndex = 1;
+            this.lblName.Text = "Name:";
             // 
-            // tbCustName
+            // lblPhone
             // 
-            this.tbCustName.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbCustName.Location = new System.Drawing.Point(219, 41);
-            this.tbCustName.Name = "tbCustName";
-            this.tbCustName.Size = new System.Drawing.Size(161, 30);
-            this.tbCustName.TabIndex = 7;
+            this.lblPhone.AutoSize = true;
+            this.lblPhone.Location = new System.Drawing.Point(31, 202);
+            this.lblPhone.Name = "lblPhone";
+            this.lblPhone.Size = new System.Drawing.Size(49, 16);
+            this.lblPhone.TabIndex = 2;
+            this.lblPhone.Text = "Phone:";
             // 
-            // tbPhoneNum
+            // lblDate
             // 
-            this.tbPhoneNum.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbPhoneNum.Location = new System.Drawing.Point(219, 100);
-            this.tbPhoneNum.Name = "tbPhoneNum";
-            this.tbPhoneNum.Size = new System.Drawing.Size(161, 30);
-            this.tbPhoneNum.TabIndex = 8;
+            this.lblDate.AutoSize = true;
+            this.lblDate.Location = new System.Drawing.Point(31, 247);
+            this.lblDate.Name = "lblDate";
+            this.lblDate.Size = new System.Drawing.Size(39, 16);
+            this.lblDate.TabIndex = 3;
+            this.lblDate.Text = "Date:";
             // 
-            // dgvMatchingReservation
+            // lblGuests
             // 
-            this.dgvMatchingReservation.AllowUserToAddRows = false;
-            this.dgvMatchingReservation.AllowUserToDeleteRows = false;
-            this.dgvMatchingReservation.AllowUserToResizeColumns = false;
-            this.dgvMatchingReservation.AllowUserToResizeRows = false;
-            this.dgvMatchingReservation.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvMatchingReservation.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvMatchingReservation.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.dgvMatchingReservation.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvMatchingReservation.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.colName,
-            this.Phone,
-            this.Date,
-            this.Time,
-            this.Guests,
-            this.Table});
-            this.dgvMatchingReservation.EnableHeadersVisualStyles = false;
-            this.dgvMatchingReservation.Location = new System.Drawing.Point(6, 37);
-            this.dgvMatchingReservation.MultiSelect = false;
-            this.dgvMatchingReservation.Name = "dgvMatchingReservation";
-            this.dgvMatchingReservation.ReadOnly = true;
-            this.dgvMatchingReservation.RowHeadersVisible = false;
-            this.dgvMatchingReservation.RowHeadersWidth = 51;
-            this.dgvMatchingReservation.RowTemplate.Height = 24;
-            this.dgvMatchingReservation.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvMatchingReservation.Size = new System.Drawing.Size(667, 146);
-            this.dgvMatchingReservation.TabIndex = 4;
+            this.lblGuests.AutoSize = true;
+            this.lblGuests.Location = new System.Drawing.Point(31, 298);
+            this.lblGuests.Name = "lblGuests";
+            this.lblGuests.Size = new System.Drawing.Size(49, 16);
+            this.lblGuests.TabIndex = 4;
+            this.lblGuests.Text = "Guests";
             // 
-            // colName
+            // lblStatus
             // 
-            this.colName.FillWeight = 113.5829F;
-            this.colName.HeaderText = "Name";
-            this.colName.MinimumWidth = 6;
-            this.colName.Name = "colName";
-            this.colName.ReadOnly = true;
+            this.lblStatus.AutoSize = true;
+            this.lblStatus.Location = new System.Drawing.Point(31, 351);
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(44, 16);
+            this.lblStatus.TabIndex = 5;
+            this.lblStatus.Text = "Status";
             // 
-            // Phone
+            // lblResID
             // 
-            this.Phone.FillWeight = 113.5829F;
-            this.Phone.HeaderText = "Phone";
-            this.Phone.MinimumWidth = 6;
-            this.Phone.Name = "Phone";
-            this.Phone.ReadOnly = true;
-            // 
-            // Date
-            // 
-            this.Date.FillWeight = 113.5829F;
-            this.Date.HeaderText = "Date";
-            this.Date.MinimumWidth = 6;
-            this.Date.Name = "Date";
-            this.Date.ReadOnly = true;
-            // 
-            // Time
-            // 
-            this.Time.FillWeight = 113.5829F;
-            this.Time.HeaderText = "Time";
-            this.Time.MinimumWidth = 6;
-            this.Time.Name = "Time";
-            this.Time.ReadOnly = true;
-            // 
-            // Guests
-            // 
-            this.Guests.FillWeight = 70F;
-            this.Guests.HeaderText = "Guests";
-            this.Guests.MinimumWidth = 6;
-            this.Guests.Name = "Guests";
-            this.Guests.ReadOnly = true;
-            // 
-            // Table
-            // 
-            this.Table.FillWeight = 60F;
-            this.Table.HeaderText = "Table";
-            this.Table.MinimumWidth = 6;
-            this.Table.Name = "Table";
-            this.Table.ReadOnly = true;
-            // 
-            // rbCustName
-            // 
-            this.rbCustName.AutoSize = true;
-            this.rbCustName.Checked = true;
-            this.rbCustName.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbCustName.Location = new System.Drawing.Point(19, 37);
-            this.rbCustName.Name = "rbCustName";
-            this.rbCustName.Size = new System.Drawing.Size(125, 32);
-            this.rbCustName.TabIndex = 9;
-            this.rbCustName.TabStop = true;
-            this.rbCustName.Text = "Full Name:";
-            this.rbCustName.UseVisualStyleBackColor = true;
-            // 
-            // rbPhoneNum
-            // 
-            this.rbPhoneNum.AutoSize = true;
-            this.rbPhoneNum.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbPhoneNum.Location = new System.Drawing.Point(19, 96);
-            this.rbPhoneNum.Name = "rbPhoneNum";
-            this.rbPhoneNum.Size = new System.Drawing.Size(169, 32);
-            this.rbPhoneNum.TabIndex = 10;
-            this.rbPhoneNum.Text = "Phone Number:";
-            this.rbPhoneNum.UseVisualStyleBackColor = true;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.rbPhoneNum);
-            this.groupBox1.Controls.Add(this.rbCustName);
-            this.groupBox1.Controls.Add(this.tbPhoneNum);
-            this.groupBox1.Controls.Add(this.tbCustName);
-            this.groupBox1.Controls.Add(this.btnSearch);
-            this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(198, 90);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(429, 202);
-            this.groupBox1.TabIndex = 12;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Search By:";
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.dgvMatchingReservation);
-            this.groupBox2.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(48, 329);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(679, 189);
-            this.groupBox2.TabIndex = 13;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Matching Reservation";
-            // 
-            // btnCancel
-            // 
-            this.btnCancel.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancel.Location = new System.Drawing.Point(455, 550);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(185, 40);
-            this.btnCancel.TabIndex = 23;
-            this.btnCancel.Text = "Cancel";
-            this.btnCancel.UseVisualStyleBackColor = true;
+            this.lblResID.AutoSize = true;
+            this.lblResID.Location = new System.Drawing.Point(33, 121);
+            this.lblResID.Name = "lblResID";
+            this.lblResID.Size = new System.Drawing.Size(99, 16);
+            this.lblResID.TabIndex = 6;
+            this.lblResID.Text = "Reservation ID:";
             // 
             // btnCancelReservation
             // 
-            this.btnCancelReservation.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancelReservation.Location = new System.Drawing.Point(112, 550);
-            this.btnCancelReservation.Margin = new System.Windows.Forms.Padding(4);
+            this.btnCancelReservation.Location = new System.Drawing.Point(36, 449);
             this.btnCancelReservation.Name = "btnCancelReservation";
-            this.btnCancelReservation.Size = new System.Drawing.Size(185, 40);
-            this.btnCancelReservation.TabIndex = 22;
+            this.btnCancelReservation.Size = new System.Drawing.Size(267, 31);
+            this.btnCancelReservation.TabIndex = 7;
             this.btnCancelReservation.Text = "Cancel Reservation";
             this.btnCancelReservation.UseVisualStyleBackColor = true;
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.Location = new System.Drawing.Point(381, 449);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(267, 31);
+            this.btnCancel.TabIndex = 8;
+            this.btnCancel.Text = "Back";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            // 
+            // tbResID
+            // 
+            this.tbResID.Location = new System.Drawing.Point(174, 119);
+            this.tbResID.Name = "tbResID";
+            this.tbResID.Size = new System.Drawing.Size(139, 22);
+            this.tbResID.TabIndex = 9;
+            // 
+            // tbPhone
+            // 
+            this.tbPhone.Location = new System.Drawing.Point(174, 202);
+            this.tbPhone.Name = "tbPhone";
+            this.tbPhone.Size = new System.Drawing.Size(139, 22);
+            this.tbPhone.TabIndex = 10;
+            // 
+            // tbName
+            // 
+            this.tbName.Location = new System.Drawing.Point(174, 165);
+            this.tbName.Name = "tbName";
+            this.tbName.Size = new System.Drawing.Size(139, 22);
+            this.tbName.TabIndex = 11;
+            // 
+            // tbDate
+            // 
+            this.tbDate.Location = new System.Drawing.Point(174, 247);
+            this.tbDate.Name = "tbDate";
+            this.tbDate.Size = new System.Drawing.Size(139, 22);
+            this.tbDate.TabIndex = 12;
+            // 
+            // tbGuests
+            // 
+            this.tbGuests.Location = new System.Drawing.Point(174, 298);
+            this.tbGuests.Name = "tbGuests";
+            this.tbGuests.Size = new System.Drawing.Size(139, 22);
+            this.tbGuests.TabIndex = 13;
+            // 
+            // tbStatus
+            // 
+            this.tbStatus.Location = new System.Drawing.Point(174, 351);
+            this.tbStatus.Name = "tbStatus";
+            this.tbStatus.Size = new System.Drawing.Size(139, 22);
+            this.tbStatus.TabIndex = 14;
             // 
             // FrmCancelReservation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(780, 631);
+            this.Controls.Add(this.tbStatus);
+            this.Controls.Add(this.tbGuests);
+            this.Controls.Add(this.tbDate);
+            this.Controls.Add(this.tbName);
+            this.Controls.Add(this.tbPhone);
+            this.Controls.Add(this.tbResID);
             this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.btnCancelReservation);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.lblTitle);
+            this.Controls.Add(this.lblResID);
+            this.Controls.Add(this.lblStatus);
+            this.Controls.Add(this.lblGuests);
+            this.Controls.Add(this.lblDate);
+            this.Controls.Add(this.lblPhone);
+            this.Controls.Add(this.lblName);
+            this.Controls.Add(this.lblHeader);
             this.Name = "FrmCancelReservation";
-            this.Text = "Find Reservation";
-            this.Load += new System.EventHandler(this.FrmCancelReservation_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvMatchingReservation)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
+            this.Text = "Cancel Reservation";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -268,22 +198,20 @@
 
         #endregion
 
-        private System.Windows.Forms.Label lblTitle;
-        private System.Windows.Forms.Button btnSearch;
-        private System.Windows.Forms.TextBox tbCustName;
-        private System.Windows.Forms.TextBox tbPhoneNum;
-        private System.Windows.Forms.DataGridView dgvMatchingReservation;
-        private System.Windows.Forms.RadioButton rbCustName;
-        private System.Windows.Forms.RadioButton rbPhoneNum;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Label lblHeader;
+        private System.Windows.Forms.Label lblName;
+        private System.Windows.Forms.Label lblPhone;
+        private System.Windows.Forms.Label lblDate;
+        private System.Windows.Forms.Label lblGuests;
+        private System.Windows.Forms.Label lblStatus;
+        private System.Windows.Forms.Label lblResID;
         private System.Windows.Forms.Button btnCancelReservation;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Phone;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Date;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Time;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Guests;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Table;
+        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.TextBox tbResID;
+        private System.Windows.Forms.TextBox tbPhone;
+        private System.Windows.Forms.TextBox tbName;
+        private System.Windows.Forms.TextBox tbDate;
+        private System.Windows.Forms.TextBox tbGuests;
+        private System.Windows.Forms.TextBox tbStatus;
     }
 }

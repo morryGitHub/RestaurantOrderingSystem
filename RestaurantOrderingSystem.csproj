@@ -139,6 +139,7 @@
     <Compile Include="OracleDatabase\Database.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="OrderItem.cs" />
+    <Compile Include="Payment.cs" />
     <Compile Include="ProcessPayments\MakePayment.cs">
       <SubType>Form</SubType>
     </Compile>

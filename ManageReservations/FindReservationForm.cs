@@ -63,9 +63,11 @@ namespace RestaurantOrderingSystem
         private void btnSearch_Click_1(object sender, EventArgs e)
         {
             dgvMatchingReservation.Rows.Clear();
+            dgvMatchingReservation.Visible = true;
 
             string phone = null;
             string name = null;
+
             if (rbCustName.Checked)
             {
                 name = tbCustName.Text;
@@ -86,6 +88,10 @@ namespace RestaurantOrderingSystem
             }
 
             DataSet ds = Reservation.GetReservationDetails(phone, name);
+            if (ds.Tables[0].Rows.Count == 0)
+            {
+                dgvMatchingReservation.Visible = false;
+            }
             if (ds != null)
             {
                 foreach (DataRow row in ds.Tables[0].Rows)
@@ -201,13 +207,14 @@ namespace RestaurantOrderingSystem
         private void btnNext_Click(object sender, EventArgs e)
         {
 
-            DataGridViewRow row = dgvMatchingReservation.Rows[0];
+            DataGridViewRow row = dgvMatchingReservation.SelectedRows[0];
             string nextPage = UserSession.ReservationAction;
 
 
             if (row != null)
             {
                 int tableID = Convert.ToInt32(row.Cells["TableID"].Value);
+                int resID = Convert.ToInt32(row.Cells["ResID"].Value);
                 switch (nextPage)
                 {
 
@@ -217,14 +224,16 @@ namespace RestaurantOrderingSystem
                         break;
 
                     case ("Update"):
-                        int resID = Convert.ToInt32(dgvMatchingReservation.SelectedRows[0].Cells["ResID"].Value);
+                        ;
                         FrmUpdateReservation frmUpdateReservation = new FrmUpdateReservation(resID, tableID);
                         frmUpdateReservation.ShowDialog();
                         break;
 
                     case ("Remove"):
-                        FrmCancelReservation frmCancelReservation = new FrmCancelReservation();
-                        frmCancelReservation.ShowDialog();
+                        Reservation reservation = new Reservation(resID);
+                        reservation.DeleteReservation();
+                        MessageBox.Show("Reservation was succesfully cancelled");
+                        this.Close();
                         break;
                 }
 
