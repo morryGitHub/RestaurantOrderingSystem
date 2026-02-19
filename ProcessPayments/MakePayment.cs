@@ -36,14 +36,23 @@ namespace RestaurantOrderingSystem
                 return;
             }
 
+            decimal total = decimal.Parse(lblAmount.Text.Replace("€", ""));
+            string orderName = cmbOrders.SelectedItem.ToString();
+            string method = cmbMethod.SelectedItem.ToString();
+            Order order = cmbOrders.SelectedItem as Order;
+
+            int orderID = order.OrderID;
+
+
+            Payment payment = new Payment(orderID, total, method, DateTime.Now.ToString("dd-MM-yyyy HH:mm"));
+            payment.MakePayment();
+
             MessageBox.Show("Payment successful.\nOrder is now PAID.\nTable is now AVAILABLE.",
                             "Success",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Information);
 
-            decimal total = decimal.Parse(lblTotal.Text.Replace("€", ""));
-            string orderName = cmbOrders.SelectedItem.ToString();
-            string method = cmbMethod.SelectedItem.ToString();
+          
 
             FrmReceipt receipt = new FrmReceipt(orderName, method, total, dgvOrderItems);
             receipt.ShowDialog();
@@ -61,22 +70,44 @@ namespace RestaurantOrderingSystem
         private void cmbOrders_SelectedIndexChanged(object sender, EventArgs e)
         {
             dgvOrderItems.Rows.Clear();
+            lblAmount.Text = "€0.00";
 
-            if (cmbOrders.SelectedIndex == 0)
+            if (cmbOrders.Text.Equals("Select the Order"))
             {
-                dgvOrderItems.Rows.Add("Pizza", "11.00", 2, "22.00");
-                dgvOrderItems.Rows.Add("Water", "2.00", 1, "2.00");
-                lblTotal.Text = "€24.00";
-                lblAmount.Text = "€24.00";
+                return;
             }
-            else
-            {
-                dgvOrderItems.Rows.Add("Steak", "18.00", 1, "18.00");
-                dgvOrderItems.Rows.Add("Cola", "3.50", 2, "3.50");
-                lblTotal.Text = "€25.00";
-                lblAmount.Text = "€25.00";
 
+            btnCancel.Enabled = true;
+            cmbOrders.Items.Remove("Select the Order");
+
+            Order order = cmbOrders.SelectedItem as Order;
+
+            int orderID = order.OrderID;
+
+            DataSet ds = OrderItem.GetMenuItemsFromOrder(orderID);
+
+            foreach (DataRow row in ds.Tables[0].Rows)
+            {
+                string itemName = row["ItemName"].ToString();
+                decimal unitPrice = Convert.ToDecimal(row["UnitPrice"]);
+                int qty = Convert.ToInt32(row["Quantity"]);
+                decimal subtotal = unitPrice * qty;
+                int menuItemID = Convert.ToInt32(row["MenuItemID"]);
+
+
+                dgvOrderItems.Rows.Add(
+                    itemName,
+                    unitPrice.ToString("F2"),
+                    qty,
+                    subtotal.ToString("F2"),
+                    menuItemID
+                );
             }
+
+
+
+
+            Validation.UpdateTotal(dgvOrderItems, lblAmount);
         }
 
         private void lblTotal_Click(object sender, EventArgs e)
@@ -103,6 +134,36 @@ namespace RestaurantOrderingSystem
         private void frmMakePayment_Load(object sender, EventArgs e)
         {
             dgvOrderItems.ClearSelection();
+            FillActiveOrdersComboBox();
+            FillMethodType();
+
+        }
+
+        public void FillActiveOrdersComboBox()
+        {
+            cmbOrders.Items.Clear();
+            List<Order> orders = Order.LoadOrders();
+
+            cmbOrders.Items.Add("Select the Order");
+            cmbOrders.SelectedIndex = 0;
+
+            foreach (Order order in orders)
+            {
+                cmbOrders.Items.Add(order);
+            }
+
+        }
+
+        private void FillMethodType()
+        {
+            cmbMethod.Items.Clear();
+            cmbMethod.Items.Add("Card");
+            cmbMethod.Items.Add("Cash");
+
+        }
+
+        private void dgvOrderItems_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
 
         }
     }

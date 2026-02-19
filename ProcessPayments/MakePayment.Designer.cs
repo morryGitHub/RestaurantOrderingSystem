@@ -33,8 +33,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.lblTotal = new System.Windows.Forms.Label();
-            this.lblTotalText = new System.Windows.Forms.Label();
             this.dgvOrderItems = new System.Windows.Forms.DataGridView();
             this.Item = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.UnitPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -59,38 +57,14 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.lblTotal);
-            this.groupBox3.Controls.Add(this.lblTotalText);
             this.groupBox3.Controls.Add(this.dgvOrderItems);
             this.groupBox3.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox3.Location = new System.Drawing.Point(376, 87);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(511, 319);
+            this.groupBox3.Size = new System.Drawing.Size(511, 310);
             this.groupBox3.TabIndex = 14;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Order Summary";
-            // 
-            // lblTotal
-            // 
-            this.lblTotal.AutoSize = true;
-            this.lblTotal.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.lblTotal.Location = new System.Drawing.Point(82, 276);
-            this.lblTotal.Name = "lblTotal";
-            this.lblTotal.Size = new System.Drawing.Size(60, 28);
-            this.lblTotal.TabIndex = 9;
-            this.lblTotal.Text = "€0.00";
-            this.lblTotal.Click += new System.EventHandler(this.lblTotal_Click);
-            // 
-            // lblTotalText
-            // 
-            this.lblTotalText.AutoSize = true;
-            this.lblTotalText.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.lblTotalText.Location = new System.Drawing.Point(6, 276);
-            this.lblTotalText.Name = "lblTotalText";
-            this.lblTotalText.Size = new System.Drawing.Size(70, 28);
-            this.lblTotalText.TabIndex = 8;
-            this.lblTotalText.Text = "Total: ";
-            this.lblTotalText.Click += new System.EventHandler(this.lblTotalText_Click);
             // 
             // dgvOrderItems
             // 
@@ -101,7 +75,7 @@
             this.dgvOrderItems.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.WhiteSmoke;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
@@ -142,8 +116,9 @@
             this.dgvOrderItems.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvOrderItems.RowTemplate.Height = 24;
             this.dgvOrderItems.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvOrderItems.Size = new System.Drawing.Size(499, 234);
+            this.dgvOrderItems.Size = new System.Drawing.Size(499, 267);
             this.dgvOrderItems.TabIndex = 3;
+            this.dgvOrderItems.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvOrderItems_CellContentClick);
             // 
             // Item
             // 
@@ -304,7 +279,7 @@
             this.lblTitle.Text = "Make Payment";
             this.lblTitle.Click += new System.EventHandler(this.lblTitle_Click);
             // 
-            // frmMakePayment
+            // FrmMakePayment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -314,11 +289,10 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.lblTitle);
-            this.Name = "frmMakePayment";
+            this.Name = "FrmMakePayment";
             this.Text = "Make Payment";
             this.Load += new System.EventHandler(this.frmMakePayment_Load);
             this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOrderItems)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
@@ -348,7 +322,5 @@
         private System.Windows.Forms.Label lblOrder;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Label lblAmount;
-        private System.Windows.Forms.Label lblTotal;
-        private System.Windows.Forms.Label lblTotalText;
     }
 }
