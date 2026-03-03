@@ -37,6 +37,15 @@ namespace RestaurantOrderingSystem
 
             dgvTables.ClearSelection();
 
+
+            string senderEmail = "morry.GitHub@gmail.com";
+            string appPassword = "bveqapdowlnruikr";
+            string recipientEmail = "rublykkolya@icloud.com";
+            string emailSubject = "Test Email from C#";
+            string emailBody = "<h1>Hello!</h1><p>This is a test email sent using Gmail SMTP in C#.</p>";
+
+            GmailSender.SendEmail(senderEmail, appPassword, recipientEmail, emailSubject, emailBody);
+
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -162,8 +171,9 @@ namespace RestaurantOrderingSystem
                 MessageBoxIcon.Information
             );
 
-            
-            
+
+          
+
 
             this.Close();
 
