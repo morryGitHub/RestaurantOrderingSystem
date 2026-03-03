@@ -107,7 +107,6 @@ namespace RestaurantOrderingSystem
             cmbTableNo.Items.Clear();
 
             List<Table> tables = Table.GetAvailableTables();
-            Console.WriteLine(tables.Count);
 
             if (tables.Count == 0)
             {

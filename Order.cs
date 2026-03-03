@@ -10,36 +10,36 @@ namespace RestaurantOrderingSystem
 {
     internal class Order
     {
-        public int OrderID;
-        public int TableID;
+        public int ID;
+        public Table Table;
         public DateTime OrderDate;
         public decimal TotalAmount;
         public string Status;
 
-        public Order(int tableID, DateTime orderDate, decimal totalAmount)
+        public Order(Table table, DateTime orderDate, decimal totalAmount)
         {
-            TableID = tableID;
+            Table = table;
             OrderDate = orderDate;
             TotalAmount = totalAmount;
             Status = "Active";
         }
 
-        public Order(int orderID, int tableID)
+        public Order(int orderID, Table table)
         {
-            OrderID = orderID;
-            TableID = tableID;
+            ID = orderID;
+            Table = table;
         }
 
         public override string ToString()
         {
-            return $"Order #{OrderID} — Table {TableID}";
+            return $"Order #{ID} — Table {Table.TableNumber}";
         }
 
         public void AddOrder()
         {
             string sql = $@"
                 INSERT INTO ORDERS(TableID, OrderDate, TotalAmount, Status)
-                VALUES({TableID}, TO_DATE('{OrderDate:yyyy-MM-dd HH:mm:ss}', 'YYYY-MM-DD HH24:MI:SS'), {TotalAmount}, '{Status}')
+                VALUES({Table.TableId}, TO_DATE('{OrderDate:yyyy-MM-dd HH:mm:ss}', 'YYYY-MM-DD HH24:MI:SS'), {TotalAmount}, '{Status}')
             ";
 
             Database.ExecuteNonQuery(sql);
@@ -49,8 +49,9 @@ namespace RestaurantOrderingSystem
         {
             string sql = $@"
                     UPDATE ORDERS
-                    SET Status = ''
-                    ";
+                    SET Status = 'Unavailable'";
+
+            Database.ExecuteSingleRowQuery(sql);
         }
 
         public void CancelOrder(int orderID)
@@ -68,10 +69,12 @@ namespace RestaurantOrderingSystem
         {
             string sql = $@"
                     SELECT
-                         o.OrderID     AS OrderID,
-                         t.Table_No    AS TableNo
+                         o.OrderID,
+                         t.TableID,
+                         t.TableNo   
+                        
                     FROM Orders o
-                    JOIN Restaurant_Tables t ON o.TableID = t.Table_ID
+                    JOIN tablesinfo t ON o.TableID = t.TableID
                     WHERE o.Status = 'Active'";
 
             return Database.ExecuteMultiRowQuery(sql);
@@ -86,7 +89,10 @@ namespace RestaurantOrderingSystem
             {
                 orders.Add(new Order(
                     Convert.ToInt32(row["OrderID"]),
-                    Convert.ToInt32(row["TableNo"])
+                    table: new Table(
+                        Convert.ToInt32(row["TableID"]),
+                        Convert.ToInt32(row["TableNo"])
+                        )
                 ));
             }
 

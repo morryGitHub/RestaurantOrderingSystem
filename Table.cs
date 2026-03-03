@@ -26,13 +26,14 @@ namespace RestaurantOrderingSystem
             Status = "Available";
 
         }
-
-        public Table(int tableNumber, int capacity)
+        public Table(int tableId=0, int tableNumber = 0, int capacity = 0, string status = "Available")
         {
+            TableId = tableId;
             TableNumber = tableNumber;
             Capacity = capacity;
-            Status = "Available";
+            Status = status;
         }
+
         public Table(int tableID, int tableNumber, int capacity)
         {
             TableId = tableID;
@@ -46,13 +47,14 @@ namespace RestaurantOrderingSystem
             Capacity = capacity;
             Status = status;
         }
-        public Table(int tableID, int tableNumber, int capacity, string status)
+
+        public Table(int tableNumber, int capacity)
         {
-            TableId = tableID;
             TableNumber = tableNumber;
             Capacity = capacity;
-            Status = status;
+            Status = Status;
         }
+
 
         public override string ToString()
         {
@@ -63,7 +65,7 @@ namespace RestaurantOrderingSystem
             //Define the SQL query to be executed
 
             string sql = $@"
-                INSERT INTO RESTAURANT_TABLES (TABLE_NO, CAPACITY, STATUS)
+                INSERT INTO tablesinfo (TABLENO, CAPACITY, STATUS)
                 VALUES ({TableNumber}, {Capacity}, '{Status}')";
 
             //Execute the SQL query
@@ -73,17 +75,17 @@ namespace RestaurantOrderingSystem
         public static Table GetTable(int tableID)
         {
             string sql = $@"
-                    SELECT TABLE_ID, TABLE_NO, CAPACITY
-                    FROM RESTAURANT_TABLES
-                    WHERE TABLE_ID = {tableID}
+                    SELECT TABLEID, TABLENO, CAPACITY
+                    FROM tablesinfo
+                    WHERE TABLEID = {tableID}
                     ";
 
             using (IDataReader reader = Database.ExecuteSingleRowQuery(sql))
             {
                 if (reader.Read())
                 {
-                    int id = Convert.ToInt32(reader["TABLE_ID"]);
-                    int no = Convert.ToInt32(reader["TABLE_NO"]);
+                    int id = Convert.ToInt32(reader["TABLEID"]);
+                    int no = Convert.ToInt32(reader["TABLENO"]);
                     int capacity = Convert.ToInt32(reader["CAPACITY"]);
                     return new Table(id, no, capacity);
                 }
@@ -99,9 +101,9 @@ namespace RestaurantOrderingSystem
         {
             //Define the SQL query to be executed
             string sql = @"
-                SELECT TABLE_ID, TABLE_NO, CAPACITY, STATUS
-                FROM RESTAURANT_TABLES
-                ORDER BY TABLE_NO
+                SELECT TABLEID, TABLENO, CAPACITY, STATUS
+                FROM tablesinfo
+                ORDER BY TABLENO
             ";
 
             //Execute the SQL query
@@ -112,13 +114,13 @@ namespace RestaurantOrderingSystem
         {
             //Define the SQL query to be executed
             string sql = @"
-                SELECT t.TABLE_ID, t.TABLE_NO, t.CAPACITY, t.STATUS, o.Status
-                FROM RESTAURANT_TABLES t
+                SELECT t.TABLEID, t.TABLENO, t.CAPACITY, t.STATUS, o.Status
+                FROM tablesinfo t
                 LEFT JOIN ORDERS o 
-                    ON t.Table_ID = o.TableID
+                    ON t.TableID = o.TableID
                 WHERE t.STATUS = 'Available' 
                     AND (o.Status IS NULL or o.STATUS != 'Active')
-                ORDER BY TABLE_NO
+                ORDER BY TABLENO
             ";
 
             //Execute the SQL query
@@ -127,10 +129,10 @@ namespace RestaurantOrderingSystem
 
         public void UpdateTable()
         {
-            string sqlQuery = "UPDATE RESTAURANT_TABLES SET " +
+            string sqlQuery = "UPDATE tablesinfo SET " +
                "CAPACITY = '" + Capacity + "'," +
                "STATUS = '" + Status + "' " +
-               "WHERE TABLE_NO = " + TableNumber;
+               "WHERE TABLENO = " + TableNumber;
 
             //Execute the SQL query
             Database.ExecuteNonQuery(sqlQuery);
@@ -139,7 +141,10 @@ namespace RestaurantOrderingSystem
         public static void DeleteTable(int tableNo)
         {
             //Define the SQL query to be executed
-            string sqlQuery = $"UPDATE RESTAURANT_TABLES SET STATUS = 'Unavailable' WHERE TABLE_NO = {tableNo}";
+            string sqlQuery = $@"
+                    UPDATE tablesinfo
+                    SET STATUS = 'Unavailable' 
+                    WHERE TABLENO = {tableNo}";
 
 
             //Execute the SQL query
@@ -149,19 +154,22 @@ namespace RestaurantOrderingSystem
 
         public static int GetLastTableID()
         {
-            string sql = "SELECT MAX(TABLE_NO) FROM RESTAURANT_TABLES";
-
+            string sql = "SELECT MAX(TABLENO) FROM tablesinfo";
             OracleDataReader reader = Database.ExecuteSingleRowQuery(sql);
 
             if (reader != null)
             {
                 if (reader.Read())
                 {
+                    Debug.WriteLine("reader.Read()");
+
                     if (!reader.IsDBNull(0))
                     {
-                        int newOrderID = reader.GetInt32(0) + 1;
+                        Debug.WriteLine("newTableNo");
+                        int newTableNo = Convert.ToInt32(reader.GetValue(0)) + 1;
+                        Debug.WriteLine(newTableNo);
                         reader.Close();
-                        return newOrderID;
+                        return newTableNo;
                     }
                 }
                 reader.Close();
@@ -169,27 +177,7 @@ namespace RestaurantOrderingSystem
 
             return 1;
         }
-        //public static int? GetNextFreeTableNumber()
-        //{
-        //    string sql = @"
-        //        SELECT MIN(n)
-        //        FROM (
-        //            SELECT LEVEL n FROM dual CONNECT BY LEVEL <= 20
-        //        )
-        //        WHERE n NOT IN (
-        //            SELECT TABLE_NO FROM RESTAURANT_TABLES
-        //        )
-        //    ";
-
-        //    OracleDataReader dr = Database.ExecuteSingleRowQuery(sql);
-        //    dr.Read();
-
-        //    if (dr.IsDBNull(0))
-        //        return null;
-
-        //    return dr.GetInt32(0);
-        //}
-
+   
         public static List<Table> GetTables()
         {
             DataSet ds = LoadAllTables();
@@ -198,7 +186,7 @@ namespace RestaurantOrderingSystem
             foreach (DataRow row in ds.Tables[0].Rows)
             {
                 tables.Add(new Table(
-                    Convert.ToInt32(row["TABLE_NO"]),
+                    Convert.ToInt32(row["TABLENO"]),
                     Convert.ToInt32(row["CAPACITY"]),
                     row["STATUS"].ToString()
                 ));
@@ -214,9 +202,9 @@ namespace RestaurantOrderingSystem
 
             foreach (DataRow row in ds.Tables[0].Rows)
             {
-                tables.Add(new Table(
-                    Convert.ToInt32(row["TABLE_ID"]),
-                    Convert.ToInt32(row["TABLE_NO"]),
+                tables.Add(item: new Table(
+                    Convert.ToInt32(row["TABLEID"]),
+                    Convert.ToInt32(row["TABLENO"]),
                     Convert.ToInt32(row["CAPACITY"]),
                     row["STATUS"].ToString()
                 ));

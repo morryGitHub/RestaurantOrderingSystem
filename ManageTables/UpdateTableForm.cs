@@ -81,7 +81,7 @@ namespace RestaurantOrderingSystem
             string status = cmbStatus.Text;
 
             string seatingCheck = Validation.IsSeatingCapacityValid(numSeats.Value);
-            if (seatingCheck != "valid")
+            if (seatingCheck != "Valid")
             {
                 MessageBox.Show(seatingCheck,
                                 "Validation Error",

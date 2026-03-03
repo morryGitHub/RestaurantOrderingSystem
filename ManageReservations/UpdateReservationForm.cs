@@ -195,8 +195,8 @@ namespace RestaurantOrderingSystem
 
                 foreach (DataRow row in ds.Tables[0].Rows)
                 {
-                    int tableID = Convert.ToInt32(row["Table_ID"]);
-                    int tableNo = Convert.ToInt32(row["Table_No"]);
+                    int tableID = Convert.ToInt32(row["TableID"]);
+                    int tableNo = Convert.ToInt32(row["TableNo"]);
                     int capacity = Convert.ToInt32(row["Capacity"]);
                     string status = row["Status"].ToString();
 

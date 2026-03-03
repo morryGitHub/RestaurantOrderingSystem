@@ -21,7 +21,7 @@ namespace RestaurantOrderingSystem
         {
             string seatingCheck = Validation.IsSeatingCapacityValid(numericSeatingCap.Value);
 
-            if (seatingCheck != "valid")
+            if (seatingCheck != "Valid")
             {
                 MessageBox.Show(seatingCheck, "Validation Error");
                 return;

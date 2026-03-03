@@ -68,12 +68,11 @@ namespace RestaurantOrderingSystem
                 return;
             }
 
-            var selectedTable = cmbAvailableTables.SelectedItem as Table;
-            int tableID = Convert.ToInt16(selectedTable.TableId);
+            Table selectedTable = cmbAvailableTables.SelectedItem as Table;
             DateTime dateTime = DateTime.Now;
             decimal total = Convert.ToDecimal(lblTotal.Text.Split('€')[1]);
 
-            Order order = new Order(tableID, dateTime, total);
+            Order order = new Order(selectedTable, dateTime, total);
 
             order.AddOrder();
             int newOrderID = OrderItem.GetLastOrderID();
@@ -84,9 +83,9 @@ namespace RestaurantOrderingSystem
                 if (row.IsNewRow) { continue; }
                 int menuItemID = Convert.ToInt32(row.Cells["MenuItemID"].Value);
                 int qty = Convert.ToInt32(row.Cells["Qty"].Value);
-                decimal price = Convert.ToDecimal(row.Cells["UnitPrice"].Value);
+                decimal _ = Convert.ToDecimal(row.Cells["UnitPrice"].Value);
 
-                OrderItem orderItem = new OrderItem(newOrderID, menuItemID, qty, price);
+                OrderItem orderItem = new OrderItem(newOrderID, menuItemID, qty);
                 orderItem.AddOrderItems();
             }
 

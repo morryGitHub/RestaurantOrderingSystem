@@ -16,27 +16,25 @@ namespace RestaurantOrderingSystem
         public int OrderID;
         public int MenuItemID;
         public int Quantity;
-        public decimal UnitPrice;
 
-        public OrderItem(int orderID, int menuItemID, int quantity, decimal unitPrice)
+        public OrderItem(int orderID, int menuItemID, int quantity)
         {
             OrderID = orderID;
             MenuItemID = menuItemID;
             Quantity = quantity;
-            UnitPrice = unitPrice;
 
         }
 
         public override string ToString()
         {
-            return $"OrderID: {OrderID}, MenuItemID: {MenuItemID}, Quantity: {Quantity}, UnitPrice: {UnitPrice}";
+            return $"OrderID: {OrderID}, MenuItemID: {MenuItemID}, Quantity: {Quantity}";
         }
 
         public void AddOrderItems()
         {
             string sqlOrder = $@"
-                INSERT INTO OrderItems(orderID, menuItemID, quantity, unitPrice)
-                VALUES({OrderID}, {MenuItemID}, {Quantity}, {UnitPrice})";
+                INSERT INTO OrderItems(orderID, menuItemID, quantity)
+                VALUES({OrderID}, {MenuItemID}, {Quantity})";
 
             Database.ExecuteNonQuery(sqlOrder);
         }
@@ -64,25 +62,25 @@ namespace RestaurantOrderingSystem
             return 1;
         }
 
-        public static DataSet GetMenuItemsFromOrder(int orderID)
+        public static DataSet GetMenuItemsFromOrder(int orderID, string status)
         {
             string sql = $@"
                     SELECT 
                         o.OrderID AS OrderID,
-                        t.Table_No AS TableNo,
+                        t.TableNo AS TableNo,
                         o.TotalAmount AS TotalAmount,
                         oi.MenuItemID AS MenuItemID,
                         m.Name AS ItemName,
                         oi.Quantity AS Quantity,
                         m.UnitPrice AS UnitPrice
                     FROM Orders o
-                    JOIN Restaurant_Tables t 
-                        ON o.TableID = t.Table_ID
+                    JOIN tablesinfo t 
+                        ON o.TableID = t.TableID
                     JOIN OrderItems oi 
                         ON o.OrderID = oi.OrderID
-                    JOIN Menu_Items m 
+                    JOIN MenuItems m 
                         ON oi.MenuItemID = m.MenuItemID
-                    WHERE o.Status = 'Active' AND o.OrderID = {orderID}";
+                    WHERE o.Status = '{status}' AND o.OrderID = {orderID}";
 
 
             return Database.ExecuteMultiRowQuery(sql);

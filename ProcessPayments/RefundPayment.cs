@@ -17,8 +17,8 @@ namespace RestaurantOrderingSystem
             InitializeComponent();
         }
 
-      
-      
+
+
         private void button2_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Refund cancelled.", "Cancelled");
@@ -42,20 +42,31 @@ namespace RestaurantOrderingSystem
             dgvPayments.ReadOnly = true;
 
             dgvPayments.ClearSelection();
+            FillPaidPaymentsComboBox();
+
+
         }
 
         private void cmbOrders_SelectedIndexChanged(object sender, EventArgs e)
         {
             dgvPayments.Rows.Clear();
+            Order order = cmbOrders.SelectedItem as Order;
+            DataSet ds = Payment.GetCompletedOrderDetails(order.ID);
 
-            if (cmbOrders.SelectedIndex == 0)
+            foreach (DataRow row in ds.Tables[0].Rows)
             {
-                dgvPayments.Rows.Add("P987", "Card", "24.00", "2025-12-01");
-            }
-            else
-            {
-                dgvPayments.Rows.Add("P990", "Cash", "18.00", "2025-12-03");
-                dgvPayments.Rows.Add("P991", "Cash", "3.50", "2025-12-03");
+                int paymentID = Convert.ToInt32(row["paymentID"]);
+                string methodType = row["methodType"].ToString();
+                decimal amount = Convert.ToDecimal(row["amount"]);
+                DateTime paymentDate = Convert.ToDateTime(row["paymentDate"]);
+
+
+                dgvPayments.Rows.Add(
+                        paymentID,
+                        methodType,
+                        amount.ToString("F2"),
+                        paymentDate.ToString("dd-MM-yyyy HH:mm")
+                );
             }
         }
 
@@ -74,8 +85,10 @@ namespace RestaurantOrderingSystem
                 return;
             }
 
-            string paymentID = dgvPayments.SelectedRows[0].Cells["ID"].Value.ToString();
+            int paymentID = Convert.ToInt32(dgvPayments.SelectedRows[0].Cells["ID"].Value);
             string amount = dgvPayments.SelectedRows[0].Cells["Amount"].Value.ToString();
+
+            Payment.RefundPayment(paymentID);
 
             MessageBox.Show(
                 $"Refund processed successfully.\n" +
@@ -90,6 +103,20 @@ namespace RestaurantOrderingSystem
 
         private void dgvPayments_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+
+        }
+
+        public void FillPaidPaymentsComboBox()
+        {
+            List<Order> orders = Payment.LoadPaidOrders();
+
+            cmbOrders.Items.Clear();
+
+            foreach (Order order in orders)
+            {
+                cmbOrders.Items.Add(order);
+            }
+
 
         }
     }

@@ -59,11 +59,11 @@ namespace RestaurantOrderingSystem
 
             Order order = cmbOrders.SelectedItem as Order;
 
-            int orderID = order.OrderID;
+            int orderID = order.ID;
 
-            DataSet ds = OrderItem.GetMenuItemsFromOrder(orderID);
+            DataSet dsActive = OrderItem.GetMenuItemsFromOrder(orderID, "Active");
 
-            foreach (DataRow row in ds.Tables[0].Rows)
+            foreach (DataRow row in dsActive.Tables[0].Rows)
             {
                 string itemName = row["ItemName"].ToString();
                 decimal unitPrice = Convert.ToDecimal(row["UnitPrice"]);

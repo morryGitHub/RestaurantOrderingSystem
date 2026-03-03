@@ -69,14 +69,14 @@ namespace RestaurantOrderingSystem
         public static DataSet GetAvailableTablesForReservation(int numOfGuest, string start, string end)
         {
             string sql = $@"
-                SELECT t.Table_ID, t.table_No, t.Capacity, t.Status
-                FROM Restaurant_Tables t
+                SELECT t.TableID, t.tableNo, t.Capacity, t.Status
+                FROM tablesinfo t
                 WHERE t.status = 'Available'
                   AND t.capacity >= {numOfGuest}
                   AND NOT EXISTS (
                       SELECT 1
                       FROM Reservations r
-                      WHERE r.tableID = t.table_ID
+                      WHERE r.tableID = t.tableID
                         AND TO_DATE('{start}', 'DD-MM-YYYY HH24:MI') < r.reservationDateTimeEnd
                         AND TO_DATE('{end}', 'DD-MM-YYYY HH24:MI') > r.reservationDateTimeStart
                     )
@@ -100,9 +100,9 @@ namespace RestaurantOrderingSystem
         {
 
             string sql = $@"
-                SELECT t.TABLE_NO AS TableNo, r.TableID, r.CUSTOMERNAME,  r.CUSTOMERPHONE, r.RESERVATIONDATETIMESTART, r.NUMBEROFGUESTS, r.RESERVATIONID, r.STATUS
+                SELECT t.TABLENO, r.TableID, r.CUSTOMERNAME,  r.CUSTOMERPHONE, r.RESERVATIONDATETIMESTART, r.NUMBEROFGUESTS, r.RESERVATIONID, r.STATUS
                 FROM RESERVATIONS r
-                JOIN RESTAURANT_TABLES t ON r.TABLEID = t.Table_ID
+                JOIN tablesinfo t ON r.TABLEID = t.TableID
                 WHERE r.STATUS = 'BOOKED'";
 
             if (id.HasValue)
@@ -118,7 +118,7 @@ namespace RestaurantOrderingSystem
 
                 if (!string.IsNullOrEmpty(name))
                 {
-                    sql += $@" AND CUSTOMERNAME LIKE '%{name}%'";
+                    sql += $@" AND LOWER(CUSTOMERNAME) LIKE LOWER('%{name}%')";
                 }
             }
 

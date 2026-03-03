@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -37,11 +38,11 @@ namespace RestaurantOrderingSystem
             dgvOrderDetails.MultiSelect = false;
 
             dgvOrderDetails.ClearSelection();
+            FillPaidPaymentsComboBox();
         }
 
         private void dgvPayments_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            dgvOrderDetails.ClearSelection();
         }
 
       
@@ -56,39 +57,79 @@ namespace RestaurantOrderingSystem
 
         private void btnRefund_Click(object sender, EventArgs e)
         {
-            DataGridView dgvPayments = new DataGridView();
-            dgvPayments.Columns.Add("Order", "Order");
-            dgvPayments.Columns.Add("Method", "Method");
-            dgvPayments.Columns.Add("Total", "Total");
-            dgvPayments.Columns.Add("Date", "Date");
+            Order order = cmbOrders.SelectedItem as Order;
+            if (order == null) return;
 
-            dgvPayments.Rows.Add("P987", "Card", "24.00", "2025-12-01");
+            string orderName = $"Table {order.Table.TableNumber} — Order #{order.ID}";
 
-            string orderName = dgvPayments.Rows[0].Cells[0].Value.ToString();
-            string method = dgvPayments.Rows[0].Cells[1].Value.ToString();
-            decimal total = Convert.ToDecimal(dgvPayments.Rows[0].Cells[2].Value);
+            string paymentMethod = Payment.GetPaymentMethodByOrder(order.ID) ?? "Unspecified";
 
-            FrmReceipt receipt = new FrmReceipt(orderName, method, total, dgvOrderDetails);
+            DataSet dsItems = OrderItem.GetMenuItemsFromOrder(order.ID, "Completed");
+            decimal total = 0;
+            foreach (DataRow row in dsItems.Tables[0].Rows)
+            {
+                decimal unitPrice = Convert.ToDecimal(row["UnitPrice"]);
+                int qty = Convert.ToInt32(row["Quantity"]);
+                total += unitPrice * qty;
+            }
+
+            FrmReceipt receipt = new FrmReceipt(orderName, paymentMethod, total, dgvOrderDetails);
             receipt.ShowDialog();
+        }
+
+
+
+        public void FillPaidPaymentsComboBox()
+        {
+            List<Order> orders = Payment.LoadPaidOrders();
+
+            cmbOrders.Items.Clear();
+
+            foreach (Order order in orders)
+            {
+                cmbOrders.Items.Add(order);
+            }
+
+
         }
 
         private void cmbOrders_SelectedIndexChanged(object sender, EventArgs e)
         {
             dgvOrderDetails.Rows.Clear();
+            lblTotal.Text = "€0.00";
 
-            if (cmbOrders.SelectedIndex == 0)
+            if (cmbOrders.Text.Equals("Select the Order"))
             {
-                dgvOrderDetails.Rows.Add("Pizza", "11.00", 2, "22.00");
-                dgvOrderDetails.Rows.Add("Water", "2.00", 1, "2.00");
-                lblTotal.Text = "€24.00";
+                return;
             }
-            else
-            {
-                dgvOrderDetails.Rows.Add("Steak", "18.00", 1, "18.00");
-                dgvOrderDetails.Rows.Add("Cola", "3.50", 1, "3.50");
-                lblTotal.Text = "€21.50";
 
+            btnCancel.Enabled = true;
+            cmbOrders.Items.Remove("Select the Order");
+
+            Order order = cmbOrders.SelectedItem as Order;
+
+            DataSet dsCompleted = OrderItem.GetMenuItemsFromOrder(order.ID, "Completed");
+
+            foreach (DataRow row in dsCompleted.Tables[0].Rows)
+            {
+                string itemName = row["ItemName"].ToString();
+                decimal unitPrice = Convert.ToDecimal(row["UnitPrice"]);
+                int qty = Convert.ToInt32(row["Quantity"]);
+                decimal subtotal = unitPrice * qty;
+                int menuItemID = Convert.ToInt32(row["MenuItemID"]);
+
+
+                dgvOrderDetails.Rows.Add(
+                    itemName,
+                    unitPrice.ToString("F2"),
+                    qty,
+                    subtotal.ToString("F2"),
+                    menuItemID
+                );
             }
+
+            Validation.UpdateTotal(dgvOrderDetails, lblTotal);
+
         }
     }
 }
