@@ -17,7 +17,11 @@ namespace RestaurantOrderingSystem
 
         public Statistics()
         {
+        }
 
+        public Statistics(int year)
+        {
+            Year = year;
         }
 
         public override string ToString()
@@ -39,20 +43,18 @@ namespace RestaurantOrderingSystem
         public DataSet GetYearlyRevenue()
         {
             string sql = $@"
-                SELECT 
-                    EXTRACT(YEAR FROM orderDate) AS year,
-                    EXTRACT(MONTH FROM orderDate) AS month,
-                    SUM(totalAmount) AS revenue
-                FROM orders
-                WHERE  EXTRACT(YEAR FROM orderDate) = {Year}
-                GROUP BY 
-                    EXTRACT(YEAR FROM orderDate),
-                    EXTRACT(MONTH FROM orderDate)
-                ORDER BY year, month;     
+                    SELECT 
+                        TO_CHAR(TRUNC(orderDate,'MM'),'FMMonth') AS month_name,
+                        SUM(totalAmount) AS revenue
+                    FROM orders
+                    WHERE EXTRACT(YEAR FROM orderDate) = {Year}
+                    GROUP BY TRUNC(orderDate,'MM')
+                    ORDER BY TRUNC(orderDate,'MM')
             ";
 
             return Database.ExecuteMultiRowQuery(sql);
         }
+
         public static List<Statistics> LoadYears()
         {
             DataSet ds = GetYears();
@@ -60,10 +62,11 @@ namespace RestaurantOrderingSystem
 
             foreach (DataRow row in ds.Tables[0].Rows)
             {
-                years.Add(new Statistics
+                years.Add(new Statistics()
                 {
                     Year = Convert.ToInt32(row["year"])
-                });
+                }
+                );
             }
 
             return years;

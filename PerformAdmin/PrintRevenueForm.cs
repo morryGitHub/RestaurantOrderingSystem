@@ -29,7 +29,7 @@ namespace RestaurantOrderingSystem
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-      
+
 
         }
 
@@ -44,13 +44,32 @@ namespace RestaurantOrderingSystem
                     MessageBoxIcon.Error);
                 return;
             }
-            gridRevenue.Rows.Clear();
+            dgvRevenue.Rows.Clear();
 
-            gridRevenue.Rows.Add("May", "$234.43");
-            gridRevenue.Rows.Add("June", "$924.54");
-            gridRevenue.Rows.Add("July", "$4,324");
+            int selectedYear;
+            if (cmbYear.SelectedItem is Statistics stat)
+            {
+                selectedYear = stat.Year;
+            }
+            else 
+            {
+                MessageBox.Show(
+                    "Unable to determine the selected year.",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                return;
+            }
 
-            lblTotal.Text = $"Total Revenue for {cmbYear.SelectedItem.ToString()}: {"$6,1234.95":C}";
+            FillRevenueGrid(selectedYear);
+
+
+
+            //gridRevenue.Rows.Add("May", "$234.43");
+            //gridRevenue.Rows.Add("June", "$924.54");
+            //gridRevenue.Rows.Add("July", "$4,324");
+
+            //lblTotal.Text = $"Total Revenue for {cmbYear.SelectedItem.ToString()}: {"$6,1234.95":C}";
 
         }
 
@@ -65,19 +84,19 @@ namespace RestaurantOrderingSystem
 
             var normal = new Font("Segoe UI", 10, FontStyle.Regular);
 
-            gridRevenue.Font = normal;
-            gridRevenue.DefaultCellStyle.Font = normal;
-            gridRevenue.RowsDefaultCellStyle.Font = normal;
-            gridRevenue.AlternatingRowsDefaultCellStyle.Font = normal;
+            dgvRevenue.Font = normal;
+            dgvRevenue.DefaultCellStyle.Font = normal;
+            dgvRevenue.RowsDefaultCellStyle.Font = normal;
+            dgvRevenue.AlternatingRowsDefaultCellStyle.Font = normal;
 
-            gridRevenue.ColumnHeadersDefaultCellStyle.Font = normal;
-            gridRevenue.RowHeadersDefaultCellStyle.Font = normal;
+            dgvRevenue.ColumnHeadersDefaultCellStyle.Font = normal;
+            dgvRevenue.RowHeadersDefaultCellStyle.Font = normal;
 
-            gridRevenue.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            gridRevenue.ReadOnly = true;
-            gridRevenue.MultiSelect = false;
+            dgvRevenue.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvRevenue.ReadOnly = true;
+            dgvRevenue.MultiSelect = false;
 
-            gridRevenue.ClearSelection();
+            dgvRevenue.ClearSelection();
             FillYearsComboBox();
         }
 
@@ -93,7 +112,22 @@ namespace RestaurantOrderingSystem
             }
         }
 
+        public void FillRevenueGrid(int year)
+        {
+            Statistics stat = new Statistics(year);
+            DataSet ds = stat.GetYearlyRevenue();
 
+            foreach (DataRow row in ds.Tables[0].Rows)
+            {
+                string month = row["month_name"].ToString();
+                decimal revenue = Convert.ToDecimal(row["revenue"]);
+
+                dgvRevenue.Rows.Add(month, revenue.ToString("C"));
+            }
+
+        }
 
     }
+
+
 }

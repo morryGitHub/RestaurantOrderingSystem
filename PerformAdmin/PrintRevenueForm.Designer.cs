@@ -33,14 +33,14 @@
             this.cmbYear = new System.Windows.Forms.ComboBox();
             this.btnGenerate = new System.Windows.Forms.Button();
             this.btnCLose = new System.Windows.Forms.Button();
-            this.gridRevenue = new System.Windows.Forms.DataGridView();
+            this.dgvRevenue = new System.Windows.Forms.DataGridView();
             this.Month = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Revenue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.lblTotal = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.gridRevenue)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRevenue)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -80,7 +80,7 @@
             "2022",
             "2021"});
             this.cmbYear.Location = new System.Drawing.Point(96, 39);
-            this.cmbYear.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbYear.Margin = new System.Windows.Forms.Padding(2);
             this.cmbYear.Name = "cmbYear";
             this.cmbYear.Size = new System.Drawing.Size(92, 27);
             this.cmbYear.TabIndex = 2;
@@ -90,7 +90,7 @@
             // 
             this.btnGenerate.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGenerate.Location = new System.Drawing.Point(207, 37);
-            this.btnGenerate.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnGenerate.Margin = new System.Windows.Forms.Padding(2);
             this.btnGenerate.Name = "btnGenerate";
             this.btnGenerate.Size = new System.Drawing.Size(124, 27);
             this.btnGenerate.TabIndex = 3;
@@ -101,8 +101,8 @@
             // btnCLose
             // 
             this.btnCLose.Font = new System.Drawing.Font("Segoe UI", 10.2F);
-            this.btnCLose.Location = new System.Drawing.Point(13, 428);
-            this.btnCLose.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnCLose.Location = new System.Drawing.Point(13, 457);
+            this.btnCLose.Margin = new System.Windows.Forms.Padding(2);
             this.btnCLose.Name = "btnCLose";
             this.btnCLose.Size = new System.Drawing.Size(89, 29);
             this.btnCLose.TabIndex = 4;
@@ -110,32 +110,30 @@
             this.btnCLose.UseVisualStyleBackColor = true;
             this.btnCLose.Click += new System.EventHandler(this.btnCLose_Click);
             // 
-            // gridRevenue
+            // dgvRevenue
             // 
-            this.gridRevenue.AllowUserToAddRows = false;
-            this.gridRevenue.AllowUserToDeleteRows = false;
-            this.gridRevenue.AllowUserToResizeColumns = false;
-            this.gridRevenue.AllowUserToResizeRows = false;
-            this.gridRevenue.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.gridRevenue.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.gridRevenue.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridRevenue.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvRevenue.AllowUserToAddRows = false;
+            this.dgvRevenue.AllowUserToDeleteRows = false;
+            this.dgvRevenue.AllowUserToResizeColumns = false;
+            this.dgvRevenue.AllowUserToResizeRows = false;
+            this.dgvRevenue.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvRevenue.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvRevenue.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Month,
             this.Revenue});
-            this.gridRevenue.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.gridRevenue.Location = new System.Drawing.Point(4, 30);
-            this.gridRevenue.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.gridRevenue.MultiSelect = false;
-            this.gridRevenue.Name = "gridRevenue";
-            this.gridRevenue.ReadOnly = true;
-            this.gridRevenue.RowHeadersVisible = false;
-            this.gridRevenue.RowHeadersWidth = 51;
-            this.gridRevenue.RowTemplate.Height = 24;
-            this.gridRevenue.Size = new System.Drawing.Size(343, 160);
-            this.gridRevenue.TabIndex = 5;
-            this.gridRevenue.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            this.dgvRevenue.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvRevenue.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dgvRevenue.Location = new System.Drawing.Point(2, 27);
+            this.dgvRevenue.Margin = new System.Windows.Forms.Padding(2);
+            this.dgvRevenue.MultiSelect = false;
+            this.dgvRevenue.Name = "dgvRevenue";
+            this.dgvRevenue.ReadOnly = true;
+            this.dgvRevenue.RowHeadersVisible = false;
+            this.dgvRevenue.RowHeadersWidth = 51;
+            this.dgvRevenue.RowTemplate.Height = 24;
+            this.dgvRevenue.Size = new System.Drawing.Size(348, 211);
+            this.dgvRevenue.TabIndex = 5;
+            this.dgvRevenue.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // Month
             // 
@@ -158,9 +156,9 @@
             this.groupBox1.Controls.Add(this.lblYear);
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(13, 67);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox1.Size = new System.Drawing.Size(352, 78);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
@@ -168,13 +166,12 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.lblTotal);
-            this.groupBox2.Controls.Add(this.gridRevenue);
+            this.groupBox2.Controls.Add(this.dgvRevenue);
             this.groupBox2.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold);
             this.groupBox2.Location = new System.Drawing.Point(13, 171);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox2.Size = new System.Drawing.Size(352, 240);
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
@@ -184,7 +181,7 @@
             // 
             this.lblTotal.AutoSize = true;
             this.lblTotal.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotal.Location = new System.Drawing.Point(4, 201);
+            this.lblTotal.Location = new System.Drawing.Point(14, 425);
             this.lblTotal.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblTotal.Name = "lblTotal";
             this.lblTotal.Size = new System.Drawing.Size(88, 21);
@@ -195,20 +192,20 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(398, 478);
+            this.ClientSize = new System.Drawing.Size(398, 497);
+            this.Controls.Add(this.lblTotal);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnCLose);
             this.Controls.Add(this.lblTitle);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FrmPrintRevenue";
             this.Text = "PrintRevenueForm";
             this.Load += new System.EventHandler(this.PrintRevenueForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.gridRevenue)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRevenue)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -221,7 +218,7 @@
         private System.Windows.Forms.ComboBox cmbYear;
         private System.Windows.Forms.Button btnGenerate;
         private System.Windows.Forms.Button btnCLose;
-        private System.Windows.Forms.DataGridView gridRevenue;
+        private System.Windows.Forms.DataGridView dgvRevenue;
         private System.Windows.Forms.DataGridViewTextBoxColumn Month;
         private System.Windows.Forms.DataGridViewTextBoxColumn Revenue;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
