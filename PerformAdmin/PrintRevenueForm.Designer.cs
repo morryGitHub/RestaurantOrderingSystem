@@ -49,9 +49,10 @@
             // 
             this.lblTitle.AutoSize = true;
             this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold);
-            this.lblTitle.Location = new System.Drawing.Point(57, 24);
+            this.lblTitle.Location = new System.Drawing.Point(43, 20);
+            this.lblTitle.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(401, 38);
+            this.lblTitle.Size = new System.Drawing.Size(315, 30);
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "Print Yearly Revenue Analysis";
             // 
@@ -59,9 +60,10 @@
             // 
             this.lblYear.AutoSize = true;
             this.lblYear.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.lblYear.Location = new System.Drawing.Point(6, 46);
+            this.lblYear.Location = new System.Drawing.Point(4, 37);
+            this.lblYear.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblYear.Name = "lblYear";
-            this.lblYear.Size = new System.Drawing.Size(105, 28);
+            this.lblYear.Size = new System.Drawing.Size(85, 21);
             this.lblYear.TabIndex = 1;
             this.lblYear.Text = "Select Year";
             this.lblYear.Click += new System.EventHandler(this.label2_Click);
@@ -73,19 +75,24 @@
             this.cmbYear.FormattingEnabled = true;
             this.cmbYear.Items.AddRange(new object[] {
             "2025",
-            "2024"});
-            this.cmbYear.Location = new System.Drawing.Point(128, 48);
+            "2024",
+            "2023",
+            "2022",
+            "2021"});
+            this.cmbYear.Location = new System.Drawing.Point(96, 39);
+            this.cmbYear.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.cmbYear.Name = "cmbYear";
-            this.cmbYear.Size = new System.Drawing.Size(121, 31);
+            this.cmbYear.Size = new System.Drawing.Size(92, 27);
             this.cmbYear.TabIndex = 2;
             this.cmbYear.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // btnGenerate
             // 
             this.btnGenerate.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGenerate.Location = new System.Drawing.Point(276, 46);
+            this.btnGenerate.Location = new System.Drawing.Point(207, 37);
+            this.btnGenerate.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnGenerate.Name = "btnGenerate";
-            this.btnGenerate.Size = new System.Drawing.Size(165, 33);
+            this.btnGenerate.Size = new System.Drawing.Size(124, 27);
             this.btnGenerate.TabIndex = 3;
             this.btnGenerate.Text = "Generate Statistics";
             this.btnGenerate.UseVisualStyleBackColor = true;
@@ -94,9 +101,10 @@
             // btnCLose
             // 
             this.btnCLose.Font = new System.Drawing.Font("Segoe UI", 10.2F);
-            this.btnCLose.Location = new System.Drawing.Point(17, 527);
+            this.btnCLose.Location = new System.Drawing.Point(13, 428);
+            this.btnCLose.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnCLose.Name = "btnCLose";
-            this.btnCLose.Size = new System.Drawing.Size(119, 36);
+            this.btnCLose.Size = new System.Drawing.Size(89, 29);
             this.btnCLose.TabIndex = 4;
             this.btnCLose.Text = "Close";
             this.btnCLose.UseVisualStyleBackColor = true;
@@ -117,14 +125,15 @@
             this.Month,
             this.Revenue});
             this.gridRevenue.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.gridRevenue.Location = new System.Drawing.Point(6, 37);
+            this.gridRevenue.Location = new System.Drawing.Point(4, 30);
+            this.gridRevenue.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.gridRevenue.MultiSelect = false;
             this.gridRevenue.Name = "gridRevenue";
             this.gridRevenue.ReadOnly = true;
             this.gridRevenue.RowHeadersVisible = false;
             this.gridRevenue.RowHeadersWidth = 51;
             this.gridRevenue.RowTemplate.Height = 24;
-            this.gridRevenue.Size = new System.Drawing.Size(457, 197);
+            this.gridRevenue.Size = new System.Drawing.Size(343, 160);
             this.gridRevenue.TabIndex = 5;
             this.gridRevenue.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
@@ -148,9 +157,11 @@
             this.groupBox1.Controls.Add(this.cmbYear);
             this.groupBox1.Controls.Add(this.lblYear);
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(17, 83);
+            this.groupBox1.Location = new System.Drawing.Point(13, 67);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(469, 96);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Size = new System.Drawing.Size(352, 78);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Generate Options";
@@ -160,9 +171,11 @@
             this.groupBox2.Controls.Add(this.lblTotal);
             this.groupBox2.Controls.Add(this.gridRevenue);
             this.groupBox2.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold);
-            this.groupBox2.Location = new System.Drawing.Point(17, 210);
+            this.groupBox2.Location = new System.Drawing.Point(13, 171);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(469, 295);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox2.Size = new System.Drawing.Size(352, 240);
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Revenue Details";
@@ -171,22 +184,24 @@
             // 
             this.lblTotal.AutoSize = true;
             this.lblTotal.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotal.Location = new System.Drawing.Point(6, 247);
+            this.lblTotal.Location = new System.Drawing.Point(4, 201);
+            this.lblTotal.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblTotal.Name = "lblTotal";
-            this.lblTotal.Size = new System.Drawing.Size(111, 28);
+            this.lblTotal.Size = new System.Drawing.Size(88, 21);
             this.lblTotal.TabIndex = 6;
             this.lblTotal.Text = "Total: $0.00";
             // 
-            // frmPrintRevenue
+            // FrmPrintRevenue
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(530, 588);
+            this.ClientSize = new System.Drawing.Size(398, 478);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnCLose);
             this.Controls.Add(this.lblTitle);
-            this.Name = "frmPrintRevenue";
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Name = "FrmPrintRevenue";
             this.Text = "PrintRevenueForm";
             this.Load += new System.EventHandler(this.PrintRevenueForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.gridRevenue)).EndInit();

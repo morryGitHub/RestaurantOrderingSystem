@@ -222,6 +222,7 @@
       <DependentUpon>UpdateTableForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Reservation.cs" />
+    <Compile Include="Statistics.cs" />
     <Compile Include="Table.cs" />
     <Compile Include="UserSession.cs" />
     <Compile Include="Validation.cs" />

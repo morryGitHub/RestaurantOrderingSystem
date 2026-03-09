@@ -78,6 +78,22 @@ namespace RestaurantOrderingSystem
             gridRevenue.MultiSelect = false;
 
             gridRevenue.ClearSelection();
+            FillYearsComboBox();
         }
+
+        public void FillYearsComboBox()
+        {
+            cmbYear.Items.Clear();
+            List<Statistics> years = Statistics.LoadYears();
+
+            foreach (Statistics year in years)
+            {
+                cmbYear.Items.Add(year);
+
+            }
+        }
+
+
+
     }
 }
