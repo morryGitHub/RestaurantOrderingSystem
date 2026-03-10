@@ -117,19 +117,21 @@
             this.dgvRevenue.AllowUserToResizeColumns = false;
             this.dgvRevenue.AllowUserToResizeRows = false;
             this.dgvRevenue.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvRevenue.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dgvRevenue.BackgroundColor = System.Drawing.Color.White;
             this.dgvRevenue.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvRevenue.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Month,
             this.Revenue});
-            this.dgvRevenue.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvRevenue.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dgvRevenue.GridColor = System.Drawing.Color.White;
             this.dgvRevenue.Location = new System.Drawing.Point(2, 27);
             this.dgvRevenue.Margin = new System.Windows.Forms.Padding(2);
             this.dgvRevenue.MultiSelect = false;
             this.dgvRevenue.Name = "dgvRevenue";
             this.dgvRevenue.ReadOnly = true;
             this.dgvRevenue.RowHeadersVisible = false;
-            this.dgvRevenue.RowHeadersWidth = 51;
+            this.dgvRevenue.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
             this.dgvRevenue.RowTemplate.Height = 24;
             this.dgvRevenue.Size = new System.Drawing.Size(348, 211);
             this.dgvRevenue.TabIndex = 5;
