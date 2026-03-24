@@ -54,7 +54,7 @@ namespace RestaurantOrderingSystem
 
             }
 
-            btnCancel.Enabled = false;
+            btnCancel.Enabled = true;
             cmbOrders.Items.Remove("Select the Order");
 
 
