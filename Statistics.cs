@@ -44,13 +44,13 @@ namespace RestaurantOrderingSystem
         {
             string sql = $@"
                     SELECT 
-                        TO_CHAR(TRUNC(orderDate,'MM'),'FMMonth') AS month_name,
+                        EXTRACT(MONTH FROM orderDate) AS month_num,
                         SUM(totalAmount) AS revenue
                     FROM orders
                     WHERE EXTRACT(YEAR FROM orderDate) = {Year}
-                    GROUP BY TRUNC(orderDate,'MM')
-                    ORDER BY TRUNC(orderDate,'MM')
-            ";
+                    GROUP BY EXTRACT(MONTH FROM orderDate)
+                    ORDER BY EXTRACT(MONTH FROM orderDate)
+                ";
 
             return Database.ExecuteMultiRowQuery(sql);
         }
