@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -13,17 +14,6 @@ namespace RestaurantOrderingSystem
     {
         public static string IsNameValid(string name)
         {
-            //if (string.IsNullOrWhiteSpace(name))
-            //    return "Name is required.";
-
-            //foreach (char c in name)
-            //{
-            //    if (!char.IsLetter(c) && c != ' ')
-            //        return "Name must contain only letters.";
-            //}
-
-            //return "valid";
-
             name = name.Trim();
 
             string pattern = @"^[A-Za-z]+( [A-Za-z]+)*$";
@@ -42,31 +32,6 @@ namespace RestaurantOrderingSystem
 
         public static string IsPhoneValid(string phone)
         {
-            //if (string.IsNullOrWhiteSpace(phone))
-            //    return "Phone number is required.";
-
-            //int digitCount = 0;
-            //int startIndex = 0;
-
-            //if (phone[0] == '+')
-            //{
-            //    startIndex = 1;
-            //}
-
-            //for (int i = startIndex; i < phone.Length; i++)
-            //{
-            //    if (!char.IsDigit(phone[i]))
-            //        return "Phone number must contain only digits (after +).";
-
-            //    digitCount++;
-            //}
-
-            //if (digitCount < 7 || digitCount > 15)
-            //    return "Phone number must contain 7–15 digits.";
-
-            //return "valid";
-
-
             string pattern = @"^\+?\d{10,15}$";
             Regex reg = new Regex(pattern);
             Match match = reg.Match(phone);
@@ -77,6 +42,24 @@ namespace RestaurantOrderingSystem
             else
             {
                 return "Invalid phone number. Example of valid format: +1234567890";
+            }
+        }
+
+
+
+
+        public static string IsEmailValid(string email)
+        {
+            string pattern = "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$";
+            Regex reg = new Regex(pattern);
+            Match match = reg.Match(email);
+            if (match.Success)
+            {
+                return "Valid";
+            }
+            else
+            {
+                return "Invalid email address. Example of valid format: example@domain.com";
             }
         }
 

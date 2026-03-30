@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
@@ -37,14 +38,6 @@ namespace RestaurantOrderingSystem
 
             dgvTables.ClearSelection();
 
-
-            string senderEmail = "morry.GitHub@gmail.com";
-            string appPassword = "bveqapdowlnruikr";
-            string recipientEmail = "rublykkolya@icloud.com";
-            string emailSubject = "Test Email from C#";
-            string emailBody = "<h1>Hello!</h1><p>This is a test email sent using Gmail SMTP in C#.</p>";
-
-            GmailSender.SendEmail(senderEmail, appPassword, recipientEmail, emailSubject, emailBody);
 
         }
 
@@ -109,6 +102,14 @@ namespace RestaurantOrderingSystem
                 return;
             }
 
+            // Validate Enail
+            string emailCheck = Validation.IsEmailValid(tbEmail.Text);
+            if (emailCheck != "Valid")
+            {
+                MessageBox.Show(emailCheck, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             // Validate Date & Time
             string dateCheck = Validation.IsDateValid(datePicker.Value, timePicker.Value);
             if (dateCheck != "Valid")
@@ -135,6 +136,8 @@ namespace RestaurantOrderingSystem
 
             DataGridViewRow row = dgvTables.SelectedRows[0];
             int tableID = Convert.ToInt32(row.Cells["TableID"].Value);
+
+            Console.WriteLine(tableID);
 
             int numOfGuest = (int)numericNumOfGuests.Value;
             DateTime startDateTime = datePicker.Value.Date
@@ -163,8 +166,7 @@ namespace RestaurantOrderingSystem
             reservation.AddReservation();
 
 
-
-            DialogResult confirm = MessageBox.Show(
+            MessageBox.Show(
                 "Reservation was successfully added!",
                 "Success",
                 MessageBoxButtons.OK,
@@ -172,8 +174,22 @@ namespace RestaurantOrderingSystem
             );
 
 
-          
+            string senderEmail = "morry.GitHub@gmail.com";
+            string appPassword = ConfigurationManager.ConnectionStrings["appPassword"].ConnectionString;
+            string recipientEmail = tbEmail.Text;
+            string emailSubject = "Your Table Reservation is Confirmed!";
+            string emailBody = $"<h1>Hello {customerName}!</h1>" +
+                   $"<p>Thank you for booking with us. Your reservation is confirmed.</p>" +
+                   $"<p><strong>Reservation Details:</strong></p>" +
+                   $"<table border='1' cellpadding='5'>" +
+                   $"<tr><td>Table</td><td>{row.Cells["TableNo"].Value}</td></tr>" +
+                   $"<tr><td>Guests</td><td>{numOfGuest}</td></tr>" +
+                   $"<tr><td>From</td><td>{start}</td></tr>" +
+                   $"<tr><td>To</td><td>{end}</td></tr>" +
+                   $"</table>" +
+                   $"<p>See you soon!</p>";
 
+            GmailSender.SendEmail(senderEmail, appPassword, recipientEmail, emailSubject, emailBody);
 
             this.Close();
 

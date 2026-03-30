@@ -26,7 +26,7 @@ namespace RestaurantOrderingSystem
             var smtp = new SmtpClient
             {
                 Host = "smtp.gmail.com",
-                Port = 465, //465  587
+                Port = 587, //465  587
                 EnableSsl = true,
                 DeliveryMethod = SmtpDeliveryMethod.Network,
                 UseDefaultCredentials = false,

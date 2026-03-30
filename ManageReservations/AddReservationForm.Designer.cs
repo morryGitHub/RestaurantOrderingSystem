@@ -45,17 +45,19 @@
             this.numericNumOfGuests = new System.Windows.Forms.NumericUpDown();
             this.datePicker = new System.Windows.Forms.DateTimePicker();
             this.dgvTables = new System.Windows.Forms.DataGridView();
+            this.TableID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TableNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Capacity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.timePicker = new System.Windows.Forms.DateTimePicker();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.btnCancel = new System.Windows.Forms.Button();
             this.lblErrorMsg = new System.Windows.Forms.Label();
-            this.TableID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TableNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Capacity = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.tbEmail = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericNumOfGuests)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTables)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -137,10 +139,10 @@
             // btnAddReservation
             // 
             this.btnAddReservation.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddReservation.Location = new System.Drawing.Point(137, 512);
+            this.btnAddReservation.Location = new System.Drawing.Point(137, 566);
             this.btnAddReservation.Margin = new System.Windows.Forms.Padding(4);
             this.btnAddReservation.Name = "btnAddReservation";
-            this.btnAddReservation.Size = new System.Drawing.Size(257, 48);
+            this.btnAddReservation.Size = new System.Drawing.Size(257, 57);
             this.btnAddReservation.TabIndex = 8;
             this.btnAddReservation.Text = "Add Reservation";
             this.btnAddReservation.UseVisualStyleBackColor = true;
@@ -231,12 +233,45 @@
             this.dgvTables.RowsDefaultCellStyle = dataGridViewCellStyle5;
             this.dgvTables.RowTemplate.Height = 24;
             this.dgvTables.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvTables.Size = new System.Drawing.Size(413, 261);
+            this.dgvTables.Size = new System.Drawing.Size(413, 309);
             this.dgvTables.TabIndex = 16;
             this.dgvTables.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTables_CellContentClick);
             // 
+            // TableID
+            // 
+            this.TableID.HeaderText = "TableID";
+            this.TableID.MinimumWidth = 6;
+            this.TableID.Name = "TableID";
+            this.TableID.ReadOnly = true;
+            this.TableID.Visible = false;
+            // 
+            // TableNo
+            // 
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TableNo.DefaultCellStyle = dataGridViewCellStyle3;
+            this.TableNo.HeaderText = "TableNo";
+            this.TableNo.MinimumWidth = 6;
+            this.TableNo.Name = "TableNo";
+            this.TableNo.ReadOnly = true;
+            // 
+            // Capacity
+            // 
+            this.Capacity.HeaderText = "Capacity";
+            this.Capacity.MinimumWidth = 6;
+            this.Capacity.Name = "Capacity";
+            this.Capacity.ReadOnly = true;
+            // 
+            // Status
+            // 
+            this.Status.HeaderText = "Status";
+            this.Status.MinimumWidth = 6;
+            this.Status.Name = "Status";
+            this.Status.ReadOnly = true;
+            // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.tbEmail);
+            this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.tbPhoneNumber);
             this.groupBox1.Controls.Add(this.tbCustName);
             this.groupBox1.Controls.Add(this.lblPhoneNum);
@@ -244,7 +279,7 @@
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(29, 84);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(365, 146);
+            this.groupBox1.Size = new System.Drawing.Size(365, 209);
             this.groupBox1.TabIndex = 17;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Customer Details";
@@ -258,7 +293,7 @@
             this.groupBox2.Controls.Add(this.lblNumOfGuests);
             this.groupBox2.Controls.Add(this.numericNumOfGuests);
             this.groupBox2.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(29, 256);
+            this.groupBox2.Location = new System.Drawing.Point(29, 299);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(365, 210);
             this.groupBox2.TabIndex = 18;
@@ -295,25 +330,10 @@
             this.groupBox3.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox3.Location = new System.Drawing.Point(427, 84);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(436, 382);
+            this.groupBox3.Size = new System.Drawing.Size(436, 425);
             this.groupBox3.TabIndex = 19;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Availbale Tables";
-            // 
-            // btnCancel
-            // 
-            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.btnCancel.Location = new System.Drawing.Point(480, 512);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(257, 48);
-            this.btnCancel.TabIndex = 21;
-            this.btnCancel.Text = "Cancel";
-            this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click_1);
             // 
             // lblErrorMsg
             // 
@@ -325,42 +345,43 @@
             this.lblErrorMsg.Text = "No Available Tables For This Date";
             this.lblErrorMsg.Visible = false;
             // 
-            // TableID
+            // btnCancel
             // 
-            this.TableID.HeaderText = "TableID";
-            this.TableID.MinimumWidth = 6;
-            this.TableID.Name = "TableID";
-            this.TableID.ReadOnly = true;
-            this.TableID.Visible = false;
+            this.btnCancel.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.btnCancel.Location = new System.Drawing.Point(500, 566);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(257, 57);
+            this.btnCancel.TabIndex = 21;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click_1);
             // 
-            // TableNo
+            // tbEmail
             // 
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TableNo.DefaultCellStyle = dataGridViewCellStyle3;
-            this.TableNo.HeaderText = "TableNo";
-            this.TableNo.MinimumWidth = 6;
-            this.TableNo.Name = "TableNo";
-            this.TableNo.ReadOnly = true;
+            this.tbEmail.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbEmail.Location = new System.Drawing.Point(108, 148);
+            this.tbEmail.Margin = new System.Windows.Forms.Padding(4);
+            this.tbEmail.Name = "tbEmail";
+            this.tbEmail.Size = new System.Drawing.Size(237, 34);
+            this.tbEmail.TabIndex = 13;
             // 
-            // Capacity
+            // label2
             // 
-            this.Capacity.HeaderText = "Capacity";
-            this.Capacity.MinimumWidth = 6;
-            this.Capacity.Name = "Capacity";
-            this.Capacity.ReadOnly = true;
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(7, 151);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(63, 28);
+            this.label2.TabIndex = 12;
+            this.label2.Text = "Email:";
             // 
-            // Status
-            // 
-            this.Status.HeaderText = "Status";
-            this.Status.MinimumWidth = 6;
-            this.Status.Name = "Status";
-            this.Status.ReadOnly = true;
-            // 
-            // frmAddReservation
+            // FrmAddReservation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(896, 604);
+            this.ClientSize = new System.Drawing.Size(896, 661);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -368,7 +389,7 @@
             this.Controls.Add(this.btnAddReservation);
             this.Controls.Add(this.lblTitle);
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "frmAddReservation";
+            this.Name = "FrmAddReservation";
             this.Text = "Add Reservation";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericNumOfGuests)).EndInit();
@@ -408,5 +429,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn TableNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Capacity;
         private System.Windows.Forms.DataGridViewTextBoxColumn Status;
+        private System.Windows.Forms.TextBox tbEmail;
+        private System.Windows.Forms.Label label2;
     }
 }

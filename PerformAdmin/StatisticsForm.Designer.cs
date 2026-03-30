@@ -36,12 +36,10 @@
             this.lblTitle = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.dataStat = new System.Windows.Forms.DataGridView();
-            this.Item = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Count = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvStats = new System.Windows.Forms.DataGridView();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataStat)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvStats)).BeginInit();
             this.SuspendLayout();
             // 
             // lblSummary
@@ -60,7 +58,7 @@
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(17, 78);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(530, 96);
+            this.groupBox1.Size = new System.Drawing.Size(571, 110);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Generate Options";
@@ -68,11 +66,11 @@
             // btnGenerate
             // 
             this.btnGenerate.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGenerate.Location = new System.Drawing.Point(359, 44);
+            this.btnGenerate.Location = new System.Drawing.Point(430, 44);
             this.btnGenerate.Name = "btnGenerate";
-            this.btnGenerate.Size = new System.Drawing.Size(165, 33);
+            this.btnGenerate.Size = new System.Drawing.Size(117, 33);
             this.btnGenerate.TabIndex = 3;
-            this.btnGenerate.Text = "Generate Statistics";
+            this.btnGenerate.Text = "Generate";
             this.btnGenerate.UseVisualStyleBackColor = true;
             this.btnGenerate.Click += new System.EventHandler(this.btnGenerate_Click_1);
             // 
@@ -82,11 +80,20 @@
             this.cmbCat.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbCat.FormattingEnabled = true;
             this.cmbCat.Items.AddRange(new object[] {
-            "Top Item"});
-            this.cmbCat.Location = new System.Drawing.Point(174, 46);
+            "Top 10 Menu Items",
+            "Least 10 Menu items",
+            "Never Ordered Items",
+            "Total Orders",
+            "Average Order",
+            "Total Revenue",
+            "Total Bookings",
+            "Payments By Method",
+            "Total Refunded Amount"});
+            this.cmbCat.Location = new System.Drawing.Point(171, 46);
             this.cmbCat.Name = "cmbCat";
-            this.cmbCat.Size = new System.Drawing.Size(159, 31);
+            this.cmbCat.Size = new System.Drawing.Size(233, 31);
             this.cmbCat.TabIndex = 2;
+            this.cmbCat.SelectedIndexChanged += new System.EventHandler(this.CmbCat_SelectedIndexChanged);
             // 
             // lblCat
             // 
@@ -111,7 +118,7 @@
             // button2
             // 
             this.button2.Font = new System.Drawing.Font("Segoe UI", 10.2F);
-            this.button2.Location = new System.Drawing.Point(23, 500);
+            this.button2.Location = new System.Drawing.Point(17, 526);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(119, 35);
             this.button2.TabIndex = 10;
@@ -121,66 +128,52 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.dataStat);
+            this.groupBox2.Controls.Add(this.dgvStats);
             this.groupBox2.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold);
-            this.groupBox2.Location = new System.Drawing.Point(17, 180);
+            this.groupBox2.Location = new System.Drawing.Point(17, 204);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(530, 295);
+            this.groupBox2.Size = new System.Drawing.Size(571, 295);
             this.groupBox2.TabIndex = 11;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Revenue Details";
             // 
-            // dataStat
+            // dgvStats
             // 
-            this.dataStat.AllowUserToAddRows = false;
-            this.dataStat.AllowUserToDeleteRows = false;
-            this.dataStat.AllowUserToResizeColumns = false;
-            this.dataStat.AllowUserToResizeRows = false;
-            this.dataStat.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataStat.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataStat.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Item,
-            this.Count});
-            this.dataStat.Location = new System.Drawing.Point(6, 37);
-            this.dataStat.Name = "dataStat";
-            this.dataStat.ReadOnly = true;
-            this.dataStat.RowHeadersVisible = false;
-            this.dataStat.RowHeadersWidth = 51;
-            this.dataStat.RowTemplate.Height = 24;
-            this.dataStat.Size = new System.Drawing.Size(518, 252);
-            this.dataStat.TabIndex = 7;
+            this.dgvStats.AllowUserToAddRows = false;
+            this.dgvStats.AllowUserToDeleteRows = false;
+            this.dgvStats.AllowUserToResizeColumns = false;
+            this.dgvStats.AllowUserToResizeRows = false;
+            this.dgvStats.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvStats.BackgroundColor = System.Drawing.Color.White;
+            this.dgvStats.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvStats.GridColor = System.Drawing.Color.Black;
+            this.dgvStats.Location = new System.Drawing.Point(6, 37);
+            this.dgvStats.Name = "dgvStats";
+            this.dgvStats.ReadOnly = true;
+            this.dgvStats.RowHeadersVisible = false;
+            this.dgvStats.RowHeadersWidth = 51;
+            this.dgvStats.RowTemplate.Height = 24;
+            this.dgvStats.Size = new System.Drawing.Size(559, 252);
+            this.dgvStats.TabIndex = 7;
+            this.dgvStats.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataStat_CellContentClick);
             // 
-            // Item
-            // 
-            this.Item.HeaderText = "Menu Item";
-            this.Item.MinimumWidth = 6;
-            this.Item.Name = "Item";
-            this.Item.ReadOnly = true;
-            // 
-            // Count
-            // 
-            this.Count.HeaderText = "Times Ordered";
-            this.Count.MinimumWidth = 6;
-            this.Count.Name = "Count";
-            this.Count.ReadOnly = true;
-            // 
-            // frmStatistics
+            // FrmStatistics
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(578, 560);
+            this.ClientSize = new System.Drawing.Size(600, 587);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.lblSummary);
-            this.Name = "frmStatistics";
+            this.Name = "FrmStatistics";
             this.Text = "StatisticsForm";
             this.Load += new System.EventHandler(this.StatisticsForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataStat)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvStats)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -195,8 +188,6 @@
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.DataGridView dataStat;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Item;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Count;
+        private System.Windows.Forms.DataGridView dgvStats;
     }
 }
