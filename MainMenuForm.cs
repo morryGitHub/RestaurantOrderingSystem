@@ -23,7 +23,7 @@ namespace RestaurantOrderingSystem
             {
                 statisticsToolStripMenuItem.Enabled = false;
                 tablesToolStripMenuItem.Enabled = false;
-                reservationToolStripMenuItem.Enabled = false; 
+                reservationToolStripMenuItem.Enabled = false;
             }
         }
 
@@ -119,8 +119,8 @@ namespace RestaurantOrderingSystem
 
         private void StatisticsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
-            
+
+
         }
 
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -134,7 +134,9 @@ namespace RestaurantOrderingSystem
 
             if (result == DialogResult.Yes)
             {
-                Close();
+                FrmLogging frmLogging = new FrmLogging();
+                this.Hide();
+                frmLogging.ShowDialog();
             }
         }
 
@@ -149,6 +151,25 @@ namespace RestaurantOrderingSystem
             FrmFindReservation frmFindReservation = new FrmFindReservation();
             frmFindReservation.ShowDialog();
 
+        }
+
+        private void ordersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DialogResult result = MessageBox.Show(
+                "Are you sure you want to close this page?",
+                "Confirm Exit",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                Environment.Exit(0);
+            }
         }
     }
 }

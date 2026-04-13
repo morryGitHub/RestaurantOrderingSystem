@@ -63,6 +63,22 @@ namespace RestaurantOrderingSystem
 
         }
 
-        
+        private void FrmLogging_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void FrmLogging_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DialogResult result = MessageBox.Show(
+                "Are you sure you want to close this page?",
+                "Confirm Exit",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                Environment.Exit(0);
+            }
+        }
     }
 }

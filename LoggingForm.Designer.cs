@@ -41,9 +41,10 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(147, 40);
+            this.label1.Location = new System.Drawing.Point(110, 32);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(660, 54);
+            this.label1.Size = new System.Drawing.Size(525, 45);
             this.label1.TabIndex = 0;
             this.label1.Text = "Restaurant Food Ordering System";
             this.label1.Click += new System.EventHandler(this.label1_Click);
@@ -52,9 +53,10 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 14F);
-            this.label2.Location = new System.Drawing.Point(370, 131);
+            this.label2.Location = new System.Drawing.Point(278, 106);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(181, 32);
+            this.label2.Size = new System.Drawing.Size(143, 25);
             this.label2.TabIndex = 1;
             this.label2.Text = "Select your role";
             this.label2.Click += new System.EventHandler(this.label2_Click);
@@ -63,9 +65,10 @@
             // 
             this.btnManager.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnManager.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.btnManager.Location = new System.Drawing.Point(200, 221);
+            this.btnManager.Location = new System.Drawing.Point(150, 180);
+            this.btnManager.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnManager.Name = "btnManager";
-            this.btnManager.Size = new System.Drawing.Size(140, 60);
+            this.btnManager.Size = new System.Drawing.Size(105, 49);
             this.btnManager.TabIndex = 2;
             this.btnManager.TabStop = false;
             this.btnManager.Text = "Manager";
@@ -76,9 +79,10 @@
             // 
             this.btnWaiter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnWaiter.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.btnWaiter.Location = new System.Drawing.Point(566, 221);
+            this.btnWaiter.Location = new System.Drawing.Point(424, 180);
+            this.btnWaiter.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnWaiter.Name = "btnWaiter";
-            this.btnWaiter.Size = new System.Drawing.Size(140, 60);
+            this.btnWaiter.Size = new System.Drawing.Size(105, 49);
             this.btnWaiter.TabIndex = 3;
             this.btnWaiter.TabStop = false;
             this.btnWaiter.Text = "Waiter";
@@ -89,9 +93,10 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(278, 481);
+            this.label3.Location = new System.Drawing.Point(208, 391);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(305, 25);
+            this.label3.Size = new System.Drawing.Size(248, 20);
             this.label3.TabIndex = 4;
             this.label3.Text = "                     © 2025 Restaurant App";
             this.label3.Click += new System.EventHandler(this.label3_Click);
@@ -100,9 +105,10 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(163, 304);
+            this.label4.Location = new System.Drawing.Point(122, 247);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(245, 56);
+            this.label4.Size = new System.Drawing.Size(197, 42);
             this.label4.TabIndex = 5;
             this.label4.Text = "Full access to reservations, \r\ntables, and reports";
             // 
@@ -110,17 +116,18 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.label5.Location = new System.Drawing.Point(498, 304);
+            this.label5.Location = new System.Drawing.Point(374, 247);
+            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(281, 28);
+            this.label5.Size = new System.Drawing.Size(225, 21);
             this.label5.TabIndex = 6;
             this.label5.Text = " Manage orders and customers";
             // 
-            // frmLogging
+            // FrmLogging
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(942, 515);
+            this.ClientSize = new System.Drawing.Size(706, 418);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -128,8 +135,11 @@
             this.Controls.Add(this.btnManager);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Name = "frmLogging";
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Name = "FrmLogging";
             this.Text = "Log In";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmLogging_FormClosing);
+            this.Load += new System.EventHandler(this.FrmLogging_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
