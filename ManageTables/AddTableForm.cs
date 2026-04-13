@@ -54,10 +54,48 @@ namespace RestaurantOrderingSystem
         }
         private void AddTableForm_Load(object sender, EventArgs e)
         {
+            // Existing logic
             int freeNo = Table.GetLastTableID();
             tableNum.Text = freeNo.ToString();
-           
-            
+
+            // ===== DESIGN MATCH (same as FrmPrintRevenue) =====
+
+            var normal = new Font("Segoe UI", 10, FontStyle.Regular);
+
+            this.BackColor = Color.White ;
+
+            // Example: Title label (if you have one like lblTitle)
+            lblTitle.Font = new Font("Segoe UI", 16, FontStyle.Bold);
+            lblTitle.ForeColor = Color.FromArgb(30, 30, 30);
+            groupBox1.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+            groupBox1.ForeColor = Color.FromArgb(50, 50, 50);
+
+            // Labels
+            lblTableNo.Font = normal;
+            lblCapacity.Font = normal;
+
+            // TextBox styling
+            tableNum.Font = normal;
+            tableNum.BorderStyle = BorderStyle.FixedSingle;
+
+            // NumericUpDown styling
+            numericSeatingCap.Font = normal;
+
+            // ===== Buttons =====
+
+            // Add Button (same blue style)
+            btnAddTable.FlatStyle = FlatStyle.Flat;
+            btnAddTable.BackColor = Color.FromArgb(0, 120, 215);
+            btnAddTable.ForeColor = Color.White;
+            btnAddTable.FlatAppearance.BorderSize = 0;
+            btnAddTable.Font = normal;
+
+            // Cancel Button (neutral style)
+            btnCancel.FlatStyle = FlatStyle.Flat;
+            btnCancel.BackColor = Color.LightGray;
+            btnCancel.ForeColor = Color.Black;
+            btnCancel.FlatAppearance.BorderSize = 0;
+            btnCancel.Font = normal;
         }
 
         private void tableNum_TextChanged(object sender, EventArgs e)

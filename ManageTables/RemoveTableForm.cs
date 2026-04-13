@@ -19,12 +19,12 @@ namespace RestaurantOrderingSystem
 
 
 
-        private void lblTableNo_Click(object sender, EventArgs e)
+        private void LblTableNo_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void btnExit_Click(object sender, EventArgs e)
+        private void BtnExit_Click(object sender, EventArgs e)
         {
             MessageBox.Show(
                 "Table deletion cancelled.",
@@ -35,7 +35,7 @@ namespace RestaurantOrderingSystem
             this.Close();
         }
 
-        private void btnRemoveTable_Click(object sender, EventArgs e)
+        private void BtnRemoveTable_Click(object sender, EventArgs e)
         {
             Table selectedTable = (Table)cmbTableNo.SelectedItem;
             if (selectedTable == null)
@@ -82,7 +82,7 @@ namespace RestaurantOrderingSystem
             this.Close();
         }
 
-        private void cmbTableNo_SelectedIndexChanged(object sender, EventArgs e)
+        private void CmbTableNo_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cmbTableNo.SelectedIndex == 0)
             {
@@ -95,11 +95,51 @@ namespace RestaurantOrderingSystem
             btnRemoveTable.Enabled = true;
         }
 
-        private void frmRemoveTable_Load(object sender, EventArgs e)
+        private void FrmRemoveTable_Load(object sender, EventArgs e)
         {
-
             LoadTables();
 
+            var normal = new Font("Segoe UI", 10, FontStyle.Regular);
+
+            // ===== FORM BACKGROUND =====
+            //this.BackColor = Color.FromArgb(250, 250, 250);
+
+            // ===== TITLE =====
+            lblTitle.Font = new Font("Segoe UI", 16, FontStyle.Bold);
+            lblTitle.ForeColor = Color.FromArgb(30, 30, 30);
+
+            // ===== GROUPBOX (CARD STYLE) =====
+            //groupBox1.BackColor = Color.FromArgb(250, 250, 250);
+            groupBox1.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+            //groupBox1.ForeColor = Color.FromArgb(50, 50, 50);
+            groupBox1.Padding = new Padding(10);
+
+            // ===== LABEL =====
+            lblTableNo.Font = normal;
+            lblTableNo.ForeColor = Color.FromArgb(60, 60, 60);
+
+            // ===== COMBOBOX =====
+            cmbTableNo.Font = normal;
+            //cmbTableNo.BackColor = Color.White;
+            //cmbTableNo.FlatStyle = FlatStyle.Flat;
+
+            // ===== REMOVE BUTTON (Primary) =====
+            btnRemoveTable.FlatStyle = FlatStyle.Flat;
+            btnRemoveTable.BackColor = Color.FromArgb(220, 53, 69); // red (delete action)
+            btnRemoveTable.ForeColor = Color.White;
+            btnRemoveTable.FlatAppearance.BorderSize = 0;
+            btnRemoveTable.Font = normal;
+
+            btnRemoveTable.FlatAppearance.MouseOverBackColor = Color.Red;
+
+            // ===== EXIT BUTTON (Secondary) =====
+            btnExit.FlatStyle = FlatStyle.Flat;
+            btnExit.BackColor = Color.LightGray;
+            btnExit.ForeColor = Color.Black;
+            btnExit.FlatAppearance.BorderSize = 0;
+            btnExit.Font = normal;
+
+            btnExit.FlatAppearance.MouseOverBackColor = Color.Gray;
         }
 
         private void LoadTables()
