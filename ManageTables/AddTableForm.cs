@@ -19,26 +19,35 @@ namespace RestaurantOrderingSystem
 
         private void btnAddTable_Click(object sender, EventArgs e)
         {
-            string seatingCheck = Validation.IsSeatingCapacityValid(numericSeatingCap.Value);
-
-            if (seatingCheck != "Valid")
+            try
             {
-                MessageBox.Show(seatingCheck, "Validation Error");
-                return;
+                string seatingCheck = Validation.IsSeatingCapacityValid(numericSeatingCap.Value);
+
+                if (seatingCheck != "Valid")
+                {
+                    MessageBox.Show(seatingCheck, "Validation Error");
+                    return;
+                }
+
+
+                Table table = new Table(Convert.ToInt16(tableNum.Text), (int)numericSeatingCap.Value);
+                table.AddTable();
+
+                MessageBox.Show(
+                    $"Table {tableNum.Text} has been added!",
+                    "Success",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+
+                this.Close();
             }
-
-
-            Table table = new Table(Convert.ToInt16(tableNum.Text),(int)numericSeatingCap.Value);
-            table.AddTable();
-
-            MessageBox.Show(
-                $"Table {tableNum.Text} has been added!",
-                "Success",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information
-            );
-
-            this.Close();
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to add table. It might already exist or the database is offline." +
+                    "\n\nDetails: " + ex.Message,
+                    "System Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
 
@@ -62,7 +71,7 @@ namespace RestaurantOrderingSystem
 
             var normal = new Font("Segoe UI", 10, FontStyle.Regular);
 
-            this.BackColor = Color.White ;
+            this.BackColor = Color.White;
 
             // Example: Title label (if you have one like lblTitle)
             lblTitle.Font = new Font("Segoe UI", 16, FontStyle.Bold);

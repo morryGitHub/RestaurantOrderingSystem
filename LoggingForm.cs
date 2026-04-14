@@ -1,4 +1,5 @@
 ﻿using Oracle.ManagedDataAccess.Client;
+using RestaurantOrderingSystem.OracleDatabase;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,18 +19,12 @@ namespace RestaurantOrderingSystem
             InitializeComponent();
         }
 
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnManager_Click(object sender, EventArgs e)
         {
             UserSession.UserType = "Manager";
 
             FrmMainMenu menu = new FrmMainMenu();
-            menu.FormClosed += (s, args) => this.Close();
+            menu.FormClosed += (s, args) => this.Show();
             menu.Show();
             this.Hide();
 
@@ -41,7 +36,7 @@ namespace RestaurantOrderingSystem
             UserSession.UserType = "Waiter";
 
             FrmMainMenu menu = new FrmMainMenu();
-            menu.FormClosed += (s, args) => this.Close();
+            menu.FormClosed += (s, args) => this.Show();
             menu.Show();
             this.Hide();
 
@@ -57,46 +52,93 @@ namespace RestaurantOrderingSystem
 
         private void FrmLogging_Load(object sender, EventArgs e)
         {
-            this.BackColor = Color.White;
+            this.BackColor = Color.FromArgb(245, 247, 250);
+            this.FormBorderStyle = FormBorderStyle.FixedDialog;
+            this.StartPosition = FormStartPosition.CenterScreen;
 
-            lblTitle.Font = new Font("Segoe UI", 24, FontStyle.Bold);
-            lblTitle.ForeColor = Color.FromArgb(30, 30, 30);
-            lblTitle.Height = 80;
+            lblRestaurantName.ForeColor = Color.FromArgb(30, 41, 59);
+            lblRestaurantName.TextAlign = ContentAlignment.MiddleCenter;
 
-            StylePrimaryButton(btnManager);
-            StyleSecondaryButton(btnWaiter);
+            StyleRoleButton(btnManager, Color.FromArgb(0, 120, 215), "Manager Access");
+            StyleRoleButton(btnWaiter, Color.FromArgb(72, 187, 120), "Staff / Waiter");
 
-   
+            lblClock.Font = new Font("Segoe UI Semibold", 12, FontStyle.Regular);
+            lblClock.ForeColor = Color.FromArgb(120, 120, 120);
+            lblClock.Text = DateTime.Now.ToString("HH:mm:ss");
+
+            lblStatus.Font = new Font("Segoe UI Semibold", 12, FontStyle.Italic);
+
+            if (!Database.IsDatabaseAvailable())
+            {
+                lblStatus.Text = "Status: Database Offline";
+                lblStatus.ForeColor = Color.Red;
+            }
+            else
+            {
+                lblStatus.Text = "Status: Database Online";
+                lblStatus.ForeColor = Color.Green;
+            }
         }
 
-        private void StylePrimaryButton(Button btn)
+        private void StyleRoleButton(Button btn, Color accentColor, string subText)
         {
             btn.FlatStyle = FlatStyle.Flat;
             btn.FlatAppearance.BorderSize = 0;
-            btn.BackColor = Color.FromArgb(0, 120, 215);
-            btn.ForeColor = Color.White;
-            btn.Font = new Font("Segoe UI", 12, FontStyle.Bold);
-            btn.Height = 45;
-            btn.Width = 220;
+            btn.BackColor = Color.White;
+            btn.ForeColor = accentColor;
+            btn.Font = new Font("Segoe UI", 14, FontStyle.Bold);
+            btn.Text = $"{subText}";
 
-            btn.MouseEnter += (s, e) => btn.BackColor = Color.FromArgb(0, 100, 180);
-            btn.MouseLeave += (s, e) => btn.BackColor = Color.FromArgb(0, 120, 215);
+
+            btn.Height = 140;
+            btn.Width = 250;
+
+            btn.FlatAppearance.BorderColor = Color.FromArgb(220, 220, 220);
+            btn.FlatAppearance.BorderSize = 1;
+
+            btn.Text = btn.Text.ToUpper();
+
+            btn.MouseEnter += (s, e) =>
+            {
+                btn.BackColor = accentColor;
+                btn.ForeColor = Color.White;
+                btn.Cursor = Cursors.Hand;
+            };
+
+            btn.MouseLeave += (s, e) =>
+            {
+                btn.BackColor = Color.White;
+                btn.ForeColor = accentColor;
+            };
         }
 
-        private void StyleSecondaryButton(Button btn)
+
+
+        private void FrmLogging_FormClosing(object sender, FormClosingEventArgs e)
         {
-            btn.FlatStyle = FlatStyle.Flat;
-            btn.FlatAppearance.BorderSize = 0;
-            btn.BackColor = Color.LightGray;
-            btn.ForeColor = Color.Black;
-            btn.Font = new Font("Segoe UI", 12, FontStyle.Bold);
-            btn.Height = 45;
-            btn.Width = 220;
+            DialogResult result = MessageBox.Show(
+                "Are you sure you want to close this page?",
+                "Confirm Exit",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
 
-            btn.MouseEnter += (s, e) => btn.BackColor = Color.Gray;
-            btn.MouseLeave += (s, e) => btn.BackColor = Color.LightGray;
+            if (result == DialogResult.Yes)
+            {
+                Environment.Exit(0);
+            }
         }
 
-        
+
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            lblClock.Text = DateTime.Now.ToString("HH:mm:ss");
+
+        }
+
+        private void lblClock_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

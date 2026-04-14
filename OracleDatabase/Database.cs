@@ -88,6 +88,25 @@ namespace RestaurantOrderingSystem.OracleDatabase
             conn.Close();
 
         }
+
+        public static bool IsDatabaseAvailable()
+        {
+            try
+            {
+                if (GetConnection() != null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
     }
 }
 

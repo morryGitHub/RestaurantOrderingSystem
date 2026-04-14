@@ -26,7 +26,7 @@ namespace RestaurantOrderingSystem
             Status = "Available";
 
         }
-        public Table(int tableId=0, int tableNumber = 0, int capacity = 0, string status = "Available")
+        public Table(int tableId = 0, int tableNumber = 0, int capacity = 0, string status = "Available")
         {
             TableId = tableId;
             TableNumber = tableNumber;
@@ -62,14 +62,19 @@ namespace RestaurantOrderingSystem
         }
         public void AddTable()
         {
-            //Define the SQL query to be executed
+            try
+            {
+                string sql = $@"
+                                 INSERT INTO tablesinfo (TABLENO, CAPACITY, STATUS)
+                                 VALUES ({TableNumber}, {Capacity}, '{Status}')
+                             ";
 
-            string sql = $@"
-                INSERT INTO tablesinfo (TABLENO, CAPACITY, STATUS)
-                VALUES ({TableNumber}, {Capacity}, '{Status}')";
-
-            //Execute the SQL query
-            Database.ExecuteNonQuery(sql);
+                Database.ExecuteNonQuery(sql);
+            }
+            catch (OracleException ex)
+            {
+                throw new Exception("Database error: " + ex.Message);
+            }
         }
 
         public static Table GetTable(int tableID)
@@ -177,7 +182,7 @@ namespace RestaurantOrderingSystem
 
             return 1;
         }
-   
+
         public static List<Table> GetTables()
         {
             DataSet ds = LoadAllTables();

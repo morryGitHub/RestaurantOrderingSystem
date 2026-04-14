@@ -134,9 +134,7 @@ namespace RestaurantOrderingSystem
 
             if (result == DialogResult.Yes)
             {
-                FrmLogging frmLogging = new FrmLogging();
-                this.Hide();
-                frmLogging.ShowDialog();
+                this.Close();
             }
         }
 
@@ -160,16 +158,9 @@ namespace RestaurantOrderingSystem
 
         private void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            DialogResult result = MessageBox.Show(
-                "Are you sure you want to close this page?",
-                "Confirm Exit",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question);
 
-            if (result == DialogResult.Yes)
-            {
-                Environment.Exit(0);
-            }
+            Application.Exit();
+
         }
     }
 }
