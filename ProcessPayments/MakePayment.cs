@@ -25,7 +25,7 @@ namespace RestaurantOrderingSystem
 
         private void btnPay_Click(object sender, EventArgs e)
         {
-            if (cmbOrders.SelectedIndex == -1)
+            if (cmbOrders.SelectedItem.ToString() == "Select the Order")
             {
                 MessageBox.Show("Please select an order.");
                 return;
@@ -66,7 +66,7 @@ namespace RestaurantOrderingSystem
             this.Close();
         }
 
-     
+
         private void lblTotal_Click(object sender, EventArgs e)
         {
 
@@ -90,10 +90,47 @@ namespace RestaurantOrderingSystem
 
         private void frmMakePayment_Load(object sender, EventArgs e)
         {
+            var normal = new Font("Segoe UI", 10, FontStyle.Regular);
+
+            this.BackColor = Color.White;
+
+            // TITLE
+            lblTitle.Font = new Font("Segoe UI", 16, FontStyle.Bold);
+            lblTitle.ForeColor = Color.FromArgb(30, 30, 30);
+
+            // DATAGRID STYLE (как в Revenue)
+            dgvOrderItems.BorderStyle = BorderStyle.None;
+            dgvOrderItems.EnableHeadersVisualStyles = false;
+
+            dgvOrderItems.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(45, 45, 48);
+            dgvOrderItems.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgvOrderItems.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+
+            dgvOrderItems.DefaultCellStyle.Font = normal;
+
+            // убираем синий highlight
+            dgvOrderItems.DefaultCellStyle.SelectionBackColor = dgvOrderItems.DefaultCellStyle.BackColor;
+            dgvOrderItems.DefaultCellStyle.SelectionForeColor = dgvOrderItems.DefaultCellStyle.ForeColor;
+
+            dgvOrderItems.ColumnHeadersDefaultCellStyle.SelectionBackColor = dgvOrderItems.ColumnHeadersDefaultCellStyle.BackColor;
+            dgvOrderItems.ColumnHeadersDefaultCellStyle.SelectionForeColor = dgvOrderItems.ColumnHeadersDefaultCellStyle.ForeColor;
+
+            dgvOrderItems.RowHeadersVisible = false;
+            dgvOrderItems.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvOrderItems.AllowUserToAddRows = false;
+
             dgvOrderItems.ClearSelection();
+
+            // BUTTONS
+            StyleButton(btnPay);
+            StyleButton(btnCancel, isSecondary: true);
+
+            // LABEL TOTAL
+            lblAmount.Font = new Font("Segoe UI", 14, FontStyle.Bold);
+            lblAmount.ForeColor = Color.FromArgb(50, 50, 50);
+
             FillActiveOrdersComboBox();
             FillMethodType();
-
         }
 
         public void FillActiveOrdersComboBox()
@@ -164,5 +201,24 @@ namespace RestaurantOrderingSystem
 
             Validation.UpdateTotal(dgvOrderItems, lblAmount);
         }
+
+        private void StyleButton(Button btn, bool isSecondary = false)
+        {
+            btn.FlatStyle = FlatStyle.Flat;
+            btn.FlatAppearance.BorderSize = 0;
+
+            if (!isSecondary)
+            {
+                btn.BackColor = Color.FromArgb(0, 120, 215); // синий
+                btn.ForeColor = Color.White;
+            }
+            else
+            {
+                btn.BackColor = Color.LightGray;
+                btn.ForeColor = Color.Black;
+            }
+        }
     }
+
+
 }

@@ -34,12 +34,14 @@
             this.cmbCat = new System.Windows.Forms.ComboBox();
             this.lblCat = new System.Windows.Forms.Label();
             this.lblTitle = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dgvStats = new System.Windows.Forms.DataGridView();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.backToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStats)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblSummary
@@ -57,7 +59,9 @@
             this.groupBox1.Controls.Add(this.lblCat);
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(17, 78);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox1.Size = new System.Drawing.Size(571, 110);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
@@ -66,7 +70,8 @@
             // btnGenerate
             // 
             this.btnGenerate.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGenerate.Location = new System.Drawing.Point(430, 44);
+            this.btnGenerate.Location = new System.Drawing.Point(429, 44);
+            this.btnGenerate.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnGenerate.Name = "btnGenerate";
             this.btnGenerate.Size = new System.Drawing.Size(117, 33);
             this.btnGenerate.TabIndex = 3;
@@ -81,7 +86,7 @@
             this.cmbCat.FormattingEnabled = true;
             this.cmbCat.Items.AddRange(new object[] {
             "Top 10 Menu Items",
-            "Least 10 Menu items",
+            "Least 10 Menu Items",
             "Never Ordered Items",
             "Total Orders",
             "Average Order",
@@ -90,6 +95,7 @@
             "Payments By Method",
             "Total Refunded Amount"});
             this.cmbCat.Location = new System.Drawing.Point(171, 46);
+            this.cmbCat.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cmbCat.Name = "cmbCat";
             this.cmbCat.Size = new System.Drawing.Size(233, 31);
             this.cmbCat.TabIndex = 2;
@@ -99,7 +105,7 @@
             // 
             this.lblCat.AutoSize = true;
             this.lblCat.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.lblCat.Location = new System.Drawing.Point(6, 46);
+            this.lblCat.Location = new System.Drawing.Point(5, 46);
             this.lblCat.Name = "lblCat";
             this.lblCat.Size = new System.Drawing.Size(149, 28);
             this.lblCat.TabIndex = 1;
@@ -109,30 +115,22 @@
             // 
             this.lblTitle.AutoSize = true;
             this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold);
-            this.lblTitle.Location = new System.Drawing.Point(57, 19);
+            this.lblTitle.Location = new System.Drawing.Point(109, 18);
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(401, 38);
             this.lblTitle.TabIndex = 8;
             this.lblTitle.Text = "Print Yearly Revenue Analysis";
-            // 
-            // button2
-            // 
-            this.button2.Font = new System.Drawing.Font("Segoe UI", 10.2F);
-            this.button2.Location = new System.Drawing.Point(17, 526);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(119, 35);
-            this.button2.TabIndex = 10;
-            this.button2.Text = "Close";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.lblTitle.Click += new System.EventHandler(this.lblTitle_Click);
             // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.dgvStats);
             this.groupBox2.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold);
             this.groupBox2.Location = new System.Drawing.Point(17, 204);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(571, 295);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox2.Size = new System.Drawing.Size(571, 389);
             this.groupBox2.TabIndex = 11;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Revenue Details";
@@ -147,26 +145,51 @@
             this.dgvStats.BackgroundColor = System.Drawing.Color.White;
             this.dgvStats.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvStats.GridColor = System.Drawing.Color.Black;
-            this.dgvStats.Location = new System.Drawing.Point(6, 37);
+            this.dgvStats.Location = new System.Drawing.Point(5, 37);
+            this.dgvStats.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgvStats.Name = "dgvStats";
             this.dgvStats.ReadOnly = true;
             this.dgvStats.RowHeadersVisible = false;
             this.dgvStats.RowHeadersWidth = 51;
             this.dgvStats.RowTemplate.Height = 24;
-            this.dgvStats.Size = new System.Drawing.Size(559, 252);
+            this.dgvStats.Size = new System.Drawing.Size(559, 348);
             this.dgvStats.TabIndex = 7;
             this.dgvStats.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataStat_CellContentClick);
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.BackColor = System.Drawing.Color.Transparent;
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.backToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(600, 28);
+            this.menuStrip1.TabIndex = 12;
+            this.menuStrip1.Text = "menuStrip1";
+            this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
+            // 
+            // backToolStripMenuItem
+            // 
+            this.backToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.backToolStripMenuItem.Name = "backToolStripMenuItem";
+            this.backToolStripMenuItem.Size = new System.Drawing.Size(54, 24);
+            this.backToolStripMenuItem.Text = "Back";
+            this.backToolStripMenuItem.Click += new System.EventHandler(this.backToolStripMenuItem_Click);
             // 
             // FrmStatistics
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(600, 587);
+            this.ClientSize = new System.Drawing.Size(600, 615);
             this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.button2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.lblSummary);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "FrmStatistics";
             this.Text = "StatisticsForm";
             this.Load += new System.EventHandler(this.StatisticsForm_Load);
@@ -174,6 +197,8 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvStats)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -186,8 +211,9 @@
         private System.Windows.Forms.ComboBox cmbCat;
         private System.Windows.Forms.Label lblCat;
         private System.Windows.Forms.Label lblTitle;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.DataGridView dgvStats;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem backToolStripMenuItem;
     }
 }

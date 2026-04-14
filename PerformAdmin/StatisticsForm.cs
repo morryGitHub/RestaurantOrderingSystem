@@ -26,17 +26,42 @@ namespace RestaurantOrderingSystem
         {
             var normal = new Font("Segoe UI", 10, FontStyle.Regular);
 
-            dgvStats.Font = normal;
-            dgvStats.DefaultCellStyle.Font = normal;
-            dgvStats.RowsDefaultCellStyle.Font = normal;
-            dgvStats.AlternatingRowsDefaultCellStyle.Font = normal;
+            this.BackColor = Color.White;
 
-            dgvStats.ColumnHeadersDefaultCellStyle.Font = normal;
-            dgvStats.RowHeadersDefaultCellStyle.Font = normal;
+            // TITLE
+            lblTitle.Font = new Font("Segoe UI", 16, FontStyle.Bold);
+            lblTitle.ForeColor = Color.FromArgb(30, 30, 30);
+
+            // TABLE STYLE (как во втором окне)
+            dgvStats.BorderStyle = BorderStyle.None;
+            dgvStats.EnableHeadersVisualStyles = false;
+
+            dgvStats.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(45, 45, 48);
+            dgvStats.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgvStats.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+
+            dgvStats.DefaultCellStyle.Font = normal;
+
+            dgvStats.DefaultCellStyle.SelectionBackColor = dgvStats.DefaultCellStyle.BackColor;
+            dgvStats.DefaultCellStyle.SelectionForeColor = dgvStats.DefaultCellStyle.ForeColor;
+
+            dgvStats.ColumnHeadersDefaultCellStyle.SelectionBackColor = dgvStats.ColumnHeadersDefaultCellStyle.BackColor;
+            dgvStats.ColumnHeadersDefaultCellStyle.SelectionForeColor = dgvStats.ColumnHeadersDefaultCellStyle.ForeColor;
+
+            dgvStats.RowHeadersVisible = false;
+            dgvStats.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
             dgvStats.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvStats.ReadOnly = true;
             dgvStats.MultiSelect = false;
+
+            dgvStats.AllowUserToAddRows = false;
+
+            // BUTTON STYLE
+            btnGenerate.FlatStyle = FlatStyle.Flat;
+            btnGenerate.BackColor = Color.FromArgb(0, 120, 215);
+            btnGenerate.ForeColor = Color.White;
+            btnGenerate.FlatAppearance.BorderSize = 0;
 
             dgvStats.ClearSelection();
         }
@@ -156,10 +181,6 @@ namespace RestaurantOrderingSystem
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
 
         private void CmbCat_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -169,6 +190,21 @@ namespace RestaurantOrderingSystem
         private void dataStat_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void lblTitle_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void backToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }
