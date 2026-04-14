@@ -25,6 +25,64 @@ namespace RestaurantOrderingSystem
         private void UpdateTableForm_Load(object sender, EventArgs e)
         {
             LoadTables();
+
+            var normal = new Font("Segoe UI", 10, FontStyle.Regular);
+
+            // ===== FORM BACKGROUND =====
+            this.BackColor = Color.White;
+            // ===== TITLE =====
+            lblTitle.Font = new Font("Segoe UI", 16, FontStyle.Bold);
+            lblTitle.ForeColor = Color.FromArgb(30, 30, 30);
+
+            // ===== GROUPBOX (CARD STYLE) =====
+            this.BackColor = Color.White;
+
+            groupBox1.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+            groupBox1.ForeColor = Color.FromArgb(50, 50, 50);
+            groupBox1.Padding = new Padding(10);
+
+            // ===== LABELS =====
+            lblTabeNo.Font = normal;
+            lblTabeNo.ForeColor = Color.FromArgb(60, 60, 60);
+
+            lblCapacity.Font = normal;
+            lblCapacity.ForeColor = Color.FromArgb(60, 60, 60);
+
+            lblStatus.Font = normal;
+            lblStatus.ForeColor = Color.FromArgb(60, 60, 60);
+
+            // ===== INPUTS =====
+            cmbTableNo.Font = normal;
+            cmbTableNo.BackColor = Color.White;
+
+            numSeats.Font = normal;
+            numSeats.BackColor = Color.White;
+
+            cmbStatus.Font = normal;
+            cmbStatus.BackColor = Color.White;
+
+            // ===== BUTTONS =====
+
+            // Primary (Update)
+            btnUpdateTable.FlatStyle = FlatStyle.Flat;
+            btnUpdateTable.BackColor = Color.FromArgb(0, 120, 215); // blue
+            btnUpdateTable.ForeColor = Color.White;
+            btnUpdateTable.FlatAppearance.BorderSize = 0;
+            btnUpdateTable.Font = normal;
+            btnUpdateTable.FlatAppearance.MouseOverBackColor = Color.FromArgb(0, 100, 180);
+
+            // Exit (secondary)
+            btnExit.FlatStyle = FlatStyle.Flat;
+            btnExit.BackColor = Color.LightGray;
+            btnExit.ForeColor = Color.Black;
+            btnExit.FlatAppearance.BorderSize = 0;
+            btnExit.Font = normal;
+            btnExit.FlatAppearance.MouseOverBackColor = Color.Gray;
+
+            // ===== INITIAL STATE =====
+            btnUpdateTable.Enabled = false;
+            numSeats.Enabled = false;
+            cmbStatus.Enabled = false;
         }
 
 
@@ -157,6 +215,9 @@ namespace RestaurantOrderingSystem
             }
         }
 
+        private void lblCapacity_Click(object sender, EventArgs e)
+        {
 
+        }
     }
 }

@@ -97,7 +97,6 @@ namespace RestaurantOrderingSystem
             btn.MouseLeave += (s, e) => btn.BackColor = Color.LightGray;
         }
 
-
+        
     }
-    
 }

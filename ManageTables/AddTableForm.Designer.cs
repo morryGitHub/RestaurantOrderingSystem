@@ -42,14 +42,16 @@
             // 
             // lblTitle
             // 
-            this.lblTitle.AutoSize = true;
+            this.lblTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold);
-            this.lblTitle.Location = new System.Drawing.Point(126, 31);
+            this.lblTitle.Location = new System.Drawing.Point(30, 26);
             this.lblTitle.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(117, 30);
+            this.lblTitle.Size = new System.Drawing.Size(358, 30);
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "Add Table";
+            this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblTableNo
             // 
@@ -79,13 +81,15 @@
             this.numericSeatingCap.Location = new System.Drawing.Point(205, 110);
             this.numericSeatingCap.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.numericSeatingCap.Name = "numericSeatingCap";
+            this.numericSeatingCap.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.numericSeatingCap.Size = new System.Drawing.Size(123, 26);
             this.numericSeatingCap.TabIndex = 4;
+            this.numericSeatingCap.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // btnAddTable
             // 
             this.btnAddTable.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddTable.Location = new System.Drawing.Point(30, 327);
+            this.btnAddTable.Location = new System.Drawing.Point(30, 295);
             this.btnAddTable.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.btnAddTable.Name = "btnAddTable";
             this.btnAddTable.Size = new System.Drawing.Size(134, 44);
@@ -97,7 +101,7 @@
             // btnCancel
             // 
             this.btnCancel.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancel.Location = new System.Drawing.Point(254, 327);
+            this.btnCancel.Location = new System.Drawing.Point(254, 295);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(134, 44);
@@ -113,7 +117,7 @@
             this.groupBox1.Controls.Add(this.lblCapacity);
             this.groupBox1.Controls.Add(this.lblTableNo);
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(30, 113);
+            this.groupBox1.Location = new System.Drawing.Point(30, 85);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(5, 6, 5, 6);
@@ -124,33 +128,34 @@
             // 
             // tableNum
             // 
+            this.tableNum.Enabled = false;
             this.tableNum.Font = new System.Drawing.Font("Segoe UI", 10.2F);
             this.tableNum.Location = new System.Drawing.Point(205, 51);
             this.tableNum.Name = "tableNum";
             this.tableNum.ReadOnly = true;
             this.tableNum.Size = new System.Drawing.Size(123, 26);
             this.tableNum.TabIndex = 5;
+            this.tableNum.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.tableNum.TextChanged += new System.EventHandler(this.tableNum_TextChanged);
             // 
-            // AddTableForm
+            // FrmAddTable
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 30F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(428, 413);
+            this.ClientSize = new System.Drawing.Size(428, 376);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnAddTable);
             this.Controls.Add(this.lblTitle);
             this.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
-            this.Name = "AddTableForm";
+            this.Name = "FrmAddTable";
             this.Text = "AddTableForm";
             this.Load += new System.EventHandler(this.AddTableForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericSeatingCap)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 

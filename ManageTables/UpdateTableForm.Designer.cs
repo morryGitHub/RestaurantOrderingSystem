@@ -35,7 +35,7 @@
             this.numSeats = new System.Windows.Forms.NumericUpDown();
             this.lblCapacity = new System.Windows.Forms.Label();
             this.lblTabeNo = new System.Windows.Forms.Label();
-            this.btnCancel = new System.Windows.Forms.Button();
+            this.btnExit = new System.Windows.Forms.Button();
             this.btnUpdateTable = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
@@ -62,8 +62,8 @@
             this.cmbStatus.Items.AddRange(new object[] {
             "Available",
             "Unavailable"});
-            this.cmbStatus.Location = new System.Drawing.Point(152, 136);
-            this.cmbStatus.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbStatus.Location = new System.Drawing.Point(152, 138);
+            this.cmbStatus.Margin = new System.Windows.Forms.Padding(2);
             this.cmbStatus.Name = "cmbStatus";
             this.cmbStatus.Size = new System.Drawing.Size(143, 27);
             this.cmbStatus.TabIndex = 10;
@@ -95,8 +95,8 @@
             this.cmbTableNo.Items.AddRange(new object[] {
             "Table 4 - 4 seats",
             "Table 10 - 9 seats"});
-            this.cmbTableNo.Location = new System.Drawing.Point(152, 44);
-            this.cmbTableNo.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbTableNo.Location = new System.Drawing.Point(152, 42);
+            this.cmbTableNo.Margin = new System.Windows.Forms.Padding(2);
             this.cmbTableNo.Name = "cmbTableNo";
             this.cmbTableNo.Size = new System.Drawing.Size(143, 27);
             this.cmbTableNo.TabIndex = 13;
@@ -105,7 +105,7 @@
             // numSeats
             // 
             this.numSeats.Font = new System.Drawing.Font("Segoe UI", 10.2F);
-            this.numSeats.Location = new System.Drawing.Point(152, 89);
+            this.numSeats.Location = new System.Drawing.Point(152, 87);
             this.numSeats.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.numSeats.Name = "numSeats";
             this.numSeats.Size = new System.Drawing.Size(143, 26);
@@ -122,6 +122,7 @@
             this.lblCapacity.Size = new System.Drawing.Size(125, 21);
             this.lblCapacity.TabIndex = 2;
             this.lblCapacity.Text = "Seating Capacity";
+            this.lblCapacity.Click += new System.EventHandler(this.lblCapacity_Click);
             // 
             // lblTabeNo
             // 
@@ -134,17 +135,17 @@
             this.lblTabeNo.TabIndex = 1;
             this.lblTabeNo.Text = "Table Number";
             // 
-            // btnCancel
+            // btnExit
             // 
-            this.btnCancel.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancel.Location = new System.Drawing.Point(197, 285);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(100, 36);
-            this.btnCancel.TabIndex = 13;
-            this.btnCancel.Text = "Cancel";
-            this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.BtnExit_Click);
+            this.btnExit.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnExit.Location = new System.Drawing.Point(197, 285);
+            this.btnExit.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(100, 36);
+            this.btnExit.TabIndex = 13;
+            this.btnExit.Text = "Exit";
+            this.btnExit.UseVisualStyleBackColor = true;
+            this.btnExit.Click += new System.EventHandler(this.BtnExit_Click);
             // 
             // btnUpdateTable
             // 
@@ -169,17 +170,17 @@
             this.lblTitle.TabIndex = 11;
             this.lblTitle.Text = "Update Table";
             // 
-            // frmUpdateTable
+            // FrmUpdateTable
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(346, 366);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.btnCancel);
+            this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnUpdateTable);
             this.Controls.Add(this.lblTitle);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.Name = "frmUpdateTable";
+            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Name = "FrmUpdateTable";
             this.Text = "UpdateTableForm";
             this.Load += new System.EventHandler(this.UpdateTableForm_Load);
             this.groupBox1.ResumeLayout(false);
@@ -197,7 +198,7 @@
         private System.Windows.Forms.NumericUpDown numSeats;
         private System.Windows.Forms.Label lblCapacity;
         private System.Windows.Forms.Label lblTabeNo;
-        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.Button btnUpdateTable;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.ComboBox cmbTableNo;
