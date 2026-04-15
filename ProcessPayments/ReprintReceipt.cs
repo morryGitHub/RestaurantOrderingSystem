@@ -19,26 +19,81 @@ namespace RestaurantOrderingSystem
         }
 
 
-      
+
 
         private void ReprintReceipt_Load(object sender, EventArgs e)
         {
+            // Define standard font
             var normal = new Font("Segoe UI", 10, FontStyle.Regular);
 
-            dgvOrderDetails.Font = normal;
+            // 1. FORM STYLE
+            this.BackColor = Color.White;
+
+            // 2. TITLE STYLE (Assuming lblTitle exists)
+            lblTitle.Font = new Font("Segoe UI", 16, FontStyle.Bold);
+            lblTitle.ForeColor = Color.FromArgb(30, 30, 30);
+
+            // 3. DATAGRID STYLE (dgvOrderDetails)
+            dgvOrderDetails.BorderStyle = BorderStyle.None;
+            dgvOrderDetails.EnableHeadersVisualStyles = false;
+
+            // Header Styles (Dark Gray background, White text)
+            dgvOrderDetails.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(45, 45, 48);
+            dgvOrderDetails.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgvOrderDetails.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+            dgvOrderDetails.ColumnHeadersHeight = 35;
+
+            // Body Styles
             dgvOrderDetails.DefaultCellStyle.Font = normal;
-            dgvOrderDetails.RowsDefaultCellStyle.Font = normal;
-            dgvOrderDetails.AlternatingRowsDefaultCellStyle.Font = normal;
 
-            dgvOrderDetails.ColumnHeadersDefaultCellStyle.Font = normal;
-            dgvOrderDetails.RowHeadersDefaultCellStyle.Font = normal;
+            // Selection Style (Invisible selection to match Revenue form)
+            dgvOrderDetails.DefaultCellStyle.SelectionBackColor = dgvOrderDetails.DefaultCellStyle.BackColor;
+            dgvOrderDetails.DefaultCellStyle.SelectionForeColor = dgvOrderDetails.DefaultCellStyle.ForeColor;
 
-            dgvOrderDetails.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            // Header Selection (Prevents blue highlight when clicking headers)
+            dgvOrderDetails.ColumnHeadersDefaultCellStyle.SelectionBackColor = dgvOrderDetails.ColumnHeadersDefaultCellStyle.BackColor;
+            dgvOrderDetails.ColumnHeadersDefaultCellStyle.SelectionForeColor = dgvOrderDetails.ColumnHeadersDefaultCellStyle.ForeColor;
+
+            dgvOrderDetails.RowHeadersVisible = false;
+            dgvOrderDetails.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvOrderDetails.AllowUserToAddRows = false;
             dgvOrderDetails.ReadOnly = true;
             dgvOrderDetails.MultiSelect = false;
 
+            // 4. BUTTONS STYLE
+            StyleButton(btnReprint);                 // Primary Blue (Used for Reprint)
+            StyleButton(btnCancel, isSecondary: true); // Secondary Gray
+
+            // 5. TOTAL LABEL STYLE
+            lblTotal.Font = new Font("Segoe UI", 14, FontStyle.Bold);
+            lblTotal.ForeColor = Color.FromArgb(50, 50, 50);
+
+            // 6. DATA LOADING
             dgvOrderDetails.ClearSelection();
             FillPaidPaymentsComboBox();
+        }
+
+        // Helper method to maintain consistent button design across all forms
+        private void StyleButton(Button btn, bool isSecondary = false)
+        {
+            if (btn == null) return;
+
+            btn.FlatStyle = FlatStyle.Flat;
+            btn.FlatAppearance.BorderSize = 0;
+            btn.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+
+            if (!isSecondary)
+            {
+                // Primary Blue Style
+                btn.BackColor = Color.FromArgb(0, 120, 215);
+                btn.ForeColor = Color.White;
+            }
+            else
+            {
+                // Secondary Gray Style
+                btn.BackColor = Color.LightGray;
+                btn.ForeColor = Color.Black;
+            }
         }
 
         private void dgvPayments_CellContentClick(object sender, DataGridViewCellEventArgs e)
