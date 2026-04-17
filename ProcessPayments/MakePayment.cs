@@ -92,27 +92,48 @@ namespace RestaurantOrderingSystem
 
         private void frmMakePayment_Load(object sender, EventArgs e)
         {
+            // Set basic font
             var normal = new Font("Segoe UI", 10, FontStyle.Regular);
 
+            // FORM STYLE
             this.BackColor = Color.White;
 
-            // TITLE
+            // TITLE STYLE
             lblTitle.Font = new Font("Segoe UI", 16, FontStyle.Bold);
             lblTitle.ForeColor = Color.FromArgb(30, 30, 30);
 
           
 
-            // BUTTONS
-            StyleButton(btnPay);
-            StyleButton(btnCancel, isSecondary: true);
-
-            // LABEL TOTAL
+            // TOTAL LABEL STYLE
             lblAmount.Font = new Font("Segoe UI", 14, FontStyle.Bold);
             lblAmount.ForeColor = Color.FromArgb(50, 50, 50);
 
+            // DATA LOADING
+            dgvOrderItems.ClearSelection();
             FillActiveOrdersComboBox();
             FillMethodType();
         }
+
+        private void StyleButton(Button btn, bool isSecondary = false)
+        {
+            btn.FlatStyle = FlatStyle.Flat;
+            btn.FlatAppearance.BorderSize = 0;
+            btn.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+
+            if (!isSecondary)
+            {
+                // Matches your btnGenerate style
+                btn.BackColor = Color.FromArgb(0, 120, 215); // Blue
+                btn.ForeColor = Color.White;
+            }
+            else
+            {
+                // Matches your secondary style
+                btn.BackColor = Color.LightGray;
+                btn.ForeColor = Color.Black;
+            }
+        }
+
 
         public void FillActiveOrdersComboBox()
         {
@@ -183,22 +204,7 @@ namespace RestaurantOrderingSystem
             Validation.UpdateTotal(dgvOrderItems, lblAmount);
         }
 
-        private void StyleButton(Button btn, bool isSecondary = false)
-        {
-            btn.FlatStyle = FlatStyle.Flat;
-            btn.FlatAppearance.BorderSize = 0;
-
-            if (!isSecondary)
-            {
-                btn.BackColor = Color.FromArgb(0, 120, 215); // синий
-                btn.ForeColor = Color.White;
-            }
-            else
-            {
-                btn.BackColor = Color.LightGray;
-                btn.ForeColor = Color.Black;
-            }
-        }
+      
     }
 
 

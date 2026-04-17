@@ -35,6 +35,11 @@
             this.lblTotal = new System.Windows.Forms.Label();
             this.lblTotalText = new System.Windows.Forms.Label();
             this.dgvOrderItems = new System.Windows.Forms.DataGridView();
+            this.ItemName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UnitPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Qty = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Subtotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MenuItemID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnAddItem = new System.Windows.Forms.Button();
             this.numQty = new System.Windows.Forms.NumericUpDown();
@@ -46,11 +51,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.btnExit = new System.Windows.Forms.Button();
             this.btnConfirm = new System.Windows.Forms.Button();
-            this.ItemName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.UnitPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Qty = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Subtotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MenuItemID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOrderItems)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -76,9 +76,9 @@
             this.groupBox3.Controls.Add(this.dgvOrderItems);
             this.groupBox3.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold);
             this.groupBox3.Location = new System.Drawing.Point(317, 98);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox3.Size = new System.Drawing.Size(498, 262);
             this.groupBox3.TabIndex = 9;
             this.groupBox3.TabStop = false;
@@ -140,7 +140,7 @@
             this.dgvOrderItems.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnF2;
             this.dgvOrderItems.EnableHeadersVisualStyles = false;
             this.dgvOrderItems.Location = new System.Drawing.Point(4, 30);
-            this.dgvOrderItems.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dgvOrderItems.Margin = new System.Windows.Forms.Padding(2);
             this.dgvOrderItems.MultiSelect = false;
             this.dgvOrderItems.Name = "dgvOrderItems";
             this.dgvOrderItems.ReadOnly = true;
@@ -151,6 +151,37 @@
             this.dgvOrderItems.Size = new System.Drawing.Size(489, 188);
             this.dgvOrderItems.TabIndex = 3;
             this.dgvOrderItems.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvOrderItems_CellContentClick);
+            // 
+            // ItemName
+            // 
+            this.ItemName.HeaderText = "Item";
+            this.ItemName.Name = "ItemName";
+            this.ItemName.ReadOnly = true;
+            // 
+            // UnitPrice
+            // 
+            this.UnitPrice.HeaderText = "Price";
+            this.UnitPrice.Name = "UnitPrice";
+            this.UnitPrice.ReadOnly = true;
+            // 
+            // Qty
+            // 
+            this.Qty.HeaderText = "Quantity";
+            this.Qty.Name = "Qty";
+            this.Qty.ReadOnly = true;
+            // 
+            // Subtotal
+            // 
+            this.Subtotal.HeaderText = "Subtotal";
+            this.Subtotal.Name = "Subtotal";
+            this.Subtotal.ReadOnly = true;
+            // 
+            // MenuItemID
+            // 
+            this.MenuItemID.HeaderText = "MenuItemID";
+            this.MenuItemID.Name = "MenuItemID";
+            this.MenuItemID.ReadOnly = true;
+            this.MenuItemID.Visible = false;
             // 
             // groupBox2
             // 
@@ -286,37 +317,6 @@
             this.btnConfirm.UseVisualStyleBackColor = true;
             this.btnConfirm.Click += new System.EventHandler(this.BtnConfirm_Click);
             // 
-            // ItemName
-            // 
-            this.ItemName.HeaderText = "Item";
-            this.ItemName.Name = "ItemName";
-            this.ItemName.ReadOnly = true;
-            // 
-            // UnitPrice
-            // 
-            this.UnitPrice.HeaderText = "Price";
-            this.UnitPrice.Name = "UnitPrice";
-            this.UnitPrice.ReadOnly = true;
-            // 
-            // Qty
-            // 
-            this.Qty.HeaderText = "Quantity";
-            this.Qty.Name = "Qty";
-            this.Qty.ReadOnly = true;
-            // 
-            // Subtotal
-            // 
-            this.Subtotal.HeaderText = "Subtotal";
-            this.Subtotal.Name = "Subtotal";
-            this.Subtotal.ReadOnly = true;
-            // 
-            // MenuItemID
-            // 
-            this.MenuItemID.HeaderText = "MenuItemID";
-            this.MenuItemID.Name = "MenuItemID";
-            this.MenuItemID.ReadOnly = true;
-            this.MenuItemID.Visible = false;
-            // 
             // FrmNewOrder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -328,7 +328,7 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FrmNewOrder";
             this.Text = "Create New  Order";
             this.Load += new System.EventHandler(this.NewOrderForm_Load);

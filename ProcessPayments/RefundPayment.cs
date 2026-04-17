@@ -30,10 +30,30 @@ namespace RestaurantOrderingSystem
 
         private void frmRefundPayment_Load(object sender, EventArgs e)
         {
+            // Define standard font
             var normal = new Font("Segoe UI", 10, FontStyle.Regular);
             FillPaidPaymentsComboBox();
+        }
 
+        // Helper method to maintain consistent button design
+        private void StyleButton(Button btn, bool isSecondary = false)
+        {
+            btn.FlatStyle = FlatStyle.Flat;
+            btn.FlatAppearance.BorderSize = 0;
+            btn.Font = new Font("Segoe UI", 10, FontStyle.Bold);
 
+            if (!isSecondary)
+            {
+                // Primary Blue Style (like btnGenerate)
+                btn.BackColor = Color.FromArgb(0, 120, 215);
+                btn.ForeColor = Color.White;
+            }
+            else
+            {
+                // Secondary Gray Style
+                btn.BackColor = Color.LightGray;
+                btn.ForeColor = Color.Black;
+            }
         }
 
         private void cmbOrders_SelectedIndexChanged(object sender, EventArgs e)
@@ -52,9 +72,10 @@ namespace RestaurantOrderingSystem
 
                 dgvPayments.Rows.Add(
                         paymentID,
+                        paymentDate.ToString("dd-MM-yyyy HH:mm"),
                         methodType,
-                        amount.ToString("F2"),
-                        paymentDate.ToString("dd-MM-yyyy HH:mm")
+                        amount.ToString("F2")
+                      
                 );
             }
         }
@@ -92,7 +113,7 @@ namespace RestaurantOrderingSystem
 
         private void dgvPayments_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
+            dgvPayments.ClearSelection();
         }
 
         public void FillPaidPaymentsComboBox()
