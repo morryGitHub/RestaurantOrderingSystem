@@ -15,6 +15,8 @@ namespace RestaurantOrderingSystem
         public FrmAddTable()
         {
             InitializeComponent();
+            UIStyleHelper.ApplyPrimaryButtonStyle(btnAddTable);
+
         }
 
         private void btnAddTable_Click(object sender, EventArgs e)
@@ -90,14 +92,7 @@ namespace RestaurantOrderingSystem
             // NumericUpDown styling
             numericSeatingCap.Font = normal;
 
-            // ===== Buttons =====
-
-            // Add Button (same blue style)
-            btnAddTable.FlatStyle = FlatStyle.Flat;
-            btnAddTable.BackColor = Color.FromArgb(0, 120, 215);
-            btnAddTable.ForeColor = Color.White;
-            btnAddTable.FlatAppearance.BorderSize = 0;
-            btnAddTable.Font = normal;
+            // ===== Buttons ====
 
             // Cancel Button (neutral style)
             btnCancel.FlatStyle = FlatStyle.Flat;

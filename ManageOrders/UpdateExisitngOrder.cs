@@ -15,7 +15,9 @@ namespace RestaurantOrderingSystem
         public FrmUpdateOrder()
         {
             InitializeComponent();
-            DataGridViewHelper.ApplyDarkTheme(dgvOrderItems);
+            UIStyleHelper.ApplyDarkTheme(dgvOrderItems);
+            UIStyleHelper.ApplyPrimaryButtonStyle(btnConfirm);
+
         }
 
         private void frmUpdateOrder_Load(object sender, EventArgs e)
@@ -23,13 +25,11 @@ namespace RestaurantOrderingSystem
             FillActiveOrdersComboBox();
             FillMenuItemsComboBox();
 
-            var normal = new Font("Segoe UI", 12, FontStyle.Regular);
 
         }
 
         private void cmdOrders_SelectedIndexChanged(object sender, EventArgs e)
         {
-            dgvOrderItems.Rows.Clear();
             lblTotal.Text = "€0.00";
 
             if (cmbOrders.Text.Equals("Select the Order"))
@@ -41,9 +41,6 @@ namespace RestaurantOrderingSystem
 
             btnCancel.Enabled = true;
             cmbOrders.Items.Remove("Select the Order");
-
-
-            dgvOrderItems.Rows.Clear();
 
             Order order = cmbOrders.SelectedItem as Order;
 

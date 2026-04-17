@@ -24,6 +24,8 @@ namespace RestaurantOrderingSystem
             _paymentMethod = paymentMethod;
             _total = total;
             _items = items;
+            UIStyleHelper.ApplyPrimaryButtonStyle(btnPrint);
+
         }
 
         private void ReceiptForm_Load(object sender, EventArgs e)

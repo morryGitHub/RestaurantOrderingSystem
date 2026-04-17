@@ -16,7 +16,11 @@ namespace RestaurantOrderingSystem
         public FrmUpdateReservation(int reservationID, int tableID)
         {
             InitializeComponent();
-            DataGridViewHelper.ApplyDarkTheme(dgvTables);
+            UIStyleHelper.ApplyDarkTheme(dgvTables);
+            UIStyleHelper.ApplyPrimaryButtonStyle(btnFindAvailableTables);
+            UIStyleHelper.ApplyPrimaryButtonStyle(btnUpdateReservation);
+
+            UIStyleHelper.ApplyPrimaryButtonStyle(btnCancel);
             this.reservationID = reservationID;
             this.tableID = tableID;
         }
@@ -68,14 +72,6 @@ namespace RestaurantOrderingSystem
             {
                 MessageBox.Show("Ebat tu lox");
             }
-
-
-
-
-
-
-
-
         }
 
 
@@ -314,7 +310,7 @@ namespace RestaurantOrderingSystem
                 MessageBoxIcon.Information);
 
             this.Close();
- 
+
         }
     }
 }

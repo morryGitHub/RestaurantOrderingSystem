@@ -18,12 +18,13 @@ namespace RestaurantOrderingSystem
         public FrmAddReservation()
         {
             InitializeComponent();
-            DataGridViewHelper.ApplyDarkTheme(dgvTables);
+            UIStyleHelper.ApplyDarkTheme(dgvTables);
+            UIStyleHelper.ApplyPrimaryButtonStyle(btnAddReservation);
+            UIStyleHelper.ApplyPrimaryButtonStyle(btnFindAvailableTables);
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            var normal = new Font("Segoe UI", 10, FontStyle.Regular);
         }
 
         private void label1_Click(object sender, EventArgs e)

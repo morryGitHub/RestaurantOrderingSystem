@@ -16,6 +16,8 @@ namespace RestaurantOrderingSystem
         public FrmUpdateTable()
         {
             InitializeComponent();
+            UIStyleHelper.ApplyPrimaryButtonStyle(btnUpdateTable);
+
         }
         private void label4_Click(object sender, EventArgs e)
         {
@@ -64,12 +66,7 @@ namespace RestaurantOrderingSystem
             // ===== BUTTONS =====
 
             // Primary (Update)
-            btnUpdateTable.FlatStyle = FlatStyle.Flat;
-            btnUpdateTable.BackColor = Color.FromArgb(0, 120, 215); // blue
-            btnUpdateTable.ForeColor = Color.White;
-            btnUpdateTable.FlatAppearance.BorderSize = 0;
-            btnUpdateTable.Font = normal;
-            btnUpdateTable.FlatAppearance.MouseOverBackColor = Color.FromArgb(0, 100, 180);
+          
 
             // Exit (secondary)
             btnExit.FlatStyle = FlatStyle.Flat;

@@ -55,11 +55,11 @@
             this.groupBox3.Controls.Add(this.lblTotal);
             this.groupBox3.Controls.Add(this.lblTotalText);
             this.groupBox3.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold);
-            this.groupBox3.Location = new System.Drawing.Point(274, 68);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox3.Location = new System.Drawing.Point(365, 84);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.groupBox3.Size = new System.Drawing.Size(510, 262);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox3.Size = new System.Drawing.Size(680, 322);
             this.groupBox3.TabIndex = 14;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Order Summary";
@@ -73,7 +73,7 @@
             this.dgvOrderItems.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.WhiteSmoke;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
@@ -96,15 +96,15 @@
             this.dgvOrderItems.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnF2;
             this.dgvOrderItems.Enabled = false;
             this.dgvOrderItems.EnableHeadersVisualStyles = false;
-            this.dgvOrderItems.Location = new System.Drawing.Point(10, 30);
-            this.dgvOrderItems.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dgvOrderItems.Location = new System.Drawing.Point(13, 37);
+            this.dgvOrderItems.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgvOrderItems.MultiSelect = false;
             this.dgvOrderItems.Name = "dgvOrderItems";
             this.dgvOrderItems.RowHeadersVisible = false;
             this.dgvOrderItems.RowHeadersWidth = 25;
             this.dgvOrderItems.RowTemplate.Height = 24;
             this.dgvOrderItems.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvOrderItems.Size = new System.Drawing.Size(489, 188);
+            this.dgvOrderItems.Size = new System.Drawing.Size(652, 231);
             this.dgvOrderItems.TabIndex = 8;
             this.dgvOrderItems.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvOrderItems_CellContentClick);
             // 
@@ -112,10 +112,9 @@
             // 
             this.lblTotal.AutoSize = true;
             this.lblTotal.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.lblTotal.Location = new System.Drawing.Point(63, 228);
-            this.lblTotal.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblTotal.Location = new System.Drawing.Point(84, 281);
             this.lblTotal.Name = "lblTotal";
-            this.lblTotal.Size = new System.Drawing.Size(49, 21);
+            this.lblTotal.Size = new System.Drawing.Size(60, 28);
             this.lblTotal.TabIndex = 7;
             this.lblTotal.Text = "€0.00";
             // 
@@ -123,20 +122,19 @@
             // 
             this.lblTotalText.AutoSize = true;
             this.lblTotalText.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalText.Location = new System.Drawing.Point(6, 228);
-            this.lblTotalText.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblTotalText.Location = new System.Drawing.Point(8, 281);
             this.lblTotalText.Name = "lblTotalText";
-            this.lblTotalText.Size = new System.Drawing.Size(56, 21);
+            this.lblTotalText.Size = new System.Drawing.Size(70, 28);
             this.lblTotalText.TabIndex = 6;
             this.lblTotalText.Text = "Total: ";
             // 
             // btnExit
             // 
             this.btnExit.Font = new System.Drawing.Font("Segoe UI", 10.8F);
-            this.btnExit.Location = new System.Drawing.Point(350, 365);
-            this.btnExit.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnExit.Location = new System.Drawing.Point(467, 449);
+            this.btnExit.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(114, 33);
+            this.btnExit.Size = new System.Drawing.Size(152, 41);
             this.btnExit.TabIndex = 13;
             this.btnExit.Text = "Exit";
             this.btnExit.UseVisualStyleBackColor = true;
@@ -145,10 +143,10 @@
             // btnCancel
             // 
             this.btnCancel.Font = new System.Drawing.Font("Segoe UI", 10.8F);
-            this.btnCancel.Location = new System.Drawing.Point(172, 365);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnCancel.Location = new System.Drawing.Point(229, 449);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(114, 33);
+            this.btnCancel.Size = new System.Drawing.Size(152, 41);
             this.btnCancel.TabIndex = 12;
             this.btnCancel.Text = "Cancel Order";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -159,11 +157,11 @@
             this.groupBox1.Controls.Add(this.cmbOrders);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(23, 68);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Location = new System.Drawing.Point(31, 84);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.groupBox1.Size = new System.Drawing.Size(228, 78);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox1.Size = new System.Drawing.Size(304, 96);
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Select Order";
@@ -177,10 +175,10 @@
             "Order #2 — Table 4",
             "Order #5 — Table 1",
             "Order #8— Table 10"});
-            this.cmbOrders.Location = new System.Drawing.Point(64, 33);
-            this.cmbOrders.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbOrders.Location = new System.Drawing.Point(85, 41);
+            this.cmbOrders.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cmbOrders.Name = "cmbOrders";
-            this.cmbOrders.Size = new System.Drawing.Size(152, 27);
+            this.cmbOrders.Size = new System.Drawing.Size(201, 31);
             this.cmbOrders.TabIndex = 1;
             this.cmbOrders.SelectedIndexChanged += new System.EventHandler(this.cmbOrders_SelectedIndexChanged_1);
             // 
@@ -188,10 +186,9 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.label1.Location = new System.Drawing.Point(9, 32);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Location = new System.Drawing.Point(12, 39);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(54, 21);
+            this.label1.Size = new System.Drawing.Size(67, 28);
             this.label1.TabIndex = 0;
             this.label1.Text = "Order:";
             // 
@@ -199,22 +196,24 @@
             // 
             this.lblTitle.AutoSize = true;
             this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.Location = new System.Drawing.Point(260, 15);
-            this.lblTitle.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblTitle.Location = new System.Drawing.Point(347, 18);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(148, 30);
+            this.lblTitle.Size = new System.Drawing.Size(185, 38);
             this.lblTitle.TabIndex = 9;
             this.lblTitle.Text = "Cancel Order";
             // 
             // Item
             // 
-            this.Item.HeaderText = "Item";
+            this.Item.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.Item.HeaderText = "Item Name";
             this.Item.MinimumWidth = 6;
             this.Item.Name = "Item";
             this.Item.ReadOnly = true;
+            this.Item.Width = 137;
             // 
             // UnitPrice
             // 
+            this.UnitPrice.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.UnitPrice.HeaderText = "Price";
             this.UnitPrice.MinimumWidth = 6;
             this.UnitPrice.Name = "UnitPrice";
@@ -222,6 +221,7 @@
             // 
             // Qty
             // 
+            this.Qty.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Qty.HeaderText = "Quantity";
             this.Qty.MinimumWidth = 6;
             this.Qty.Name = "Qty";
@@ -229,6 +229,7 @@
             // 
             // Subtotal
             // 
+            this.Subtotal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Subtotal.HeaderText = "Subtotal";
             this.Subtotal.MinimumWidth = 6;
             this.Subtotal.Name = "Subtotal";
@@ -236,15 +237,15 @@
             // 
             // FrmCancelOrder
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(813, 420);
+            this.ClientSize = new System.Drawing.Size(1084, 517);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.lblTitle);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "FrmCancelOrder";
             this.Text = "Cancel Order";
             this.Load += new System.EventHandler(this.frmCancelOrder_Load);

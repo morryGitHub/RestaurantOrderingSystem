@@ -15,33 +15,13 @@ namespace RestaurantOrderingSystem
         public FrmCancelOrder()
         {
             InitializeComponent();
-            DataGridViewHelper.ApplyDarkTheme(dgvOrderItems);
+            UIStyleHelper.ApplyDarkTheme(dgvOrderItems);
 
         }
 
         private void frmCancelOrder_Load(object sender, EventArgs e)
         {
-            {
-                FillActiveOrdersComboBox();
-
-                var normal = new Font("Segoe UI", 12, FontStyle.Regular);
-
-                dgvOrderItems.Font = normal;
-                dgvOrderItems.DefaultCellStyle.Font = normal;
-                dgvOrderItems.RowsDefaultCellStyle.Font = normal;
-                dgvOrderItems.AlternatingRowsDefaultCellStyle.Font = normal;
-
-                dgvOrderItems.ColumnHeadersDefaultCellStyle.Font = normal;
-                dgvOrderItems.RowHeadersDefaultCellStyle.Font = normal;
-
-                dgvOrderItems.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-                dgvOrderItems.ReadOnly = true;
-                dgvOrderItems.MultiSelect = false;
-
-                dgvOrderItems.ClearSelection();
-
-
-            }
+            FillActiveOrdersComboBox();
         }
 
         private void cmbOrders_SelectedIndexChanged_1(object sender, EventArgs e)
@@ -145,7 +125,7 @@ namespace RestaurantOrderingSystem
             {
                 cmbOrders.Items.Add(order);
 
-            }            
+            }
         }
     }
 }

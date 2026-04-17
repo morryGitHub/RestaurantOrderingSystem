@@ -16,46 +16,12 @@ namespace RestaurantOrderingSystem
         public FrmFindReservation()
         {
             InitializeComponent();
-            DataGridViewHelper.ApplyDarkTheme(dgvMatchingReservation);
+            UIStyleHelper.ApplyDarkTheme(dgvMatchingReservation);
+            UIStyleHelper.ApplyPrimaryButtonStyle(btnNext);
+            UIStyleHelper.ApplyPrimaryButtonStyle(btnSearch);
+
+
         }
-
-
-
-        //private void btnSearch_Click(object sender, EventArgs e)
-        //{
-        //    if (rbCustName.Checked)
-        //    {
-        //        string nameCheck = Validation.IsNameValid(tbCustName.Text);
-        //        if (nameCheck != "Valid")
-        //        {
-        //            MessageBox.Show(nameCheck, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //            return;
-        //        }
-        //    }
-        //    else
-        //    {
-        //        string phoneCheck = Validation.IsPhoneValid(tbPhoneNum.Text);
-        //        if (phoneCheck != "Valid")
-        //        {
-        //            MessageBox.Show(phoneCheck, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //            return;
-        //        }
-        //    }
-
-        //    dgvMatchingReservation.Rows.Clear();
-
-        //    dgvMatchingReservation.Rows.Add("Kolya", "+3538332", "12/12/2025", "12:00", "4", "12");
-        //    dgvMatchingReservation.Rows.Add("Nick", "+3531254", "11/12/2025", "14:00", "2", "1");
-        //    dgvMatchingReservation.Rows.Add("Artem", "+353044543", "12/04/2025", "16:00", "5", "2"); ;
-
-        //}
-
-
-
-
-
-
-
         private void dgvMatchingReservation_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
@@ -153,21 +119,7 @@ namespace RestaurantOrderingSystem
 
             }
 
-            var normal = new Font("Segoe UI", 10, FontStyle.Regular);
 
-            dgvMatchingReservation.Font = normal;
-            dgvMatchingReservation.DefaultCellStyle.Font = normal;
-            dgvMatchingReservation.RowsDefaultCellStyle.Font = normal;
-            dgvMatchingReservation.AlternatingRowsDefaultCellStyle.Font = normal;
-
-            dgvMatchingReservation.ColumnHeadersDefaultCellStyle.Font = normal;
-            dgvMatchingReservation.RowHeadersDefaultCellStyle.Font = normal;
-
-            dgvMatchingReservation.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvMatchingReservation.ReadOnly = true;
-            dgvMatchingReservation.MultiSelect = false;
-
-            dgvMatchingReservation.ClearSelection();
         }
 
         private void tbPhoneNum_TextChanged_1(object sender, EventArgs e)

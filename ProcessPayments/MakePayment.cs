@@ -16,7 +16,9 @@ namespace RestaurantOrderingSystem
         public FrmMakePayment()
         {
             InitializeComponent();
-            DataGridViewHelper.ApplyDarkTheme(dgvOrderItems);
+            UIStyleHelper.ApplyDarkTheme(dgvOrderItems);
+            UIStyleHelper.ApplyPrimaryButtonStyle(btnPay);
+
 
         }
 
@@ -92,10 +94,7 @@ namespace RestaurantOrderingSystem
 
         private void frmMakePayment_Load(object sender, EventArgs e)
         {
-            // Set basic font
-            var normal = new Font("Segoe UI", 10, FontStyle.Regular);
-
-            // FORM STYLE
+      
             this.BackColor = Color.White;
 
             // TITLE STYLE
@@ -109,7 +108,6 @@ namespace RestaurantOrderingSystem
             lblAmount.ForeColor = Color.FromArgb(50, 50, 50);
 
             // DATA LOADING
-            dgvOrderItems.ClearSelection();
             FillActiveOrdersComboBox();
             FillMethodType();
         }

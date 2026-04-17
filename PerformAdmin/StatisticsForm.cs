@@ -15,6 +15,8 @@ namespace RestaurantOrderingSystem
         public FrmStatistics()
         {
             InitializeComponent();
+            UIStyleHelper.ApplyPrimaryButtonStyle(btnGenerate);
+
         }
 
 
@@ -24,7 +26,6 @@ namespace RestaurantOrderingSystem
 
         private void StatisticsForm_Load(object sender, EventArgs e)
         {
-            var normal = new Font("Segoe UI", 10, FontStyle.Regular);
 
             this.BackColor = Color.White;
 
@@ -32,38 +33,7 @@ namespace RestaurantOrderingSystem
             lblTitle.Font = new Font("Segoe UI", 16, FontStyle.Bold);
             lblTitle.ForeColor = Color.FromArgb(30, 30, 30);
 
-            // TABLE STYLE (как во втором окне)
-            dgvStats.BorderStyle = BorderStyle.None;
-            dgvStats.EnableHeadersVisualStyles = false;
-
-            dgvStats.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(45, 45, 48);
-            dgvStats.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-            dgvStats.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
-
-            dgvStats.DefaultCellStyle.Font = normal;
-
-            dgvStats.DefaultCellStyle.SelectionBackColor = dgvStats.DefaultCellStyle.BackColor;
-            dgvStats.DefaultCellStyle.SelectionForeColor = dgvStats.DefaultCellStyle.ForeColor;
-
-            dgvStats.ColumnHeadersDefaultCellStyle.SelectionBackColor = dgvStats.ColumnHeadersDefaultCellStyle.BackColor;
-            dgvStats.ColumnHeadersDefaultCellStyle.SelectionForeColor = dgvStats.ColumnHeadersDefaultCellStyle.ForeColor;
-
-            dgvStats.RowHeadersVisible = false;
-            dgvStats.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-
-            dgvStats.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvStats.ReadOnly = true;
-            dgvStats.MultiSelect = false;
-
-            dgvStats.AllowUserToAddRows = false;
-
-            // BUTTON STYLE
-            btnGenerate.FlatStyle = FlatStyle.Flat;
-            btnGenerate.BackColor = Color.FromArgb(0, 120, 215);
-            btnGenerate.ForeColor = Color.White;
-            btnGenerate.FlatAppearance.BorderSize = 0;
-
-            dgvStats.ClearSelection();
+          
         }
 
         private void btnGenerate_Click_1(object sender, EventArgs e)

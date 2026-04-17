@@ -17,8 +17,9 @@ namespace RestaurantOrderingSystem
         public FrmNewOrder()
         {
             InitializeComponent();
-            DataGridViewHelper.ApplyDarkTheme(dgvOrderItems);
-
+            UIStyleHelper.ApplyDarkTheme(dgvOrderItems);
+            UIStyleHelper.ApplyPrimaryButtonStyle(btnAddItem);
+            UIStyleHelper.ApplyPrimaryButtonStyle(btnConfirm);
         }
 
         public FrmNewOrder(int tableID)
@@ -38,21 +39,7 @@ namespace RestaurantOrderingSystem
 
             LoadMenuItems();
 
-            var normal = new Font("Segoe UI", 12, FontStyle.Regular);
       
-            dgvOrderItems.Font = normal;
-            dgvOrderItems.DefaultCellStyle.Font = normal;
-            dgvOrderItems.RowsDefaultCellStyle.Font = normal;
-            dgvOrderItems.AlternatingRowsDefaultCellStyle.Font = normal;
-
-            dgvOrderItems.ColumnHeadersDefaultCellStyle.Font = normal;
-            dgvOrderItems.RowHeadersDefaultCellStyle.Font = normal;
-
-            dgvOrderItems.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvOrderItems.ReadOnly = true;
-            dgvOrderItems.MultiSelect = false;
-
-            dgvOrderItems.ClearSelection();
         }
 
 

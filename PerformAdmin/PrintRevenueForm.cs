@@ -16,6 +16,9 @@ namespace RestaurantOrderingSystem
         public FrmPrintRevenue()
         {
             InitializeComponent();
+            UIStyleHelper.ApplyDarkTheme(dgvRevenue);
+            UIStyleHelper.ApplyPrimaryButtonStyle(btnGenerate);
+
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -71,41 +74,13 @@ namespace RestaurantOrderingSystem
         private void PrintRevenueForm_Load(object sender, EventArgs e)
         {
 
-            var normal = new Font("Segoe UI", 10, FontStyle.Regular);
-
             this.BackColor = Color.White;
             lblTitle.Font = new Font("Segoe UI", 16, FontStyle.Bold);
             lblTitle.ForeColor = Color.FromArgb(30, 30, 30);
 
-            dgvRevenue.BorderStyle = BorderStyle.None;
-            dgvRevenue.EnableHeadersVisualStyles = false;
-
-            dgvRevenue.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(45, 45, 48);
-            dgvRevenue.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-            dgvRevenue.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
-
-            dgvRevenue.DefaultCellStyle.Font = new Font("Segoe UI", 10);
-            dgvRevenue.DefaultCellStyle.SelectionBackColor = Color.FromArgb(0, 120, 215);
-            dgvRevenue.DefaultCellStyle.SelectionBackColor = dgvRevenue.DefaultCellStyle.BackColor;
-            dgvRevenue.DefaultCellStyle.SelectionForeColor = dgvRevenue.DefaultCellStyle.ForeColor;
-
-            dgvRevenue.ColumnHeadersDefaultCellStyle.SelectionBackColor = dgvRevenue.ColumnHeadersDefaultCellStyle.BackColor;
-            dgvRevenue.ColumnHeadersDefaultCellStyle.SelectionForeColor = dgvRevenue.ColumnHeadersDefaultCellStyle.ForeColor;
-
-            dgvRevenue.RowHeadersVisible = false;
-            dgvRevenue.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-
-            btnGenerate.FlatStyle = FlatStyle.Flat;
-            btnGenerate.BackColor = Color.FromArgb(0, 120, 215);
-            btnGenerate.ForeColor = Color.White;
-            btnGenerate.FlatAppearance.BorderSize = 0;
-
             lblTotal.Font = new Font("Segoe UI", 14, FontStyle.Bold);
-            lblTotal.ForeColor = Color.FromArgb(50, 50, 50); 
+            lblTotal.ForeColor = Color.FromArgb(50, 50, 50);
 
-
-
-            dgvRevenue.ClearSelection();
             FillYearsComboBox();
         }
 
@@ -139,7 +114,7 @@ namespace RestaurantOrderingSystem
                 decimal revenue = Convert.ToDecimal(row["revenue"]);
                 total += revenue;
 
-                dgvRevenue.Rows.Add(months[monthIndex-1], revenue.ToString("C"));
+                dgvRevenue.Rows.Add(months[monthIndex - 1], revenue.ToString("C"));
             }
 
             FillRevenueTotal(lblTotal, year, total);

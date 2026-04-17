@@ -16,7 +16,9 @@ namespace RestaurantOrderingSystem
         public FrmReprintReceipt()
         {
             InitializeComponent();
-            DataGridViewHelper.ApplyDarkTheme(dgvOrderDetails);
+            UIStyleHelper.ApplyDarkTheme(dgvOrderDetails); 
+            UIStyleHelper.ApplyPrimaryButtonStyle(btnReprint);
+
 
         }
 
@@ -25,10 +27,6 @@ namespace RestaurantOrderingSystem
 
         private void ReprintReceipt_Load(object sender, EventArgs e)
         {
-            // Define standard font
-            var normal = new Font("Segoe UI", 10, FontStyle.Regular);
-
-           
             FillPaidPaymentsComboBox();
         }
 
@@ -59,9 +57,9 @@ namespace RestaurantOrderingSystem
         {
         }
 
-      
 
-    
+
+
 
         private void btnExit_Click(object sender, EventArgs e)
         {
