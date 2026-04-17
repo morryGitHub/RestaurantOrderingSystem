@@ -15,6 +15,8 @@ namespace RestaurantOrderingSystem
         public FrmRefundPayment()
         {
             InitializeComponent();
+            DataGridViewHelper.ApplyDarkTheme(dgvPayments);
+
         }
 
 
@@ -29,19 +31,6 @@ namespace RestaurantOrderingSystem
         private void frmRefundPayment_Load(object sender, EventArgs e)
         {
             var normal = new Font("Segoe UI", 10, FontStyle.Regular);
-
-            dgvPayments.Font = normal;
-            dgvPayments.DefaultCellStyle.Font = normal;
-            dgvPayments.RowsDefaultCellStyle.Font = normal;
-            dgvPayments.AlternatingRowsDefaultCellStyle.Font = normal;
-
-            dgvPayments.ColumnHeadersDefaultCellStyle.Font = normal;
-            dgvPayments.RowHeadersDefaultCellStyle.Font = normal;
-
-            dgvPayments.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvPayments.ReadOnly = true;
-
-            dgvPayments.ClearSelection();
             FillPaidPaymentsComboBox();
 
 

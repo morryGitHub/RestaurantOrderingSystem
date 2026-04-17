@@ -16,6 +16,8 @@ namespace RestaurantOrderingSystem
         public FrmMakePayment()
         {
             InitializeComponent();
+            DataGridViewHelper.ApplyDarkTheme(dgvOrderItems);
+
         }
 
         private void lblTitle_Click(object sender, EventArgs e)
@@ -98,28 +100,7 @@ namespace RestaurantOrderingSystem
             lblTitle.Font = new Font("Segoe UI", 16, FontStyle.Bold);
             lblTitle.ForeColor = Color.FromArgb(30, 30, 30);
 
-            // DATAGRID STYLE (как в Revenue)
-            dgvOrderItems.BorderStyle = BorderStyle.None;
-            dgvOrderItems.EnableHeadersVisualStyles = false;
-
-            dgvOrderItems.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(45, 45, 48);
-            dgvOrderItems.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-            dgvOrderItems.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
-
-            dgvOrderItems.DefaultCellStyle.Font = normal;
-
-            // убираем синий highlight
-            dgvOrderItems.DefaultCellStyle.SelectionBackColor = dgvOrderItems.DefaultCellStyle.BackColor;
-            dgvOrderItems.DefaultCellStyle.SelectionForeColor = dgvOrderItems.DefaultCellStyle.ForeColor;
-
-            dgvOrderItems.ColumnHeadersDefaultCellStyle.SelectionBackColor = dgvOrderItems.ColumnHeadersDefaultCellStyle.BackColor;
-            dgvOrderItems.ColumnHeadersDefaultCellStyle.SelectionForeColor = dgvOrderItems.ColumnHeadersDefaultCellStyle.ForeColor;
-
-            dgvOrderItems.RowHeadersVisible = false;
-            dgvOrderItems.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvOrderItems.AllowUserToAddRows = false;
-
-            dgvOrderItems.ClearSelection();
+          
 
             // BUTTONS
             StyleButton(btnPay);

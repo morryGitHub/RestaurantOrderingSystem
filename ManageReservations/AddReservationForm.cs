@@ -18,27 +18,12 @@ namespace RestaurantOrderingSystem
         public FrmAddReservation()
         {
             InitializeComponent();
+            DataGridViewHelper.ApplyDarkTheme(dgvTables);
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             var normal = new Font("Segoe UI", 10, FontStyle.Regular);
-
-            dgvTables.Font = normal;
-            dgvTables.DefaultCellStyle.Font = normal;
-            dgvTables.RowsDefaultCellStyle.Font = normal;
-            dgvTables.AlternatingRowsDefaultCellStyle.Font = normal;
-
-            dgvTables.ColumnHeadersDefaultCellStyle.Font = normal;
-            dgvTables.RowHeadersDefaultCellStyle.Font = normal;
-
-            dgvTables.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvTables.ReadOnly = true;
-            dgvTables.MultiSelect = false;
-
-            dgvTables.ClearSelection();
-
-
         }
 
         private void label1_Click(object sender, EventArgs e)

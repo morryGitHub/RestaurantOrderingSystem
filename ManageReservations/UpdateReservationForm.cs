@@ -16,6 +16,7 @@ namespace RestaurantOrderingSystem
         public FrmUpdateReservation(int reservationID, int tableID)
         {
             InitializeComponent();
+            DataGridViewHelper.ApplyDarkTheme(dgvTables);
             this.reservationID = reservationID;
             this.tableID = tableID;
         }

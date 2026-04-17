@@ -15,6 +15,8 @@ namespace RestaurantOrderingSystem
         public FrmCancelOrder()
         {
             InitializeComponent();
+            DataGridViewHelper.ApplyDarkTheme(dgvOrderItems);
+
         }
 
         private void frmCancelOrder_Load(object sender, EventArgs e)

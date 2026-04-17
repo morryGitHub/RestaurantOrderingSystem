@@ -16,28 +16,18 @@ namespace RestaurantOrderingSystem
         public FrmReprintReceipt()
         {
             InitializeComponent();
+            DataGridViewHelper.ApplyDarkTheme(dgvOrderDetails);
+
         }
 
 
-      
+
 
         private void ReprintReceipt_Load(object sender, EventArgs e)
         {
             var normal = new Font("Segoe UI", 10, FontStyle.Regular);
 
-            dgvOrderDetails.Font = normal;
-            dgvOrderDetails.DefaultCellStyle.Font = normal;
-            dgvOrderDetails.RowsDefaultCellStyle.Font = normal;
-            dgvOrderDetails.AlternatingRowsDefaultCellStyle.Font = normal;
-
-            dgvOrderDetails.ColumnHeadersDefaultCellStyle.Font = normal;
-            dgvOrderDetails.RowHeadersDefaultCellStyle.Font = normal;
-
-            dgvOrderDetails.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvOrderDetails.ReadOnly = true;
-            dgvOrderDetails.MultiSelect = false;
-
-            dgvOrderDetails.ClearSelection();
+           
             FillPaidPaymentsComboBox();
         }
 

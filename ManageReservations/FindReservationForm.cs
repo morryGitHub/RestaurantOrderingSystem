@@ -16,6 +16,7 @@ namespace RestaurantOrderingSystem
         public FrmFindReservation()
         {
             InitializeComponent();
+            DataGridViewHelper.ApplyDarkTheme(dgvMatchingReservation);
         }
 
 

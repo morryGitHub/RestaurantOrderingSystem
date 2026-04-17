@@ -17,6 +17,8 @@ namespace RestaurantOrderingSystem
         public FrmNewOrder()
         {
             InitializeComponent();
+            DataGridViewHelper.ApplyDarkTheme(dgvOrderItems);
+
         }
 
         public FrmNewOrder(int tableID)

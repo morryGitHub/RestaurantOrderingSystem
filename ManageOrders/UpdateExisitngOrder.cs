@@ -15,6 +15,7 @@ namespace RestaurantOrderingSystem
         public FrmUpdateOrder()
         {
             InitializeComponent();
+            DataGridViewHelper.ApplyDarkTheme(dgvOrderItems);
         }
 
         private void frmUpdateOrder_Load(object sender, EventArgs e)
@@ -24,19 +25,6 @@ namespace RestaurantOrderingSystem
 
             var normal = new Font("Segoe UI", 12, FontStyle.Regular);
 
-            dgvOrderItems.Font = normal;
-            dgvOrderItems.DefaultCellStyle.Font = normal;
-            dgvOrderItems.RowsDefaultCellStyle.Font = normal;
-            dgvOrderItems.AlternatingRowsDefaultCellStyle.Font = normal;
-
-            dgvOrderItems.ColumnHeadersDefaultCellStyle.Font = normal;
-            dgvOrderItems.RowHeadersDefaultCellStyle.Font = normal;
-
-            dgvOrderItems.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvOrderItems.ReadOnly = true;
-            dgvOrderItems.MultiSelect = false;
-
-            dgvOrderItems.ClearSelection();
         }
 
         private void cmdOrders_SelectedIndexChanged(object sender, EventArgs e)
