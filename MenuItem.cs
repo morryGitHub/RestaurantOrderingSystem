@@ -21,10 +21,19 @@ namespace RestaurantOrderingSystem
             Price = price;
         }
 
+
+        public MenuItem(int itemID, string name)
+        {
+            ItemID = itemID;
+            Name = name;
+        }
+
         public override string ToString()
         {
             return $"{Name} - €{Price}";
         }
+
+
 
         public static DataSet LoadAllMenuItems()
         {

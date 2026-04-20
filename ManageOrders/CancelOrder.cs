@@ -27,7 +27,7 @@ namespace RestaurantOrderingSystem
         private void cmbOrders_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             dgvOrderItems.Rows.Clear();
-            lblTotal.Text = "€0.00";
+            lblTotal.Text = "€{totl}";
 
             if (cmbOrders.Text.Equals("Select the Order"))
             {
@@ -39,36 +39,38 @@ namespace RestaurantOrderingSystem
             btnCancel.Enabled = true;
             cmbOrders.Items.Remove("Select the Order");
 
-
-            dgvOrderItems.Rows.Clear();
-
-            Order order = cmbOrders.SelectedItem as Order;
-
-            int orderID = order.ID;
-
-            DataSet dsActive = OrderItem.GetMenuItemsFromOrder(orderID, "Active");
-
-            foreach (DataRow row in dsActive.Tables[0].Rows)
+            try
             {
-                string itemName = row["ItemName"].ToString();
-                decimal unitPrice = Convert.ToDecimal(row["UnitPrice"]);
-                int qty = Convert.ToInt32(row["Quantity"]);
-                decimal subtotal = unitPrice * qty;
-                int menuItemID = Convert.ToInt32(row["MenuItemID"]);
+                Order order = cmbOrders.SelectedItem as Order;
+                int orderID = order.ID;
+                DataSet dsActive = OrderItem.GetMenuItemsFromOrder(orderID, "Active");
+
+                foreach (DataRow row in dsActive.Tables[0].Rows)
+                {
+                    string itemName = row["ItemName"].ToString();
+                    decimal unitPrice = Convert.ToDecimal(row["UnitPrice"]);
+                    int qty = Convert.ToInt32(row["Quantity"]);
+                    decimal subtotal = unitPrice * qty;
+                    int menuItemID = Convert.ToInt32(row["MenuItemID"]);
 
 
-                dgvOrderItems.Rows.Add(
-                    itemName,
-                    unitPrice.ToString("F2"),
-                    qty,
-                    subtotal.ToString("F2"),
-                    menuItemID
-                );
+                    dgvOrderItems.Rows.Add(
+                        itemName,
+                        unitPrice.ToString("F2"),
+                        qty,
+                        subtotal.ToString("F2"),
+                        menuItemID
+                    );
+                }
+
+                lblTotal.Text = $"€{Validation.GetTotalAmount(dgvOrderItems):F2}";
             }
-
-            Validation.UpdateTotal(dgvOrderItems, lblTotal);
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while loading order items: {ex.Message}",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
-
         private void btnCancel_Click(object sender, EventArgs e)
         {
             if (cmbOrders.SelectedIndex == -1)
@@ -126,6 +128,11 @@ namespace RestaurantOrderingSystem
                 cmbOrders.Items.Add(order);
 
             }
+        }
+
+        private void backToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

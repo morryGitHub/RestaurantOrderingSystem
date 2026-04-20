@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace RestaurantOrderingSystem
 {
@@ -31,18 +32,27 @@ namespace RestaurantOrderingSystem
 
         public static DataSet GetYears()
         {
-
-            string sql = $@"
-            SELECT 
+            try
+            {
+                string sql = $@"
+                SELECT 
                 DISTINCT EXTRACT(YEAR FROM orderDate) AS year
-            FROM orders
-            ORDER BY year";
-            return Database.ExecuteMultiRowQuery(sql);
+                FROM orders
+                ORDER BY year";
+                return Database.ExecuteMultiRowQuery(sql);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error fetching years: {ex.Message}");
+
+            }
         }
 
         public DataSet GetYearlyRevenue()
         {
-            string sql = $@"
+            try
+            {
+                string sql = $@"
                     SELECT 
                         EXTRACT(MONTH FROM orderDate) AS month_num,
                         SUM(totalAmount) AS revenue
@@ -52,13 +62,19 @@ namespace RestaurantOrderingSystem
                     ORDER BY EXTRACT(MONTH FROM orderDate)
                 ";
 
-            return Database.ExecuteMultiRowQuery(sql);
+                return Database.ExecuteMultiRowQuery(sql);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error fetching yearly revenue: {ex.Message}");
+            }
         }
 
         public static DataSet GetTopMenuItems()
         {
-
-            string sql = $@"
+            try
+            {
+                string sql = $@"
                    SELECT
                         m.name,
                         SUM(o.quantity) AS total,
@@ -73,12 +89,19 @@ namespace RestaurantOrderingSystem
                     ORDER BY total DESC
                     FETCH FIRST 10 ROWS ONLY
             ";
-            return Database.ExecuteMultiRowQuery(sql);
+                return Database.ExecuteMultiRowQuery(sql);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error fetching top menu items: {ex.Message}");
+            }
         }
 
         public static DataSet GetLeastMenuItems()
         {
-            string sql = $@"
+            try
+            {
+                string sql = $@"
                    SELECT
                         m.name,
                         SUM(o.quantity) AS total,
@@ -93,12 +116,19 @@ namespace RestaurantOrderingSystem
                     ORDER BY total asc
                     FETCH FIRST 10 ROWS ONLY
             ";
-            return Database.ExecuteMultiRowQuery(sql);
+                return Database.ExecuteMultiRowQuery(sql);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error fetching least menu items: {ex.Message}");
+            }
         }
 
         public static DataSet GetNeverOrderedItems()
         {
-            string sql = $@"
+            try
+            {
+                string sql = $@"
                    SELECT
                         m.name,
                         m.unitprice as unit_price
@@ -110,53 +140,87 @@ namespace RestaurantOrderingSystem
                         m.name
                     having COALESCE(SUM(o.quantity),0) = 0
             ";
-            return Database.ExecuteMultiRowQuery(sql);
+                return Database.ExecuteMultiRowQuery(sql);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error fetching never ordered items: {ex.Message}");
+            }
         }
         public static DataSet GetTotalRevenue()
         {
-            string sql = $@"
+            try
+            {
+
+                string sql = $@"
                 SELECT
                     SUM(totalamount) as total_revenue
-                FROM orders
+                FROM orders";
 
-            ";
-            return Database.ExecuteMultiRowQuery(sql);
+                return Database.ExecuteMultiRowQuery(sql);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error fetching total revenue: {ex.Message}");
+            }
         }
-        
+
 
         public static DataSet GetTotalOrders()
         {
-            string sql = $@"
+            try
+            {
+                string sql = $@"
                   SELECT
                        count(*) as total_orders
-                  FROM orders
-            ";
-            return Database.ExecuteMultiRowQuery(sql);
+                  FROM orders";
+                return Database.ExecuteMultiRowQuery(sql);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error fetching total orders: {ex.Message}");
+            }
         }
 
         public static DataSet GetAverageAmountPerOrder()
         {
-            string sql = $@"
+            try
+            {
+                string sql = $@"
                 SELECT
                     Round(avg(totalamount), 2) as average_amount
-                FROM orders
-            ";
-            return Database.ExecuteMultiRowQuery(sql);
+                FROM orders";
+
+                return Database.ExecuteMultiRowQuery(sql);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error fetching average amount per order: {ex.Message}");
+            }
         }
 
         public static DataSet GetTotalBookings()
         {
-            string sql = $@"
+            try
+            {
+                string sql = $@"
                 SELECT
                     Count(*) as total_bookings
                 FROM reservations
             ";
-            return Database.ExecuteMultiRowQuery(sql);
+                return Database.ExecuteMultiRowQuery(sql);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error fetching total bookings: {ex.Message}");
+            }
         }
 
         public static DataSet GetPaymentsByMethod()
         {
-            string sql = $@"
+            try
+            {
+                string sql = $@"
                 SELECT 
                     methodtype as payment_method, 
                     COUNT(*) AS total_amount
@@ -164,18 +228,30 @@ namespace RestaurantOrderingSystem
                 WHERE status = 'Paid'
                 GROUP BY methodtype
             ";
-            return Database.ExecuteMultiRowQuery(sql);
+                return Database.ExecuteMultiRowQuery(sql);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error fetching payments by method: {ex.Message}");
+            }
         }
 
         public static DataSet GetTotalRefundedAmount()
         {
-            string sql = $@"
+            try
+            {
+                string sql = $@"
                 SELECT 
                     SUM(amount) AS refunded_total
                 FROM payments
                 WHERE status = 'Refunded'
             ";
-            return Database.ExecuteMultiRowQuery(sql);
+                return Database.ExecuteMultiRowQuery(sql);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error fetching total refunded amount: {ex.Message}");
+            }
         }
 
 
@@ -183,19 +259,28 @@ namespace RestaurantOrderingSystem
 
         public static List<Statistics> LoadYears()
         {
-            DataSet ds = GetYears();
-            List<Statistics> years = new List<Statistics>();
-
-            foreach (DataRow row in ds.Tables[0].Rows)
+            try
             {
-                years.Add(new Statistics()
-                {
-                    Year = Convert.ToInt32(row["year"])
-                }
-                );
-            }
+                DataSet ds = GetYears();
+                List<Statistics> years = new List<Statistics>();
 
-            return years;
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    years.Add(new Statistics()
+                    {
+                        Year = Convert.ToInt32(row["year"])
+                    }
+                    );
+                }
+
+                return years;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading years: {ex.Message}",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return new List<Statistics>();
         }
     }
 }

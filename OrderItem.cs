@@ -38,66 +38,79 @@ namespace RestaurantOrderingSystem
             return $"OrderID: {OrderID}, MenuItemID: {MenuItemID}, Quantity: {Quantity}";
         }
 
-        public void AddOrderItems(bool isEditMode=false)
+        public void AddOrderItems(bool isEditMode = false)
         {
-            string checkSql = $"SELECT COUNT(*) FROM OrderItems WHERE orderid = {OrderID} AND menuitemid = {MenuItemID}";
-            DataSet ds = Database.ExecuteMultiRowQuery(checkSql);
-
-            int count = Convert.ToInt32(ds.Tables[0].Rows[0][0]);
-
-            string finalSql;
-            if (count > 0)
+            try
             {
-                // 1. It exists, so Update
-                if (isEditMode)
-                {
+                string checkSql = $"SELECT COUNT(*) FROM OrderItems WHERE orderid = {OrderID} AND menuitemid = {MenuItemID}";
+                DataSet ds = Database.ExecuteMultiRowQuery(checkSql);
 
-                    finalSql = $@"UPDATE OrderItems SET quantity = {Quantity} 
+                int count = Convert.ToInt32(ds.Tables[0].Rows[0][0]);
+
+                string finalSql;
+                if (count > 0)
+                {
+                    if (isEditMode)
+                    {
+
+                        finalSql = $@"UPDATE OrderItems SET quantity = {Quantity} 
                         WHERE orderid = {OrderID} AND menuitemid = {MenuItemID}";
+                    }
+                    else
+                    {
+                        finalSql = $@"UPDATE OrderItems SET quantity = quantity + {Quantity} 
+                        WHERE orderid = {OrderID} AND menuitemid = {MenuItemID}";
+                    }
+
                 }
                 else
                 {
-                    finalSql = $@"UPDATE OrderItems SET quantity = quantity + {Quantity} 
-                        WHERE orderid = {OrderID} AND menuitemid = {MenuItemID}";
+                    finalSql = $@"INSERT INTO OrderItems (orderid, menuitemid, quantity) 
+                        VALUES ({OrderID}, {MenuItemID}, {Quantity})";
                 }
 
+                Database.ExecuteNonQuery(finalSql);
             }
-            else
+            catch (Exception ex)
             {
-                // 2. It's new, so Insert
-                finalSql = $@"INSERT INTO OrderItems (orderid, menuitemid, quantity) 
-                        VALUES ({OrderID}, {MenuItemID}, {Quantity})";
+                throw new Exception($"Error adding/updating order item: {ex.Message}");
             }
-
-            Database.ExecuteNonQuery(finalSql);
         }
-
         public static int GetLastOrderID()
         {
-            string sql = "SELECT MAX(orderID) FROM Orders";
-
-            OracleDataReader reader = Database.ExecuteSingleRowQuery(sql);
-
-            if (reader != null)
+            try
             {
-                if (reader.Read())
-                {
-                    if (!reader.IsDBNull(0))
-                    {
-                        int newOrderID = reader.GetInt32(0);
-                        reader.Close();
-                        return newOrderID;
-                    }
-                }
-                reader.Close();
-            }
+                string sql = "SELECT MAX(orderID) FROM Orders";
 
-            return 1;
+                OracleDataReader reader = Database.ExecuteSingleRowQuery(sql);
+
+                if (reader != null)
+                {
+                    if (reader.Read())
+                    {
+                        if (!reader.IsDBNull(0))
+                        {
+                            int newOrderID = reader.GetInt32(0);
+                            reader.Close();
+                            return newOrderID;
+                        }
+                    }
+                    reader.Close();
+                }
+
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error retrieving last order ID: {ex.Message}");
+            }
         }
 
         public static DataSet GetMenuItemsFromOrder(int orderID, string status)
         {
-            string sql = $@"
+            try
+            {
+                string sql = $@"
                     SELECT 
                         o.OrderID AS OrderID,
                         t.TableNo AS TableNo,
@@ -116,15 +129,26 @@ namespace RestaurantOrderingSystem
                     WHERE o.Status = '{status}' AND o.OrderID = {orderID}";
 
 
-            return Database.ExecuteMultiRowQuery(sql);
+                return Database.ExecuteMultiRowQuery(sql);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error retrieving order items: {ex.Message}");
+            }
         }
 
 
         public void DeleteItemFromOrder()
         {
-            string deleteItemSql = $@"DELETE FROM ORDERITEMS WHERE orderid = {OrderID} AND menuitemid = {MenuItemID}";
-            Database.ExecuteNonQuery(deleteItemSql);
-
+            try
+            {
+                string deleteItemSql = $@"DELETE FROM ORDERITEMS WHERE orderid = {OrderID} AND menuitemid = {MenuItemID}";
+                Database.ExecuteNonQuery(deleteItemSql);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error deleting item: {ex.Message}");
+            }
         }
     }
 }

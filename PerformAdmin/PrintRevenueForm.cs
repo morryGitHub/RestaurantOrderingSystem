@@ -98,26 +98,37 @@ namespace RestaurantOrderingSystem
 
         public void FillRevenueGrid(int year)
         {
-            Statistics stat = new Statistics(year);
-            DataSet ds = stat.GetYearlyRevenue();
-            decimal total = 0;
+            try
+            {
+                Statistics stat = new Statistics(year);
+                DataSet ds = stat.GetYearlyRevenue();
+                decimal total = 0;
 
-            string[] months =
-        {
+                string[] months =
+            {
             "JAN","FEB","MAR","APR","MAY","JUN",
             "JUL","AUG","SEP","OCT","NOV","DEC"
         };
 
-            foreach (DataRow row in ds.Tables[0].Rows)
-            {
-                int monthIndex = Convert.ToInt32(row["month_num"]);
-                decimal revenue = Convert.ToDecimal(row["revenue"]);
-                total += revenue;
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    int monthIndex = Convert.ToInt32(row["month_num"]);
+                    decimal revenue = Convert.ToDecimal(row["revenue"]);
+                    total += revenue;
 
-                dgvRevenue.Rows.Add(months[monthIndex - 1], revenue.ToString("C"));
+                    dgvRevenue.Rows.Add(months[monthIndex - 1], revenue.ToString("C"));
+                }
+
+                FillRevenueTotal(lblTotal, year, total);
             }
-
-            FillRevenueTotal(lblTotal, year, total);
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"An error occurred while fetching revenue data: {ex.Message}",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
         }
 
         private void FillRevenueTotal(Label label, int year, decimal total)
@@ -132,63 +143,72 @@ namespace RestaurantOrderingSystem
 
         private void FormIncomeAnalysis_Load(int year)
         {
-
-            Statistics stat = new Statistics(year);
-            DataSet ds = stat.GetYearlyRevenue();
-
-            //Initialise the arrays
-
-            string[] months = { "JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC" };
-
-            decimal[] amounts = new decimal[12];
-
-            for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+            try
             {
-                int month = Convert.ToInt32(ds.Tables[0].Rows[i]["month_num"]);
-                decimal revenue = Convert.ToDecimal(ds.Tables[0].Rows[i]["revenue"]);
+                Statistics stat = new Statistics(year);
+                DataSet ds = stat.GetYearlyRevenue();
 
-                amounts[month - 1] = revenue;
+
+                string[] months = { "JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC" };
+
+                decimal[] amounts = new decimal[12];
+
+                for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                {
+                    int month = Convert.ToInt32(ds.Tables[0].Rows[i]["month_num"]);
+                    decimal revenue = Convert.ToDecimal(ds.Tables[0].Rows[i]["revenue"]);
+
+                    amounts[month - 1] = revenue;
+                }
+                chtData.BackColor = Color.White;
+
+                chtData.ChartAreas[0].BackColor = Color.White;
+
+                chtData.ChartAreas[0].AxisX.LineColor = Color.LightGray;
+                chtData.ChartAreas[0].AxisY.LineColor = Color.LightGray;
+
+                chtData.ChartAreas[0].AxisX.MajorGrid.LineColor = Color.Gainsboro;
+                chtData.ChartAreas[0].AxisY.MajorGrid.LineColor = Color.Gainsboro;
+                chtData.Series[0].Color = Color.FromArgb(0, 120, 215);
+                chtData.Series[0].LabelFormat = "C0"; // €1234
+
+                chtData.Legends.Clear();
+
+                //decide if you want grid lines on the chart (none at present)
+
+                chtData.ChartAreas[0].AxisX.MajorGrid.LineWidth = 0;
+                chtData.ChartAreas[0].AxisX.Interval = 1;
+                chtData.ChartAreas[0].AxisX.IsMarginVisible = true;
+
+                chtData.ChartAreas[0].AxisY.MajorGrid.LineWidth = 0;
+
+
+                //tie the arrays to the x and y axes of the chart
+
+                chtData.Series[0].Points.DataBindXY(months, amounts);
+
+
+                //the amounts will appear atop the bars in the chart
+
+
+                chtData.Series[0].Label = "#VALY";
+
+                //chtData.ChartAreas[0].AxisX.Title = "Month"; //x-axis title
+
+                //chtData.ChartAreas[0].AxisY.Title = "Income"; //y-axis title
+
+
+                chtData.Visible = true;
+
             }
-            chtData.BackColor = Color.White;
-
-            chtData.ChartAreas[0].BackColor = Color.White;
-
-            chtData.ChartAreas[0].AxisX.LineColor = Color.LightGray;
-            chtData.ChartAreas[0].AxisY.LineColor = Color.LightGray;
-
-            chtData.ChartAreas[0].AxisX.MajorGrid.LineColor = Color.Gainsboro;
-            chtData.ChartAreas[0].AxisY.MajorGrid.LineColor = Color.Gainsboro;
-            chtData.Series[0].Color = Color.FromArgb(0, 120, 215);
-            chtData.Series[0].LabelFormat = "C0"; // €1234
-
-            chtData.Legends.Clear();
-
-            //decide if you want grid lines on the chart (none at present)
-
-            chtData.ChartAreas[0].AxisX.MajorGrid.LineWidth = 0;
-            chtData.ChartAreas[0].AxisX.Interval = 1;
-            chtData.ChartAreas[0].AxisX.IsMarginVisible = true;
-
-            chtData.ChartAreas[0].AxisY.MajorGrid.LineWidth = 0;
-
-
-            //tie the arrays to the x and y axes of the chart
-
-            chtData.Series[0].Points.DataBindXY(months, amounts);
-
-
-            //the amounts will appear atop the bars in the chart
-
-
-            chtData.Series[0].Label = "#VALY";
-
-            //chtData.ChartAreas[0].AxisX.Title = "Month"; //x-axis title
-
-            //chtData.ChartAreas[0].AxisY.Title = "Income"; //y-axis title
-
-
-            chtData.Visible = true;
-
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"An error occurred while loading the chart: {ex.Message}",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
         }
 
         private void chtData_Click(object sender, EventArgs e)

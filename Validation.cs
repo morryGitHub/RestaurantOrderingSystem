@@ -135,7 +135,7 @@ namespace RestaurantOrderingSystem
             return "Valid";
         }
 
-        public static void UpdateTotal(DataGridView gridView, Label label)
+        public static decimal GetTotalAmount(DataGridView gridView)
         {
             decimal total = 0;
 
@@ -144,7 +144,7 @@ namespace RestaurantOrderingSystem
                 total += Convert.ToDecimal(row.Cells["Subtotal"].Value);
             }
 
-            label.Text = "€" + total.ToString("F2");
+            return total;
         }
 
 

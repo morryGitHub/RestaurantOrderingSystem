@@ -38,8 +38,11 @@
             this.btnExit = new System.Windows.Forms.Button();
             this.btnUpdateTable = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.backToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numSeats)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblStatus
@@ -110,6 +113,7 @@
             this.numSeats.Name = "numSeats";
             this.numSeats.Size = new System.Drawing.Size(143, 26);
             this.numSeats.TabIndex = 4;
+            this.numSeats.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.numSeats.ValueChanged += new System.EventHandler(this.numSeats_ValueChanged);
             // 
             // lblCapacity
@@ -138,7 +142,7 @@
             // btnExit
             // 
             this.btnExit.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExit.Location = new System.Drawing.Point(197, 285);
+            this.btnExit.Location = new System.Drawing.Point(39, 296);
             this.btnExit.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(100, 36);
@@ -150,7 +154,7 @@
             // btnUpdateTable
             // 
             this.btnUpdateTable.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUpdateTable.Location = new System.Drawing.Point(32, 285);
+            this.btnUpdateTable.Location = new System.Drawing.Point(211, 296);
             this.btnUpdateTable.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnUpdateTable.Name = "btnUpdateTable";
             this.btnUpdateTable.Size = new System.Drawing.Size(100, 36);
@@ -170,6 +174,27 @@
             this.lblTitle.TabIndex = 11;
             this.lblTitle.Text = "Update Table";
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.BackColor = System.Drawing.Color.Transparent;
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.backToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(346, 24);
+            this.menuStrip1.TabIndex = 15;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // backToolStripMenuItem
+            // 
+            this.backToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.backToolStripMenuItem.Name = "backToolStripMenuItem";
+            this.backToolStripMenuItem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.backToolStripMenuItem.RightToLeftAutoMirrorImage = true;
+            this.backToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.backToolStripMenuItem.Text = "Back";
+            this.backToolStripMenuItem.Click += new System.EventHandler(this.backToolStripMenuItem_Click);
+            // 
             // FrmUpdateTable
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -179,6 +204,7 @@
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnUpdateTable);
             this.Controls.Add(this.lblTitle);
+            this.Controls.Add(this.menuStrip1);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FrmUpdateTable";
             this.Text = "UpdateTableForm";
@@ -186,6 +212,8 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numSeats)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -202,5 +230,7 @@
         private System.Windows.Forms.Button btnUpdateTable;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.ComboBox cmbTableNo;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem backToolStripMenuItem;
     }
 }

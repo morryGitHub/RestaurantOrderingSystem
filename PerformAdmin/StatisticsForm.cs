@@ -15,14 +15,10 @@ namespace RestaurantOrderingSystem
         public FrmStatistics()
         {
             InitializeComponent();
+            UIStyleHelper.ApplyDarkTheme(dgvStats);
             UIStyleHelper.ApplyPrimaryButtonStyle(btnGenerate);
 
         }
-
-
-
-
-
 
         private void StatisticsForm_Load(object sender, EventArgs e)
         {
@@ -33,128 +29,134 @@ namespace RestaurantOrderingSystem
             lblTitle.Font = new Font("Segoe UI", 16, FontStyle.Bold);
             lblTitle.ForeColor = Color.FromArgb(30, 30, 30);
 
-          
+
         }
 
         private void btnGenerate_Click_1(object sender, EventArgs e)
         {
-            dgvStats.Columns.Clear();
-            int selectedIndex = cmbCat.SelectedIndex;
-            if (selectedIndex == 0)
+            try
             {
-                // Generate statistics for the top 10 menu items
-
-                dgvStats.Columns.Add("menuItemName", "Name");
-                dgvStats.Columns.Add("total", "Total");
-                dgvStats.Columns.Add("total_cost", "Total Cost");
-
-                Statistics.GetTopMenuItems().Tables[0].AsEnumerable().ToList().ForEach(row =>
+                dgvStats.Columns.Clear();
+                int selectedIndex = cmbCat.SelectedIndex;
+                if (selectedIndex == 0)
                 {
-                    dgvStats.Rows.Add(row["name"], row["total"], row["total_cost"]);
-                });
+                    // Generate statistics for the top 10 menu items
 
-                // Iterate through each row in the DataTable returned from the database
-                // and add it as a new row in the DataGridView, mapping DataTable columns
-                // ("name", "total", "total_cost") to the corresponding DataGridView columns.
+                    dgvStats.Columns.Add("menuItemName", "Name");
+                    dgvStats.Columns.Add("total", "Total");
+                    dgvStats.Columns.Add("total_cost", "Total Cost");
+
+                    Statistics.GetTopMenuItems().Tables[0].AsEnumerable().ToList().ForEach(row =>
+                    {
+                        dgvStats.Rows.Add(row["name"], row["total"], row["total_cost"]);
+                    });
+
+                    // Iterate through each row in the DataTable returned from the database
+                    // and add it as a new row in the DataGridView, mapping DataTable columns
+                    // ("name", "total", "total_cost") to the corresponding DataGridView columns.
+                }
+                else if (selectedIndex == 1)
+                {
+                    dgvStats.Columns.Add("menuItemName", "Name");
+                    dgvStats.Columns.Add("total", "Total");
+                    dgvStats.Columns.Add("total_cost", "Total Cost");
+
+                    Statistics.GetLeastMenuItems().Tables[0].AsEnumerable().ToList().ForEach(row =>
+                    {
+                        dgvStats.Rows.Add(row["name"], row["total"], row["total_cost"]);
+                    });
+
+                }
+                else if (selectedIndex == 2)
+                {
+                    // Generate statistics for never ordered items
+
+                    dgvStats.Columns.Add("menuItemName", "Name");
+                    dgvStats.Columns.Add("unitPrice", "Unit Price");
+
+                    Statistics.GetNeverOrderedItems().Tables[0].AsEnumerable().ToList().ForEach(row =>
+                    {
+                        dgvStats.Rows.Add(row["name"], row["unit_price"]);
+                    });
+
+
+
+                }
+                else if (selectedIndex == 3)
+                {
+                    // Generate statistics for total orders
+
+                    Statistics.GetTotalOrders().Tables[0].AsEnumerable().ToList().ForEach(row =>
+                    {
+                        dgvStats.Columns.Add("totalOrders", "Total Orders");
+                        dgvStats.Rows.Add(row["total_orders"]);
+                    });
+                }
+                else if (selectedIndex == 4)
+                {
+                    // Generate statistics for avarage amount per order
+
+                    Statistics.GetAverageAmountPerOrder().Tables[0].AsEnumerable().ToList().ForEach(row =>
+                    {
+                        dgvStats.Columns.Add("averageAmount", "Average Amount Per Order");
+                        dgvStats.Rows.Add(row["average_amount"]);
+                    });
+                }
+                else if (selectedIndex == 5)
+                {
+                    // Generate statistics for total revenue
+
+                    Statistics.GetTotalRevenue().Tables[0].AsEnumerable().ToList().ForEach(row =>
+                    {
+                        dgvStats.Columns.Add("totalRevenue", "Total Revenue");
+                        dgvStats.Rows.Add(row["total_revenue"]);
+                    });
+                }
+                else if (selectedIndex == 6)
+                {
+                    // Generate statistics for total bookings
+
+                    Statistics.GetTotalBookings().Tables[0].AsEnumerable().ToList().ForEach(row =>
+                    {
+                        dgvStats.Columns.Add("totalBookings", "Total Bookings");
+                        dgvStats.Rows.Add(row["total_bookings"]);
+                    });
+
+                }
+                else if (selectedIndex == 7)
+                {
+                    // Generate statistics for payments by method
+
+                    dgvStats.Columns.Add("paymentMethod", "Payment Method");
+                    dgvStats.Columns.Add("totalAmount", "Total Amount");
+
+                    Statistics.GetPaymentsByMethod().Tables[0].AsEnumerable().ToList().ForEach(row =>
+                    {
+                        dgvStats.Rows.Add(row["payment_method"], row["total_amount"]);
+                    });
+
+                }
+                else if (selectedIndex == 8)
+                {
+                    // Generate statistics for total refunded amount
+
+                    Statistics.GetTotalRefundedAmount().Tables[0].AsEnumerable().ToList().ForEach(row =>
+                    {
+                        dgvStats.Columns.Add("totalRefundedAmount", "Total Refunded Amount");
+                        dgvStats.Rows.Add(row["refunded_total"]);
+                    });
+                }
             }
-            else if (selectedIndex == 1)
+            catch (Exception ex)
             {
-                // Generate statistics for the least 10 menu items
-                dgvStats.Columns.Add("menuItemName", "Name");
-                dgvStats.Columns.Add("total", "Total");
-                dgvStats.Columns.Add("total_cost", "Total Cost");
-
-                Statistics.GetLeastMenuItems().Tables[0].AsEnumerable().ToList().ForEach(row =>
-                {
-                    dgvStats.Rows.Add(row["name"], row["total"], row["total_cost"]);
-                });
-
-            }
-            else if (selectedIndex == 2)
-            {
-                // Generate statistics for never ordered items
-
-                dgvStats.Columns.Add("menuItemName", "Name");
-                dgvStats.Columns.Add("unitPrice", "Unit Price");
-
-                Statistics.GetNeverOrderedItems().Tables[0].AsEnumerable().ToList().ForEach(row =>
-                {
-                    dgvStats.Rows.Add(row["name"], row["unit_price"]);
-                });
-
-
-
-            }
-            else if (selectedIndex == 3)
-            {
-                // Generate statistics for total orders
-
-                Statistics.GetTotalOrders().Tables[0].AsEnumerable().ToList().ForEach(row =>
-                {
-                    dgvStats.Columns.Add("totalOrders", "Total Orders");
-                    dgvStats.Rows.Add(row["total_orders"]);
-                });
-            }
-            else if (selectedIndex == 4)
-            {
-                // Generate statistics for avarage amount per order
-
-                Statistics.GetAverageAmountPerOrder().Tables[0].AsEnumerable().ToList().ForEach(row =>
-                {
-                    dgvStats.Columns.Add("averageAmount", "Average Amount Per Order");
-                    dgvStats.Rows.Add(row["average_amount"]);
-                });
-            }
-            else if (selectedIndex == 5)
-            {
-                // Generate statistics for total revenue
-
-                Statistics.GetTotalRevenue().Tables[0].AsEnumerable().ToList().ForEach(row =>
-                {
-                    dgvStats.Columns.Add("totalRevenue", "Total Revenue");
-                    dgvStats.Rows.Add(row["total_revenue"]);
-                });
-            }
-            else if (selectedIndex == 6)
-            {
-                // Generate statistics for total bookings
-
-                Statistics.GetTotalBookings().Tables[0].AsEnumerable().ToList().ForEach(row =>
-                {
-                    dgvStats.Columns.Add("totalBookings", "Total Bookings");
-                    dgvStats.Rows.Add(row["total_bookings"]);
-                });
-
-            }
-            else if (selectedIndex == 7)
-            {
-                // Generate statistics for payments by method
-
-                dgvStats.Columns.Add("paymentMethod", "Payment Method");
-                dgvStats.Columns.Add("totalAmount", "Total Amount");
-
-                Statistics.GetPaymentsByMethod().Tables[0].AsEnumerable().ToList().ForEach(row =>
-                {
-                    dgvStats.Rows.Add(row["payment_method"], row["total_amount"]);
-                });
-
-            }
-            else if (selectedIndex == 8)
-            {
-                // Generate statistics for total refunded amount
-
-                Statistics.GetTotalRefundedAmount().Tables[0].AsEnumerable().ToList().ForEach(row =>
-                {
-                    dgvStats.Columns.Add("totalRefundedAmount", "Total Refunded Amount");
-                    dgvStats.Rows.Add(row["refunded_total"]);
-                });
+                MessageBox.Show("An error occurred while generating statistics: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
 
         private void CmbCat_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void dataStat_CellContentClick(object sender, DataGridViewCellEventArgs e)

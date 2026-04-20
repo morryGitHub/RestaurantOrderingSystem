@@ -35,48 +35,36 @@ namespace RestaurantOrderingSystem
             FillPaidPaymentsComboBox();
         }
 
-        // Helper method to maintain consistent button design
-        private void StyleButton(Button btn, bool isSecondary = false)
-        {
-            btn.FlatStyle = FlatStyle.Flat;
-            btn.FlatAppearance.BorderSize = 0;
-            btn.Font = new Font("Segoe UI", 10, FontStyle.Bold);
-
-            if (!isSecondary)
-            {
-                // Primary Blue Style (like btnGenerate)
-                btn.BackColor = Color.FromArgb(0, 120, 215);
-                btn.ForeColor = Color.White;
-            }
-            else
-            {
-                // Secondary Gray Style
-                btn.BackColor = Color.LightGray;
-                btn.ForeColor = Color.Black;
-            }
-        }
-
+     
         private void cmbOrders_SelectedIndexChanged(object sender, EventArgs e)
         {
             dgvPayments.Rows.Clear();
-            Order order = cmbOrders.SelectedItem as Order;
-            DataSet ds = Payment.GetCompletedOrderDetails(order.ID);
-
-            foreach (DataRow row in ds.Tables[0].Rows)
+            try
             {
-                int paymentID = Convert.ToInt32(row["paymentID"]);
-                string methodType = row["methodType"].ToString();
-                decimal amount = Convert.ToDecimal(row["amount"]);
-                DateTime paymentDate = Convert.ToDateTime(row["paymentDate"]);
+                Order order = cmbOrders.SelectedItem as Order;
+                DataSet ds = Payment.GetCompletedOrderDetails(order.ID);
+
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    int paymentID = Convert.ToInt32(row["paymentID"]);
+                    string methodType = row["methodType"].ToString();
+                    decimal amount = Convert.ToDecimal(row["amount"]);
+                    DateTime paymentDate = Convert.ToDateTime(row["paymentDate"]);
 
 
-                dgvPayments.Rows.Add(
-                        paymentID,
-                        paymentDate.ToString("dd-MM-yyyy HH:mm"),
-                        methodType,
-                        amount.ToString("F2")
-                      
-                );
+                    dgvPayments.Rows.Add(
+                            paymentID,
+                            paymentDate.ToString("dd-MM-yyyy HH:mm"),
+                            methodType,
+                            amount.ToString("F2")
+
+                    );
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while loading payments: {ex.Message}",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -94,21 +82,28 @@ namespace RestaurantOrderingSystem
                 MessageBox.Show("Please select a payment to refund.");
                 return;
             }
+            try
+            {
+                int paymentID = Convert.ToInt32(dgvPayments.SelectedRows[0].Cells["ID"].Value);
+                string amount = dgvPayments.SelectedRows[0].Cells["Amount"].Value.ToString();
 
-            int paymentID = Convert.ToInt32(dgvPayments.SelectedRows[0].Cells["ID"].Value);
-            string amount = dgvPayments.SelectedRows[0].Cells["Amount"].Value.ToString();
+                Payment.RefundPayment(paymentID);
 
-            Payment.RefundPayment(paymentID);
+                MessageBox.Show(
+                    $"Refund processed successfully.\n" +
+                    $"Payment ID: {paymentID}\n" +
+                    $"Refund Amount: €{amount:F2}",
+                    "Refund Success",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
 
-            MessageBox.Show(
-                $"Refund processed successfully.\n" +
-                $"Payment ID: {paymentID}\n" +
-                $"Refund Amount: €{amount:F2}",
-                "Refund Success",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information);
-
-            this.Close();
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while processing the refund: {ex.Message}",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void dgvPayments_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -128,6 +123,11 @@ namespace RestaurantOrderingSystem
             }
 
 
+        }
+
+        private void backToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

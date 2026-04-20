@@ -16,7 +16,7 @@ namespace RestaurantOrderingSystem
         public FrmReprintReceipt()
         {
             InitializeComponent();
-            UIStyleHelper.ApplyDarkTheme(dgvOrderDetails); 
+            UIStyleHelper.ApplyDarkTheme(dgvOrderDetails);
             UIStyleHelper.ApplyPrimaryButtonStyle(btnReprint);
 
 
@@ -69,24 +69,32 @@ namespace RestaurantOrderingSystem
 
         private void btnRefund_Click(object sender, EventArgs e)
         {
+
             Order order = cmbOrders.SelectedItem as Order;
             if (order == null) return;
 
-            string orderName = $"Table {order.Table.TableNumber} — Order #{order.ID}";
-
-            string paymentMethod = Payment.GetPaymentMethodByOrder(order.ID) ?? "Unspecified";
-
-            DataSet dsItems = OrderItem.GetMenuItemsFromOrder(order.ID, "Completed");
-            decimal total = 0;
-            foreach (DataRow row in dsItems.Tables[0].Rows)
+            try
             {
-                decimal unitPrice = Convert.ToDecimal(row["UnitPrice"]);
-                int qty = Convert.ToInt32(row["Quantity"]);
-                total += unitPrice * qty;
-            }
+                string orderName = $"Table {order.Table.TableNumber} — Order #{order.ID}";
 
-            FrmReceipt receipt = new FrmReceipt(orderName, paymentMethod, total, dgvOrderDetails);
-            receipt.ShowDialog();
+                string paymentMethod = Payment.GetPaymentMethodByOrder(order.ID) ?? "Unspecified";
+
+                DataSet dsItems = OrderItem.GetMenuItemsFromOrder(order.ID, "Completed");
+                decimal total = 0;
+                foreach (DataRow row in dsItems.Tables[0].Rows)
+                {
+                    decimal unitPrice = Convert.ToDecimal(row["UnitPrice"]);
+                    int qty = Convert.ToInt32(row["Quantity"]);
+                    total += unitPrice * qty;
+                }
+
+                FrmReceipt receipt = new FrmReceipt(orderName, paymentMethod, total, dgvOrderDetails);
+                receipt.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while reprinting the receipt: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
 
@@ -118,30 +126,42 @@ namespace RestaurantOrderingSystem
             btnCancel.Enabled = true;
             cmbOrders.Items.Remove("Select the Order");
 
-            Order order = cmbOrders.SelectedItem as Order;
-
-            DataSet dsCompleted = OrderItem.GetMenuItemsFromOrder(order.ID, "Completed");
-
-            foreach (DataRow row in dsCompleted.Tables[0].Rows)
+            try
             {
-                string itemName = row["ItemName"].ToString();
-                decimal unitPrice = Convert.ToDecimal(row["UnitPrice"]);
-                int qty = Convert.ToInt32(row["Quantity"]);
-                decimal subtotal = unitPrice * qty;
-                int menuItemID = Convert.ToInt32(row["MenuItemID"]);
+                Order order = cmbOrders.SelectedItem as Order;
+
+                DataSet dsCompleted = OrderItem.GetMenuItemsFromOrder(order.ID, "Completed");
+
+                foreach (DataRow row in dsCompleted.Tables[0].Rows)
+                {
+                    string itemName = row["ItemName"].ToString();
+                    decimal unitPrice = Convert.ToDecimal(row["UnitPrice"]);
+                    int qty = Convert.ToInt32(row["Quantity"]);
+                    decimal subtotal = unitPrice * qty;
+                    int menuItemID = Convert.ToInt32(row["MenuItemID"]);
 
 
-                dgvOrderDetails.Rows.Add(
-                    itemName,
-                    unitPrice.ToString("F2"),
-                    qty,
-                    subtotal.ToString("F2"),
-                    menuItemID
-                );
+                    dgvOrderDetails.Rows.Add(
+                        itemName,
+                        unitPrice.ToString("F2"),
+                        qty,
+                        subtotal.ToString("F2"),
+                        menuItemID
+                    );
+                }
+
+                lblTotal.Text = $"€{Validation.GetTotalAmount(dgvOrderDetails):F2}";
+
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while loading order details: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
-            Validation.UpdateTotal(dgvOrderDetails, lblTotal);
-
+        private void backToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

@@ -7,6 +7,7 @@ using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace RestaurantOrderingSystem
 {
@@ -41,7 +42,9 @@ namespace RestaurantOrderingSystem
 
         public void MakePayment()
         {
-            string sql = $@"
+            try
+            {
+                string sql = $@"
                     BEGIN 
 
                         INSERT INTO PAYMENTS(orderID, amount, methodType, paymentDate)
@@ -54,12 +57,19 @@ namespace RestaurantOrderingSystem
                     END;
                 ";
 
-            Database.ExecuteNonQuery(sql);
+                Database.ExecuteNonQuery(sql);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error processing payment: {ex.Message}");
+            }
         }
 
         public static DataSet GetPaidPayments()
         {
-            string sql = @"
+            try
+            {
+                string sql = @"
                         SELECT 
                             p.orderID,
                             t.tableID,
@@ -71,41 +81,55 @@ namespace RestaurantOrderingSystem
                             ON o.tableID = t.tableID
                         WHERE p.status = 'Paid'";
 
-            return Database.ExecuteMultiRowQuery(sql);
+                return Database.ExecuteMultiRowQuery(sql);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error retrieving paid payments: {ex.Message}");
+            }
         }
 
         public static string GetPaymentMethodByOrder(int orderID)
         {
-            string sql = $@"
+            try
+            {
+                string sql = $@"
                     SELECT p.MethodType
                     FROM Payments p
                     WHERE p.OrderID = {orderID}
                     AND p.Status = 'Paid'";
 
-            OracleDataReader reader = Database.ExecuteSingleRowQuery(sql);
+                OracleDataReader reader = Database.ExecuteSingleRowQuery(sql);
 
-            if (reader != null)
-            {
-                if (reader.Read())
+                if (reader != null)
                 {
-                    if (!reader.IsDBNull(0))
+                    if (reader.Read())
                     {
-                        string status = reader.GetString(0);
-                        reader.Close();
-                        return status;
+                        if (!reader.IsDBNull(0))
+                        {
+                            string status = reader.GetString(0);
+                            reader.Close();
+                            return status;
+                        }
                     }
+                    reader.Close();
                 }
-                reader.Close();
-            }
 
-            return null;
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error retrieving payment method: {ex.Message}");
+            }
         }
 
 
 
         public static DataSet GetCompletedOrderDetails(int orderID)
         {
-            string sql = $@"
+            try
+            {
+                string sql = $@"
                         SELECT 
                             p.paymentID,
                             p.orderID,
@@ -115,36 +139,54 @@ namespace RestaurantOrderingSystem
                         FROM payments p                   
                         WHERE p.orderID = {orderID}";
 
-            return Database.ExecuteMultiRowQuery(sql);
+                return Database.ExecuteMultiRowQuery(sql);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error retrieving payment details: {ex.Message}");
+            }
         }
 
         public static void RefundPayment(int id)
         {
-            string sql = $@"UPDATE payments
+            try
+            {
+                string sql = $@"UPDATE payments
                             SET status = 'Refunded'
                             WHERE paymentID = {id}";
 
-            Database.ExecuteNonQuery(sql);
+                Database.ExecuteNonQuery(sql);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error processing refund: {ex.Message}");
+            }
         }
-
         public static List<Order> LoadPaidOrders()
         {
-            DataSet ds = GetPaidPayments();
-            List<Order> orders = new List<Order>();
-
-            foreach (DataRow row in ds.Tables[0].Rows)
+            try
             {
-                orders.Add(new Order(
-                    Convert.ToInt32(row["OrderID"]),
-                    table: new Table(
-                        Convert.ToInt32(row["TableID"]),
-                        Convert.ToInt32(row["TableNo"])
-                        )
-                ));
+                DataSet ds = GetPaidPayments();
+                List<Order> orders = new List<Order>();
+
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    orders.Add(new Order(
+                        Convert.ToInt32(row["OrderID"]),
+                        table: new Table(
+                            Convert.ToInt32(row["TableID"]),
+                            Convert.ToInt32(row["TableNo"])
+                            )
+                    ));
+                }
+
+                return orders;
             }
-
-            return orders;
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading paid orders: {ex.Message}");
+                return new List<Order>();
+            }
         }
-
     }
 }

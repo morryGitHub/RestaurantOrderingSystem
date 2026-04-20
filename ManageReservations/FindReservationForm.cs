@@ -19,7 +19,7 @@ namespace RestaurantOrderingSystem
             UIStyleHelper.ApplyDarkTheme(dgvMatchingReservation);
             UIStyleHelper.ApplyPrimaryButtonStyle(btnNext);
             UIStyleHelper.ApplyPrimaryButtonStyle(btnSearch);
-
+            dgvMatchingReservation.DefaultCellStyle.SelectionBackColor = Color.LightBlue;
 
         }
         private void dgvMatchingReservation_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -29,67 +29,8 @@ namespace RestaurantOrderingSystem
 
         private void btnSearch_Click_1(object sender, EventArgs e)
         {
-            dgvMatchingReservation.Rows.Clear();
-            dgvMatchingReservation.Visible = true;
-
-            string phone = null;
-            string name = null;
-
-            if (rbCustName.Checked)
-            {
-                name = tbCustName.Text;
-                if (Validation.IsNameValid(name) != "Valid")
-                {
-                    MessageBox.Show("Error Name");
-                    return;
-                }
-            }
-            else
-            {
-                phone = tbPhoneNum.Text;
-                if (Validation.IsPhoneValid(phone) != "Valid")
-                {
-                    MessageBox.Show("Error Phone");
-                    return;
-                }
-            }
-
-            DataSet ds = Reservation.GetReservationDetails(phone, name);
-            if (ds.Tables[0].Rows.Count == 0)
-            {
-                dgvMatchingReservation.Visible = false;
-            }
-            if (ds != null)
-            {
-                foreach (DataRow row in ds.Tables[0].Rows)
-                {
-                    string custName = Convert.ToString(row["CUSTOMERNAME"]);
-                    string custPhone = Convert.ToString(row["CUSTOMERPHONE"]);
-                    string date = Convert.ToString(row["RESERVATIONDATETIMESTART"]);
-                    int numOfGuest = Convert.ToInt32(row["NUMBEROFGUESTS"]);
-                    int tableNo = Convert.ToInt32(row["TableNo"]);
-                    int tableID = Convert.ToInt32(row["TableID"]);
-                    int resID = Convert.ToInt32(row["RESERVATIONID"]);
-
-
-
-
-                    dgvMatchingReservation.Rows.Add(
-                        custName,
-                        custPhone,
-                        date,
-                        numOfGuest,
-                        tableNo,
-                        tableID,
-                        resID
-                        );
-                }
-            }
-
-
-
-
-
+           ReservationManager.GetReservations(dgvMatchingReservation, rbCustName, tbCustName, tbPhoneNum, lblResInfo);
+           
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -172,26 +113,47 @@ namespace RestaurantOrderingSystem
                 {
 
                     case ("Find"):
-                        FrmNewOrder newOrder = new FrmNewOrder(tableID);
+                        Table tableObj = new Table() { TableId = tableID };
+                        FrmNewOrder newOrder = new FrmNewOrder(tableObj);
                         newOrder.ShowDialog();
+                        this.Close();
                         break;
 
                     case ("Update"):
-                        ;
                         FrmUpdateReservation frmUpdateReservation = new FrmUpdateReservation(resID, tableID);
-                        frmUpdateReservation.ShowDialog();
+
+                        if (frmUpdateReservation.ShowDialog() == DialogResult.OK)
+                        {
+                            ReservationManager.GetReservations(dgvMatchingReservation, rbCustName, tbCustName, tbPhoneNum, lblResInfo);
+                            
+                        }
                         break;
 
                     case ("Remove"):
-                        Reservation reservation = new Reservation(resID);
-                        reservation.DeleteReservation();
-                        MessageBox.Show("Reservation was succesfully cancelled");
-                        this.Close();
+                        try
+                        {
+                            Reservation reservation = new Reservation(resID);
+                            reservation.DeleteReservation();
+                            MessageBox.Show("Reservation was succesfully cancelled");
+                            this.Close();
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Error cancelling reservation: {ex.Message}");
+                        }
                         break;
+
                 }
-
             }
+        }
 
+        private void backToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.Cancel;
+        }
+
+        private void lblResInfo_Click(object sender, EventArgs e)
+        {
 
         }
     }

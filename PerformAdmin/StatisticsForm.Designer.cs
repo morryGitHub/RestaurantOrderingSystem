@@ -47,9 +47,10 @@
             // lblSummary
             // 
             this.lblSummary.AutoSize = true;
-            this.lblSummary.Location = new System.Drawing.Point(28, 319);
+            this.lblSummary.Location = new System.Drawing.Point(21, 259);
+            this.lblSummary.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblSummary.Name = "lblSummary";
-            this.lblSummary.Size = new System.Drawing.Size(0, 16);
+            this.lblSummary.Size = new System.Drawing.Size(0, 13);
             this.lblSummary.TabIndex = 2;
             // 
             // groupBox1
@@ -58,11 +59,11 @@
             this.groupBox1.Controls.Add(this.cmbCat);
             this.groupBox1.Controls.Add(this.lblCat);
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(17, 78);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox1.Location = new System.Drawing.Point(13, 63);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox1.Size = new System.Drawing.Size(571, 110);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Size = new System.Drawing.Size(428, 89);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Generate Options";
@@ -70,10 +71,10 @@
             // btnGenerate
             // 
             this.btnGenerate.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGenerate.Location = new System.Drawing.Point(429, 44);
-            this.btnGenerate.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnGenerate.Location = new System.Drawing.Point(322, 36);
+            this.btnGenerate.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnGenerate.Name = "btnGenerate";
-            this.btnGenerate.Size = new System.Drawing.Size(117, 33);
+            this.btnGenerate.Size = new System.Drawing.Size(88, 27);
             this.btnGenerate.TabIndex = 3;
             this.btnGenerate.Text = "Generate";
             this.btnGenerate.UseVisualStyleBackColor = true;
@@ -94,10 +95,10 @@
             "Total Bookings",
             "Payments By Method",
             "Total Refunded Amount"});
-            this.cmbCat.Location = new System.Drawing.Point(171, 46);
-            this.cmbCat.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.cmbCat.Location = new System.Drawing.Point(128, 37);
+            this.cmbCat.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.cmbCat.Name = "cmbCat";
-            this.cmbCat.Size = new System.Drawing.Size(233, 31);
+            this.cmbCat.Size = new System.Drawing.Size(176, 27);
             this.cmbCat.TabIndex = 2;
             this.cmbCat.SelectedIndexChanged += new System.EventHandler(this.CmbCat_SelectedIndexChanged);
             // 
@@ -105,9 +106,10 @@
             // 
             this.lblCat.AutoSize = true;
             this.lblCat.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.lblCat.Location = new System.Drawing.Point(5, 46);
+            this.lblCat.Location = new System.Drawing.Point(4, 37);
+            this.lblCat.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblCat.Name = "lblCat";
-            this.lblCat.Size = new System.Drawing.Size(149, 28);
+            this.lblCat.Size = new System.Drawing.Size(118, 21);
             this.lblCat.TabIndex = 1;
             this.lblCat.Text = "Select Category";
             // 
@@ -115,9 +117,10 @@
             // 
             this.lblTitle.AutoSize = true;
             this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold);
-            this.lblTitle.Location = new System.Drawing.Point(109, 18);
+            this.lblTitle.Location = new System.Drawing.Point(65, 9);
+            this.lblTitle.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(401, 38);
+            this.lblTitle.Size = new System.Drawing.Size(315, 30);
             this.lblTitle.TabIndex = 8;
             this.lblTitle.Text = "Print Yearly Revenue Analysis";
             this.lblTitle.Click += new System.EventHandler(this.lblTitle_Click);
@@ -126,11 +129,11 @@
             // 
             this.groupBox2.Controls.Add(this.dgvStats);
             this.groupBox2.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold);
-            this.groupBox2.Location = new System.Drawing.Point(17, 204);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox2.Location = new System.Drawing.Point(13, 166);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox2.Size = new System.Drawing.Size(571, 389);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox2.Size = new System.Drawing.Size(428, 316);
             this.groupBox2.TabIndex = 11;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Revenue Details";
@@ -145,14 +148,14 @@
             this.dgvStats.BackgroundColor = System.Drawing.Color.White;
             this.dgvStats.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvStats.GridColor = System.Drawing.Color.Black;
-            this.dgvStats.Location = new System.Drawing.Point(5, 37);
-            this.dgvStats.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dgvStats.Location = new System.Drawing.Point(4, 30);
+            this.dgvStats.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dgvStats.Name = "dgvStats";
             this.dgvStats.ReadOnly = true;
             this.dgvStats.RowHeadersVisible = false;
             this.dgvStats.RowHeadersWidth = 51;
             this.dgvStats.RowTemplate.Height = 24;
-            this.dgvStats.Size = new System.Drawing.Size(559, 348);
+            this.dgvStats.Size = new System.Drawing.Size(419, 283);
             this.dgvStats.TabIndex = 7;
             this.dgvStats.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataStat_CellContentClick);
             // 
@@ -164,8 +167,8 @@
             this.backToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(600, 28);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(450, 24);
             this.menuStrip1.TabIndex = 12;
             this.menuStrip1.Text = "menuStrip1";
             this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
@@ -174,22 +177,22 @@
             // 
             this.backToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.backToolStripMenuItem.Name = "backToolStripMenuItem";
-            this.backToolStripMenuItem.Size = new System.Drawing.Size(54, 24);
+            this.backToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.backToolStripMenuItem.Text = "Back";
             this.backToolStripMenuItem.Click += new System.EventHandler(this.backToolStripMenuItem_Click);
             // 
             // FrmStatistics
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(600, 615);
+            this.ClientSize = new System.Drawing.Size(450, 500);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.lblSummary);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "FrmStatistics";
             this.Text = "StatisticsForm";
             this.Load += new System.EventHandler(this.StatisticsForm_Load);

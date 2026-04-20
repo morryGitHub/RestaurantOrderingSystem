@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle27 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle29 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle30 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle28 = new System.Windows.Forms.DataGridViewCellStyle();
             this.lblTitle = new System.Windows.Forms.Label();
             this.lblCustName = new System.Windows.Forms.Label();
             this.lblPhoneNum = new System.Windows.Forms.Label();
@@ -58,21 +58,23 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.lblErrorMsg = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.backToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.numericNumOfGuests)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTables)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblTitle
             // 
             this.lblTitle.AutoSize = true;
             this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.Location = new System.Drawing.Point(331, 21);
-            this.lblTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblTitle.Location = new System.Drawing.Point(248, 17);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(233, 38);
+            this.lblTitle.Size = new System.Drawing.Size(184, 30);
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "Add Reservation";
             this.lblTitle.Click += new System.EventHandler(this.label1_Click);
@@ -81,10 +83,9 @@
             // 
             this.lblCustName.AutoSize = true;
             this.lblCustName.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCustName.Location = new System.Drawing.Point(11, 43);
-            this.lblCustName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblCustName.Location = new System.Drawing.Point(8, 35);
             this.lblCustName.Name = "lblCustName";
-            this.lblCustName.Size = new System.Drawing.Size(104, 28);
+            this.lblCustName.Size = new System.Drawing.Size(84, 21);
             this.lblCustName.TabIndex = 1;
             this.lblCustName.Text = "Full Name:";
             this.lblCustName.Click += new System.EventHandler(this.label1_Click_1);
@@ -93,10 +94,9 @@
             // 
             this.lblPhoneNum.AutoSize = true;
             this.lblPhoneNum.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPhoneNum.Location = new System.Drawing.Point(7, 94);
-            this.lblPhoneNum.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblPhoneNum.Location = new System.Drawing.Point(5, 76);
             this.lblPhoneNum.Name = "lblPhoneNum";
-            this.lblPhoneNum.Size = new System.Drawing.Size(148, 28);
+            this.lblPhoneNum.Size = new System.Drawing.Size(119, 21);
             this.lblPhoneNum.TabIndex = 2;
             this.lblPhoneNum.Text = "Phone Number:";
             this.lblPhoneNum.Click += new System.EventHandler(this.lblPhoneNum_Click);
@@ -105,10 +105,9 @@
             // 
             this.blbDate.AutoSize = true;
             this.blbDate.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.blbDate.Location = new System.Drawing.Point(11, 50);
-            this.blbDate.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.blbDate.Location = new System.Drawing.Point(8, 41);
             this.blbDate.Name = "blbDate";
-            this.blbDate.Size = new System.Drawing.Size(163, 28);
+            this.blbDate.Size = new System.Drawing.Size(131, 21);
             this.blbDate.TabIndex = 3;
             this.blbDate.Text = "Reservation Date:";
             this.blbDate.Click += new System.EventHandler(this.label3_Click);
@@ -117,20 +116,18 @@
             // 
             this.lblNumOfGuests.AutoSize = true;
             this.lblNumOfGuests.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNumOfGuests.Location = new System.Drawing.Point(11, 152);
-            this.lblNumOfGuests.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblNumOfGuests.Location = new System.Drawing.Point(8, 124);
             this.lblNumOfGuests.Name = "lblNumOfGuests";
-            this.lblNumOfGuests.Size = new System.Drawing.Size(170, 28);
+            this.lblNumOfGuests.Size = new System.Drawing.Size(137, 21);
             this.lblNumOfGuests.TabIndex = 4;
             this.lblNumOfGuests.Text = "Number of Guests";
             // 
             // btnFindAvailableTables
             // 
             this.btnFindAvailableTables.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnFindAvailableTables.Location = new System.Drawing.Point(16, 40);
-            this.btnFindAvailableTables.Margin = new System.Windows.Forms.Padding(4);
+            this.btnFindAvailableTables.Location = new System.Drawing.Point(12, 32);
             this.btnFindAvailableTables.Name = "btnFindAvailableTables";
-            this.btnFindAvailableTables.Size = new System.Drawing.Size(413, 37);
+            this.btnFindAvailableTables.Size = new System.Drawing.Size(310, 30);
             this.btnFindAvailableTables.TabIndex = 5;
             this.btnFindAvailableTables.Text = "Find Available Tables";
             this.btnFindAvailableTables.UseVisualStyleBackColor = true;
@@ -139,10 +136,9 @@
             // btnAddReservation
             // 
             this.btnAddReservation.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddReservation.Location = new System.Drawing.Point(137, 566);
-            this.btnAddReservation.Margin = new System.Windows.Forms.Padding(4);
+            this.btnAddReservation.Location = new System.Drawing.Point(103, 460);
             this.btnAddReservation.Name = "btnAddReservation";
-            this.btnAddReservation.Size = new System.Drawing.Size(257, 57);
+            this.btnAddReservation.Size = new System.Drawing.Size(193, 46);
             this.btnAddReservation.TabIndex = 8;
             this.btnAddReservation.Text = "Add Reservation";
             this.btnAddReservation.UseVisualStyleBackColor = true;
@@ -151,40 +147,40 @@
             // tbCustName
             // 
             this.tbCustName.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbCustName.Location = new System.Drawing.Point(167, 40);
-            this.tbCustName.Margin = new System.Windows.Forms.Padding(4);
+            this.tbCustName.Location = new System.Drawing.Point(125, 32);
             this.tbCustName.MaxLength = 25;
             this.tbCustName.Name = "tbCustName";
-            this.tbCustName.Size = new System.Drawing.Size(178, 34);
+            this.tbCustName.Size = new System.Drawing.Size(134, 29);
             this.tbCustName.TabIndex = 10;
             this.tbCustName.TextChanged += new System.EventHandler(this.tbCustName_TextChanged);
             // 
             // tbPhoneNumber
             // 
             this.tbPhoneNumber.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbPhoneNumber.Location = new System.Drawing.Point(167, 91);
-            this.tbPhoneNumber.Margin = new System.Windows.Forms.Padding(4);
+            this.tbPhoneNumber.Location = new System.Drawing.Point(125, 74);
             this.tbPhoneNumber.Name = "tbPhoneNumber";
-            this.tbPhoneNumber.Size = new System.Drawing.Size(178, 34);
+            this.tbPhoneNumber.Size = new System.Drawing.Size(134, 29);
             this.tbPhoneNumber.TabIndex = 11;
             this.tbPhoneNumber.TextChanged += new System.EventHandler(this.tbPhoneNumber_TextChanged);
             // 
             // numericNumOfGuests
             // 
             this.numericNumOfGuests.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericNumOfGuests.Location = new System.Drawing.Point(206, 155);
-            this.numericNumOfGuests.Margin = new System.Windows.Forms.Padding(4);
+            this.numericNumOfGuests.Location = new System.Drawing.Point(154, 126);
             this.numericNumOfGuests.Name = "numericNumOfGuests";
-            this.numericNumOfGuests.Size = new System.Drawing.Size(142, 30);
+            this.numericNumOfGuests.Size = new System.Drawing.Size(106, 26);
             this.numericNumOfGuests.TabIndex = 14;
+            this.numericNumOfGuests.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.numericNumOfGuests.ValueChanged += new System.EventHandler(this.numericNumOfGuests_ValueChanged);
             // 
             // datePicker
             // 
             this.datePicker.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.datePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.datePicker.Location = new System.Drawing.Point(206, 49);
+            this.datePicker.Location = new System.Drawing.Point(154, 40);
+            this.datePicker.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.datePicker.Name = "datePicker";
-            this.datePicker.Size = new System.Drawing.Size(142, 30);
+            this.datePicker.Size = new System.Drawing.Size(108, 26);
             this.datePicker.TabIndex = 15;
             this.datePicker.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged_1);
             // 
@@ -194,17 +190,17 @@
             this.dgvTables.AllowUserToDeleteRows = false;
             this.dgvTables.AllowUserToResizeColumns = false;
             this.dgvTables.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dgvTables.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle26.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dgvTables.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle26;
             this.dgvTables.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvTables.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle27.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle27.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle27.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle27.SelectionBackColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle27.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle27.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvTables.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle27;
             this.dgvTables.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvTables.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.TableID,
@@ -212,28 +208,29 @@
             this.Capacity,
             this.Status});
             this.dgvTables.Cursor = System.Windows.Forms.Cursors.Default;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvTables.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle29.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle29.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle29.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle29.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle29.SelectionBackColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle29.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle29.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvTables.DefaultCellStyle = dataGridViewCellStyle29;
             this.dgvTables.EnableHeadersVisualStyles = false;
-            this.dgvTables.Location = new System.Drawing.Point(17, 91);
+            this.dgvTables.Location = new System.Drawing.Point(13, 74);
+            this.dgvTables.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dgvTables.MultiSelect = false;
             this.dgvTables.Name = "dgvTables";
             this.dgvTables.ReadOnly = true;
             this.dgvTables.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.dgvTables.RowHeadersVisible = false;
             this.dgvTables.RowHeadersWidth = 51;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.CornflowerBlue;
-            this.dgvTables.RowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle30.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle30.SelectionBackColor = System.Drawing.Color.CornflowerBlue;
+            this.dgvTables.RowsDefaultCellStyle = dataGridViewCellStyle30;
             this.dgvTables.RowTemplate.Height = 24;
             this.dgvTables.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvTables.Size = new System.Drawing.Size(413, 309);
+            this.dgvTables.Size = new System.Drawing.Size(310, 251);
             this.dgvTables.TabIndex = 16;
             this.dgvTables.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTables_CellContentClick);
             // 
@@ -247,8 +244,8 @@
             // 
             // TableNo
             // 
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TableNo.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle28.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TableNo.DefaultCellStyle = dataGridViewCellStyle28;
             this.TableNo.HeaderText = "TableNo";
             this.TableNo.MinimumWidth = 6;
             this.TableNo.Name = "TableNo";
@@ -277,9 +274,11 @@
             this.groupBox1.Controls.Add(this.lblPhoneNum);
             this.groupBox1.Controls.Add(this.lblCustName);
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(29, 84);
+            this.groupBox1.Location = new System.Drawing.Point(22, 68);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(365, 209);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Size = new System.Drawing.Size(274, 170);
             this.groupBox1.TabIndex = 17;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Customer Details";
@@ -287,20 +286,18 @@
             // tbEmail
             // 
             this.tbEmail.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbEmail.Location = new System.Drawing.Point(108, 148);
-            this.tbEmail.Margin = new System.Windows.Forms.Padding(4);
+            this.tbEmail.Location = new System.Drawing.Point(81, 120);
             this.tbEmail.Name = "tbEmail";
-            this.tbEmail.Size = new System.Drawing.Size(237, 34);
+            this.tbEmail.Size = new System.Drawing.Size(179, 29);
             this.tbEmail.TabIndex = 13;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(7, 151);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(5, 123);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(63, 28);
+            this.label2.Size = new System.Drawing.Size(51, 21);
             this.label2.TabIndex = 12;
             this.label2.Text = "Email:";
             // 
@@ -313,9 +310,11 @@
             this.groupBox2.Controls.Add(this.lblNumOfGuests);
             this.groupBox2.Controls.Add(this.numericNumOfGuests);
             this.groupBox2.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(29, 299);
+            this.groupBox2.Location = new System.Drawing.Point(22, 243);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(365, 210);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox2.Size = new System.Drawing.Size(274, 171);
             this.groupBox2.TabIndex = 18;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Reservation Details";
@@ -324,23 +323,25 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(11, 101);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(8, 82);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(164, 28);
+            this.label1.Size = new System.Drawing.Size(133, 21);
             this.label1.TabIndex = 16;
             this.label1.Text = "Reservation Time:";
             // 
             // timePicker
             // 
             this.timePicker.CustomFormat = "HH:mm";
+            this.timePicker.DropDownAlign = System.Windows.Forms.LeftRightAlignment.Right;
             this.timePicker.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.timePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.timePicker.Location = new System.Drawing.Point(206, 100);
+            this.timePicker.Location = new System.Drawing.Point(154, 81);
+            this.timePicker.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.timePicker.Name = "timePicker";
             this.timePicker.ShowUpDown = true;
-            this.timePicker.Size = new System.Drawing.Size(142, 30);
+            this.timePicker.Size = new System.Drawing.Size(108, 26);
             this.timePicker.TabIndex = 17;
+            this.timePicker.ValueChanged += new System.EventHandler(this.timePicker_ValueChanged);
             // 
             // groupBox3
             // 
@@ -348,9 +349,11 @@
             this.groupBox3.Controls.Add(this.btnFindAvailableTables);
             this.groupBox3.Controls.Add(this.dgvTables);
             this.groupBox3.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox3.Location = new System.Drawing.Point(427, 84);
+            this.groupBox3.Location = new System.Drawing.Point(320, 68);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(436, 425);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox3.Size = new System.Drawing.Size(327, 345);
             this.groupBox3.TabIndex = 19;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Availbale Tables";
@@ -358,9 +361,10 @@
             // lblErrorMsg
             // 
             this.lblErrorMsg.ForeColor = System.Drawing.Color.Red;
-            this.lblErrorMsg.Location = new System.Drawing.Point(19, 93);
+            this.lblErrorMsg.Location = new System.Drawing.Point(14, 76);
+            this.lblErrorMsg.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblErrorMsg.Name = "lblErrorMsg";
-            this.lblErrorMsg.Size = new System.Drawing.Size(409, 42);
+            this.lblErrorMsg.Size = new System.Drawing.Size(307, 34);
             this.lblErrorMsg.TabIndex = 17;
             this.lblErrorMsg.Text = "No Available Tables For This Date";
             this.lblErrorMsg.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -369,27 +373,47 @@
             // btnCancel
             // 
             this.btnCancel.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.btnCancel.Location = new System.Drawing.Point(500, 566);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
+            this.btnCancel.Location = new System.Drawing.Point(375, 460);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(257, 57);
+            this.btnCancel.Size = new System.Drawing.Size(193, 46);
             this.btnCancel.TabIndex = 21;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click_1);
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.BackColor = System.Drawing.Color.Transparent;
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.backToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(672, 24);
+            this.menuStrip1.TabIndex = 22;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // backToolStripMenuItem
+            // 
+            this.backToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.backToolStripMenuItem.Name = "backToolStripMenuItem";
+            this.backToolStripMenuItem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.backToolStripMenuItem.RightToLeftAutoMirrorImage = true;
+            this.backToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.backToolStripMenuItem.Text = "Back";
+            this.backToolStripMenuItem.Click += new System.EventHandler(this.backToolStripMenuItem_Click);
+            // 
             // FrmAddReservation
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(896, 661);
+            this.ClientSize = new System.Drawing.Size(672, 537);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnAddReservation);
             this.Controls.Add(this.lblTitle);
-            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Controls.Add(this.menuStrip1);
             this.Name = "FrmAddReservation";
             this.Text = "Add Reservation";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -400,6 +424,8 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -432,5 +458,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Status;
         private System.Windows.Forms.TextBox tbEmail;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem backToolStripMenuItem;
     }
 }

@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Xml.Linq;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
@@ -77,48 +78,73 @@ namespace RestaurantOrderingSystem
             }
         }
 
-        public static Table GetTable(int tableID)
+        public DataSet GetTableData()
         {
-            string sql = $@"
+            try
+            {
+                string sql = $@"
                     SELECT TABLEID, TABLENO, CAPACITY
                     FROM tablesinfo
-                    WHERE TABLEID = {tableID}
+                    WHERE TABLEID = {TableId}
                     ";
 
-            using (IDataReader reader = Database.ExecuteSingleRowQuery(sql))
+                return Database.ExecuteMultiRowQuery(sql);
+
+            }
+            catch (OracleException ex)
             {
-                if (reader.Read())
+                throw new Exception("Database error: " + ex.Message);
+            }
+        }
+
+        public Table GetTable()
+        {
+            try
+            {
+                DataSet ds = GetTableData();
+
+                if (ds != null && ds.Tables[0].Rows.Count > 0)
                 {
-                    int id = Convert.ToInt32(reader["TABLEID"]);
-                    int no = Convert.ToInt32(reader["TABLENO"]);
-                    int capacity = Convert.ToInt32(reader["CAPACITY"]);
+                    int id = Convert.ToInt32(ds.Tables[0].Rows[0]["TABLEID"]);
+                    int no = Convert.ToInt32(ds.Tables[0].Rows[0]["TABLENO"]);
+                    int capacity = Convert.ToInt32(ds.Tables[0].Rows[0]["CAPACITY"]);
+
                     return new Table(id, no, capacity);
                 }
 
+                return null;
             }
-            return null;
-
-
-
+            catch (OracleException ex)
+            {
+                throw new Exception("Database error: " + ex.Message);
+            }
         }
 
         public static DataSet LoadAllTables()
         {
-            //Define the SQL query to be executed
-            string sql = @"
+            try
+            {
+                //Define the SQL query to be executed
+                string sql = @"
                 SELECT TABLEID, TABLENO, CAPACITY, STATUS
                 FROM tablesinfo
-                ORDER BY TABLENO
-            ";
+                ORDER BY TABLENO";
 
-            //Execute the SQL query
-            return Database.ExecuteMultiRowQuery(sql);
+                //Execute the SQL query
+                return Database.ExecuteMultiRowQuery(sql);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public static DataSet LoadAvailableTables()
         {
-            //Define the SQL query to be executed
-            string sql = @"
+            try
+            {
+                //Define the SQL query to be executed
+                string sql = @"
                 SELECT t.TABLEID, t.TABLENO, t.CAPACITY, t.STATUS, o.Status
                 FROM tablesinfo t
                 LEFT JOIN ORDERS o 
@@ -128,97 +154,136 @@ namespace RestaurantOrderingSystem
                 ORDER BY TABLENO
             ";
 
-            //Execute the SQL query
-            return Database.ExecuteMultiRowQuery(sql);
+                //Execute the SQL query
+                return Database.ExecuteMultiRowQuery(sql);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public void UpdateTable()
         {
-            string sqlQuery = "UPDATE tablesinfo SET " +
+            try
+            {
+                string sqlQuery = "UPDATE tablesinfo SET " +
                "CAPACITY = '" + Capacity + "'," +
                "STATUS = '" + Status + "' " +
                "WHERE TABLENO = " + TableNumber;
 
-            //Execute the SQL query
-            Database.ExecuteNonQuery(sqlQuery);
+                //Execute the SQL query
+                Database.ExecuteNonQuery(sqlQuery);
+            }
+            catch (OracleException ex)
+            {
+                throw new Exception("Database error: " + ex.Message);
+            }
         }
 
-        public static void DeleteTable(int tableNo)
+        public void DeleteTable()
         {
-            //Define the SQL query to be executed
-            string sqlQuery = $@"
+            try
+            {
+                //Define the SQL query to be executed
+                string sqlQuery = $@"
                     UPDATE tablesinfo
                     SET STATUS = 'Unavailable' 
-                    WHERE TABLENO = {tableNo}";
+                    WHERE TABLENO = {TableNumber}";
 
 
-            //Execute the SQL query
-            Database.ExecuteNonQuery(sqlQuery);
-
+                //Execute the SQL query
+                Database.ExecuteNonQuery(sqlQuery);
+            }
+            catch (OracleException ex)
+            {
+                throw new Exception("Database error: " + ex.Message);
+            }
         }
 
         public static int GetLastTableID()
         {
-            string sql = "SELECT MAX(TABLENO) FROM tablesinfo";
-            OracleDataReader reader = Database.ExecuteSingleRowQuery(sql);
-
-            if (reader != null)
+            try
             {
-                if (reader.Read())
+                string sql = "SELECT MAX(TABLENO) FROM tablesinfo";
+                OracleDataReader reader = Database.ExecuteSingleRowQuery(sql);
+
+                if (reader != null)
                 {
-                    Debug.WriteLine("reader.Read()");
-
-                    if (!reader.IsDBNull(0))
+                    if (reader.Read())
                     {
-                        Debug.WriteLine("newTableNo");
-                        int newTableNo = Convert.ToInt32(reader.GetValue(0)) + 1;
-                        Debug.WriteLine(newTableNo);
-                        reader.Close();
-                        return newTableNo;
-                    }
-                }
-                reader.Close();
-            }
 
-            return 1;
+                        if (!reader.IsDBNull(0))
+                        {
+                            Debug.WriteLine("newTableNo");
+                            int newTableNo = Convert.ToInt32(reader.GetValue(0)) + 1;
+                            Debug.WriteLine(newTableNo);
+                            reader.Close();
+                            return newTableNo;
+                        }
+                    }
+                    reader.Close();
+                }
+
+                return 1;
+            }
+            catch (OracleException ex)
+            {
+                throw new Exception("Database error: " + ex.Message);
+            }
         }
 
         public static List<Table> GetTables()
         {
-            DataSet ds = LoadAllTables();
-            List<Table> tables = new List<Table>();
-
-            foreach (DataRow row in ds.Tables[0].Rows)
+            try
             {
-                tables.Add(new Table(
-                    Convert.ToInt32(row["TABLENO"]),
-                    Convert.ToInt32(row["CAPACITY"]),
-                    row["STATUS"].ToString()
-                ));
+                DataSet ds = LoadAllTables();
+                List<Table> tables = new List<Table>();
+
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    tables.Add(new Table(
+                        Convert.ToInt32(row["TABLEID"]),
+                        Convert.ToInt32(row["TABLENO"]),
+                        Convert.ToInt32(row["CAPACITY"]),
+                        row["STATUS"].ToString()
+                    ));
+                }
+
+                return tables;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Database error: " + ex.Message);
+                return new List<Table>();
             }
 
-            return tables;
         }
 
         public static List<Table> GetAvailableTables()
         {
-            DataSet ds = LoadAvailableTables();
-            List<Table> tables = new List<Table>();
-
-            foreach (DataRow row in ds.Tables[0].Rows)
+            try
             {
-                tables.Add(item: new Table(
-                    Convert.ToInt32(row["TABLEID"]),
-                    Convert.ToInt32(row["TABLENO"]),
-                    Convert.ToInt32(row["CAPACITY"]),
-                    row["STATUS"].ToString()
-                ));
+                DataSet ds = LoadAvailableTables();
+                List<Table> tables = new List<Table>();
+
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    tables.Add(item: new Table(
+                        Convert.ToInt32(row["TABLEID"]),
+                        Convert.ToInt32(row["TABLENO"]),
+                        Convert.ToInt32(row["CAPACITY"]),
+                        row["STATUS"].ToString()
+                    ));
+                }
+
+                return tables;
             }
-
-            return tables;
+            catch (Exception ex)
+            {
+                MessageBox.Show("Database error: " + ex.Message);
+                return new List<Table>();
+            }
         }
-
-
-
     }
 }

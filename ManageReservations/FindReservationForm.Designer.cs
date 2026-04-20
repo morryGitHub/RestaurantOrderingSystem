@@ -28,23 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
             this.lblTitle = new System.Windows.Forms.Label();
             this.btnSearch = new System.Windows.Forms.Button();
             this.tbCustName = new System.Windows.Forms.TextBox();
             this.tbPhoneNum = new System.Windows.Forms.TextBox();
             this.dgvMatchingReservation = new System.Windows.Forms.DataGridView();
-            this.rbCustName = new System.Windows.Forms.RadioButton();
-            this.rbPhoneNum = new System.Windows.Forms.RadioButton();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.btnCancel = new System.Windows.Forms.Button();
-            this.btnNext = new System.Windows.Forms.Button();
             this.colName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Phone = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -52,18 +46,29 @@
             this.TableNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TableID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ResID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rbCustName = new System.Windows.Forms.RadioButton();
+            this.rbPhoneNum = new System.Windows.Forms.RadioButton();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.btnNext = new System.Windows.Forms.Button();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.backToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lblResInfo = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMatchingReservation)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblTitle
             // 
             this.lblTitle.AutoSize = true;
             this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.Location = new System.Drawing.Point(379, 25);
+            this.lblTitle.Location = new System.Drawing.Point(284, 20);
+            this.lblTitle.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(236, 38);
+            this.lblTitle.Size = new System.Drawing.Size(185, 30);
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "Find Reservation";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -71,10 +76,10 @@
             // btnSearch
             // 
             this.btnSearch.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSearch.Location = new System.Drawing.Point(97, 150);
-            this.btnSearch.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnSearch.Location = new System.Drawing.Point(73, 122);
+            this.btnSearch.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(211, 34);
+            this.btnSearch.Size = new System.Drawing.Size(158, 28);
             this.btnSearch.TabIndex = 3;
             this.btnSearch.Text = "Search";
             this.btnSearch.UseVisualStyleBackColor = true;
@@ -83,20 +88,20 @@
             // tbCustName
             // 
             this.tbCustName.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbCustName.Location = new System.Drawing.Point(219, 41);
-            this.tbCustName.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tbCustName.Location = new System.Drawing.Point(164, 33);
+            this.tbCustName.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tbCustName.Name = "tbCustName";
-            this.tbCustName.Size = new System.Drawing.Size(161, 30);
+            this.tbCustName.Size = new System.Drawing.Size(122, 26);
             this.tbCustName.TabIndex = 7;
             this.tbCustName.Click += new System.EventHandler(this.tbCustName_Click);
             // 
             // tbPhoneNum
             // 
             this.tbPhoneNum.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbPhoneNum.Location = new System.Drawing.Point(219, 100);
-            this.tbPhoneNum.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tbPhoneNum.Location = new System.Drawing.Point(164, 81);
+            this.tbPhoneNum.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tbPhoneNum.Name = "tbPhoneNum";
-            this.tbPhoneNum.Size = new System.Drawing.Size(161, 30);
+            this.tbPhoneNum.Size = new System.Drawing.Size(122, 26);
             this.tbPhoneNum.TabIndex = 8;
             this.tbPhoneNum.Click += new System.EventHandler(this.tbPhoneNum_Click);
             this.tbPhoneNum.TextChanged += new System.EventHandler(this.tbPhoneNum_TextChanged_1);
@@ -109,14 +114,14 @@
             this.dgvMatchingReservation.AllowUserToResizeRows = false;
             this.dgvMatchingReservation.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvMatchingReservation.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvMatchingReservation.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle13.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle13.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle13.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvMatchingReservation.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle13;
             this.dgvMatchingReservation.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvMatchingReservation.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colName,
@@ -127,8 +132,8 @@
             this.TableID,
             this.ResID});
             this.dgvMatchingReservation.EnableHeadersVisualStyles = false;
-            this.dgvMatchingReservation.Location = new System.Drawing.Point(5, 37);
-            this.dgvMatchingReservation.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dgvMatchingReservation.Location = new System.Drawing.Point(4, 30);
+            this.dgvMatchingReservation.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dgvMatchingReservation.MultiSelect = false;
             this.dgvMatchingReservation.Name = "dgvMatchingReservation";
             this.dgvMatchingReservation.ReadOnly = true;
@@ -136,96 +141,15 @@
             this.dgvMatchingReservation.RowHeadersWidth = 51;
             this.dgvMatchingReservation.RowTemplate.Height = 24;
             this.dgvMatchingReservation.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvMatchingReservation.Size = new System.Drawing.Size(841, 146);
+            this.dgvMatchingReservation.Size = new System.Drawing.Size(631, 119);
             this.dgvMatchingReservation.TabIndex = 4;
             this.dgvMatchingReservation.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMatchingReservation_CellContentClick);
-            // 
-            // rbCustName
-            // 
-            this.rbCustName.AutoSize = true;
-            this.rbCustName.Checked = true;
-            this.rbCustName.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbCustName.Location = new System.Drawing.Point(19, 37);
-            this.rbCustName.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.rbCustName.Name = "rbCustName";
-            this.rbCustName.Size = new System.Drawing.Size(125, 32);
-            this.rbCustName.TabIndex = 9;
-            this.rbCustName.TabStop = true;
-            this.rbCustName.Text = "Full Name:";
-            this.rbCustName.UseVisualStyleBackColor = true;
-            this.rbCustName.CheckedChanged += new System.EventHandler(this.rbCustName_CheckedChanged_1);
-            // 
-            // rbPhoneNum
-            // 
-            this.rbPhoneNum.AutoSize = true;
-            this.rbPhoneNum.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbPhoneNum.Location = new System.Drawing.Point(19, 96);
-            this.rbPhoneNum.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.rbPhoneNum.Name = "rbPhoneNum";
-            this.rbPhoneNum.Size = new System.Drawing.Size(169, 32);
-            this.rbPhoneNum.TabIndex = 10;
-            this.rbPhoneNum.Text = "Phone Number:";
-            this.rbPhoneNum.UseVisualStyleBackColor = true;
-            this.rbPhoneNum.CheckedChanged += new System.EventHandler(this.rbPhoneNum_CheckedChanged);
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.rbPhoneNum);
-            this.groupBox1.Controls.Add(this.rbCustName);
-            this.groupBox1.Controls.Add(this.tbPhoneNum);
-            this.groupBox1.Controls.Add(this.tbCustName);
-            this.groupBox1.Controls.Add(this.btnSearch);
-            this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(276, 92);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox1.Size = new System.Drawing.Size(429, 202);
-            this.groupBox1.TabIndex = 12;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Search By:";
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.dgvMatchingReservation);
-            this.groupBox2.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(48, 329);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox2.Size = new System.Drawing.Size(852, 190);
-            this.groupBox2.TabIndex = 13;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Matching Reservation";
-            // 
-            // btnCancel
-            // 
-            this.btnCancel.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancel.Location = new System.Drawing.Point(575, 550);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(185, 39);
-            this.btnCancel.TabIndex = 23;
-            this.btnCancel.Text = "Cancel";
-            this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
-            // 
-            // btnNext
-            // 
-            this.btnNext.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnNext.Location = new System.Drawing.Point(180, 550);
-            this.btnNext.Margin = new System.Windows.Forms.Padding(4);
-            this.btnNext.Name = "btnNext";
-            this.btnNext.Size = new System.Drawing.Size(185, 39);
-            this.btnNext.TabIndex = 22;
-            this.btnNext.UseVisualStyleBackColor = true;
-            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
             // 
             // colName
             // 
             this.colName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.colName.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.colName.DefaultCellStyle = dataGridViewCellStyle14;
             this.colName.FillWeight = 118.3155F;
             this.colName.HeaderText = "Name";
             this.colName.MinimumWidth = 6;
@@ -235,8 +159,8 @@
             // Phone
             // 
             this.Phone.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Phone.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Phone.DefaultCellStyle = dataGridViewCellStyle15;
             this.Phone.FillWeight = 118.3155F;
             this.Phone.HeaderText = "Phone";
             this.Phone.MinimumWidth = 6;
@@ -246,8 +170,8 @@
             // Date
             // 
             this.Date.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Date.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Date.DefaultCellStyle = dataGridViewCellStyle16;
             this.Date.FillWeight = 118.3155F;
             this.Date.HeaderText = "Date";
             this.Date.MinimumWidth = 6;
@@ -257,26 +181,26 @@
             // Guests
             // 
             this.Guests.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Guests.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Guests.DefaultCellStyle = dataGridViewCellStyle17;
             this.Guests.FillWeight = 60F;
             this.Guests.HeaderText = "Guests";
             this.Guests.MinimumWidth = 6;
             this.Guests.Name = "Guests";
             this.Guests.ReadOnly = true;
-            this.Guests.Width = 99;
+            this.Guests.Width = 96;
             // 
             // TableNo
             // 
             this.TableNo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.TableNo.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.TableNo.DefaultCellStyle = dataGridViewCellStyle18;
             this.TableNo.FillWeight = 60F;
             this.TableNo.HeaderText = "Table";
             this.TableNo.MinimumWidth = 4;
             this.TableNo.Name = "TableNo";
             this.TableNo.ReadOnly = true;
-            this.TableNo.Width = 86;
+            this.TableNo.Width = 83;
             // 
             // TableID
             // 
@@ -295,17 +219,130 @@
             this.ResID.ReadOnly = true;
             this.ResID.Visible = false;
             // 
+            // rbCustName
+            // 
+            this.rbCustName.AutoSize = true;
+            this.rbCustName.Checked = true;
+            this.rbCustName.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbCustName.Location = new System.Drawing.Point(14, 30);
+            this.rbCustName.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.rbCustName.Name = "rbCustName";
+            this.rbCustName.Size = new System.Drawing.Size(102, 25);
+            this.rbCustName.TabIndex = 9;
+            this.rbCustName.TabStop = true;
+            this.rbCustName.Text = "Full Name:";
+            this.rbCustName.UseVisualStyleBackColor = true;
+            this.rbCustName.CheckedChanged += new System.EventHandler(this.rbCustName_CheckedChanged_1);
+            // 
+            // rbPhoneNum
+            // 
+            this.rbPhoneNum.AutoSize = true;
+            this.rbPhoneNum.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbPhoneNum.Location = new System.Drawing.Point(14, 78);
+            this.rbPhoneNum.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.rbPhoneNum.Name = "rbPhoneNum";
+            this.rbPhoneNum.Size = new System.Drawing.Size(137, 25);
+            this.rbPhoneNum.TabIndex = 10;
+            this.rbPhoneNum.Text = "Phone Number:";
+            this.rbPhoneNum.UseVisualStyleBackColor = true;
+            this.rbPhoneNum.CheckedChanged += new System.EventHandler(this.rbPhoneNum_CheckedChanged);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.rbPhoneNum);
+            this.groupBox1.Controls.Add(this.rbCustName);
+            this.groupBox1.Controls.Add(this.tbPhoneNum);
+            this.groupBox1.Controls.Add(this.tbCustName);
+            this.groupBox1.Controls.Add(this.btnSearch);
+            this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Location = new System.Drawing.Point(207, 75);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Size = new System.Drawing.Size(322, 164);
+            this.groupBox1.TabIndex = 12;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Search By:";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.lblResInfo);
+            this.groupBox2.Controls.Add(this.dgvMatchingReservation);
+            this.groupBox2.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox2.Location = new System.Drawing.Point(36, 267);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox2.Size = new System.Drawing.Size(639, 154);
+            this.groupBox2.TabIndex = 13;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Matching Reservation";
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancel.Location = new System.Drawing.Point(431, 447);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(139, 32);
+            this.btnCancel.TabIndex = 23;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
+            // btnNext
+            // 
+            this.btnNext.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnNext.Location = new System.Drawing.Point(135, 447);
+            this.btnNext.Name = "btnNext";
+            this.btnNext.Size = new System.Drawing.Size(139, 32);
+            this.btnNext.TabIndex = 22;
+            this.btnNext.UseVisualStyleBackColor = true;
+            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.BackColor = System.Drawing.Color.Transparent;
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.backToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(703, 24);
+            this.menuStrip1.TabIndex = 24;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // backToolStripMenuItem
+            // 
+            this.backToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.backToolStripMenuItem.Name = "backToolStripMenuItem";
+            this.backToolStripMenuItem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.backToolStripMenuItem.RightToLeftAutoMirrorImage = true;
+            this.backToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.backToolStripMenuItem.Text = "Back";
+            this.backToolStripMenuItem.Click += new System.EventHandler(this.backToolStripMenuItem_Click);
+            // 
+            // lblResInfo
+            // 
+            this.lblResInfo.ForeColor = System.Drawing.Color.Red;
+            this.lblResInfo.Location = new System.Drawing.Point(4, 30);
+            this.lblResInfo.Name = "lblResInfo";
+            this.lblResInfo.Size = new System.Drawing.Size(631, 119);
+            this.lblResInfo.TabIndex = 5;
+            this.lblResInfo.Text = "No reservations were found matching your criteria.";
+            this.lblResInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblResInfo.Click += new System.EventHandler(this.lblResInfo_Click);
+            // 
             // FrmFindReservation
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(937, 631);
+            this.ClientSize = new System.Drawing.Size(703, 513);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.btnNext);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.lblTitle);
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Controls.Add(this.menuStrip1);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "FrmFindReservation";
             this.Text = "Find Reservation";
             this.Load += new System.EventHandler(this.FrmFindReservation_Load);
@@ -313,6 +350,8 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -338,5 +377,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn TableNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn TableID;
         private System.Windows.Forms.DataGridViewTextBoxColumn ResID;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem backToolStripMenuItem;
+        private System.Windows.Forms.Label lblResInfo;
     }
 }

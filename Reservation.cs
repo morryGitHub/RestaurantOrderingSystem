@@ -58,17 +58,26 @@ namespace RestaurantOrderingSystem
 
         public void DeleteReservation()
         {
-            string sql = $@"
+            try
+            {
+                string sql = $@"
                     UPDATE RESERVATIONS
                     SET STATUS = 'CANCELLED'
-                    WHERE RESERVATIONID = {ReservationID}
-                ";
-            Database.ExecuteNonQuery(sql);
+                    WHERE RESERVATIONID = {ReservationID}";
+
+                Database.ExecuteNonQuery(sql);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error deleting reservation: {ex.Message}");
+            }
         }
 
         public static DataSet GetAvailableTablesForReservation(int numOfGuest, string start, string end)
         {
-            string sql = $@"
+            try
+            {
+                string sql = $@"
                 SELECT t.TableID, t.tableNo, t.Capacity, t.Status
                 FROM tablesinfo t
                 WHERE t.status = 'Available'
@@ -81,56 +90,67 @@ namespace RestaurantOrderingSystem
                         AND TO_DATE('{end}', 'DD-MM-YYYY HH24:MI') > r.reservationDateTimeStart
                     )
                 ORDER BY t.Capacity";
-            return Database.ExecuteMultiRowQuery(sql);
+                return Database.ExecuteMultiRowQuery(sql);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error fetching available tables: {ex.Message}");
+            }
         }
 
         public static DataSet GetReservationDetails(int id)
         {
-
             return GetReservationDetailsInternal(id, null, null);
         }
 
         public static DataSet GetReservationDetails(string phone, string name)
         {
-
             return GetReservationDetailsInternal(null, phone, name);
         }
 
         private static DataSet GetReservationDetailsInternal(int? id, string phone, string name)
         {
-
-            string sql = $@"
+            try
+            {
+                string sql = $@"
                 SELECT t.TABLENO, r.TableID, r.CUSTOMERNAME,  r.CUSTOMERPHONE, r.RESERVATIONDATETIMESTART, r.NUMBEROFGUESTS, r.RESERVATIONID, r.STATUS
                 FROM RESERVATIONS r
                 JOIN tablesinfo t ON r.TABLEID = t.TableID
                 WHERE r.STATUS = 'BOOKED'";
 
-            if (id.HasValue)
-            {
-                sql += $@" AND RESERVATIONID = {id}";
-            }
-            else
-            {
-                if (!string.IsNullOrEmpty(phone))
+                if (id.HasValue)
                 {
-                    sql += $@" AND CUSTOMERPHONE = '{phone}'";
+                    sql += $@" AND RESERVATIONID = {id}";
+                }
+                else
+                {
+                    if (!string.IsNullOrEmpty(phone))
+                    {
+                        sql += $@" AND CUSTOMERPHONE = '{phone}'";
+                    }
+
+                    if (!string.IsNullOrEmpty(name))
+                    {
+                        sql += $@" AND LOWER(CUSTOMERNAME) LIKE LOWER('%{name}%')";
+                    }
                 }
 
-                if (!string.IsNullOrEmpty(name))
-                {
-                    sql += $@" AND LOWER(CUSTOMERNAME) LIKE LOWER('%{name}%')";
-                }
+
+
+                return Database.ExecuteMultiRowQuery(sql);
+
             }
-
-
-
-            return Database.ExecuteMultiRowQuery(sql);
-
+            catch (Exception ex)
+            {
+                throw new Exception($"Error fetching reservation details: {ex.Message}");
+            }
         }
 
         public void UpdateReservationDetails()
         {
-            string sql = $@"
+            try
+            {
+                string sql = $@"
                 UPDATE RESERVATIONS
                 SET CUSTOMERNAME = '{CustomerName}',
                     CUSTOMERPHONE = '{CustomerPhone}',
@@ -142,17 +162,30 @@ namespace RestaurantOrderingSystem
                 WHERE RESERVATIONID = {ReservationID}";
 
 
-            Database.ExecuteNonQuery(sql);
+                Database.ExecuteNonQuery(sql);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error updating reservation: {ex.Message}");
+            }
         }
 
         public void AddReservation()
         {
-            string sql = $@"
+            try
+            {
+
+                string sql = $@"
                 INSERT INTO Reservations(tableID, customerName, customerPhone, reservationDateTimeStart, reservationDateTimeEnd, numberOfGuests, status)
                 Values({TableID}, '{CustomerName}', '{CustomerPhone}', TO_DATE('{ReservationDateStart}', 'DD-MM-YYYY HH24:MI'), TO_DATE('{ReservationDateEnd}', 'DD-MM-YYYY HH24:MI'), {NumOfGuest}, 'BOOKED')
                 ";
 
-            Database.ExecuteNonQuery(sql);
+                Database.ExecuteNonQuery(sql);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error adding reservation: {ex.Message}");
+            }
         }
     }
 }

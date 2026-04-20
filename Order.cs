@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace RestaurantOrderingSystem
 {
@@ -37,37 +38,61 @@ namespace RestaurantOrderingSystem
 
         public void AddOrder()
         {
-            string sql = $@"
+            try
+            {
+
+                string sql = $@"
                 INSERT INTO ORDERS(TableID, OrderDate, TotalAmount, Status)
                 VALUES({Table.TableId}, TO_DATE('{OrderDate:yyyy-MM-dd HH:mm:ss}', 'YYYY-MM-DD HH24:MI:SS'), {TotalAmount}, '{Status}')
             ";
 
-            Database.ExecuteNonQuery(sql);
+                Database.ExecuteNonQuery(sql);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error adding order: {ex.Message}");
+            }
         }
 
         public void ChangeTableStatus(int tableID)
         {
-            string sql = $@"
+            try
+            {
+                string sql = $@"
                     UPDATE ORDERS
                     SET Status = 'Unavailable'";
 
-            Database.ExecuteSingleRowQuery(sql);
+                Database.ExecuteSingleRowQuery(sql);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error changing table status: {ex.Message}");
+            }
         }
 
         public void CancelOrder(int orderID)
         {
-            string sql = $@"
+            try
+            {
+                string sql = $@"
                 UPDATE ORDERS
                 SET STATUS = 'Cancelled'
                 WHERE ORDERID = {orderID}";
 
-            Database.ExecuteNonQuery(sql);
+                Database.ExecuteNonQuery(sql);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error cancelling order: {ex.Message}");
+            }
         }
 
 
         public static DataSet GetActiveOrders()
         {
-            string sql = $@"
+            try
+            {
+                string sql = $@"
                     SELECT
                          o.OrderID,
                          t.TableID,
@@ -77,27 +102,41 @@ namespace RestaurantOrderingSystem
                     JOIN tablesinfo t ON o.TableID = t.TableID
                     WHERE o.Status = 'Active'";
 
-            return Database.ExecuteMultiRowQuery(sql);
+                return Database.ExecuteMultiRowQuery(sql);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error retrieving active orders: {ex.Message}");
+            }
         }
 
         public static List<Order> LoadOrders()
         {
-            DataSet ds = GetActiveOrders();
-            List<Order> orders = new List<Order>();
-
-            foreach (DataRow row in ds.Tables[0].Rows)
+            try
             {
-                orders.Add(new Order(
-                    Convert.ToInt32(row["OrderID"]),
-                    table: new Table(
-                        Convert.ToInt32(row["TableID"]),
-                        Convert.ToInt32(row["TableNo"])
-                        )
-                ));
+                DataSet ds = GetActiveOrders();
+                List<Order> orders = new List<Order>();
+
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    orders.Add(new Order(
+                        Convert.ToInt32(row["OrderID"]),
+                        table: new Table(
+                            Convert.ToInt32(row["TableID"]),
+                            Convert.ToInt32(row["TableNo"])
+                            )
+                    ));
+                }
+
+                return orders;
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading orders: {ex.Message}",
+                    "System Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return new List<Order>();
 
-            return orders;
+            }
         }
-
     }
 }

@@ -106,6 +106,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ReservationManager.cs" />
     <Compile Include="UIStyleHelper.cs" />
     <Compile Include="GmailSender.cs" />
     <Compile Include="ManageReservations\AddReservationForm.cs">
@@ -113,12 +114,6 @@
     </Compile>
     <Compile Include="ManageReservations\AddReservationForm.Designer.cs">
       <DependentUpon>AddReservationForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ManageReservations\CancelReservation.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ManageReservations\CancelReservation.Designer.cs">
-      <DependentUpon>CancelReservation.cs</DependentUpon>
     </Compile>
     <Compile Include="ManageReservations\FindReservationForm.cs">
       <SubType>Form</SubType>
@@ -230,9 +225,6 @@
     <Compile Include="Validation.cs" />
     <EmbeddedResource Include="ManageReservations\AddReservationForm.resx">
       <DependentUpon>AddReservationForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ManageReservations\CancelReservation.resx">
-      <DependentUpon>CancelReservation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ManageReservations\FindReservationForm.resx">
       <DependentUpon>FindReservationForm.cs</DependentUpon>

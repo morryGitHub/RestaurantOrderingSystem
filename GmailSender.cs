@@ -6,21 +6,21 @@ using System.Threading.Tasks;
 
 namespace RestaurantOrderingSystem
 {
+    using System.Configuration;
     using System.Net;
     using System.Net.Mail;
 
     public class GmailSender
-    {
+    {  
 
-        // Replace with your actual Gmail address and the generated App Password
-   
-
-        public static void SendEmail(string fromAddress, string fromPassword, string toAddress, string subject, string body)
+        public static void SendEmail(string toAddress, string subject, string body)
         {
+            string senderEmail = "morry.GitHub@gmail.com";
+            string appPassword = ConfigurationManager.ConnectionStrings["appPassword"].ConnectionString;
             // Use the 16-character App Password here
-            string senderPassword = fromPassword;
+            string senderPassword = appPassword;
 
-            var from = new MailAddress(fromAddress, "Morry Restaurant"); // Optional: Set display name
+            var from = new MailAddress(senderEmail, "Morry Restaurant"); // Optional: Set display name
             var to = new MailAddress(toAddress);
 
             var smtp = new SmtpClient
@@ -30,8 +30,8 @@ namespace RestaurantOrderingSystem
                 EnableSsl = true,
                 DeliveryMethod = SmtpDeliveryMethod.Network,
                 UseDefaultCredentials = false,
-                Credentials = new NetworkCredential(fromAddress, senderPassword)
-            };
+                Credentials = new NetworkCredential(senderEmail, senderPassword)
+            };  
 
             using (var message = new MailMessage(from, to)
             {

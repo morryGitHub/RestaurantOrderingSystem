@@ -77,7 +77,9 @@ namespace RestaurantOrderingSystem
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
 
-            Table.DeleteTable(selectedTable.TableNumber);
+            Table tableToDelete = new Table { TableNumber = tableId };
+
+            tableToDelete.DeleteTable();
 
             this.Close();
         }
@@ -163,6 +165,11 @@ namespace RestaurantOrderingSystem
             {
                 cmbTableNo.Items.Add(table);
             }
+        }
+
+        private void backToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+                this.Close();
         }
     }
 }

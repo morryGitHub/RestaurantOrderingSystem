@@ -216,5 +216,10 @@ namespace RestaurantOrderingSystem
         {
 
         }
+
+        private void backToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+                        this.Close();
+        }
     }
 }

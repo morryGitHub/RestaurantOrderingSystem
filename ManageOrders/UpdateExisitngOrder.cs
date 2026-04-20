@@ -36,7 +36,8 @@ namespace RestaurantOrderingSystem
 
         private void cmdOrders_SelectedIndexChanged(object sender, EventArgs e)
         {
-            lblTotal.Text = "€0.00";
+            decimal total = 0.00m;
+            lblTotal.Text = $"€{total:F2}";
 
             if (cmbOrders.Text.Equals("Select the Order"))
             {
@@ -48,38 +49,36 @@ namespace RestaurantOrderingSystem
             btnCancel.Enabled = true;
             cmbOrders.Items.Remove("Select the Order");
 
-            Order order = cmbOrders.SelectedItem as Order;
-
-            _selectedOrderId = order.ID;
-
-            DataSet dsActive = OrderItem.GetMenuItemsFromOrder(_selectedOrderId, "Active");
-
-            foreach (DataRow row in dsActive.Tables[0].Rows)
+            try
             {
-                string itemName = row["ItemName"].ToString();
-                decimal unitPrice = Convert.ToDecimal(row["UnitPrice"]);
-                int qty = Convert.ToInt32(row["Quantity"]);
-                decimal subtotal = unitPrice * qty;
-                int menuItemID = Convert.ToInt32(row["MenuItemID"]);
+                Order order = cmbOrders.SelectedItem as Order;
+                _selectedOrderId = order.ID;
+                DataSet dsActive = OrderItem.GetMenuItemsFromOrder(_selectedOrderId, "Active");
 
+                foreach (DataRow row in dsActive.Tables[0].Rows)
+                {
+                    string itemName = row["ItemName"].ToString();
+                    decimal unitPrice = Convert.ToDecimal(row["UnitPrice"]);
+                    int qty = Convert.ToInt32(row["Quantity"]);
+                    decimal subtotal = unitPrice * qty;
+                    int menuItemID = Convert.ToInt32(row["MenuItemID"]);
 
-                dgvOrderItems.Rows.Add(
-                    itemName,
-                    unitPrice.ToString("F2"),
-                    qty,
-                    subtotal.ToString("F2"),
-                    menuItemID
-                );
+                    dgvOrderItems.Rows.Add(
+                        itemName,
+                        unitPrice.ToString("F2"),
+                        qty,
+                        subtotal.ToString("F2"),
+                        menuItemID
+                    );
+                }
+
+                total = Validation.GetTotalAmount(dgvOrderItems);
+                lblTotal.Text = $"€{total:F2}";
             }
-
-
-
-
-            Validation.UpdateTotal(dgvOrderItems, lblTotal);
-
-
-
-
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to load order items: " + ex.Message);
+            }
         }
 
 
@@ -98,7 +97,7 @@ namespace RestaurantOrderingSystem
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information
             );
-            
+
             _selectedOrderId = -1;
 
             this.Close();
@@ -118,7 +117,7 @@ namespace RestaurantOrderingSystem
 
 
 
-      
+
         private void lblTotalText_Click(object sender, EventArgs e)
         {
 
@@ -150,14 +149,18 @@ namespace RestaurantOrderingSystem
             int qty = Convert.ToInt16(row.Cells["Qty"].Value);
 
             MenuItem selectedItem = null;
-            foreach (MenuItem item in cmbItems.Items)
+            for (int i = 0; i < cmbItems.Items.Count; i++)
             {
-                if (item.Name == name)
+                if (i == 0) continue;
+                MenuItem item = cmbItems.Items[i] as MenuItem;
+                if (item != null && item.Name == name)
                 {
                     selectedItem = item;
                     break;
                 }
             }
+
+            //MenuItem item in cmbItems.Items
 
             if (selectedItem != null)
             {
@@ -175,7 +178,7 @@ namespace RestaurantOrderingSystem
 
         }
 
-    
+
 
         private void UpdateButtonsState()
         {
@@ -196,6 +199,7 @@ namespace RestaurantOrderingSystem
 
             btnCancel.Enabled = true;
             cmbItems.Items.Remove("Select the Item");
+            numQty.Value = 1;
         }
 
         private void numQty_ValueChanged(object sender, EventArgs e)
@@ -259,7 +263,8 @@ namespace RestaurantOrderingSystem
                     dgvOrderItems.Rows.Add(itemName, unitPrice.ToString("F2"), qty, subtotal.ToString("F2"), _menuItemID);
                 }
 
-                Validation.UpdateTotal(dgvOrderItems, lblTotal);
+
+                lblTotal.Text = $"€{Validation.GetTotalAmount(dgvOrderItems):F2}";
             }
             catch (Exception ex)
             {
@@ -298,7 +303,7 @@ namespace RestaurantOrderingSystem
 
             }
 
-            
+
 
         }
 
@@ -315,7 +320,7 @@ namespace RestaurantOrderingSystem
             _menuItemID = Convert.ToInt16(row.Cells["MenuItemID"].Value);
 
             OrderItem orderItem = new OrderItem(_selectedOrderId, _menuItemID);
-            
+
 
             var result = MessageBox.Show(
                 "Remove this item?",
@@ -331,11 +336,11 @@ namespace RestaurantOrderingSystem
                     {
                         orderItem.DeleteItemFromOrder();
                         dgvOrderItems.Rows.RemoveAt(rowIndex);
-                        Validation.UpdateTotal(dgvOrderItems, lblTotal);
+                        lblTotal.Text = $"€{Validation.GetTotalAmount(dgvOrderItems):F2}";
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Error deleting item: " + ex.Message);
+                        MessageBox.Show(ex.Message);
                     }
 
                 }
@@ -398,7 +403,7 @@ namespace RestaurantOrderingSystem
                     dgvOrderItems.Rows.Add(itemName, unitPrice.ToString("F2"), qty, subtotal.ToString("F2"), _menuItemID);
                 }
 
-                Validation.UpdateTotal(dgvOrderItems, lblTotal);
+                lblTotal.Text = $"€{Validation.GetTotalAmount(dgvOrderItems):F2}";
             }
             catch (Exception ex)
             {
@@ -416,6 +421,11 @@ namespace RestaurantOrderingSystem
         {
             UpdateButtonsState();
 
+        }
+
+        private void backToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

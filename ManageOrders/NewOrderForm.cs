@@ -22,10 +22,13 @@ namespace RestaurantOrderingSystem
             UIStyleHelper.ApplyPrimaryButtonStyle(btnConfirm);
         }
 
-        public FrmNewOrder(int tableID)
+        internal FrmNewOrder(Table table)
         {
             InitializeComponent();
-            TableID = tableID;
+            TableID = table.TableId;
+            UIStyleHelper.ApplyDarkTheme(dgvOrderItems);
+            UIStyleHelper.ApplyPrimaryButtonStyle(btnAddItem);
+            UIStyleHelper.ApplyPrimaryButtonStyle(btnConfirm);
         }
 
         private void NewOrderForm_Load(object sender, EventArgs e)
@@ -39,7 +42,7 @@ namespace RestaurantOrderingSystem
 
             LoadMenuItems();
 
-      
+
         }
 
 
@@ -57,35 +60,48 @@ namespace RestaurantOrderingSystem
                 return;
             }
 
-            Table selectedTable = cmbAvailableTables.SelectedItem as Table;
-            DateTime dateTime = DateTime.Now;
-            decimal total = Convert.ToDecimal(lblTotal.Text.Split('€')[1]);
-
-            Order order = new Order(selectedTable, dateTime, total);
-
-            order.AddOrder();
-            int newOrderID = OrderItem.GetLastOrderID();
-
-
-            foreach (DataGridViewRow row in dgvOrderItems.Rows)
+            try
             {
-                if (row.IsNewRow) { continue; }
-                int menuItemID = Convert.ToInt32(row.Cells["MenuItemID"].Value);
-                int qty = Convert.ToInt32(row.Cells["Qty"].Value);
-                decimal _ = Convert.ToDecimal(row.Cells["UnitPrice"].Value);
 
-                OrderItem orderItem = new OrderItem(newOrderID, menuItemID, qty);
-                orderItem.AddOrderItems();
+                Table selectedTable = cmbAvailableTables.SelectedItem as Table;
+                DateTime dateTime = DateTime.Now;
+                decimal total = Convert.ToDecimal(lblTotal.Text.Split('€')[1]);
+
+                Order order = new Order(selectedTable, dateTime, total);
+
+                order.AddOrder();
+                int newOrderID = OrderItem.GetLastOrderID();
+
+
+                foreach (DataGridViewRow row in dgvOrderItems.Rows)
+                {
+                    if (row.IsNewRow) { continue; }
+                    int menuItemID = Convert.ToInt32(row.Cells["MenuItemID"].Value);
+                    int qty = Convert.ToInt32(row.Cells["Qty"].Value);
+                    decimal _ = Convert.ToDecimal(row.Cells["UnitPrice"].Value);
+
+                    OrderItem orderItem = new OrderItem(newOrderID, menuItemID, qty);
+                    orderItem.AddOrderItems();
+                }
+
+                MessageBox.Show(
+                        $"Order created successfully!\nTotal Amount: {lblTotal.Text}",
+                         "Success",
+                         MessageBoxButtons.OK,
+                         MessageBoxIcon.Information
+                    );
+
+                this.Close();
             }
-
-            MessageBox.Show(
-                    $"Order created successfully!\nTotal Amount: {lblTotal.Text}",
-                     "Success",
-                     MessageBoxButtons.OK,
-                     MessageBoxIcon.Information
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"An error occurred while creating the order.\nError: {ex.Message}",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
                 );
-
-            this.Close();
+            }
         }
 
         private void BtnExit_Click(object sender, EventArgs e)
@@ -147,7 +163,7 @@ namespace RestaurantOrderingSystem
                 dgvOrderItems.Rows.Add(itemName, unitPrice.ToString("F2"), qty, subtotal.ToString("F2"), menuItemID);
             }
 
-            Validation.UpdateTotal(dgvOrderItems, lblTotal);
+            lblTotal.Text = $"€{Validation.GetTotalAmount(dgvOrderItems):F2}";
 
             cmbItems.SelectedIndex = -1;
             numQty.Value = numQty.Minimum;
@@ -185,14 +201,14 @@ namespace RestaurantOrderingSystem
             MessageBoxButtons.YesNo,
             MessageBoxIcon.Warning);
 
-            
+
 
             if (result == DialogResult.Yes)
             {
                 if (e.RowIndex >= 0)
                 {
                     dgvOrderItems.Rows.RemoveAt(e.RowIndex);
-                    Validation.UpdateTotal(dgvOrderItems, lblTotal);
+                    lblTotal.Text = $"€{Validation.GetTotalAmount(dgvOrderItems):F2}";
                 }
 
             }
@@ -267,15 +283,27 @@ namespace RestaurantOrderingSystem
         private void LoadBookedTable()
         {
             cmbAvailableTables.Items.Clear();
-            Table bookedTable = Table.GetTable(TableID);
-            cmbAvailableTables.Items.Add(bookedTable);
-            cmbAvailableTables.SelectedIndex = 0;
-            cmbAvailableTables.Enabled = false;
+            try
+            {
+                Table bookedTable = new Table { TableId = TableID }.GetTable();
+                cmbAvailableTables.Items.Add(bookedTable);
+                cmbAvailableTables.SelectedIndex = 0;
+                cmbAvailableTables.Enabled = false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error loading booked table: " + ex.Message);
+            }
         }
 
         private void groupBox2_Enter(object sender, EventArgs e)
         {
 
+        }
+
+        private void backToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

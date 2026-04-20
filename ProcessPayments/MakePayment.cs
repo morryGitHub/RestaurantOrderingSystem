@@ -41,26 +41,34 @@ namespace RestaurantOrderingSystem
                 return;
             }
 
-            decimal total = decimal.Parse(lblAmount.Text.Replace("€", ""));
-            string orderName = cmbOrders.SelectedItem.ToString();
-            string method = cmbMethod.SelectedItem.ToString();
-            Order order = cmbOrders.SelectedItem as Order;
+            try
+            {
+                decimal total = decimal.Parse(lblAmount.Text.Replace("€", ""));
+                string orderName = cmbOrders.SelectedItem.ToString();
+                string method = cmbMethod.SelectedItem.ToString();
+                Order order = cmbOrders.SelectedItem as Order;
 
 
-            Payment payment = new Payment(order, total, method, DateTime.Now.ToString("dd-MM-yyyy HH:mm"));
-            payment.MakePayment();
+                Payment payment = new Payment(order, total, method, DateTime.Now.ToString("dd-MM-yyyy HH:mm"));
+                payment.MakePayment();
 
-            MessageBox.Show("Payment successful.\nOrder is now PAID.\nTable is now AVAILABLE.",
-                            "Success",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information);
+                MessageBox.Show("Payment successful.\nOrder is now PAID.\nTable is now AVAILABLE.",
+                                "Success",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information);
 
 
 
-            FrmReceipt receipt = new FrmReceipt(orderName, method, total, dgvOrderItems);
-            receipt.ShowDialog();
+                FrmReceipt receipt = new FrmReceipt(orderName, method, total, dgvOrderItems);
+                receipt.ShowDialog();
 
-            this.Close();
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error processing payment: " + ex.Message,
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
 
@@ -94,14 +102,14 @@ namespace RestaurantOrderingSystem
 
         private void frmMakePayment_Load(object sender, EventArgs e)
         {
-      
+
             this.BackColor = Color.White;
 
             // TITLE STYLE
             lblTitle.Font = new Font("Segoe UI", 16, FontStyle.Bold);
             lblTitle.ForeColor = Color.FromArgb(30, 30, 30);
 
-          
+
 
             // TOTAL LABEL STYLE
             lblAmount.Font = new Font("Segoe UI", 14, FontStyle.Bold);
@@ -174,35 +182,52 @@ namespace RestaurantOrderingSystem
             btnCancel.Enabled = true;
             cmbOrders.Items.Remove("Select the Order");
 
-            Order order = cmbOrders.SelectedItem as Order;
-            DataSet dsActive = OrderItem.GetMenuItemsFromOrder(order.ID, "Active");
 
-
-            foreach (DataRow row in dsActive.Tables[0].Rows)
+            try
             {
-                string itemName = row["ItemName"].ToString();
-                decimal unitPrice = Convert.ToDecimal(row["UnitPrice"]);
-                int qty = Convert.ToInt32(row["Quantity"]);
-                decimal subtotal = unitPrice * qty;
-                int menuItemID = Convert.ToInt32(row["MenuItemID"]);
+                Order order = cmbOrders.SelectedItem as Order;
+                DataSet dsActive = OrderItem.GetMenuItemsFromOrder(order.ID, "Active");
 
 
-                dgvOrderItems.Rows.Add(
-                    itemName,
-                    unitPrice.ToString("F2"),
-                    qty,
-                    subtotal.ToString("F2"),
-                    menuItemID
-                );
+                foreach (DataRow row in dsActive.Tables[0].Rows)
+                {
+                    string itemName = row["ItemName"].ToString();
+                    decimal unitPrice = Convert.ToDecimal(row["UnitPrice"]);
+                    int qty = Convert.ToInt32(row["Quantity"]);
+                    decimal subtotal = unitPrice * qty;
+                    int menuItemID = Convert.ToInt32(row["MenuItemID"]);
+
+
+                    dgvOrderItems.Rows.Add(
+                        itemName,
+                        unitPrice.ToString("F2"),
+                        qty,
+                        subtotal.ToString("F2"),
+                        menuItemID
+                    );
+                }
+
+
+
+
+                lblAmount.Text = $"€{Validation.GetTotalAmount(dgvOrderItems):F2}";
             }
-
-
-
-
-            Validation.UpdateTotal(dgvOrderItems, lblAmount);
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error loading order items: " + ex.Message,
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
-      
+        private void lblAmount_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void backToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 
 

@@ -65,46 +65,61 @@ namespace RestaurantOrderingSystem
         }
         private void AddTableForm_Load(object sender, EventArgs e)
         {
-            // Existing logic
-            int freeNo = Table.GetLastTableID();
-            tableNum.Text = freeNo.ToString();
+            try
+            {
+                // Existing logic
+                int freeNo = Table.GetLastTableID();
+                tableNum.Text = freeNo.ToString();
 
-            // ===== DESIGN MATCH (same as FrmPrintRevenue) =====
+                // ===== DESIGN MATCH (same as FrmPrintRevenue) =====
 
-            var normal = new Font("Segoe UI", 10, FontStyle.Regular);
+                var normal = new Font("Segoe UI", 10, FontStyle.Regular);
 
-            this.BackColor = Color.White;
+                this.BackColor = Color.White;
 
-            // Example: Title label (if you have one like lblTitle)
-            lblTitle.Font = new Font("Segoe UI", 16, FontStyle.Bold);
-            lblTitle.ForeColor = Color.FromArgb(30, 30, 30);
-            groupBox1.Font = new Font("Segoe UI", 10, FontStyle.Bold);
-            groupBox1.ForeColor = Color.FromArgb(50, 50, 50);
+                // Example: Title label (if you have one like lblTitle)
+                lblTitle.Font = new Font("Segoe UI", 16, FontStyle.Bold);
+                lblTitle.ForeColor = Color.FromArgb(30, 30, 30);
+                groupBox1.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+                groupBox1.ForeColor = Color.FromArgb(50, 50, 50);
 
-            // Labels
-            lblTableNo.Font = normal;
-            lblCapacity.Font = normal;
+                // Labels
+                lblTableNo.Font = normal;
+                lblCapacity.Font = normal;
 
-            // TextBox styling
-            tableNum.Font = normal;
-            tableNum.BorderStyle = BorderStyle.FixedSingle;
+                // TextBox styling
+                tableNum.Font = normal;
+                tableNum.BorderStyle = BorderStyle.FixedSingle;
 
-            // NumericUpDown styling
-            numericSeatingCap.Font = normal;
+                // NumericUpDown styling
+                numericSeatingCap.Font = normal;
 
-            // ===== Buttons ====
+                // ===== Buttons ====
 
-            // Cancel Button (neutral style)
-            btnCancel.FlatStyle = FlatStyle.Flat;
-            btnCancel.BackColor = Color.LightGray;
-            btnCancel.ForeColor = Color.Black;
-            btnCancel.FlatAppearance.BorderSize = 0;
-            btnCancel.Font = normal;
+                // Cancel Button (neutral style)
+                btnCancel.FlatStyle = FlatStyle.Flat;
+                btnCancel.BackColor = Color.LightGray;
+                btnCancel.ForeColor = Color.Black;
+                btnCancel.FlatAppearance.BorderSize = 0;
+                btnCancel.Font = normal;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to load form. The database might be offline." +
+                    "\n\nDetails: " + ex.Message,
+                    "System Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+            }
         }
 
         private void tableNum_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void backToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

@@ -119,67 +119,82 @@ namespace RestaurantOrderingSystem
                 MessageBox.Show(tableCheck, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+            try
+            {
+                DataGridViewRow row = dgvTables.SelectedRows[0];
+                int tableID = Convert.ToInt32(row.Cells["TableID"].Value);
 
-            DataGridViewRow row = dgvTables.SelectedRows[0];
-            int tableID = Convert.ToInt32(row.Cells["TableID"].Value);
+                Console.WriteLine(tableID);
 
-            Console.WriteLine(tableID);
+                int numOfGuest = (int)numericNumOfGuests.Value;
+                DateTime startDateTime = datePicker.Value.Date
+                             + timePicker.Value.TimeOfDay;
 
-            int numOfGuest = (int)numericNumOfGuests.Value;
-            DateTime startDateTime = datePicker.Value.Date
-                         + timePicker.Value.TimeOfDay;
+                string start = startDateTime.ToString("dd-MM-yyyy HH:mm");
 
-            string start = startDateTime.ToString("dd-MM-yyyy HH:mm");
+                DateTime date = datePicker.Value.Date;
+                TimeSpan time = timePicker.Value.TimeOfDay;
+                DateTime endDateTime = date + time + TimeSpan.FromHours(2);
 
-            DateTime date = datePicker.Value.Date;
-            TimeSpan time = timePicker.Value.TimeOfDay;
-            DateTime endDateTime = date + time + TimeSpan.FromHours(2);
+                string end = endDateTime.ToString("dd-MM-yyyy HH:mm");
 
-            string end = endDateTime.ToString("dd-MM-yyyy HH:mm");
+                string customerName = tbCustName.Text;
+                string customerPhone = tbPhoneNumber.Text;
 
-            string customerName = tbCustName.Text;
-            string customerPhone = tbPhoneNumber.Text;
-
-            Reservation reservation = new Reservation(
-                tableID,
-                customerName,
-                customerPhone,
-                start,
-                end,
-                numOfGuest);
-
-
-            reservation.AddReservation();
+                Reservation reservation = new Reservation(
+                    tableID,
+                    customerName,
+                    customerPhone,
+                    start,
+                    end,
+                    numOfGuest);
 
 
-            MessageBox.Show(
-                "Reservation was successfully added!",
-                "Success",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information
-            );
+                reservation.AddReservation();
 
 
-            string senderEmail = "morry.GitHub@gmail.com";
-            string appPassword = ConfigurationManager.ConnectionStrings["appPassword"].ConnectionString;
-            string recipientEmail = tbEmail.Text;
-            string emailSubject = "Your Table Reservation is Confirmed!";
-            string emailBody = $"<h1>Hello {customerName}!</h1>" +
-                   $"<p>Thank you for booking with us. Your reservation is confirmed.</p>" +
-                   $"<p><strong>Reservation Details:</strong></p>" +
-                   $"<table border='1' cellpadding='5'>" +
-                   $"<tr><td>Table</td><td>{row.Cells["TableNo"].Value}</td></tr>" +
-                   $"<tr><td>Guests</td><td>{numOfGuest}</td></tr>" +
-                   $"<tr><td>From</td><td>{start}</td></tr>" +
-                   $"<tr><td>To</td><td>{end}</td></tr>" +
-                   $"</table>" +
-                   $"<p>See you soon!</p>";
+                MessageBox.Show(
+                    "Reservation was successfully added!",
+                    "Success",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
 
-            GmailSender.SendEmail(senderEmail, appPassword, recipientEmail, emailSubject, emailBody);
+                string recipientEmail = tbEmail.Text;
+                string emailSubject = "Your Table Reservation is Confirmed!";
+                string emailBody = $"<h1>Hello {customerName}!</h1>" +
+                       $"<p>Thank you for booking with us. Your reservation is confirmed.</p>" +
+                       $"<p><strong>Reservation Details:</strong></p>" +
+                       $"<table border='1' cellpadding='5'>" +
+                       $"<tr><td>Table</td><td>{row.Cells["TableNo"].Value}</td></tr>" +
+                       $"<tr><td>Guests</td><td>{numOfGuest}</td></tr>" +
+                       $"<tr><td>From</td><td>{start}</td></tr>" +
+                       $"<tr><td>To</td><td>{end}</td></tr>" +
+                       $"</table>" +
+                       $"<p>See you soon!</p>";
 
-            this.Close();
 
+                try
+                {
+                    Task sendTask = Task.Run(() => GmailSender.SendEmail(recipientEmail, emailSubject, emailBody));
 
+                    if (!sendTask.Wait(2000))
+
+                        throw new TimeoutException("Email sending took too long.");
+                }
+
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.Message);
+                }
+
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred while adding the reservation: " + ex.Message,
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
 
@@ -190,67 +205,58 @@ namespace RestaurantOrderingSystem
 
         private void btnFindAvailableTables_Click(object sender, EventArgs e)
         {
-            dgvTables.Rows.Clear();
-
-            lblErrorMsg.Visible = false;
-            dgvTables.Visible = true;
-
-            int numOfGuest = (int)numericNumOfGuests.Value;
-            DateTime startDateTime = datePicker.Value.Date
-                         + timePicker.Value.TimeOfDay;
-
-            string start = startDateTime.ToString("dd-MM-yyyy HH:mm");
-
-            DateTime date = datePicker.Value.Date;
-            TimeSpan time = timePicker.Value.TimeOfDay;
-            DateTime endDateTime = date + time + TimeSpan.FromHours(2);
-
-            string end = endDateTime.ToString("dd-MM-yyyy HH:mm");
-
-            // Validate Date & Time
-            //string dateCheck = Validation.IsDateValid(datePicker.Value, timePicker.Value);
-            //if (dateCheck != "valid")
-            //{
-            //    MessageBox.Show(dateCheck, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    return;
-            //}
-
-            //// Validate Guests
-            //string guestCheck = Validation.IsGuestsValid(numOfGuest);
-            //if (guestCheck != "valid")
-            //{
-            //    MessageBox.Show(guestCheck, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    return;
-            //}
-
-            DataSet ds = Reservation.GetAvailableTablesForReservation(numOfGuest, start, end);
-
-            if (ds.Tables[0].Rows.Count == 0)
+            try
             {
-                lblErrorMsg.Visible = true;
-                dgvTables.Visible = false;
-            }
-            else
-            {
+                dgvTables.Rows.Clear();
 
-                foreach (DataRow row in ds.Tables[0].Rows)
+                lblErrorMsg.Visible = false;
+                dgvTables.Visible = true;
+
+                int numOfGuest = (int)numericNumOfGuests.Value;
+                DateTime startDateTime = datePicker.Value.Date
+                             + timePicker.Value.TimeOfDay;
+
+                string start = startDateTime.ToString("dd-MM-yyyy HH:mm");
+
+                DateTime date = datePicker.Value.Date;
+                TimeSpan time = timePicker.Value.TimeOfDay;
+                DateTime endDateTime = date + time + TimeSpan.FromHours(2);
+
+                string end = endDateTime.ToString("dd-MM-yyyy HH:mm");
+
+
+                DataSet ds = Reservation.GetAvailableTablesForReservation(numOfGuest, start, end);
+
+                if (ds.Tables[0].Rows.Count == 0)
                 {
-                    int tableID = Convert.ToInt32(row["TableID"]);
-                    int tableNo = Convert.ToInt32(row["TableNo"]);
-                    int capacity = Convert.ToInt32(row["Capacity"]);
-                    string status = row["Status"].ToString();
+                    lblErrorMsg.Visible = true;
+                    dgvTables.Visible = false;
+                }
+                else
+                {
 
-                    dgvTables.Rows.Add(tableID, tableNo, capacity, status);
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        int tableID = Convert.ToInt32(row["TableID"]);
+                        int tableNo = Convert.ToInt32(row["TableNo"]);
+                        int capacity = Convert.ToInt32(row["Capacity"]);
+                        string status = row["Status"].ToString();
+
+                        dgvTables.Rows.Add(tableID, tableNo, capacity, status);
+                    }
                 }
             }
 
-
-
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred while fetching available tables: " + ex.Message,
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void dateTimePicker1_ValueChanged_1(object sender, EventArgs e)
         {
-
+            dgvTables.Rows.Clear();
         }
 
         private void lblPhoneNum_Click(object sender, EventArgs e)
@@ -276,6 +282,23 @@ namespace RestaurantOrderingSystem
         private void tbCustName_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void timePicker_ValueChanged(object sender, EventArgs e)
+        {
+            dgvTables.Rows.Clear();
+
+        }
+
+        private void numericNumOfGuests_ValueChanged(object sender, EventArgs e)
+        {
+            dgvTables.Rows.Clear();
+
+        }
+
+        private void backToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
