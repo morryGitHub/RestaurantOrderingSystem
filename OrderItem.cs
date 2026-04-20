@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace RestaurantOrderingSystem
 {
@@ -25,18 +26,50 @@ namespace RestaurantOrderingSystem
 
         }
 
+        public OrderItem(int orderID, int menuItemID)
+        {
+            OrderID = orderID;
+            MenuItemID = menuItemID;
+
+        }
+
         public override string ToString()
         {
             return $"OrderID: {OrderID}, MenuItemID: {MenuItemID}, Quantity: {Quantity}";
         }
 
-        public void AddOrderItems()
+        public void AddOrderItems(bool isEditMode=false)
         {
-            string sqlOrder = $@"
-                INSERT INTO OrderItems(orderID, menuItemID, quantity)
-                VALUES({OrderID}, {MenuItemID}, {Quantity})";
+            string checkSql = $"SELECT COUNT(*) FROM OrderItems WHERE orderid = {OrderID} AND menuitemid = {MenuItemID}";
+            DataSet ds = Database.ExecuteMultiRowQuery(checkSql);
 
-            Database.ExecuteNonQuery(sqlOrder);
+            int count = Convert.ToInt32(ds.Tables[0].Rows[0][0]);
+
+            string finalSql;
+            if (count > 0)
+            {
+                // 1. It exists, so Update
+                if (isEditMode)
+                {
+
+                    finalSql = $@"UPDATE OrderItems SET quantity = {Quantity} 
+                        WHERE orderid = {OrderID} AND menuitemid = {MenuItemID}";
+                }
+                else
+                {
+                    finalSql = $@"UPDATE OrderItems SET quantity = quantity + {Quantity} 
+                        WHERE orderid = {OrderID} AND menuitemid = {MenuItemID}";
+                }
+
+            }
+            else
+            {
+                // 2. It's new, so Insert
+                finalSql = $@"INSERT INTO OrderItems (orderid, menuitemid, quantity) 
+                        VALUES ({OrderID}, {MenuItemID}, {Quantity})";
+            }
+
+            Database.ExecuteNonQuery(finalSql);
         }
 
         public static int GetLastOrderID()
@@ -84,6 +117,14 @@ namespace RestaurantOrderingSystem
 
 
             return Database.ExecuteMultiRowQuery(sql);
+        }
+
+
+        public void DeleteItemFromOrder()
+        {
+            string deleteItemSql = $@"DELETE FROM ORDERITEMS WHERE orderid = {OrderID} AND menuitemid = {MenuItemID}";
+            Database.ExecuteNonQuery(deleteItemSql);
+
         }
     }
 }

@@ -12,11 +12,17 @@ namespace RestaurantOrderingSystem
 {
     public partial class FrmUpdateOrder : Form
     {
+        private int _selectedOrderId = -1;
+        private int _menuItemID = -1;
+
+
         public FrmUpdateOrder()
         {
             InitializeComponent();
             UIStyleHelper.ApplyDarkTheme(dgvOrderItems);
             UIStyleHelper.ApplyPrimaryButtonStyle(btnConfirm);
+            dgvOrderItems.DefaultCellStyle.SelectionBackColor = Color.LightBlue;
+
 
         }
 
@@ -44,9 +50,9 @@ namespace RestaurantOrderingSystem
 
             Order order = cmbOrders.SelectedItem as Order;
 
-            int orderID = order.ID;
+            _selectedOrderId = order.ID;
 
-            DataSet dsActive = OrderItem.GetMenuItemsFromOrder(orderID, "Active");
+            DataSet dsActive = OrderItem.GetMenuItemsFromOrder(_selectedOrderId, "Active");
 
             foreach (DataRow row in dsActive.Tables[0].Rows)
             {
@@ -79,6 +85,7 @@ namespace RestaurantOrderingSystem
 
         private void btnConfirm_Click(object sender, EventArgs e)
         {
+
             if (dgvOrderItems.Rows.Count == 0)
             {
                 MessageBox.Show("Order must contain at least one item.");
@@ -91,6 +98,8 @@ namespace RestaurantOrderingSystem
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information
             );
+            
+            _selectedOrderId = -1;
 
             this.Close();
 
@@ -196,44 +205,66 @@ namespace RestaurantOrderingSystem
 
         private void btnEditItem_Click(object sender, EventArgs e)
         {
-            if (cmbOrders.SelectedIndex == -1)
+
+            if (cmbOrders.SelectedIndex == -1 || _selectedOrderId == -1)
             {
-                MessageBox.Show("Please select a order.");
+                MessageBox.Show("Please select an order.");
                 return;
             }
 
-            if (cmbItems.SelectedIndex == -1)
+            MenuItem menuItem = cmbItems.SelectedItem as MenuItem;
+            if (menuItem == null)
             {
                 MessageBox.Show("Please select a menu item.");
                 return;
             }
 
-            string selected = cmbItems.SelectedItem.ToString();
-            string itemName = selected.Split('-')[0].Trim();
-            decimal unitPrice = decimal.Parse(selected.Split('€')[1]);
-
             int qty = (int)numQty.Value;
-
             if (qty <= 0)
             {
                 MessageBox.Show("Quantity must be at least 1.");
                 return;
             }
 
+            string itemName = menuItem.Name;
+            decimal unitPrice = menuItem.Price;
+            _menuItemID = menuItem.ItemID;
             decimal subtotal = qty * unitPrice;
 
-            //dgvOrderItems.Rows.Add(itemName, unitPrice.ToString("F2"), qty, subtotal.ToString("F2"));
 
-            DataGridViewRow row = dgvOrderItems.SelectedRows[0];
-            row.Cells["ItemName"].Value = itemName;
-            row.Cells["UnitPrice"].Value = unitPrice.ToString("F2");
-            row.Cells["Qty"].Value = qty;
-            row.Cells["Subtotal"].Value = subtotal.ToString("F2");
+            OrderItem orderItem = new OrderItem(_selectedOrderId, _menuItemID, qty);
+            try
+            {
+                orderItem.AddOrderItems(isEditMode: true);
 
-            numQty.Value = numQty.Minimum;
-            cmbItems.SelectedIndex = -1;
+                bool isRowExist = false;
+                foreach (DataGridViewRow row in dgvOrderItems.Rows)
+                {
+                    if (row.Cells["MenuItemID"].Value != null &&
+                        Convert.ToInt32(row.Cells["MenuItemID"].Value) == _menuItemID)
+                    {
+                        int currentQty = Convert.ToInt32(row.Cells["Qty"].Value);
+                        int newQty = qty;
 
-            Validation.UpdateTotal(dgvOrderItems, lblTotal);
+                        row.Cells["Qty"].Value = newQty;
+                        row.Cells["Subtotal"].Value = (newQty * unitPrice).ToString("F2");
+
+                        isRowExist = true;
+                        break;
+                    }
+                }
+
+                if (!isRowExist)
+                {
+                    dgvOrderItems.Rows.Add(itemName, unitPrice.ToString("F2"), qty, subtotal.ToString("F2"), _menuItemID);
+                }
+
+                Validation.UpdateTotal(dgvOrderItems, lblTotal);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to save item to database: " + ex.Message);
+            }
         }
 
         public void FillMenuItemsComboBox()
@@ -280,6 +311,12 @@ namespace RestaurantOrderingSystem
 
             int rowIndex = dgvOrderItems.SelectedRows[0].Index;
 
+            DataGridViewRow row = dgvOrderItems.SelectedRows[0];
+            _menuItemID = Convert.ToInt16(row.Cells["MenuItemID"].Value);
+
+            OrderItem orderItem = new OrderItem(_selectedOrderId, _menuItemID);
+            
+
             var result = MessageBox.Show(
                 "Remove this item?",
                 "Confirm",
@@ -290,73 +327,83 @@ namespace RestaurantOrderingSystem
             {
                 if (rowIndex >= 0)
                 {
-                    dgvOrderItems.Rows.RemoveAt(rowIndex);
-                    Validation.UpdateTotal(dgvOrderItems, lblTotal);
-                }
+                    try
+                    {
+                        orderItem.DeleteItemFromOrder();
+                        dgvOrderItems.Rows.RemoveAt(rowIndex);
+                        Validation.UpdateTotal(dgvOrderItems, lblTotal);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error deleting item: " + ex.Message);
+                    }
 
+                }
             }
+
+            _menuItemID = -1;
         }
 
         private void btnAddButton_Click(object sender, EventArgs e)
         {
-            if (cmbOrders.SelectedIndex == -1)
+            if (cmbOrders.SelectedIndex == -1 || _selectedOrderId == -1)
             {
-                MessageBox.Show("Please select a order.");
+                MessageBox.Show("Please select an order.");
                 return;
             }
 
-            if (cmbItems.SelectedIndex == -1)
+            MenuItem menuItem = cmbItems.SelectedItem as MenuItem;
+            if (menuItem == null)
             {
                 MessageBox.Show("Please select a menu item.");
                 return;
             }
 
-            MenuItem menuItem = cmbItems.SelectedItem as MenuItem;
-
-            string selected = cmbItems.SelectedItem.ToString();
-            string itemName = selected.Split('-')[0].Trim();
-            decimal unitPrice = decimal.Parse(selected.Split('€')[1]);
-
-            int menuItemID = menuItem.ItemID;
-
             int qty = (int)numQty.Value;
-
             if (qty <= 0)
             {
                 MessageBox.Show("Quantity must be at least 1.");
                 return;
             }
 
+            string itemName = menuItem.Name;
+            decimal unitPrice = menuItem.Price;
+            _menuItemID = menuItem.ItemID;
             decimal subtotal = qty * unitPrice;
 
-            bool isRowExist = false;
-
-            foreach (DataGridViewRow rows in dgvOrderItems.Rows)
+            OrderItem orderItem = new OrderItem(_selectedOrderId, _menuItemID, qty);
+            try
             {
-                if (rows.Cells["ItemName"].Value != null &&
-                    rows.Cells["ItemName"].Value.ToString() == itemName)
+                orderItem.AddOrderItems();
+
+                bool isRowExist = false;
+                foreach (DataGridViewRow row in dgvOrderItems.Rows)
                 {
-                    DataGridViewRow row = rows;
-                    int currentQty = 0;
-                    if (row.Cells["Qty"].Value != null)
-                        currentQty = Convert.ToInt32(row.Cells["Qty"].Value);
+                    if (row.Cells["MenuItemID"].Value != null &&
+                        Convert.ToInt32(row.Cells["MenuItemID"].Value) == _menuItemID)
+                    {
+                        int currentQty = Convert.ToInt32(row.Cells["Qty"].Value);
+                        int newQty = currentQty + qty;
 
+                        row.Cells["Qty"].Value = newQty;
+                        row.Cells["Subtotal"].Value = (newQty * unitPrice).ToString("F2");
 
-
-                    row.Cells["Qty"].Value = currentQty + qty;
-                    row.Cells["Subtotal"].Value = ((currentQty + qty) * unitPrice).ToString("F2");
-                    isRowExist = true;
-                    break;
+                        isRowExist = true;
+                        break;
+                    }
                 }
-            }
 
-            if (!isRowExist)
+                if (!isRowExist)
+                {
+                    dgvOrderItems.Rows.Add(itemName, unitPrice.ToString("F2"), qty, subtotal.ToString("F2"), _menuItemID);
+                }
+
+                Validation.UpdateTotal(dgvOrderItems, lblTotal);
+            }
+            catch (Exception ex)
             {
-                dgvOrderItems.Rows.Add(itemName, unitPrice.ToString("F2"), qty, subtotal.ToString("F2"), menuItemID);
+                MessageBox.Show("Failed to save item to database: " + ex.Message);
             }
-
-            Validation.UpdateTotal(dgvOrderItems, lblTotal);
-
         }
 
         private void dgvOrderItems_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
