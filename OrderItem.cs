@@ -14,9 +14,10 @@ namespace RestaurantOrderingSystem
     internal class OrderItem
     {
         public int ItemID;
-        public int OrderID;
         public int MenuItemID;
         public int Quantity;
+        public int OrderID;
+        public string OrderStatus { get; set; }
 
         public OrderItem(int orderID, int menuItemID, int quantity)
         {
@@ -31,6 +32,12 @@ namespace RestaurantOrderingSystem
             OrderID = orderID;
             MenuItemID = menuItemID;
 
+        }
+
+        public OrderItem(Order order)
+        {
+            OrderID = order.ID;
+            OrderStatus = order.Status;
         }
 
         public override string ToString()
@@ -106,7 +113,7 @@ namespace RestaurantOrderingSystem
             }
         }
 
-        public static DataSet GetMenuItemsFromOrder(int orderID, string status)
+        public DataSet GetMenuItemsFromOrder()
         {
             try
             {
@@ -126,7 +133,7 @@ namespace RestaurantOrderingSystem
                         ON o.OrderID = oi.OrderID
                     JOIN MenuItems m 
                         ON oi.MenuItemID = m.MenuItemID
-                    WHERE o.Status = '{status}' AND o.OrderID = {orderID}";
+                    WHERE o.Status = '{OrderStatus}' AND o.OrderID = {OrderID}";
 
 
                 return Database.ExecuteMultiRowQuery(sql);

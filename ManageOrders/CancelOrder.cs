@@ -27,7 +27,7 @@ namespace RestaurantOrderingSystem
         private void cmbOrders_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             dgvOrderItems.Rows.Clear();
-            lblTotal.Text = "€{totl}";
+            lblTotal.Text = "€{0.00}";
 
             if (cmbOrders.Text.Equals("Select the Order"))
             {
@@ -42,8 +42,8 @@ namespace RestaurantOrderingSystem
             try
             {
                 Order order = cmbOrders.SelectedItem as Order;
-                int orderID = order.ID;
-                DataSet dsActive = OrderItem.GetMenuItemsFromOrder(orderID, "Active");
+                OrderItem orderItem = new OrderItem(order);
+                DataSet dsActive = orderItem.GetMenuItemsFromOrder();
 
                 foreach (DataRow row in dsActive.Tables[0].Rows)
                 {
@@ -92,7 +92,7 @@ namespace RestaurantOrderingSystem
             if (result != DialogResult.Yes)
                 return;
 
-            order.CancelOrder(orderID);
+            order.CancelOrder();
 
 
             MessageBox.Show(

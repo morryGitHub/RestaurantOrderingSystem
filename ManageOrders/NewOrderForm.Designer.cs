@@ -405,7 +405,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.Button btnConfirm;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Price;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem backToolStripMenuItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn ItemName;

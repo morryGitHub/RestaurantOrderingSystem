@@ -69,7 +69,7 @@ namespace RestaurantOrderingSystem
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error deleting reservation: {ex.Message}");
+                throw new Exception(ex.Message);
             }
         }
 
@@ -94,7 +94,7 @@ namespace RestaurantOrderingSystem
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error fetching available tables: {ex.Message}");
+                throw new Exception(ex.Message);
             }
         }
 
@@ -142,7 +142,7 @@ namespace RestaurantOrderingSystem
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error fetching reservation details: {ex.Message}");
+                throw new Exception(ex.Message);
             }
         }
 
@@ -166,7 +166,7 @@ namespace RestaurantOrderingSystem
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error updating reservation: {ex.Message}");
+                throw new Exception(ex.Message);
             }
         }
 
@@ -184,7 +184,7 @@ namespace RestaurantOrderingSystem
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error adding reservation: {ex.Message}");
+                throw new Exception(ex.Message);
             }
         }
     }

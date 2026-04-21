@@ -77,7 +77,6 @@
             this.lblYear.Size = new System.Drawing.Size(85, 21);
             this.lblYear.TabIndex = 1;
             this.lblYear.Text = "Select Year";
-            this.lblYear.Click += new System.EventHandler(this.label2_Click);
             // 
             // cmbYear
             // 
@@ -95,7 +94,6 @@
             this.cmbYear.Name = "cmbYear";
             this.cmbYear.Size = new System.Drawing.Size(92, 27);
             this.cmbYear.TabIndex = 2;
-            this.cmbYear.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // btnGenerate
             // 
@@ -151,7 +149,6 @@
             this.dgvRevenue.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvRevenue.Size = new System.Drawing.Size(337, 301);
             this.dgvRevenue.TabIndex = 5;
-            this.dgvRevenue.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // Month
             // 
@@ -205,7 +202,6 @@
             this.lblTotal.Size = new System.Drawing.Size(256, 25);
             this.lblTotal.TabIndex = 6;
             this.lblTotal.Text = "Total Revenue for {year} :  0";
-            this.lblTotal.Click += new System.EventHandler(this.lblTotal_Click);
             // 
             // chtData
             // 
@@ -225,7 +221,6 @@
             title1.Name = "Title";
             title1.Text = "Yearly Revenue";
             this.chtData.Titles.Add(title1);
-            this.chtData.Click += new System.EventHandler(this.chtData_Click);
             // 
             // contextMenuStrip1
             // 

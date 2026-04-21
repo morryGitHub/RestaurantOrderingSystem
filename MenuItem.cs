@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace RestaurantOrderingSystem
 {
@@ -28,6 +29,8 @@ namespace RestaurantOrderingSystem
             Name = name;
         }
 
+
+
         public override string ToString()
         {
             return $"{Name} - €{Price}";
@@ -37,30 +40,44 @@ namespace RestaurantOrderingSystem
 
         public static DataSet LoadAllMenuItems()
         {
-            string sql = @"
+            try
+            {
+                string sql = @"
                 SELECT MenuItemID, Name, UnitPrice
                 FROM MenuItems
                 ORDER BY Name
             ";
 
-            return Database.ExecuteMultiRowQuery(sql);
+                return Database.ExecuteMultiRowQuery(sql);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public static List<MenuItem> GetMenuItems()
         {
-            DataSet ds = LoadAllMenuItems();
-            List<MenuItem> menuItems = new List<MenuItem>();
-
-            foreach (DataRow row in ds.Tables[0].Rows)
+            try
             {
-                menuItems.Add(new MenuItem(
-                    Convert.ToInt32(row["MENUITEMID"]),
-                    row["NAME"].ToString(),
-                    Convert.ToDecimal(row["UNITPRICE"]))
-                );
-            }
+                DataSet ds = LoadAllMenuItems();
+                List<MenuItem> menuItems = new List<MenuItem>();
 
-            return menuItems;
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    menuItems.Add(new MenuItem(
+                        Convert.ToInt32(row["MENUITEMID"]),
+                        row["NAME"].ToString(),
+                        Convert.ToDecimal(row["UNITPRICE"]))
+                    );
+                }
+
+                return menuItems;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

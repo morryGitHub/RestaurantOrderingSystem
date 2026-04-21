@@ -29,8 +29,8 @@ namespace RestaurantOrderingSystem
 
         private void btnSearch_Click_1(object sender, EventArgs e)
         {
-           ReservationManager.GetReservations(dgvMatchingReservation, rbCustName, tbCustName, tbPhoneNum, lblResInfo);
-           
+            ReservationManager.GetReservations(dgvMatchingReservation, rbCustName, tbCustName, tbPhoneNum, lblResInfo);
+
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -100,50 +100,51 @@ namespace RestaurantOrderingSystem
 
         private void btnNext_Click(object sender, EventArgs e)
         {
-
-            DataGridViewRow row = dgvMatchingReservation.SelectedRows[0];
-            string nextPage = UserSession.ReservationAction;
-
-
-            if (row != null)
+            try
             {
-                int tableID = Convert.ToInt32(row.Cells["TableID"].Value);
-                int resID = Convert.ToInt32(row.Cells["ResID"].Value);
-                switch (nextPage)
+                DataGridViewRow row = dgvMatchingReservation.SelectedRows[0];
+                string nextPage = UserSession.ReservationAction;
+
+
+                if (row != null)
                 {
+                    int tableID = Convert.ToInt32(row.Cells["TableID"].Value);
+                    int resID = Convert.ToInt32(row.Cells["ResID"].Value);
+                    switch (nextPage)
+                    {
 
-                    case ("Find"):
-                        Table tableObj = new Table() { TableId = tableID };
-                        FrmNewOrder newOrder = new FrmNewOrder(tableObj);
-                        newOrder.ShowDialog();
-                        this.Close();
-                        break;
+                        case ("Find"):
+                            Table tableObj = new Table() { TableId = tableID };
+                            FrmNewOrder newOrder = new FrmNewOrder(tableObj);
+                            newOrder.ShowDialog();
+                            this.Close();
+                            break;
 
-                    case ("Update"):
-                        FrmUpdateReservation frmUpdateReservation = new FrmUpdateReservation(resID, tableID);
+                        case ("Update"):
+                            FrmUpdateReservation frmUpdateReservation = new FrmUpdateReservation(resID, tableID);
 
-                        if (frmUpdateReservation.ShowDialog() == DialogResult.OK)
-                        {
-                            ReservationManager.GetReservations(dgvMatchingReservation, rbCustName, tbCustName, tbPhoneNum, lblResInfo);
-                            
-                        }
-                        break;
+                            if (frmUpdateReservation.ShowDialog() == DialogResult.OK)
+                            {
+                                ReservationManager.GetReservations(dgvMatchingReservation, rbCustName, tbCustName, tbPhoneNum, lblResInfo);
 
-                    case ("Remove"):
-                        try
-                        {
+                            }
+                            break;
+
+                        case ("Remove"):
+
                             Reservation reservation = new Reservation(resID);
                             reservation.DeleteReservation();
                             MessageBox.Show("Reservation was succesfully cancelled");
                             this.Close();
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show($"Error cancelling reservation: {ex.Message}");
-                        }
-                        break;
 
+                            break;
+
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error cancelling reservation: {ex.Message}");
             }
         }
 

@@ -31,6 +31,7 @@ namespace RestaurantOrderingSystem
             Table = table;
         }
 
+
         public override string ToString()
         {
             return $"Order #{ID} — Table {Table.TableNumber}";
@@ -54,30 +55,14 @@ namespace RestaurantOrderingSystem
             }
         }
 
-        public void ChangeTableStatus(int tableID)
-        {
-            try
-            {
-                string sql = $@"
-                    UPDATE ORDERS
-                    SET Status = 'Unavailable'";
-
-                Database.ExecuteSingleRowQuery(sql);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Error changing table status: {ex.Message}");
-            }
-        }
-
-        public void CancelOrder(int orderID)
+        public void CancelOrder()
         {
             try
             {
                 string sql = $@"
                 UPDATE ORDERS
                 SET STATUS = 'Cancelled'
-                WHERE ORDERID = {orderID}";
+                WHERE ORDERID = {ID}";
 
                 Database.ExecuteNonQuery(sql);
             }

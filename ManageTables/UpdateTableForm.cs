@@ -11,7 +11,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace RestaurantOrderingSystem
 {
-    public partial class FrmUpdateTable: Form
+    public partial class FrmUpdateTable : Form
     {
         public FrmUpdateTable()
         {
@@ -66,7 +66,7 @@ namespace RestaurantOrderingSystem
             // ===== BUTTONS =====
 
             // Primary (Update)
-          
+
 
             // Exit (secondary)
             btnExit.FlatStyle = FlatStyle.Flat;
@@ -190,25 +190,36 @@ namespace RestaurantOrderingSystem
 
         private void LoadTables()
         {
-            cmbTableNo.Items.Clear();
 
-            List<Table> tables = Table.GetTables();
-
-            if (tables.Count == 0)
+            try
             {
-                cmbTableNo.Items.Add("No Tables Available");
+                cmbTableNo.Items.Clear();
+
+                List<Table> tables = Table.GetTables();
+
+                if (tables.Count == 0)
+                {
+                    cmbTableNo.Items.Add("No Tables Available");
+                    cmbTableNo.SelectedIndex = 0;
+                    cmbTableNo.Enabled = false;
+                    return;
+                }
+
+                cmbTableNo.Items.Add("Select the table");
                 cmbTableNo.SelectedIndex = 0;
-                cmbTableNo.Enabled = false;
-                return;
+
+
+                foreach (Table table in tables)
+                {
+                    cmbTableNo.Items.Add(table);
+                }
             }
-
-            cmbTableNo.Items.Add("Select the table");
-            cmbTableNo.SelectedIndex = 0;
-
-
-            foreach (Table table in tables)
+            catch (Exception ex)
             {
-                cmbTableNo.Items.Add(table);
+                MessageBox.Show($"Failed to load tables: {ex.Message}", "Database Error",
+                                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                cmbTableNo.Enabled = false;
             }
         }
 
@@ -219,7 +230,7 @@ namespace RestaurantOrderingSystem
 
         private void backToolStripMenuItem_Click(object sender, EventArgs e)
         {
-                        this.Close();
+            this.Close();
         }
     }
 }

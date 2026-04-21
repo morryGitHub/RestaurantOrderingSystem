@@ -221,48 +221,65 @@ namespace RestaurantOrderingSystem
 
         private void LoadTables()
         {
-            cmbAvailableTables.Items.Clear();
-
-            List<Table> tables = Table.GetAvailableTables();
-
-            if (tables.Count == 0)
+            try
             {
-                cmbAvailableTables.Items.Add("No Tables Available");
+                cmbAvailableTables.Items.Clear();
+
+                List<Table> tables = Table.GetAvailableTables();
+
+                if (tables.Count == 0)
+                {
+                    cmbAvailableTables.Items.Add("No Tables Available");
+                    cmbAvailableTables.SelectedIndex = 0;
+                    cmbAvailableTables.Enabled = false;
+                    return;
+                }
+
+                cmbAvailableTables.Items.Add("Select the Table");
                 cmbAvailableTables.SelectedIndex = 0;
-                cmbAvailableTables.Enabled = false;
-                return;
+
+                foreach (Table table in tables)
+                {
+                    cmbAvailableTables.Items.Add(table);
+                }
             }
-
-            cmbAvailableTables.Items.Add("Select the Table");
-            cmbAvailableTables.SelectedIndex = 0;
-
-            foreach (Table table in tables)
+            catch (Exception ex)
             {
-                cmbAvailableTables.Items.Add(table);
+                MessageBox.Show("Error loading tables: " + ex.Message);
             }
         }
 
         private void LoadMenuItems()
         {
-            cmbItems.Items.Clear();
-            List<MenuItem> menuItems = MenuItem.GetMenuItems();
 
-            if (menuItems.Count == 0)
+            try
             {
-                cmbItems.Items.Add("No Items Available");
+                cmbItems.Items.Clear();
+                List<MenuItem> menuItems = MenuItem.GetMenuItems();
+
+                if (menuItems.Count == 0)
+                {
+                    cmbItems.Items.Add("No Items Available");
+                    cmbItems.SelectedIndex = 0;
+                    cmbItems.Enabled = false;
+                    return;
+                }
+
+                cmbItems.Items.Add("Select the Item");
                 cmbItems.SelectedIndex = 0;
-                cmbItems.Enabled = false;
-                return;
+
+                foreach (MenuItem item in menuItems)
+                {
+                    cmbItems.Items.Add(item);
+                }
             }
-
-            cmbItems.Items.Add("Select the Item");
-            cmbItems.SelectedIndex = 0;
-
-            foreach (MenuItem item in menuItems)
+            catch (Exception ex)
             {
-                cmbItems.Items.Add(item);
+                MessageBox.Show("Error loading menu items: " + ex.Message);
             }
         }
+
+
 
         private void CmbItems_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -282,9 +299,10 @@ namespace RestaurantOrderingSystem
 
         private void LoadBookedTable()
         {
-            cmbAvailableTables.Items.Clear();
+
             try
             {
+                cmbAvailableTables.Items.Clear();
                 Table bookedTable = new Table { TableId = TableID }.GetTable();
                 cmbAvailableTables.Items.Add(bookedTable);
                 cmbAvailableTables.SelectedIndex = 0;

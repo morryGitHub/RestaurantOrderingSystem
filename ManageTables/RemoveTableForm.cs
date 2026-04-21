@@ -146,30 +146,40 @@ namespace RestaurantOrderingSystem
 
         private void LoadTables()
         {
-            cmbTableNo.Items.Clear();
-
-            List<Table> tables = Table.GetAvailableTables();
-
-            if (tables.Count == 0)
+            try
             {
-                cmbTableNo.Items.Add("No Tables Available");
+                cmbTableNo.Items.Clear();
+
+                List<Table> tables = Table.GetAvailableTables();
+
+                if (tables.Count == 0)
+                {
+                    cmbTableNo.Items.Add("No Tables Available");
+                    cmbTableNo.SelectedIndex = 0;
+                    cmbTableNo.Enabled = false;
+                    return;
+                }
+
+                cmbTableNo.Items.Add("Select the Table");
                 cmbTableNo.SelectedIndex = 0;
-                cmbTableNo.Enabled = false;
-                return;
+
+                foreach (Table table in tables)
+                {
+                    cmbTableNo.Items.Add(table);
+                }
             }
-
-            cmbTableNo.Items.Add("Select the Table");
-            cmbTableNo.SelectedIndex = 0;
-
-            foreach (Table table in tables)
+            catch (Exception ex)
             {
-                cmbTableNo.Items.Add(table);
+                MessageBox.Show($"Error loading tables: {ex.Message}",
+                                "Database Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
             }
         }
 
         private void backToolStripMenuItem_Click(object sender, EventArgs e)
         {
-                this.Close();
+            this.Close();
         }
     }
 }
