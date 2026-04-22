@@ -21,6 +21,8 @@ namespace RestaurantOrderingSystem
             InitializeComponent();
             UIStyleHelper.ApplyDarkTheme(dgvOrderItems);
             UIStyleHelper.ApplyPrimaryButtonStyle(btnConfirm);
+            UIStyleHelper.ApplyCancelButtonStyle(btnCancel);
+
             dgvOrderItems.DefaultCellStyle.SelectionBackColor = Color.LightBlue;
 
 

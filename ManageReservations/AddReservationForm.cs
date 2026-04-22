@@ -21,6 +21,8 @@ namespace RestaurantOrderingSystem
             UIStyleHelper.ApplyDarkTheme(dgvTables);
             UIStyleHelper.ApplyPrimaryButtonStyle(btnAddReservation);
             UIStyleHelper.ApplyPrimaryButtonStyle(btnFindAvailableTables);
+            UIStyleHelper.ApplyCancelButtonStyle(btnCancel);
+
         }
 
         private void Form1_Load(object sender, EventArgs e)

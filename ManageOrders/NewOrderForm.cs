@@ -20,6 +20,7 @@ namespace RestaurantOrderingSystem
             UIStyleHelper.ApplyDarkTheme(dgvOrderItems);
             UIStyleHelper.ApplyPrimaryButtonStyle(btnAddItem);
             UIStyleHelper.ApplyPrimaryButtonStyle(btnConfirm);
+            UIStyleHelper.ApplyCancelButtonStyle(btnExit);
         }
 
         internal FrmNewOrder(Table table)
@@ -29,6 +30,7 @@ namespace RestaurantOrderingSystem
             UIStyleHelper.ApplyDarkTheme(dgvOrderItems);
             UIStyleHelper.ApplyPrimaryButtonStyle(btnAddItem);
             UIStyleHelper.ApplyPrimaryButtonStyle(btnConfirm);
+            UIStyleHelper.ApplyCancelButtonStyle(btnExit);
         }
 
         private void NewOrderForm_Load(object sender, EventArgs e)
@@ -187,11 +189,6 @@ namespace RestaurantOrderingSystem
             cmbAvailableTables.Items.Remove("Select the Table");
         }
 
-        private void lblTotal_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void DgvOrderItems_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
@@ -212,11 +209,6 @@ namespace RestaurantOrderingSystem
                 }
 
             }
-        }
-
-        private void groupBox3_Enter(object sender, EventArgs e)
-        {
-
         }
 
         private void LoadTables()
@@ -312,11 +304,6 @@ namespace RestaurantOrderingSystem
             {
                 MessageBox.Show("Error loading booked table: " + ex.Message);
             }
-        }
-
-        private void groupBox2_Enter(object sender, EventArgs e)
-        {
-
         }
 
         private void backToolStripMenuItem_Click(object sender, EventArgs e)

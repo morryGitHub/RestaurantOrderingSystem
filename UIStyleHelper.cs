@@ -59,5 +59,30 @@ namespace RestaurantOrderingSystem
 
 
         }
+
+        public static void ApplyCancelButtonStyle(Button btn)
+        {
+            btn.FlatStyle = FlatStyle.Flat;
+            btn.BackColor = Color.FromArgb(225, 225, 225);
+            btn.ForeColor = Color.FromArgb(45, 45, 45);
+            btn.FlatAppearance.BorderSize = 0;
+            btn.Font = new Font("Segoe UI", 10, FontStyle.Regular);
+            btn.Cursor = Cursors.Hand;
+
+            btn.FlatAppearance.MouseOverBackColor = Color.FromArgb(200, 200, 200);
+            btn.FlatAppearance.MouseDownBackColor = Color.FromArgb(180, 180, 180);
+        }
+
+        public static void ApplyRemoveButtonStyle(Button btn)
+        {
+            btn.FlatStyle = FlatStyle.Flat;
+            btn.BackColor = Color.FromArgb(220, 53, 69);
+            btn.ForeColor = Color.White;
+            btn.FlatAppearance.BorderSize = 0;
+            btn.Font = new Font("Segoe UI", 10, FontStyle.Regular);
+            btn.Cursor = Cursors.Hand;
+
+            btn.FlatAppearance.MouseOverBackColor = Color.Red;
+        }
     }
 }

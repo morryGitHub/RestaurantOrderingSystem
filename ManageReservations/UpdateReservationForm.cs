@@ -21,7 +21,8 @@ namespace RestaurantOrderingSystem
             UIStyleHelper.ApplyPrimaryButtonStyle(btnFindAvailableTables);
             UIStyleHelper.ApplyPrimaryButtonStyle(btnUpdateReservation);
 
-            UIStyleHelper.ApplyPrimaryButtonStyle(btnCancel);
+            UIStyleHelper.ApplyCancelButtonStyle(btnCancel);
+
             this.reservationID = reservationID;
             this.tableID = tableID;
         }

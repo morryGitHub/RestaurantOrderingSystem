@@ -17,6 +17,7 @@ namespace RestaurantOrderingSystem
             InitializeComponent();
             UIStyleHelper.ApplyDarkTheme(dgvPayments);
             UIStyleHelper.ApplyPrimaryButtonStyle(btnRefund);
+            UIStyleHelper.ApplyCancelButtonStyle(btnCancel);
 
 
         }

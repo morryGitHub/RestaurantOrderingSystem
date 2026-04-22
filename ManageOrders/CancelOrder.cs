@@ -16,7 +16,8 @@ namespace RestaurantOrderingSystem
         {
             InitializeComponent();
             UIStyleHelper.ApplyDarkTheme(dgvOrderItems);
-            UIStyleHelper.Apply;
+            UIStyleHelper.ApplyRemoveButtonStyle(btnCancelOrder);
+            UIStyleHelper.ApplyCancelButtonStyle(btnExit);
 
         }
 
@@ -32,12 +33,12 @@ namespace RestaurantOrderingSystem
 
             if (cmbOrders.Text.Equals("Select the Order"))
             {
-                btnCancel.Enabled = false;
+                btnCancelOrder.Enabled = false;
                 return;
 
             }
 
-            btnCancel.Enabled = true;
+            btnCancelOrder.Enabled = true;
             cmbOrders.Items.Remove("Select the Order");
 
             try
