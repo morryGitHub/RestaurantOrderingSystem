@@ -450,9 +450,10 @@
         private System.Windows.Forms.Label lblEmail;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem backToolStripMenuItem;
+        private System.Windows.Forms.DataGridView dgvTables;
         private System.Windows.Forms.DataGridViewTextBoxColumn TableID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TableNo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TableNumber;
         private System.Windows.Forms.DataGridViewTextBoxColumn Capacity;
-        private new System.Windows.Forms.DataGridViewTextBoxColumn Location;
+        private System.Windows.Forms.DataGridViewTextBoxColumn LocationBar;
     }
 }
