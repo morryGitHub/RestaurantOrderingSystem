@@ -11,11 +11,11 @@ namespace RestaurantOrderingSystem
 {
     internal class Order
     {
-        public int ID;
-        public Table Table;
-        public DateTime OrderDate;
-        public decimal TotalAmount;
-        public string Status;
+        public int ID { get; set; }
+        public Table Table { get; set; }
+        public DateTime OrderDate { get; set; }
+        public decimal TotalAmount { get; set; }
+        public string Status { get; set; }
 
         public Order(Table table, DateTime orderDate, decimal totalAmount)
         {
@@ -41,11 +41,9 @@ namespace RestaurantOrderingSystem
         {
             try
             {
-
                 string sql = $@"
                 INSERT INTO ORDERS(TableID, OrderDate, TotalAmount, Status)
-                VALUES({Table.TableId}, TO_DATE('{OrderDate:yyyy-MM-dd HH:mm:ss}', 'YYYY-MM-DD HH24:MI:SS'), {TotalAmount}, '{Status}')
-            ";
+                VALUES({Table.TableId}, TO_DATE('{OrderDate:yyyy-MM-dd HH:mm:ss}', 'YYYY-MM-DD HH24:MI:SS'), {TotalAmount}, '{Status}')";
 
                 Database.ExecuteNonQuery(sql);
             }

@@ -20,7 +20,7 @@ namespace RestaurantOrderingSystem
 
         }
 
-        private void btnAddTable_Click(object sender, EventArgs e)
+        private void BtnAddTable_Click(object sender, EventArgs e)
         {
             try
             {
@@ -65,7 +65,7 @@ namespace RestaurantOrderingSystem
         }
 
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void BtnCancel_Click(object sender, EventArgs e)
         {
             MessageBox.Show(
                 "Table creation was cancelled.",
@@ -93,11 +93,17 @@ namespace RestaurantOrderingSystem
 
                 lblTableNo.Font = normal;
                 lblCapacity.Font = normal;
+                lblLocation.Font = normal;  
 
                 tableNum.Font = normal;
                 tableNum.BorderStyle = BorderStyle.FixedSingle;
+                tableNum.ReadOnly = true;
+                tableNum.BackColor = Color.WhiteSmoke;
 
                 numericSeatingCap.Font = normal;
+                tbLocation.Font = normal;
+
+
 
 
             }
@@ -109,19 +115,11 @@ namespace RestaurantOrderingSystem
             }
         }
 
-        private void tableNum_TextChanged(object sender, EventArgs e)
-        {
 
-        }
-
-        private void backToolStripMenuItem_Click(object sender, EventArgs e)
+        private void BackToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void lblTitle_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

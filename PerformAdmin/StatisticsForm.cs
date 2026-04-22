@@ -17,6 +17,7 @@ namespace RestaurantOrderingSystem
             InitializeComponent();
             UIStyleHelper.ApplyDarkTheme(dgvStats);
             UIStyleHelper.ApplyPrimaryButtonStyle(btnGenerate);
+            UIStyleHelper.ApplyCancelButtonStyle(btnExit);
 
         }
 
@@ -32,7 +33,7 @@ namespace RestaurantOrderingSystem
 
         }
 
-        private void btnGenerate_Click_1(object sender, EventArgs e)
+        private void BtnGenerate_Click(object sender, EventArgs e)
         {
             try
             {
@@ -153,30 +154,14 @@ namespace RestaurantOrderingSystem
             }
         }
 
-
-        private void CmbCat_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dataStat_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void lblTitle_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-
-        }
-
-        private void backToolStripMenuItem_Click(object sender, EventArgs e)
+        private void BackToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void BtnExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

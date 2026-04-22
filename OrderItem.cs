@@ -13,10 +13,9 @@ namespace RestaurantOrderingSystem
 {
     internal class OrderItem
     {
-        public int ItemID;
-        public int MenuItemID;
-        public int Quantity;
-        public int OrderID;
+        public int MenuItemID { get; set; }
+        public int Quantity { get; set; }
+        public int OrderID { get; set; }
         public string OrderStatus { get; set; }
 
         public OrderItem(int orderID, int menuItemID, int quantity)

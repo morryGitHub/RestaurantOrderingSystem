@@ -47,12 +47,11 @@
             this.lblTitle.Size = new System.Drawing.Size(90, 30);
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "Receipt";
-            this.lblTitle.Click += new System.EventHandler(this.lblTitle_Click);
             // 
             // rtbReceipt
             // 
             this.rtbReceipt.Location = new System.Drawing.Point(15, 41);
-            this.rtbReceipt.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.rtbReceipt.Margin = new System.Windows.Forms.Padding(2);
             this.rtbReceipt.Name = "rtbReceipt";
             this.rtbReceipt.ReadOnly = true;
             this.rtbReceipt.Size = new System.Drawing.Size(284, 296);
@@ -63,25 +62,25 @@
             // 
             this.btnPrint.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPrint.Location = new System.Drawing.Point(194, 362);
-            this.btnPrint.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnPrint.Margin = new System.Windows.Forms.Padding(2);
             this.btnPrint.Name = "btnPrint";
             this.btnPrint.Size = new System.Drawing.Size(86, 28);
             this.btnPrint.TabIndex = 2;
             this.btnPrint.Text = "Print";
             this.btnPrint.UseVisualStyleBackColor = true;
-            this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click_1);
+            this.btnPrint.Click += new System.EventHandler(this.BtnPrint_Click_1);
             // 
             // btnClose
             // 
             this.btnClose.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClose.Location = new System.Drawing.Point(30, 362);
-            this.btnClose.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnClose.Margin = new System.Windows.Forms.Padding(2);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(86, 28);
             this.btnClose.TabIndex = 3;
             this.btnClose.Text = "Close";
             this.btnClose.UseVisualStyleBackColor = true;
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Click_1);
+            this.btnClose.Click += new System.EventHandler(this.BtnClose_Click);
             // 
             // menuStrip1
             // 
@@ -102,7 +101,7 @@
             this.backToolStripMenuItem.RightToLeftAutoMirrorImage = true;
             this.backToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.backToolStripMenuItem.Text = "Back";
-            this.backToolStripMenuItem.Click += new System.EventHandler(this.backToolStripMenuItem_Click);
+            this.backToolStripMenuItem.Click += new System.EventHandler(this.BackToolStripMenuItem_Click);
             // 
             // FrmReceipt
             // 
@@ -114,7 +113,7 @@
             this.Controls.Add(this.rtbReceipt);
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.menuStrip1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FrmReceipt";
             this.Text = "ReceiptForm";
             this.Load += new System.EventHandler(this.ReceiptForm_Load);

@@ -124,7 +124,6 @@
             this.dgvOrderItems.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvOrderItems.Size = new System.Drawing.Size(489, 226);
             this.dgvOrderItems.TabIndex = 3;
-            this.dgvOrderItems.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvOrderItems_CellContentClick);
             // 
             // btnCancel
             // 
@@ -136,7 +135,7 @@
             this.btnCancel.TabIndex = 13;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            this.btnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
             // 
             // groupBox2
             // 
@@ -166,7 +165,6 @@
             this.lblAmount.Size = new System.Drawing.Size(49, 21);
             this.lblAmount.TabIndex = 10;
             this.lblAmount.Text = "€0.00";
-            this.lblAmount.Click += new System.EventHandler(this.lblAmount_Click);
             // 
             // btnPay
             // 
@@ -178,7 +176,7 @@
             this.btnPay.TabIndex = 6;
             this.btnPay.Text = "Submit Payment";
             this.btnPay.UseVisualStyleBackColor = true;
-            this.btnPay.Click += new System.EventHandler(this.btnPay_Click);
+            this.btnPay.Click += new System.EventHandler(this.BtnPay_Click);
             // 
             // lblAmountText
             // 
@@ -205,7 +203,6 @@
             this.cmbMethod.Name = "cmbMethod";
             this.cmbMethod.Size = new System.Drawing.Size(90, 27);
             this.cmbMethod.TabIndex = 3;
-            this.cmbMethod.SelectedIndexChanged += new System.EventHandler(this.cmbMethod_SelectedIndexChanged);
             // 
             // lblSelectItems
             // 
@@ -217,7 +214,6 @@
             this.lblSelectItems.Size = new System.Drawing.Size(131, 21);
             this.lblSelectItems.TabIndex = 0;
             this.lblSelectItems.Text = "Payment Method:";
-            this.lblSelectItems.Click += new System.EventHandler(this.lblSelectItems_Click);
             // 
             // groupBox1
             // 
@@ -247,7 +243,7 @@
             this.cmbOrders.Name = "cmbOrders";
             this.cmbOrders.Size = new System.Drawing.Size(159, 27);
             this.cmbOrders.TabIndex = 1;
-            this.cmbOrders.SelectedIndexChanged += new System.EventHandler(this.cmbOrders_SelectedIndexChanged);
+            this.cmbOrders.SelectedIndexChanged += new System.EventHandler(this.CmbOrders_SelectedIndexChanged);
             // 
             // lblOrder
             // 
@@ -270,7 +266,6 @@
             this.lblTitle.Size = new System.Drawing.Size(167, 30);
             this.lblTitle.TabIndex = 9;
             this.lblTitle.Text = "Make Payment";
-            this.lblTitle.Click += new System.EventHandler(this.lblTitle_Click);
             // 
             // menuStrip1
             // 
@@ -291,7 +286,7 @@
             this.backToolStripMenuItem.RightToLeftAutoMirrorImage = true;
             this.backToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.backToolStripMenuItem.Text = "Back";
-            this.backToolStripMenuItem.Click += new System.EventHandler(this.backToolStripMenuItem_Click);
+            this.backToolStripMenuItem.Click += new System.EventHandler(this.BackToolStripMenuItem_Click);
             // 
             // Item
             // 
@@ -345,7 +340,7 @@
             this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "FrmMakePayment";
             this.Text = "Make Payment";
-            this.Load += new System.EventHandler(this.frmMakePayment_Load);
+            this.Load += new System.EventHandler(this.FrmMakePayment_Load);
             this.groupBox3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvOrderItems)).EndInit();
             this.groupBox2.ResumeLayout(false);

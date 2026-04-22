@@ -107,7 +107,7 @@
             this.dgvPayments.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvPayments.Size = new System.Drawing.Size(359, 197);
             this.dgvPayments.TabIndex = 4;
-            this.dgvPayments.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPayments_CellContentClick);
+            this.dgvPayments.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvPayments_CellContentClick);
             // 
             // groupBox2
             // 
@@ -132,7 +132,7 @@
             this.btnRefund.TabIndex = 6;
             this.btnRefund.Text = "Process Refund";
             this.btnRefund.UseVisualStyleBackColor = true;
-            this.btnRefund.Click += new System.EventHandler(this.btnRefund_Click);
+            this.btnRefund.Click += new System.EventHandler(this.BtnRefund_Click);
             // 
             // btnCancel
             // 
@@ -144,7 +144,7 @@
             this.btnCancel.TabIndex = 7;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.button2_Click);
+            this.btnCancel.Click += new System.EventHandler(this.BtnExit_Click);
             // 
             // groupBox3
             // 
@@ -184,7 +184,7 @@
             this.cmbOrders.Name = "cmbOrders";
             this.cmbOrders.Size = new System.Drawing.Size(150, 27);
             this.cmbOrders.TabIndex = 1;
-            this.cmbOrders.SelectedIndexChanged += new System.EventHandler(this.cmbOrders_SelectedIndexChanged);
+            this.cmbOrders.SelectedIndexChanged += new System.EventHandler(this.CmbOrders_SelectedIndexChanged);
             // 
             // lblOrder
             // 
@@ -216,7 +216,7 @@
             this.backToolStripMenuItem.RightToLeftAutoMirrorImage = true;
             this.backToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.backToolStripMenuItem.Text = "Back";
-            this.backToolStripMenuItem.Click += new System.EventHandler(this.backToolStripMenuItem_Click);
+            this.backToolStripMenuItem.Click += new System.EventHandler(this.BackToolStripMenuItem_Click);
             // 
             // ID
             // 
@@ -268,7 +268,7 @@
             this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "FrmRefundPayment";
             this.Text = " ";
-            this.Load += new System.EventHandler(this.frmRefundPayment_Load);
+            this.Load += new System.EventHandler(this.FrmRefundPayment_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvPayments)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);

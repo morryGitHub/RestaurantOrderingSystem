@@ -12,7 +12,7 @@ namespace RestaurantOrderingSystem
     {
 
         private readonly int reservationID;
-        private int tableID;
+        private readonly int tableID;
         private int capacity = 0;
         public FrmUpdateReservation(int reservationID, int tableID)
         {
@@ -27,12 +27,18 @@ namespace RestaurantOrderingSystem
             this.tableID = tableID;
         }
 
-        private void UpdateReservationForm_Load(object sender, EventArgs e)
+        private void FillComboBoxStatus()
         {
-
             cmbStatus.Items.Add("BOOKED");
             cmbStatus.Items.Add("CANCELLED");
+        }
 
+        private void UpdateReservationForm_Load(object sender, EventArgs e)
+        {
+            FillComboBoxStatus();
+            ApplyReservationDesign();
+
+           
 
             try
             {
@@ -78,45 +84,40 @@ namespace RestaurantOrderingSystem
             }
         }
 
-
-
-
-
-        private void label1_Click(object sender, EventArgs e)
+        private void ApplyReservationDesign()
         {
+            var normalFont = new Font("Segoe UI", 10, FontStyle.Regular);
+            var boldFont = new Font("Segoe UI", 10, FontStyle.Bold);
 
+            this.BackColor = Color.White;
+
+            lblTitle.Font = new Font("Segoe UI", 16, FontStyle.Bold);
+            lblTitle.ForeColor = Color.FromArgb(30, 30, 30);
+
+            grpCustomerInfo.Font = boldFont;
+            grpCustomerInfo.ForeColor = Color.FromArgb(50, 50, 50);
+
+            grpReservationDetails.Font = boldFont;
+            grpReservationDetails.ForeColor = Color.FromArgb(50, 50, 50);
+
+            lblCustName.Font = normalFont;
+            lblPhoneNum.Font = normalFont;
+            lblNumOfGuests.Font = normalFont;
+            lblDate.Font = normalFont;
+            lblTime.Font = normalFont;
+            lblTableText.Font = normalFont;
+            lblStatus.Font = normalFont;
+
+            tbCustName.Font = normalFont;
+            tbPhoneNumber.Font = normalFont;
+            numericNumOfGuests.Font = normalFont;
+            datePicker.Font = normalFont;
+            timePicker.Font = normalFont;
+            cmbStatus.Font = normalFont;
+            tbTableNo.Font = normalFont;
         }
 
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tbCustName_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tableNum_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnFindAvailableTable_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void cmbAvailableTables_SelectedIndexChanged(object sender, EventArgs e)
-        {
-        }
-
-
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void BtnCancel_Click(object sender, EventArgs e)
         {
             MessageBox.Show(
         "Update of reservation was cancelled.", "Succes", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -124,81 +125,49 @@ namespace RestaurantOrderingSystem
             this.Close();
         }
 
-
-        private void tbCustName_TextChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
+        private void BtnExit_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
 
-        private void lblTableInfoText_Click(object sender, EventArgs e)
+        private void NumericNumOfGuests_ValueChanged(object sender, EventArgs e)
         {
-
+            BtnFindAvailableTables_Click(sender, e);
         }
 
-        private void numericNumOfGuests_ValueChanged(object sender, EventArgs e)
-        {
-            btnFindAvailableTables_Click(sender, e);
-        }
-
-        private void btnFindAvailableTables_Click(object sender, EventArgs e)
+        private void BtnFindAvailableTables_Click(object sender, EventArgs e)
         {
             try
             {
                 dgvTables.Rows.Clear();
-                lblErrorMsg.Visible = false;
+                DateTime selectedStart = datePicker.Value.Date + timePicker.Value.TimeOfDay;
 
-                dgvTables.Visible = true;
+                var tables = ReservationManager.GetAvailableTablesList((int)numericNumOfGuests.Value, selectedStart);
 
-                int numOfGuest = (int)numericNumOfGuests.Value;
-                DateTime startDateTime = datePicker.Value.Date
-                             + timePicker.Value.TimeOfDay;
-
-                string start = startDateTime.ToString("dd-MM-yyyy HH:mm");
-
-                DateTime date = datePicker.Value.Date;
-                TimeSpan time = timePicker.Value.TimeOfDay;
-                DateTime endDateTime = date + time + TimeSpan.FromHours(2);
-
-                string end = endDateTime.ToString("dd-MM-yyyy HH:mm");
-
-                DataSet ds = Reservation.GetAvailableTablesForReservation(numOfGuest, start, end);
-
-                if (ds.Tables[0].Rows.Count == 0)
+                if (tables.Count == 0)
                 {
                     lblErrorMsg.Visible = true;
                     dgvTables.Visible = false;
                 }
                 else
                 {
+                    lblErrorMsg.Visible = false;
+                    dgvTables.Visible = true;
 
-                    foreach (DataRow row in ds.Tables[0].Rows)
+                    tables.ForEach(row =>
                     {
-                        int tableID = Convert.ToInt32(row["TableID"]);
-                        int tableNo = Convert.ToInt32(row["TableNo"]);
-                        int capacity = Convert.ToInt32(row["Capacity"]);
-                        string location = row["Location"].ToString();
-
-                        dgvTables.Rows.Add(tableID, tableNo, capacity, location);
-                    }
+                        dgvTables.Rows.Add(row.TableId, row.TableNumber, row.Capacity, row.Location);
+                    });
                 }
-
-
-
             }
             catch (Exception ex)
             {
-                MessageBox.Show("An error occurred while fetching available tables: " + ex.Message,
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error: " + ex.Message);
             }
         }
 
-        private void dgvTables_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void DgvTables_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0) //  header click
             {
@@ -206,31 +175,11 @@ namespace RestaurantOrderingSystem
 
                 string tableNo = row.Cells["TableNo"].Value.ToString();
                 tbTableNo.Text = tableNo;
-               
+
             }
         }
 
-        private void lblTableInfo_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblStatus_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void cmbStatus_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tbTableNo_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnUpdateReservation_Click(object sender, EventArgs e)
+        private void BtnUpdateReservation_Click(object sender, EventArgs e)
         {
             // Validate Name
             string nameCheck = Validation.IsNameValid(tbCustName.Text);
@@ -281,7 +230,7 @@ namespace RestaurantOrderingSystem
                 int numOfGuest = (int)numericNumOfGuests.Value;
                 string status = cmbStatus.SelectedItem.ToString();
 
-          
+
 
                 if (numOfGuest > capacity)
                 {
@@ -289,7 +238,7 @@ namespace RestaurantOrderingSystem
                                     "Capacity Limit", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
-            
+
 
                 Reservation reservation = new Reservation(
                    reservationID,
@@ -323,17 +272,17 @@ namespace RestaurantOrderingSystem
         }
 
 
-        private void datePicker_ValueChanged(object sender, EventArgs e)
+        private void DatePicker_ValueChanged(object sender, EventArgs e)
         {
             dgvTables.Rows.Clear();
         }
 
-        private void timePicker_ValueChanged(object sender, EventArgs e)
+        private void TimePicker_ValueChanged(object sender, EventArgs e)
         {
             dgvTables.Rows.Clear();
         }
 
-        private void backToolStripMenuItem_Click(object sender, EventArgs e)
+        private void BackToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
         }

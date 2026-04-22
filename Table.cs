@@ -15,22 +15,26 @@ namespace RestaurantOrderingSystem
 {
     class Table
     {
-        //Properties of the class
+
         public int TableId { get; set; }     // DB ID
         public int TableNumber { get; set; }
         public int Capacity { get; set; }
         public string Status { get; set; } = "Available";
-        public string Location { get; set; }
+        public string Location { get; set; } = "Main Hall";
 
 
-        public Table()
-        {
-            Status = "Available";
 
-        }
-        public Table(int tableId, int tableNumber , int capacity, string status, string location)
+        public Table(int tableId, int tableNumber, int capacity, string status, string location)
         {
             TableId = tableId;
+            TableNumber = tableNumber;
+            Capacity = capacity;
+            Status = status;
+            Location = location;
+        }
+
+        public Table(int tableNumber, int capacity, string status, string location)
+        {
             TableNumber = tableNumber;
             Capacity = capacity;
             Status = status;
@@ -44,28 +48,24 @@ namespace RestaurantOrderingSystem
             Capacity = capacity;
         }
 
-        public Table(int tableNumber, int capacity, string status, string location)
-        {
-            TableNumber = tableNumber;
-            Capacity = capacity;
-            Status = status;
-            Location = location;
-        }
-
-        public Table(int tableNumber, int capacity)
-        {
-            TableNumber = tableNumber;
-            Capacity = capacity;
-            Status = Status;
-        }
-
         public Table(int tableNumber, int capacity, string location)
         {
             TableNumber = tableNumber;
             Capacity = capacity;
             Location = location;
-            Status = Status;
         }
+
+
+        public Table(int tableNumber, int capacity)
+        {
+            TableNumber = tableNumber;
+            Capacity = capacity;
+        }
+
+
+
+        public Table() : this(0, 0, 0, "Available", "Main Hall") { }
+
 
 
         public override string ToString()

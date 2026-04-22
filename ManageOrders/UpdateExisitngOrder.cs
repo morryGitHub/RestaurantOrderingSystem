@@ -28,7 +28,7 @@ namespace RestaurantOrderingSystem
 
         }
 
-        private void frmUpdateOrder_Load(object sender, EventArgs e)
+        private void FrmUpdateOrder_Load(object sender, EventArgs e)
         {
             FillActiveOrdersComboBox();
             FillMenuItemsComboBox();
@@ -36,7 +36,7 @@ namespace RestaurantOrderingSystem
 
         }
 
-        private void cmdOrders_SelectedIndexChanged(object sender, EventArgs e)
+        private void CmdOrders_SelectedIndexChanged(object sender, EventArgs e)
         {
             decimal total = 0.00m;
             lblTotal.Text = $"€{total:F2}";
@@ -91,7 +91,7 @@ namespace RestaurantOrderingSystem
         }
 
 
-        private void btnConfirm_Click(object sender, EventArgs e)
+        private void BtnConfirm_Click(object sender, EventArgs e)
         {
 
             if (dgvOrderItems.Rows.Count == 0)
@@ -113,7 +113,7 @@ namespace RestaurantOrderingSystem
 
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void BtnCancel_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Order update cancelled.",
                     "Cancelled",
@@ -124,20 +124,7 @@ namespace RestaurantOrderingSystem
         }
 
 
-
-
-
-        private void lblTotalText_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblTotal_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dgvOrderItems_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void DgvOrderItems_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (dgvOrderItems.Rows.Count == 0)
             {
@@ -169,8 +156,6 @@ namespace RestaurantOrderingSystem
                 }
             }
 
-            //MenuItem item in cmbItems.Items
-
             if (selectedItem != null)
             {
                 cmbItems.SelectedItem = selectedItem;
@@ -197,7 +182,7 @@ namespace RestaurantOrderingSystem
         }
 
 
-        private void cmbItems_SelectedIndexChanged(object sender, EventArgs e)
+        private void CmbItems_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cmbItems.Text.Equals("Select the Item") || cmbOrders.Text.Equals("Select the Order"))
             {
@@ -218,12 +203,8 @@ namespace RestaurantOrderingSystem
             numQty.Value = 1;
         }
 
-        private void numQty_ValueChanged(object sender, EventArgs e)
-        {
 
-        }
-
-        private void btnEditItem_Click(object sender, EventArgs e)
+        private void BtnEditItem_Click(object sender, EventArgs e)
         {
 
             if (cmbOrders.SelectedIndex == -1 || _selectedOrderId == -1)
@@ -248,7 +229,7 @@ namespace RestaurantOrderingSystem
 
             string itemName = menuItem.Name;
             decimal unitPrice = menuItem.Price;
-            _menuItemID = menuItem.ItemID;
+            _menuItemID = menuItem.ID;
             decimal subtotal = qty * unitPrice;
 
 
@@ -330,7 +311,7 @@ namespace RestaurantOrderingSystem
 
         }
 
-        private void btnDeleteItem_Click(object sender, EventArgs e)
+        private void BtnDeleteItem_Click(object sender, EventArgs e)
         {
             if (dgvOrderItems.SelectedRows.Count == 0)
             {
@@ -372,7 +353,7 @@ namespace RestaurantOrderingSystem
             _menuItemID = -1;
         }
 
-        private void btnAddButton_Click(object sender, EventArgs e)
+        private void BtnAddButton_Click(object sender, EventArgs e)
         {
             if (cmbOrders.SelectedIndex == -1 || _selectedOrderId == -1)
             {
@@ -396,7 +377,7 @@ namespace RestaurantOrderingSystem
 
             string itemName = menuItem.Name;
             decimal unitPrice = menuItem.Price;
-            _menuItemID = menuItem.ItemID;
+            _menuItemID = menuItem.ID;
             decimal subtotal = qty * unitPrice;
 
             OrderItem orderItem = new OrderItem(_selectedOrderId, _menuItemID, qty);
@@ -434,19 +415,19 @@ namespace RestaurantOrderingSystem
             }
         }
 
-        private void dgvOrderItems_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
+        private void DgvOrderItems_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
         {
             UpdateButtonsState();
 
         }
 
-        private void dgvOrderItems_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        private void DgvOrderItems_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
             UpdateButtonsState();
 
         }
 
-        private void backToolStripMenuItem_Click(object sender, EventArgs e)
+        private void BackToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
         }

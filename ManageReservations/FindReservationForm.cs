@@ -24,24 +24,23 @@ namespace RestaurantOrderingSystem
 
 
         }
-        private void dgvMatchingReservation_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
 
-        }
 
-        private void btnSearch_Click_1(object sender, EventArgs e)
+        private void BtnSearch_Click_1(object sender, EventArgs e)
         {
             ReservationManager.GetReservations(dgvMatchingReservation, rbCustName, tbCustName, tbPhoneNum, lblResInfo);
 
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void BtnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
         private void FrmFindReservation_Load(object sender, EventArgs e)
         {
+
+            ApplyReservationDesign();
             tbPhoneNum.ReadOnly = true;
 
             if (UserSession.ReservationAction == "Update")
@@ -63,14 +62,12 @@ namespace RestaurantOrderingSystem
             }
 
 
-        }
 
-        private void tbPhoneNum_TextChanged_1(object sender, EventArgs e)
-        {
 
         }
 
-        private void tbPhoneNum_Click(object sender, EventArgs e)
+
+        private void TbPhoneNum_Click(object sender, EventArgs e)
         {
             rbPhoneNum.Checked = true;
             tbPhoneNum.ReadOnly = false;
@@ -79,28 +76,28 @@ namespace RestaurantOrderingSystem
 
         }
 
-        private void tbCustName_Click(object sender, EventArgs e)
+        private void TbCustName_Click(object sender, EventArgs e)
         {
             rbCustName.Checked = true;
             tbPhoneNum.ReadOnly = true;
             tbCustName.ReadOnly = false;
         }
 
-        private void rbCustName_CheckedChanged_1(object sender, EventArgs e)
+        private void RbCustName_CheckedChanged_1(object sender, EventArgs e)
         {
             tbCustName.Focus();
             tbPhoneNum.ReadOnly = true;
             tbCustName.ReadOnly = false;
         }
 
-        private void rbPhoneNum_CheckedChanged(object sender, EventArgs e)
+        private void RbPhoneNum_CheckedChanged(object sender, EventArgs e)
         {
             tbPhoneNum.Focus();
             tbPhoneNum.ReadOnly = false;
             tbCustName.ReadOnly = true;
         }
 
-        private void btnNext_Click(object sender, EventArgs e)
+        private void BtnNext_Click(object sender, EventArgs e)
         {
             try
             {
@@ -117,9 +114,11 @@ namespace RestaurantOrderingSystem
 
                         case ("Find"):
                             Table tableObj = new Table() { TableId = tableID };
+                            this.Hide();
+                            this.Close();
                             FrmNewOrder newOrder = new FrmNewOrder(tableObj);
                             newOrder.ShowDialog();
-                            this.Close();
+                            
                             break;
 
                         case ("Update"):
@@ -128,7 +127,6 @@ namespace RestaurantOrderingSystem
                             if (frmUpdateReservation.ShowDialog() == DialogResult.OK)
                             {
                                 ReservationManager.GetReservations(dgvMatchingReservation, rbCustName, tbCustName, tbPhoneNum, lblResInfo);
-
                             }
                             break;
 
@@ -150,14 +148,35 @@ namespace RestaurantOrderingSystem
             }
         }
 
-        private void backToolStripMenuItem_Click(object sender, EventArgs e)
+        private void BackToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
         }
-
-        private void lblResInfo_Click(object sender, EventArgs e)
+        private void ApplyReservationDesign()
         {
+            var normalFont = new Font("Segoe UI", 10, FontStyle.Regular);
+            var boldFont = new Font("Segoe UI", 10, FontStyle.Bold);
 
+            this.BackColor = Color.White;
+
+            lblTitle.Font = new Font("Segoe UI", 16, FontStyle.Bold);
+            lblTitle.ForeColor = Color.FromArgb(30, 30, 30);
+
+            grpSearching.Font = boldFont;
+            grpSearching.ForeColor = Color.FromArgb(50, 50, 50);
+
+            rbCustName.Font = normalFont;
+            rbPhoneNum.Font = normalFont;
+          
+
+            tbCustName.Font = normalFont;
+            tbPhoneNum.Font = normalFont;
+           
+           
+
+         
         }
+
+
     }
 }

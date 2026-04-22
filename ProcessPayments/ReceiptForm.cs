@@ -12,18 +12,19 @@ namespace RestaurantOrderingSystem
 {
     public partial class FrmReceipt : Form
     {
-        private string _orderNumber;
-        private string _paymentMethod;
-        private decimal _total;
-        private DataGridView _items;
+
+        internal string OrderNumber { get; set ; }
+        internal string PaymentMethod { get; set; }
+        internal decimal Total { get; set; }
+        internal DataGridView Items { get; set; }
 
         public FrmReceipt(string orderNumber, string paymentMethod, decimal total, DataGridView items)
         {
             InitializeComponent();
-            _orderNumber = orderNumber;
-            _paymentMethod = paymentMethod;
-            _total = total;
-            _items = items;
+            OrderNumber = orderNumber;
+            PaymentMethod = paymentMethod;
+            Total = total;
+            Items = items;
             UIStyleHelper.ApplyPrimaryButtonStyle(btnPrint);
 
         }
@@ -36,13 +37,13 @@ namespace RestaurantOrderingSystem
             StringBuilder sb = new StringBuilder();
 
             sb.AppendLine("=========== RECEIPT ===========");
-            sb.AppendLine($"Order: {_orderNumber}");
+            sb.AppendLine($"Order: {OrderNumber}");
             sb.AppendLine($"Date: {DateTime.Now}");
             sb.AppendLine("--------------------------------");
 
             sb.AppendLine("Item                  Qty   Price");
 
-            foreach (DataGridViewRow row in _items.Rows)
+            foreach (DataGridViewRow row in Items.Rows)
             {
                 string item = row.Cells[0].Value.ToString();
                 string price = row.Cells[1].Value.ToString();
@@ -58,8 +59,8 @@ namespace RestaurantOrderingSystem
             }
 
             sb.AppendLine("--------------------------------");
-            sb.AppendLine($"TOTAL: €{_total:F2}");
-            sb.AppendLine($"Payment Method: {_paymentMethod}");
+            sb.AppendLine($"TOTAL: €{Total:F2}");
+            sb.AppendLine($"Payment Method: {PaymentMethod}");
             sb.AppendLine("================================");
 
             sb.AppendLine("\nThank you for your visit!");
@@ -67,7 +68,7 @@ namespace RestaurantOrderingSystem
             rtbReceipt.Text = sb.ToString();
         }
 
-        private void btnPrint_Click(object sender, EventArgs e)
+        private void BtnPrint_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Receipt sent to printer (prototype).",
                             "Print",
@@ -75,18 +76,8 @@ namespace RestaurantOrderingSystem
                             MessageBoxIcon.Information);
         }
 
-        private void btnClose_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
 
-        private void lblTitle_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
-        private void btnPrint_Click_1(object sender, EventArgs e)
+        private void BtnPrint_Click_1(object sender, EventArgs e)
         {
             MessageBox.Show("Receipt sent to printer (prototype).",
                             "Print",
@@ -96,12 +87,12 @@ namespace RestaurantOrderingSystem
             this.Close();
         }
 
-        private void btnClose_Click_1(object sender, EventArgs e)
+        private void BtnClose_Click(object sender, EventArgs e)
         {
             Close();
         }
 
-        private void backToolStripMenuItem_Click(object sender, EventArgs e)
+        private void BackToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
         }

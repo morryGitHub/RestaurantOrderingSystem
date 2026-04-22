@@ -13,14 +13,11 @@ namespace RestaurantOrderingSystem
 {
     internal class Payment
     {
-        private Order Order;
-        //private Table Table;
-        private int PaymentID;
-        private decimal Amount;
-        private string MethodType;
-        private string PaymentDate;
-        private string Status;
 
+        internal Order Order { get; set; }
+        public decimal Amount { get; set; }
+        public string MethodType { get; set; }
+        public string PaymentDate { get; set; }
 
         public Payment(Order order, decimal amount, string methodType, string paymentDate)
         {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -88,5 +89,30 @@ namespace RestaurantOrderingSystem
                                 "Search Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        public static List<Table> GetAvailableTablesList(int guests, DateTime start)
+        {
+            DateTime endDateTime = start.AddHours(2);
+
+            string startStr = start.ToString("dd-MM-yyyy HH:mm");
+            string endStr = endDateTime.ToString("dd-MM-yyyy HH:mm");
+
+            DataSet ds = Reservation.GetAvailableTablesForReservation(guests, startStr, endStr);
+            List<Table> availableTables = new List<Table>();
+
+            foreach (DataRow row in ds.Tables[0].Rows)
+            {
+                availableTables.Add(new Table(
+                    Convert.ToInt32(row["TableID"]),
+                    Convert.ToInt32(row["TableNo"]),
+                    Convert.ToInt32(row["Capacity"]),
+                    "Available", // Default status
+                    row["Location"].ToString()
+                ));
+            }
+            return availableTables;
+        }
+
+       
     }
 }

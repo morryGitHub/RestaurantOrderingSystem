@@ -24,20 +24,21 @@ namespace RestaurantOrderingSystem
 
 
 
-        private void button2_Click(object sender, EventArgs e)
+        private void BtnExit_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Refund cancelled.", "Cancelled");
+            MessageBox.Show("Refund process has been cancelled. No changes were made.",
+                            "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.Close();
         }
 
 
-        private void frmRefundPayment_Load(object sender, EventArgs e)
+        private void FrmRefundPayment_Load(object sender, EventArgs e)
         {
             FillPaidPaymentsComboBox();
         }
 
      
-        private void cmbOrders_SelectedIndexChanged(object sender, EventArgs e)
+        private void CmbOrders_SelectedIndexChanged(object sender, EventArgs e)
         {
             dgvPayments.Rows.Clear();
             try
@@ -69,18 +70,19 @@ namespace RestaurantOrderingSystem
             }
         }
 
-        private void btnRefund_Click(object sender, EventArgs e)
+        private void BtnRefund_Click(object sender, EventArgs e)
         {
-
             if (cmbOrders.SelectedIndex == -1)
             {
-                MessageBox.Show("Please select an order.");
+                MessageBox.Show("To get started, please select an order from the list.",
+                                "Selection Required", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
             if (dgvPayments.SelectedRows.Count == 0)
             {
-                MessageBox.Show("Please select a payment to refund.");
+                MessageBox.Show("We couldn't find a payment to process. Please click on a specific payment in the list to refund it.",
+                                "Refund Criteria", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
             try
@@ -107,7 +109,7 @@ namespace RestaurantOrderingSystem
             }
         }
 
-        private void dgvPayments_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void DgvPayments_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             dgvPayments.ClearSelection();
         }
@@ -126,7 +128,7 @@ namespace RestaurantOrderingSystem
 
         }
 
-        private void backToolStripMenuItem_Click(object sender, EventArgs e)
+        private void BackToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
         }

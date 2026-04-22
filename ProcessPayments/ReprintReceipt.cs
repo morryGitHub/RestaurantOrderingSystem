@@ -31,23 +31,14 @@ namespace RestaurantOrderingSystem
             FillPaidPaymentsComboBox();
         }
 
-        // Helper method to maintain consistent button design across all forms
-      
-        private void dgvPayments_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-        }
 
-
-
-
-
-        private void btnExit_Click(object sender, EventArgs e)
+        private void BtnExit_Click(object sender, EventArgs e)
         {
             this.Close();
 
         }
 
-        private void btnRefund_Click(object sender, EventArgs e)
+        private void BtnRefund_Click(object sender, EventArgs e)
         {
 
             Order order = cmbOrders.SelectedItem as Order;
@@ -100,7 +91,7 @@ namespace RestaurantOrderingSystem
 
         }
 
-        private void cmbOrders_SelectedIndexChanged(object sender, EventArgs e)
+        private void CmbOrders_SelectedIndexChanged(object sender, EventArgs e)
         {
             dgvOrderDetails.Rows.Clear();
             lblTotal.Text = "€0.00";
@@ -146,7 +137,7 @@ namespace RestaurantOrderingSystem
             }
         }
 
-        private void backToolStripMenuItem_Click(object sender, EventArgs e)
+        private void BackToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
         }

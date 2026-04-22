@@ -102,7 +102,7 @@
             this.cmbOrders.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.cmbOrders.Size = new System.Drawing.Size(134, 25);
             this.cmbOrders.TabIndex = 1;
-            this.cmbOrders.SelectedIndexChanged += new System.EventHandler(this.cmdOrders_SelectedIndexChanged);
+            this.cmbOrders.SelectedIndexChanged += new System.EventHandler(this.CmdOrders_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -144,7 +144,7 @@
             this.btnAddButton.TabIndex = 9;
             this.btnAddButton.Text = "Add Item";
             this.btnAddButton.UseVisualStyleBackColor = true;
-            this.btnAddButton.Click += new System.EventHandler(this.btnAddButton_Click);
+            this.btnAddButton.Click += new System.EventHandler(this.BtnAddButton_Click);
             // 
             // btnEditItem
             // 
@@ -156,7 +156,7 @@
             this.btnEditItem.TabIndex = 8;
             this.btnEditItem.Text = "Edit Item";
             this.btnEditItem.UseVisualStyleBackColor = true;
-            this.btnEditItem.Click += new System.EventHandler(this.btnEditItem_Click);
+            this.btnEditItem.Click += new System.EventHandler(this.BtnEditItem_Click);
             // 
             // btnDeleteItem
             // 
@@ -168,7 +168,7 @@
             this.btnDeleteItem.TabIndex = 7;
             this.btnDeleteItem.Text = "Delete Item";
             this.btnDeleteItem.UseVisualStyleBackColor = true;
-            this.btnDeleteItem.Click += new System.EventHandler(this.btnDeleteItem_Click);
+            this.btnDeleteItem.Click += new System.EventHandler(this.BtnDeleteItem_Click);
             // 
             // numQty
             // 
@@ -179,7 +179,6 @@
             this.numQty.Size = new System.Drawing.Size(114, 26);
             this.numQty.TabIndex = 5;
             this.numQty.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.numQty.ValueChanged += new System.EventHandler(this.numQty_ValueChanged);
             // 
             // lblQty
             // 
@@ -203,7 +202,7 @@
             this.cmbItems.Name = "cmbItems";
             this.cmbItems.Size = new System.Drawing.Size(134, 25);
             this.cmbItems.TabIndex = 3;
-            this.cmbItems.SelectedIndexChanged += new System.EventHandler(this.cmbItems_SelectedIndexChanged);
+            this.cmbItems.SelectedIndexChanged += new System.EventHandler(this.CmbItems_SelectedIndexChanged);
             // 
             // lblSelectItems
             // 
@@ -226,7 +225,7 @@
             this.btnConfirm.TabIndex = 4;
             this.btnConfirm.Text = "Update Order";
             this.btnConfirm.UseVisualStyleBackColor = true;
-            this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
+            this.btnConfirm.Click += new System.EventHandler(this.BtnConfirm_Click);
             // 
             // btnCancel
             // 
@@ -238,7 +237,7 @@
             this.btnCancel.TabIndex = 5;
             this.btnCancel.Text = "Exit";
             this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            this.btnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
             // 
             // lblTotal
             // 
@@ -250,7 +249,6 @@
             this.lblTotal.Size = new System.Drawing.Size(49, 21);
             this.lblTotal.TabIndex = 7;
             this.lblTotal.Text = "€0.00";
-            this.lblTotal.Click += new System.EventHandler(this.lblTotal_Click);
             // 
             // lblTotalText
             // 
@@ -262,7 +260,6 @@
             this.lblTotalText.Size = new System.Drawing.Size(56, 21);
             this.lblTotalText.TabIndex = 6;
             this.lblTotalText.Text = "Total: ";
-            this.lblTotalText.Click += new System.EventHandler(this.lblTotalText_Click);
             // 
             // groupBox3
             // 
@@ -328,9 +325,9 @@
             this.dgvOrderItems.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvOrderItems.Size = new System.Drawing.Size(489, 224);
             this.dgvOrderItems.TabIndex = 8;
-            this.dgvOrderItems.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvOrderItems_CellContentClick);
-            this.dgvOrderItems.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dgvOrderItems_RowsAdded);
-            this.dgvOrderItems.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dgvOrderItems_RowsRemoved);
+            this.dgvOrderItems.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvOrderItems_CellContentClick);
+            this.dgvOrderItems.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.DgvOrderItems_RowsAdded);
+            this.dgvOrderItems.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.DgvOrderItems_RowsRemoved);
             // 
             // menuStrip1
             // 
@@ -351,7 +348,7 @@
             this.backToolStripMenuItem.RightToLeftAutoMirrorImage = true;
             this.backToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.backToolStripMenuItem.Text = "Back";
-            this.backToolStripMenuItem.Click += new System.EventHandler(this.backToolStripMenuItem_Click);
+            this.backToolStripMenuItem.Click += new System.EventHandler(this.BackToolStripMenuItem_Click);
             // 
             // ItemName
             // 
@@ -411,7 +408,7 @@
             this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "FrmUpdateOrder";
             this.Text = "Update Exisitng Order";
-            this.Load += new System.EventHandler(this.frmUpdateOrder_Load);
+            this.Load += new System.EventHandler(this.FrmUpdateOrder_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

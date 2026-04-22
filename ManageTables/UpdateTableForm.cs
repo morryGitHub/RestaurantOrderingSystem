@@ -20,10 +20,7 @@ namespace RestaurantOrderingSystem
 
 
         }
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
+   
 
         private void UpdateTableForm_Load(object sender, EventArgs e)
         {
@@ -31,20 +28,16 @@ namespace RestaurantOrderingSystem
 
             var normal = new Font("Segoe UI", 10, FontStyle.Regular);
 
-            // ===== FORM BACKGROUND =====
             this.BackColor = Color.White;
-            // ===== TITLE =====
             lblTitle.Font = new Font("Segoe UI", 16, FontStyle.Bold);
             lblTitle.ForeColor = Color.FromArgb(30, 30, 30);
 
-            // ===== GROUPBOX (CARD STYLE) =====
             this.BackColor = Color.White;
 
             groupBox1.Font = new Font("Segoe UI", 10, FontStyle.Bold);
             groupBox1.ForeColor = Color.FromArgb(50, 50, 50);
             groupBox1.Padding = new Padding(10);
 
-            // ===== LABELS =====
             lblTabeNo.Font = normal;
             lblTabeNo.ForeColor = Color.FromArgb(60, 60, 60);
 
@@ -54,7 +47,6 @@ namespace RestaurantOrderingSystem
             lblStatus.Font = normal;
             lblStatus.ForeColor = Color.FromArgb(60, 60, 60);
 
-            // ===== INPUTS =====
             cmbTableNo.Font = normal;
             cmbTableNo.BackColor = Color.White;
 
@@ -65,22 +57,8 @@ namespace RestaurantOrderingSystem
             cmbStatus.BackColor = Color.White;
 
             tbLocation.Font = normal;
-            tbLocation.BackColor  = Color.White;
+            tbLocation.BackColor = Color.White;
 
-            // ===== BUTTONS =====
-
-            // Primary (Update)
-
-
-            // Exit (secondary)
-            btnExit.FlatStyle = FlatStyle.Flat;
-            btnExit.BackColor = Color.LightGray;
-            btnExit.ForeColor = Color.Black;
-            btnExit.FlatAppearance.BorderSize = 0;
-            btnExit.Font = normal;
-            btnExit.FlatAppearance.MouseOverBackColor = Color.Gray;
-
-            // ===== INITIAL STATE =====
             btnUpdateTable.Enabled = false;
             numSeats.Enabled = false;
             cmbStatus.Enabled = false;
@@ -107,12 +85,14 @@ namespace RestaurantOrderingSystem
                 btnUpdateTable.Enabled = false;
                 numSeats.Enabled = false;
                 cmbStatus.Enabled = false;
+                tbLocation.Enabled = false;
                 return;
             }
 
             btnUpdateTable.Enabled = true;
             numSeats.Enabled = true;
             cmbStatus.Enabled = true;
+            tbLocation.Enabled = true;
 
             Table selectedTable = cmbTableNo.SelectedItem as Table;
             _ = selectedTable.TableId;
@@ -125,7 +105,7 @@ namespace RestaurantOrderingSystem
             tbLocation.Text = location;
         }
 
-        private void btnUpdateTable_Click(object sender, EventArgs e)
+        private void BtnUpdateTable_Click(object sender, EventArgs e)
         {
             if (cmbTableNo.SelectedIndex == -1)
             {
@@ -170,7 +150,7 @@ namespace RestaurantOrderingSystem
             }
 
             Table table = new Table(seatingCapacity, tableNo, status, location);
-           
+
 
             table.UpdateTable();
 
@@ -190,15 +170,6 @@ namespace RestaurantOrderingSystem
             this.Close();
         }
 
-        private void numSeats_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void cmbStatus_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void LoadTables()
         {
@@ -235,19 +206,11 @@ namespace RestaurantOrderingSystem
             }
         }
 
-        private void lblCapacity_Click(object sender, EventArgs e)
-        {
 
-        }
-
-        private void backToolStripMenuItem_Click(object sender, EventArgs e)
+        private void BackToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

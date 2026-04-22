@@ -109,7 +109,7 @@
             this.dgvOrderItems.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvOrderItems.Size = new System.Drawing.Size(489, 188);
             this.dgvOrderItems.TabIndex = 8;
-            this.dgvOrderItems.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvOrderItems_CellContentClick);
+            this.dgvOrderItems.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvOrderItems_CellContentClick);
             // 
             // Item
             // 
@@ -178,7 +178,7 @@
             this.btnExit.TabIndex = 13;
             this.btnExit.Text = "Exit";
             this.btnExit.UseVisualStyleBackColor = true;
-            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            this.btnExit.Click += new System.EventHandler(this.BtnExit_Click);
             // 
             // btnCancelOrder
             // 
@@ -190,7 +190,7 @@
             this.btnCancelOrder.TabIndex = 12;
             this.btnCancelOrder.Text = "Cancel Order";
             this.btnCancelOrder.UseVisualStyleBackColor = true;
-            this.btnCancelOrder.Click += new System.EventHandler(this.btnCancel_Click);
+            this.btnCancelOrder.Click += new System.EventHandler(this.BtnCancel_Click);
             // 
             // groupBox1
             // 
@@ -217,7 +217,7 @@
             this.cmbOrders.Name = "cmbOrders";
             this.cmbOrders.Size = new System.Drawing.Size(170, 27);
             this.cmbOrders.TabIndex = 1;
-            this.cmbOrders.SelectedIndexChanged += new System.EventHandler(this.cmbOrders_SelectedIndexChanged_1);
+            this.cmbOrders.SelectedIndexChanged += new System.EventHandler(this.CmbOrders_SelectedIndexChanged_1);
             // 
             // label1
             // 
@@ -260,7 +260,7 @@
             this.backToolStripMenuItem.RightToLeftAutoMirrorImage = true;
             this.backToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.backToolStripMenuItem.Text = "Back";
-            this.backToolStripMenuItem.Click += new System.EventHandler(this.backToolStripMenuItem_Click);
+            this.backToolStripMenuItem.Click += new System.EventHandler(this.BackToolStripMenuItem_Click);
             // 
             // FrmCancelOrder
             // 
@@ -276,7 +276,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FrmCancelOrder";
             this.Text = "Cancel Order";
-            this.Load += new System.EventHandler(this.frmCancelOrder_Load);
+            this.Load += new System.EventHandler(this.FrmCancelOrder_Load);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOrderItems)).EndInit();

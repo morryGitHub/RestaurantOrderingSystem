@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace RestaurantOrderingSystem
@@ -97,6 +92,10 @@ namespace RestaurantOrderingSystem
 
             cmbTableNo.Items.Remove("Select the Table");
             btnRemoveTable.Enabled = true;
+
+            Table selectedTable = cmbTableNo.SelectedItem as Table;
+            string location = selectedTable.Location;
+            tbLocation.Text = location;
         }
 
         private void FrmRemoveTable_Load(object sender, EventArgs e)
@@ -108,16 +107,18 @@ namespace RestaurantOrderingSystem
             lblTitle.Font = new Font("Segoe UI", 16, FontStyle.Bold);
             lblTitle.ForeColor = Color.FromArgb(30, 30, 30);
 
-   
+
             groupBox1.Font = new Font("Segoe UI", 10, FontStyle.Bold);
             groupBox1.Padding = new Padding(10);
 
             lblTableNo.Font = normal;
             lblTableNo.ForeColor = Color.FromArgb(60, 60, 60);
+            lblLocation.Font = normal;
+            lblLocation.ForeColor = Color.FromArgb(60, 60, 60);
 
             cmbTableNo.Font = normal;
-     
-          
+            tbLocation.Font = normal;
+            tbLocation.ReadOnly = true;
         }
 
         private void LoadTables()
@@ -153,7 +154,7 @@ namespace RestaurantOrderingSystem
             }
         }
 
-        private void backToolStripMenuItem_Click(object sender, EventArgs e)
+        private void BackToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
         }

@@ -18,9 +18,10 @@ namespace RestaurantOrderingSystem
             InitializeComponent();
             UIStyleHelper.ApplyDarkTheme(dgvRevenue);
             UIStyleHelper.ApplyPrimaryButtonStyle(btnGenerate);
+            UIStyleHelper.ApplyCancelButtonStyle(btnExit);
 
         }
-        private void btnGenerate_Click(object sender, EventArgs e)
+        private void BtnGenerate_Click(object sender, EventArgs e)
         {
             if (cmbYear.SelectedIndex == -1)
             {
@@ -199,7 +200,12 @@ namespace RestaurantOrderingSystem
             }
         }
 
-        private void backToolStripMenuItem_Click(object sender, EventArgs e)
+        private void BackToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void BtnExit_Click(object sender, EventArgs e)
         {
             this.Close();
         }

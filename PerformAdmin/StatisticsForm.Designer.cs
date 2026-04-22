@@ -38,6 +38,7 @@
             this.dgvStats = new System.Windows.Forms.DataGridView();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.backToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnExit = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStats)).BeginInit();
@@ -60,9 +61,9 @@
             this.groupBox1.Controls.Add(this.lblCat);
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(13, 63);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox1.Size = new System.Drawing.Size(428, 89);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
@@ -72,13 +73,13 @@
             // 
             this.btnGenerate.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGenerate.Location = new System.Drawing.Point(322, 36);
-            this.btnGenerate.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnGenerate.Margin = new System.Windows.Forms.Padding(2);
             this.btnGenerate.Name = "btnGenerate";
             this.btnGenerate.Size = new System.Drawing.Size(88, 27);
             this.btnGenerate.TabIndex = 3;
             this.btnGenerate.Text = "Generate";
             this.btnGenerate.UseVisualStyleBackColor = true;
-            this.btnGenerate.Click += new System.EventHandler(this.btnGenerate_Click_1);
+            this.btnGenerate.Click += new System.EventHandler(this.BtnGenerate_Click);
             // 
             // cmbCat
             // 
@@ -96,11 +97,10 @@
             "Payments By Method",
             "Total Refunded Amount"});
             this.cmbCat.Location = new System.Drawing.Point(128, 37);
-            this.cmbCat.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbCat.Margin = new System.Windows.Forms.Padding(2);
             this.cmbCat.Name = "cmbCat";
             this.cmbCat.Size = new System.Drawing.Size(176, 27);
             this.cmbCat.TabIndex = 2;
-            this.cmbCat.SelectedIndexChanged += new System.EventHandler(this.CmbCat_SelectedIndexChanged);
             // 
             // lblCat
             // 
@@ -123,16 +123,15 @@
             this.lblTitle.Size = new System.Drawing.Size(315, 30);
             this.lblTitle.TabIndex = 8;
             this.lblTitle.Text = "Print Yearly Revenue Analysis";
-            this.lblTitle.Click += new System.EventHandler(this.lblTitle_Click);
             // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.dgvStats);
             this.groupBox2.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold);
             this.groupBox2.Location = new System.Drawing.Point(13, 166);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox2.Size = new System.Drawing.Size(428, 316);
             this.groupBox2.TabIndex = 11;
             this.groupBox2.TabStop = false;
@@ -149,7 +148,7 @@
             this.dgvStats.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvStats.GridColor = System.Drawing.Color.Black;
             this.dgvStats.Location = new System.Drawing.Point(4, 30);
-            this.dgvStats.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dgvStats.Margin = new System.Windows.Forms.Padding(2);
             this.dgvStats.Name = "dgvStats";
             this.dgvStats.ReadOnly = true;
             this.dgvStats.RowHeadersVisible = false;
@@ -157,7 +156,6 @@
             this.dgvStats.RowTemplate.Height = 24;
             this.dgvStats.Size = new System.Drawing.Size(419, 283);
             this.dgvStats.TabIndex = 7;
-            this.dgvStats.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataStat_CellContentClick);
             // 
             // menuStrip1
             // 
@@ -171,7 +169,6 @@
             this.menuStrip1.Size = new System.Drawing.Size(450, 24);
             this.menuStrip1.TabIndex = 12;
             this.menuStrip1.Text = "menuStrip1";
-            this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
             // 
             // backToolStripMenuItem
             // 
@@ -179,20 +176,33 @@
             this.backToolStripMenuItem.Name = "backToolStripMenuItem";
             this.backToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.backToolStripMenuItem.Text = "Back";
-            this.backToolStripMenuItem.Click += new System.EventHandler(this.backToolStripMenuItem_Click);
+            this.backToolStripMenuItem.Click += new System.EventHandler(this.BackToolStripMenuItem_Click);
+            // 
+            // btnExit
+            // 
+            this.btnExit.Font = new System.Drawing.Font("Segoe UI", 10.8F);
+            this.btnExit.Location = new System.Drawing.Point(322, 495);
+            this.btnExit.Margin = new System.Windows.Forms.Padding(2);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(114, 33);
+            this.btnExit.TabIndex = 14;
+            this.btnExit.Text = "Exit";
+            this.btnExit.UseVisualStyleBackColor = true;
+            this.btnExit.Click += new System.EventHandler(this.BtnExit_Click);
             // 
             // FrmStatistics
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(450, 500);
+            this.ClientSize = new System.Drawing.Size(450, 541);
+            this.Controls.Add(this.btnExit);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.lblSummary);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FrmStatistics";
             this.Text = "StatisticsForm";
             this.Load += new System.EventHandler(this.StatisticsForm_Load);
@@ -218,5 +228,6 @@
         private System.Windows.Forms.DataGridView dgvStats;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem backToolStripMenuItem;
+        private System.Windows.Forms.Button btnExit;
     }
 }

@@ -21,12 +21,12 @@ namespace RestaurantOrderingSystem
 
         }
 
-        private void frmCancelOrder_Load(object sender, EventArgs e)
+        private void FrmCancelOrder_Load(object sender, EventArgs e)
         {
             FillActiveOrdersComboBox();
         }
 
-        private void cmbOrders_SelectedIndexChanged_1(object sender, EventArgs e)
+        private void CmbOrders_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             dgvOrderItems.Rows.Clear();
             lblTotal.Text = "€{0.00}";
@@ -73,7 +73,7 @@ namespace RestaurantOrderingSystem
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void BtnCancel_Click(object sender, EventArgs e)
         {
             if (cmbOrders.SelectedIndex == -1)
             {
@@ -107,13 +107,13 @@ namespace RestaurantOrderingSystem
             this.Close();
         }
 
-        private void btnExit_Click(object sender, EventArgs e)
+        private void BtnExit_Click(object sender, EventArgs e)
         {
             this.Close();
 
         }
 
-        private void dgvOrderItems_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void DgvOrderItems_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
@@ -132,7 +132,7 @@ namespace RestaurantOrderingSystem
             }
         }
 
-        private void backToolStripMenuItem_Click(object sender, EventArgs e)
+        private void BackToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
         }

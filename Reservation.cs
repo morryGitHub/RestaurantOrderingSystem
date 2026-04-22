@@ -12,20 +12,15 @@ namespace RestaurantOrderingSystem
 {
     internal class Reservation
     {
-        private int ReservationID;
-        private int TableID;
-        private string CustomerName;
-        private string CustomerPhone;
-        private string ReservationDateStart;
-        private string ReservationDateEnd;
-        private int NumOfGuest;
-        private string Status;
+        public int ReservationID { get; set; }
+        public int TableID { get; set; }
+        public string CustomerName { get; set; }
+        public string CustomerPhone { get; set; }
+        public string ReservationDateStart { get; set; }
+        public string ReservationDateEnd { get; set; }
+        public int NumOfGuest { get; set; }
+        public string Status { get; set; }
 
-        public Reservation(int reservationID)
-        {
-            ReservationID = reservationID;
-
-        }
         public Reservation(int reservationID, int tableID, string customerName, string customerPhone, string reservationDateStart, string reservationDateEnd, int numOfGuest, string status)
         {
             ReservationID = reservationID;
@@ -54,6 +49,11 @@ namespace RestaurantOrderingSystem
             CustomerPhone = customerPhone;
             ReservationDateStart = reservationDateStart;
             NumOfGuest = numOfGuest;
+        }
+
+        public Reservation(int reservationID)
+        {
+            ReservationID = reservationID;
         }
 
         public void DeleteReservation()

@@ -145,7 +145,6 @@
             this.dgvOrderDetails.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvOrderDetails.Size = new System.Drawing.Size(489, 175);
             this.dgvOrderDetails.TabIndex = 4;
-            this.dgvOrderDetails.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPayments_CellContentClick);
             // 
             // lblTitle
             // 
@@ -186,7 +185,7 @@
             this.cmbOrders.Name = "cmbOrders";
             this.cmbOrders.Size = new System.Drawing.Size(150, 27);
             this.cmbOrders.TabIndex = 1;
-            this.cmbOrders.SelectedIndexChanged += new System.EventHandler(this.cmbOrders_SelectedIndexChanged);
+            this.cmbOrders.SelectedIndexChanged += new System.EventHandler(this.CmbOrders_SelectedIndexChanged);
             // 
             // lblOrder
             // 
@@ -223,7 +222,7 @@
             this.btnCancel.TabIndex = 7;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnExit_Click);
+            this.btnCancel.Click += new System.EventHandler(this.BtnExit_Click);
             // 
             // btnReprint
             // 
@@ -235,7 +234,7 @@
             this.btnReprint.TabIndex = 6;
             this.btnReprint.Text = "Reprint";
             this.btnReprint.UseVisualStyleBackColor = true;
-            this.btnReprint.Click += new System.EventHandler(this.btnRefund_Click);
+            this.btnReprint.Click += new System.EventHandler(this.BtnRefund_Click);
             // 
             // menuStrip1
             // 
@@ -256,7 +255,7 @@
             this.backToolStripMenuItem.RightToLeftAutoMirrorImage = true;
             this.backToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.backToolStripMenuItem.Text = "Back";
-            this.backToolStripMenuItem.Click += new System.EventHandler(this.backToolStripMenuItem_Click);
+            this.backToolStripMenuItem.Click += new System.EventHandler(this.BackToolStripMenuItem_Click);
             // 
             // Item
             // 

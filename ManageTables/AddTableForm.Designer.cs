@@ -57,7 +57,6 @@
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "Add Table";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblTitle.Click += new System.EventHandler(this.lblTitle_Click);
             // 
             // lblTableNo
             // 
@@ -95,26 +94,26 @@
             // btnAddTable
             // 
             this.btnAddTable.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddTable.Location = new System.Drawing.Point(244, 327);
+            this.btnAddTable.Location = new System.Drawing.Point(244, 338);
             this.btnAddTable.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.btnAddTable.Name = "btnAddTable";
             this.btnAddTable.Size = new System.Drawing.Size(114, 34);
             this.btnAddTable.TabIndex = 5;
             this.btnAddTable.Text = "Add Table";
             this.btnAddTable.UseVisualStyleBackColor = true;
-            this.btnAddTable.Click += new System.EventHandler(this.btnAddTable_Click);
+            this.btnAddTable.Click += new System.EventHandler(this.BtnAddTable_Click);
             // 
             // btnCancel
             // 
             this.btnCancel.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancel.Location = new System.Drawing.Point(55, 327);
+            this.btnCancel.Location = new System.Drawing.Point(55, 338);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(114, 34);
             this.btnCancel.TabIndex = 6;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            this.btnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
             // 
             // groupBox1
             // 
@@ -129,7 +128,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(5, 6, 5, 6);
-            this.groupBox1.Size = new System.Drawing.Size(358, 205);
+            this.groupBox1.Size = new System.Drawing.Size(358, 210);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Table Details";
@@ -144,7 +143,6 @@
             this.tableNum.Size = new System.Drawing.Size(123, 26);
             this.tableNum.TabIndex = 5;
             this.tableNum.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.tableNum.TextChanged += new System.EventHandler(this.tableNum_TextChanged);
             // 
             // menuStrip1
             // 
@@ -166,7 +164,7 @@
             this.backToolStripMenuItem.RightToLeftAutoMirrorImage = true;
             this.backToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.backToolStripMenuItem.Text = "Back";
-            this.backToolStripMenuItem.Click += new System.EventHandler(this.backToolStripMenuItem_Click);
+            this.backToolStripMenuItem.Click += new System.EventHandler(this.BackToolStripMenuItem_Click);
             // 
             // lblLocation
             // 
@@ -191,7 +189,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 30F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(428, 376);
+            this.ClientSize = new System.Drawing.Size(428, 396);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnAddTable);

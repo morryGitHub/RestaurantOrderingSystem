@@ -11,13 +11,13 @@ namespace RestaurantOrderingSystem
 {
     internal class MenuItem
     {
-        public int ItemID { get; set; }     // DB ID
+        public int ID { get; set; } 
         public string Name { get; set; }
         public decimal Price { get; set; }
 
         public MenuItem(int itemID, string name, decimal price)
         {
-            ItemID = itemID;
+            ID = itemID;
             Name = name;
             Price = price;
         }
@@ -25,7 +25,7 @@ namespace RestaurantOrderingSystem
 
         public MenuItem(int itemID, string name)
         {
-            ItemID = itemID;
+            ID = itemID;
             Name = name;
         }
 

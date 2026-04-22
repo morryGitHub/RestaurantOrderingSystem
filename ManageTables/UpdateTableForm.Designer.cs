@@ -57,7 +57,6 @@
             this.lblStatus.Size = new System.Drawing.Size(52, 21);
             this.lblStatus.TabIndex = 3;
             this.lblStatus.Text = "Status";
-            this.lblStatus.Click += new System.EventHandler(this.label4_Click);
             // 
             // cmbStatus
             // 
@@ -72,7 +71,6 @@
             this.cmbStatus.Name = "cmbStatus";
             this.cmbStatus.Size = new System.Drawing.Size(143, 27);
             this.cmbStatus.TabIndex = 10;
-            this.cmbStatus.SelectedIndexChanged += new System.EventHandler(this.cmbStatus_SelectedIndexChanged);
             // 
             // groupBox1
             // 
@@ -118,7 +116,6 @@
             this.numSeats.Size = new System.Drawing.Size(143, 26);
             this.numSeats.TabIndex = 4;
             this.numSeats.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.numSeats.ValueChanged += new System.EventHandler(this.numSeats_ValueChanged);
             // 
             // lblCapacity
             // 
@@ -130,7 +127,6 @@
             this.lblCapacity.Size = new System.Drawing.Size(125, 21);
             this.lblCapacity.TabIndex = 2;
             this.lblCapacity.Text = "Seating Capacity";
-            this.lblCapacity.Click += new System.EventHandler(this.lblCapacity_Click);
             // 
             // lblTabeNo
             // 
@@ -165,7 +161,7 @@
             this.btnUpdateTable.TabIndex = 12;
             this.btnUpdateTable.Text = "Update Table";
             this.btnUpdateTable.UseVisualStyleBackColor = true;
-            this.btnUpdateTable.Click += new System.EventHandler(this.btnUpdateTable_Click);
+            this.btnUpdateTable.Click += new System.EventHandler(this.BtnUpdateTable_Click);
             // 
             // lblTitle
             // 
@@ -197,7 +193,7 @@
             this.backToolStripMenuItem.RightToLeftAutoMirrorImage = true;
             this.backToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.backToolStripMenuItem.Text = "Back";
-            this.backToolStripMenuItem.Click += new System.EventHandler(this.backToolStripMenuItem_Click);
+            this.backToolStripMenuItem.Click += new System.EventHandler(this.BackToolStripMenuItem_Click);
             // 
             // lblLocation
             // 
@@ -209,7 +205,6 @@
             this.lblLocation.Size = new System.Drawing.Size(69, 21);
             this.lblLocation.TabIndex = 14;
             this.lblLocation.Text = "Location";
-            this.lblLocation.Click += new System.EventHandler(this.label1_Click);
             // 
             // tbLocation
             // 

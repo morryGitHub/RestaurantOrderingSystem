@@ -18,18 +18,11 @@ namespace RestaurantOrderingSystem
             InitializeComponent();
             UIStyleHelper.ApplyDarkTheme(dgvOrderItems);
             UIStyleHelper.ApplyPrimaryButtonStyle(btnPay);
-
             UIStyleHelper.ApplyCancelButtonStyle(btnCancel);
-
-
         }
 
-        private void lblTitle_Click(object sender, EventArgs e)
-        {
 
-        }
-
-        private void btnPay_Click(object sender, EventArgs e)
+        private void BtnPay_Click(object sender, EventArgs e)
         {
             if (cmbOrders.SelectedItem.ToString() == "Select the Order")
             {
@@ -74,72 +67,26 @@ namespace RestaurantOrderingSystem
         }
 
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void BtnCancel_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Payment cancelled.", "Cancelled", MessageBoxButtons.OK);
+            MessageBox.Show("No payment was processed.",
+                    "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.Close();
         }
 
-
-        private void lblTotal_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblTotalText_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
-        private void cmbMethod_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblSelectItems_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void frmMakePayment_Load(object sender, EventArgs e)
+        private void FrmMakePayment_Load(object sender, EventArgs e)
         {
 
             this.BackColor = Color.White;
 
-            // TITLE STYLE
             lblTitle.Font = new Font("Segoe UI", 16, FontStyle.Bold);
             lblTitle.ForeColor = Color.FromArgb(30, 30, 30);
 
-
-
-            // TOTAL LABEL STYLE
             lblAmount.Font = new Font("Segoe UI", 14, FontStyle.Bold);
             lblAmount.ForeColor = Color.FromArgb(50, 50, 50);
 
-            // DATA LOADING
             FillActiveOrdersComboBox();
             FillMethodType();
-        }
-
-        private void StyleButton(Button btn, bool isSecondary = false)
-        {
-            btn.FlatStyle = FlatStyle.Flat;
-            btn.FlatAppearance.BorderSize = 0;
-            btn.Font = new Font("Segoe UI", 10, FontStyle.Bold);
-
-            if (!isSecondary)
-            {
-                // Matches your btnGenerate style
-                btn.BackColor = Color.FromArgb(0, 120, 215); // Blue
-                btn.ForeColor = Color.White;
-            }
-            else
-            {
-                // Matches your secondary style
-                btn.BackColor = Color.LightGray;
-                btn.ForeColor = Color.Black;
-            }
         }
 
 
@@ -166,12 +113,8 @@ namespace RestaurantOrderingSystem
 
         }
 
-        private void dgvOrderItems_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
 
-        }
-
-        private void cmbOrders_SelectedIndexChanged(object sender, EventArgs e)
+        private void CmbOrders_SelectedIndexChanged(object sender, EventArgs e)
         {
             dgvOrderItems.Rows.Clear();
             lblAmount.Text = "€0.00";
@@ -221,13 +164,7 @@ namespace RestaurantOrderingSystem
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-        private void lblAmount_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void backToolStripMenuItem_Click(object sender, EventArgs e)
+        private void BackToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
         }

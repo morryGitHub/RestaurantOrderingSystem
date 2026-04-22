@@ -12,7 +12,7 @@ namespace RestaurantOrderingSystem
 {
     public partial class FrmNewOrder : Form
     {
-        public int TableID { get; }
+        public int TableID { get; set; }
 
         public FrmNewOrder()
         {
@@ -128,7 +128,7 @@ namespace RestaurantOrderingSystem
 
             string itemName = menuItem.Name;
             decimal unitPrice = menuItem.Price;
-            int menuItemID = menuItem.ItemID;
+            int menuItemID = menuItem.ID;
 
             int qty = (int)numQty.Value;
 
@@ -306,7 +306,7 @@ namespace RestaurantOrderingSystem
             }
         }
 
-        private void backToolStripMenuItem_Click(object sender, EventArgs e)
+        private void BackToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
         }

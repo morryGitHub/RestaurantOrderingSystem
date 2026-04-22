@@ -25,54 +25,17 @@ namespace RestaurantOrderingSystem
 
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void FrmAddReservation_Load(object sender, EventArgs e)
         {
-        }
+            ApplyReservationDesign();
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click_1(object sender, EventArgs e)
-        {
 
         }
 
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-            DialogResult confirm = MessageBox.Show(
-                "Are you sure you want to cancel this reservation?",
-                "Confirm Cancellation",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question
-            );
-
-            if (confirm == DialogResult.Yes)
-            {
-                MessageBox.Show(
-                    "Reservation was successfully cancelled!",
-                    "Success",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information
-                );
-
-                this.Close();
-            }
-        }
+ 
 
 
-        private void btnAddReservation_Click(object sender, EventArgs e)
+        private void BtnAddReservation_Click(object sender, EventArgs e)
         {
             // Validate Name
             string nameCheck = Validation.IsNameValid(tbCustName.Text);
@@ -199,108 +162,124 @@ namespace RestaurantOrderingSystem
             }
         }
 
-
-        private void cbAvailableTables_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnFindAvailableTables_Click(object sender, EventArgs e)
+        private void BtnFindAvailableTables_Click(object sender, EventArgs e)
         {
             try
             {
                 dgvTables.Rows.Clear();
+                DateTime selectedStart = datePicker.Value.Date + timePicker.Value.TimeOfDay;
 
-                lblErrorMsg.Visible = false;
-                dgvTables.Visible = true;
+                int hour = selectedStart.Hour;
+                if (hour < 8 || hour >= 23)
+                {
+                    MessageBox.Show("Reservations are only available between 08:00 and 23:00.",
+                                    "Invalid Time", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
 
-                int numOfGuest = (int)numericNumOfGuests.Value;
-                DateTime startDateTime = datePicker.Value.Date
-                             + timePicker.Value.TimeOfDay;
+                var tables = ReservationManager.GetAvailableTablesList((int)numericNumOfGuests.Value, selectedStart);
 
-                string start = startDateTime.ToString("dd-MM-yyyy HH:mm");
-
-                DateTime date = datePicker.Value.Date;
-                TimeSpan time = timePicker.Value.TimeOfDay;
-                DateTime endDateTime = date + time + TimeSpan.FromHours(2);
-
-                string end = endDateTime.ToString("dd-MM-yyyy HH:mm");
-
-
-                DataSet ds = Reservation.GetAvailableTablesForReservation(numOfGuest, start, end);
-
-                if (ds.Tables[0].Rows.Count == 0)
+                if (tables.Count == 0)
                 {
                     lblErrorMsg.Visible = true;
                     dgvTables.Visible = false;
                 }
                 else
                 {
+                    lblErrorMsg.Visible = false;
+                    dgvTables.Visible = true;
 
-                    foreach (DataRow row in ds.Tables[0].Rows)
+                    tables.ForEach(row =>
                     {
-                        int tableID = Convert.ToInt32(row["TableID"]);
-                        int tableNo = Convert.ToInt32(row["TableNo"]);
-                        int capacity = Convert.ToInt32(row["Capacity"]);
-                        string location = row["Location"].ToString();
-
-                        dgvTables.Rows.Add(tableID, tableNo, capacity, location);
-                    }
+                        dgvTables.Rows.Add(row.TableId, row.TableNumber, row.Capacity, row.Location);
+                    });
                 }
             }
-
             catch (Exception ex)
             {
-                MessageBox.Show("An error occurred while fetching available tables: " + ex.Message,
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error: " + ex.Message);
             }
         }
 
-        private void dateTimePicker1_ValueChanged_1(object sender, EventArgs e)
+        private void DateTimePicker1_ValueChanged_1(object sender, EventArgs e)
         {
             dgvTables.Rows.Clear();
         }
 
-        private void lblPhoneNum_Click(object sender, EventArgs e)
+        private void BtnCancel_Click(object sender, EventArgs e)
         {
+            DialogResult confirm = MessageBox.Show(
+               "Are you sure you want to cancel this reservation?",
+               "Confirm Cancellation",
+               MessageBoxButtons.YesNo,
+               MessageBoxIcon.Question
+           );
+
+            if (confirm == DialogResult.Yes)
+            {
+                MessageBox.Show(
+                    "Reservation was successfully cancelled!",
+                    "Success",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+
+                this.Close();
+            }
+        }
+
+
+
+        private void TimePicker_ValueChanged(object sender, EventArgs e)
+        {
+            dgvTables.Rows.Clear();
 
         }
 
-        private void dgvTables_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void NumericNumOfGuests_ValueChanged(object sender, EventArgs e)
         {
+            dgvTables.Rows.Clear();
 
         }
 
-        private void tbPhoneNumber_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnCancel_Click_1(object sender, EventArgs e)
+        private void BackToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void tbCustName_TextChanged(object sender, EventArgs e)
+       
+
+        private void ApplyReservationDesign()
         {
+            var normalFont = new Font("Segoe UI", 10, FontStyle.Regular);
+            var boldFont = new Font("Segoe UI", 10, FontStyle.Bold);
 
-        }
+            this.BackColor = Color.White;
 
-        private void timePicker_ValueChanged(object sender, EventArgs e)
-        {
-            dgvTables.Rows.Clear();
+            lblTitle.Font = new Font("Segoe UI", 16, FontStyle.Bold);
+            lblTitle.ForeColor = Color.FromArgb(30, 30, 30);
 
-        }
+            grpCustomerInfo.Font = boldFont;
+            grpCustomerInfo.ForeColor = Color.FromArgb(50, 50, 50);
 
-        private void numericNumOfGuests_ValueChanged(object sender, EventArgs e)
-        {
-            dgvTables.Rows.Clear();
+            grpReservationDetails.Font = boldFont;
+            grpReservationDetails.ForeColor = Color.FromArgb(50, 50, 50);
 
-        }
+            lblCustName.Font = normalFont;
+            lblPhoneNum.Font = normalFont;
+            lblEmail.Font = normalFont;
+            lblDate.Font = normalFont;
+            lblTime.Font = normalFont;
+            lblNumOfGuests.Font = normalFont;
 
-        private void backToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.Close();
+            tbCustName.Font = normalFont;
+            tbPhoneNumber.Font = normalFont;
+            tbEmail.Font = normalFont;
+            numericNumOfGuests.Font = normalFont;
+            datePicker.Font = normalFont;
+            timePicker.Font = normalFont;
+
+            this.ActiveControl = tbCustName;
         }
     }
 }
