@@ -142,9 +142,6 @@
 
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Button btnManager;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label labelDesc1;
-        private System.Windows.Forms.Label labelDesc2;
         private System.Windows.Forms.Button btnWaiter;
         private System.Windows.Forms.Label labelFooter;
         private System.Windows.Forms.Label lblClock;

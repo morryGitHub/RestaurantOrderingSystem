@@ -54,8 +54,8 @@ namespace RestaurantOrderingSystem
             try
             {
                 Order order = cmbOrders.SelectedItem as Order;
-                _selectedOrderId = order.ID;
-                DataSet dsActive = OrderItem.GetMenuItemsFromOrder(_selectedOrderId, "Active");
+                OrderItem orderItem = new OrderItem(order);
+                DataSet dsActive = orderItem.GetMenuItemsFromOrder();
 
                 foreach (DataRow row in dsActive.Tables[0].Rows)
                 {
@@ -276,19 +276,26 @@ namespace RestaurantOrderingSystem
 
         public void FillMenuItemsComboBox()
         {
-            cmbItems.Items.Clear();
-            List<MenuItem> menuItems = MenuItem.GetMenuItems();
-
-
-            cmbItems.Items.Add("Select the Item");
-            cmbItems.SelectedIndex = 0;
-
-            foreach (MenuItem menuItem in menuItems)
+            try
             {
-                cmbItems.Items.Add(menuItem);
+                cmbItems.Items.Clear();
+                List<MenuItem> menuItems = MenuItem.GetMenuItems();
+
+
+                cmbItems.Items.Add("Select the Item");
+                cmbItems.SelectedIndex = 0;
+
+                foreach (MenuItem menuItem in menuItems)
+                {
+                    cmbItems.Items.Add(menuItem);
+
+                }
 
             }
-
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to load menu items: " + ex.Message);
+            }
         }
 
         public void FillActiveOrdersComboBox()

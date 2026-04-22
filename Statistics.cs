@@ -275,12 +275,11 @@ namespace RestaurantOrderingSystem
 
                 return years;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show($"Error loading years: {ex.Message}",
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw;
             }
-            return new List<Statistics>();
+
         }
     }
 }

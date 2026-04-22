@@ -74,7 +74,7 @@ namespace RestaurantOrderingSystem
             }
             catch (OracleException ex)
             {
-                throw new Exception("Database error: " + ex.Message);
+                throw new Exception(ex.Message);
             }
         }
 
@@ -93,7 +93,7 @@ namespace RestaurantOrderingSystem
             }
             catch (OracleException ex)
             {
-                throw new Exception("Database error: " + ex.Message);
+                throw new Exception(ex.Message);
             }
         }
 
@@ -114,9 +114,9 @@ namespace RestaurantOrderingSystem
 
                 return null;
             }
-            catch (OracleException ex)
+            catch (Exception)
             {
-                throw new Exception("Database error: " + ex.Message);
+                throw;
             }
         }
 
@@ -177,7 +177,7 @@ namespace RestaurantOrderingSystem
             }
             catch (OracleException ex)
             {
-                throw new Exception("Database error: " + ex.Message);
+                throw new Exception(ex.Message);
             }
         }
 
@@ -197,7 +197,7 @@ namespace RestaurantOrderingSystem
             }
             catch (OracleException ex)
             {
-                throw new Exception("Database error: " + ex.Message);
+                throw new Exception(ex.Message);
             }
         }
 
@@ -229,7 +229,7 @@ namespace RestaurantOrderingSystem
             }
             catch (OracleException ex)
             {
-                throw new Exception("Database error: " + ex.Message);
+                throw new Exception(ex.Message);
             }
         }
 
@@ -252,10 +252,10 @@ namespace RestaurantOrderingSystem
 
                 return tables;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show("Database error: " + ex.Message);
-                return new List<Table>();
+                throw;
+
             }
 
         }
@@ -279,10 +279,9 @@ namespace RestaurantOrderingSystem
 
                 return tables;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show("Database error: " + ex.Message);
-                return new List<Table>();
+                throw;
             }
         }
     }

@@ -20,23 +20,6 @@ namespace RestaurantOrderingSystem
             UIStyleHelper.ApplyPrimaryButtonStyle(btnGenerate);
 
         }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-
-        }
-
         private void btnGenerate_Click(object sender, EventArgs e)
         {
             if (cmbYear.SelectedIndex == -1)
@@ -86,13 +69,23 @@ namespace RestaurantOrderingSystem
 
         public void FillYearsComboBox()
         {
-            cmbYear.Items.Clear();
-            List<Statistics> years = Statistics.LoadYears();
-
-            foreach (Statistics year in years)
+            try
             {
-                cmbYear.Items.Add(year);
+                cmbYear.Items.Clear();
+                List<Statistics> years = Statistics.LoadYears();
 
+                foreach (Statistics year in years)
+                {
+                    cmbYear.Items.Add(year);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to load years: {ex.Message}",
+                        "Data Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
             }
         }
 
@@ -134,11 +127,6 @@ namespace RestaurantOrderingSystem
         private void FillRevenueTotal(Label label, int year, decimal total)
         {
             label.Text = $"Total Revenue for {year}: {total:C}";
-        }
-
-        private void lblTotal_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void FormIncomeAnalysis_Load(int year)
@@ -209,11 +197,6 @@ namespace RestaurantOrderingSystem
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
-        }
-
-        private void chtData_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void backToolStripMenuItem_Click(object sender, EventArgs e)

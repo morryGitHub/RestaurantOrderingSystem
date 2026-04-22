@@ -55,6 +55,7 @@
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "Add Table";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblTitle.Click += new System.EventHandler(this.lblTitle_Click);
             // 
             // lblTableNo
             // 
@@ -63,7 +64,7 @@
             this.lblTableNo.Location = new System.Drawing.Point(21, 52);
             this.lblTableNo.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblTableNo.Name = "lblTableNo";
-            this.lblTableNo.Size = new System.Drawing.Size(107, 21);
+            this.lblTableNo.Size = new System.Drawing.Size(134, 28);
             this.lblTableNo.TabIndex = 1;
             this.lblTableNo.Text = "Table Number";
             // 
@@ -74,7 +75,7 @@
             this.lblCapacity.Location = new System.Drawing.Point(21, 107);
             this.lblCapacity.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblCapacity.Name = "lblCapacity";
-            this.lblCapacity.Size = new System.Drawing.Size(125, 21);
+            this.lblCapacity.Size = new System.Drawing.Size(158, 28);
             this.lblCapacity.TabIndex = 2;
             this.lblCapacity.Text = "Seating Capacity";
             // 
@@ -85,7 +86,7 @@
             this.numericSeatingCap.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.numericSeatingCap.Name = "numericSeatingCap";
             this.numericSeatingCap.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.numericSeatingCap.Size = new System.Drawing.Size(123, 26);
+            this.numericSeatingCap.Size = new System.Drawing.Size(123, 30);
             this.numericSeatingCap.TabIndex = 4;
             this.numericSeatingCap.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -136,7 +137,7 @@
             this.tableNum.Location = new System.Drawing.Point(205, 51);
             this.tableNum.Name = "tableNum";
             this.tableNum.ReadOnly = true;
-            this.tableNum.Size = new System.Drawing.Size(123, 26);
+            this.tableNum.Size = new System.Drawing.Size(123, 30);
             this.tableNum.TabIndex = 5;
             this.tableNum.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.tableNum.TextChanged += new System.EventHandler(this.tableNum_TextChanged);
@@ -144,11 +145,12 @@
             // menuStrip1
             // 
             this.menuStrip1.BackColor = System.Drawing.Color.Transparent;
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.backToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(428, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(428, 28);
             this.menuStrip1.TabIndex = 15;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -158,13 +160,13 @@
             this.backToolStripMenuItem.Name = "backToolStripMenuItem";
             this.backToolStripMenuItem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.backToolStripMenuItem.RightToLeftAutoMirrorImage = true;
-            this.backToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.backToolStripMenuItem.Size = new System.Drawing.Size(54, 24);
             this.backToolStripMenuItem.Text = "Back";
             this.backToolStripMenuItem.Click += new System.EventHandler(this.backToolStripMenuItem_Click);
             // 
             // FrmAddTable
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 30F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 37F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(428, 376);
             this.Controls.Add(this.groupBox1);

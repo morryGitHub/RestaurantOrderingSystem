@@ -447,7 +447,6 @@
         private System.Windows.Forms.Button btnDeleteItem;
         private System.Windows.Forms.Button btnEditItem;
         private System.Windows.Forms.Button btnAddButton;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Price;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem backToolStripMenuItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn ItemName;

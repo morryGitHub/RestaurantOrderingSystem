@@ -188,7 +188,8 @@ namespace RestaurantOrderingSystem
             try
             {
                 Order order = cmbOrders.SelectedItem as Order;
-                DataSet dsActive = OrderItem.GetMenuItemsFromOrder(order.ID, "Active");
+                OrderItem orderItem = new OrderItem(order);
+                DataSet dsActive = orderItem.GetMenuItemsFromOrder();
 
 
                 foreach (DataRow row in dsActive.Tables[0].Rows)

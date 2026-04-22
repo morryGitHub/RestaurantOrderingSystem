@@ -95,7 +95,6 @@ namespace RestaurantOrderingSystem
                 MessageBox.Show("Failed to load form. The database might be offline." +
                     "\n\nDetails: " + ex.Message,
                     "System Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.Close();
             }
         }
 
@@ -107,6 +106,11 @@ namespace RestaurantOrderingSystem
         private void backToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void lblTitle_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -55,11 +55,12 @@ namespace RestaurantOrderingSystem
 
             try
             {
-                string orderName = $"Table {order.Table.TableNumber} — Order #{order.ID}";
+                string orderName = order.ToString();
 
                 string paymentMethod = Payment.GetPaymentMethodByOrder(order.ID) ?? "Unspecified";
 
-                DataSet dsItems = OrderItem.GetMenuItemsFromOrder(order.ID, "Completed");
+                OrderItem orderItem = new OrderItem(order);
+                DataSet dsItems = orderItem.GetMenuItemsFromOrder();
                 decimal total = 0;
                 foreach (DataRow row in dsItems.Tables[0].Rows)
                 {
@@ -109,8 +110,8 @@ namespace RestaurantOrderingSystem
             try
             {
                 Order order = cmbOrders.SelectedItem as Order;
-
-                DataSet dsCompleted = OrderItem.GetMenuItemsFromOrder(order.ID, "Completed");
+                OrderItem orderItem = new OrderItem(order);
+                DataSet dsCompleted = orderItem.GetMenuItemsFromOrder();
 
                 foreach (DataRow row in dsCompleted.Tables[0].Rows)
                 {
