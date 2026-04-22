@@ -18,7 +18,7 @@ namespace RestaurantOrderingSystem
         public FrmAddReservation()
         {
             InitializeComponent();
-            UIStyleHelper.ApplyDarkTheme(dgvTables);
+            UIStyleHelper.ApplyDarkTheme(dgvAddTables);
             UIStyleHelper.ApplyPrimaryButtonStyle(btnAddReservation);
             UIStyleHelper.ApplyPrimaryButtonStyle(btnFindAvailableTables);
             UIStyleHelper.ApplyCancelButtonStyle(btnCancel);
@@ -78,7 +78,7 @@ namespace RestaurantOrderingSystem
             }
 
             // Validate Table Selection
-            string tableCheck = Validation.IsGridSelected(dgvTables, "Table");
+            string tableCheck = Validation.IsGridSelected(dgvAddTables, "Table");
             if (tableCheck != "Valid")
             {
                 MessageBox.Show(tableCheck, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -86,10 +86,8 @@ namespace RestaurantOrderingSystem
             }
             try
             {
-                DataGridViewRow row = dgvTables.SelectedRows[0];
+                DataGridViewRow row = dgvAddTables.SelectedRows[0];
                 int tableID = Convert.ToInt32(row.Cells["TableID"].Value);
-
-                Console.WriteLine(tableID);
 
                 int numOfGuest = (int)numericNumOfGuests.Value;
                 DateTime startDateTime = datePicker.Value.Date
@@ -166,7 +164,7 @@ namespace RestaurantOrderingSystem
         {
             try
             {
-                dgvTables.Rows.Clear();
+                dgvAddTables.Rows.Clear();
                 DateTime selectedStart = datePicker.Value.Date + timePicker.Value.TimeOfDay;
 
                 int hour = selectedStart.Hour;
@@ -177,21 +175,28 @@ namespace RestaurantOrderingSystem
                     return;
                 }
 
+                string guestCheck = Validation.IsGuestsValid((int)numericNumOfGuests.Value);
+                if (guestCheck != "Valid")
+                {
+                    MessageBox.Show(guestCheck, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
                 var tables = ReservationManager.GetAvailableTablesList((int)numericNumOfGuests.Value, selectedStart);
 
                 if (tables.Count == 0)
                 {
                     lblErrorMsg.Visible = true;
-                    dgvTables.Visible = false;
+                    dgvAddTables.Visible = false;
                 }
                 else
                 {
                     lblErrorMsg.Visible = false;
-                    dgvTables.Visible = true;
+                    dgvAddTables.Visible = true;
 
                     tables.ForEach(row =>
                     {
-                        dgvTables.Rows.Add(row.TableId, row.TableNumber, row.Capacity, row.Location);
+                        dgvAddTables.Rows.Add(row.TableId, row.TableNumber, row.Capacity, row.Location);
                     });
                 }
             }
@@ -203,7 +208,7 @@ namespace RestaurantOrderingSystem
 
         private void DateTimePicker1_ValueChanged_1(object sender, EventArgs e)
         {
-            dgvTables.Rows.Clear();
+            dgvAddTables.Rows.Clear();
         }
 
         private void BtnCancel_Click(object sender, EventArgs e)
@@ -232,13 +237,13 @@ namespace RestaurantOrderingSystem
 
         private void TimePicker_ValueChanged(object sender, EventArgs e)
         {
-            dgvTables.Rows.Clear();
+            dgvAddTables.Rows.Clear();
 
         }
 
         private void NumericNumOfGuests_ValueChanged(object sender, EventArgs e)
         {
-            dgvTables.Rows.Clear();
+            dgvAddTables.Rows.Clear();
 
         }
 

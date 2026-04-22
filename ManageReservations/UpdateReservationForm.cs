@@ -143,6 +143,13 @@ namespace RestaurantOrderingSystem
                 dgvTables.Rows.Clear();
                 DateTime selectedStart = datePicker.Value.Date + timePicker.Value.TimeOfDay;
 
+                string guestCheck = Validation.IsGuestsValid((int)numericNumOfGuests.Value);
+                if (guestCheck != "Valid")
+                {
+                    MessageBox.Show(guestCheck, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
                 var tables = ReservationManager.GetAvailableTablesList((int)numericNumOfGuests.Value, selectedStart);
 
                 if (tables.Count == 0)

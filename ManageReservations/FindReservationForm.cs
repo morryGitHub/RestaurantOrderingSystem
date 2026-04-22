@@ -134,7 +134,12 @@ namespace RestaurantOrderingSystem
 
                             Reservation reservation = new Reservation(resID);
                             reservation.DeleteReservation();
-                            MessageBox.Show("Reservation was succesfully cancelled");
+                            MessageBox.Show(
+                                "Done! The table is now marked as available.",
+                                "Success",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information);
+
                             this.Close();
 
                             break;
