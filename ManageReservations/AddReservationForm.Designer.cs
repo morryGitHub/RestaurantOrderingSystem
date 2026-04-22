@@ -45,10 +45,6 @@
             this.numericNumOfGuests = new System.Windows.Forms.NumericUpDown();
             this.datePicker = new System.Windows.Forms.DateTimePicker();
             this.dgvTables = new System.Windows.Forms.DataGridView();
-            this.TableID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TableNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Capacity = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Location = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.grpCustomerInfo = new System.Windows.Forms.GroupBox();
             this.tbEmail = new System.Windows.Forms.TextBox();
             this.lblEmail = new System.Windows.Forms.Label();

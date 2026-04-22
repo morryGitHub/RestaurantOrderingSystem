@@ -17,6 +17,7 @@ namespace RestaurantOrderingSystem
         {
             InitializeComponent();
             UIStyleHelper.ApplyPrimaryButtonStyle(btnUpdateTable);
+            UIStyleHelper.ApplyCancelButtonStyle(btnExit);
 
 
         }
