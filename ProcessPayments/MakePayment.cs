@@ -19,6 +19,8 @@ namespace RestaurantOrderingSystem
             UIStyleHelper.ApplyDarkTheme(dgvOrderItems);
             UIStyleHelper.ApplyPrimaryButtonStyle(btnPay);
 
+            UIStyleHelper.ApplyCancelButtonStyle(btnCancel);
+
 
         }
 

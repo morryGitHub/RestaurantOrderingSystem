@@ -20,6 +20,8 @@ namespace RestaurantOrderingSystem
             UIStyleHelper.ApplyPrimaryButtonStyle(btnNext);
             UIStyleHelper.ApplyPrimaryButtonStyle(btnSearch);
             dgvMatchingReservation.DefaultCellStyle.SelectionBackColor = Color.LightBlue;
+            UIStyleHelper.ApplyCancelButtonStyle(btnCancel);
+
 
         }
         private void dgvMatchingReservation_CellContentClick(object sender, DataGridViewCellEventArgs e)

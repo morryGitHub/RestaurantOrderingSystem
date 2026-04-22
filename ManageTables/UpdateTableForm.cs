@@ -11,12 +11,13 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace RestaurantOrderingSystem
 {
-    public partial class FrmUpdateTable: Form
+    public partial class FrmUpdateTable : Form
     {
         public FrmUpdateTable()
         {
             InitializeComponent();
             UIStyleHelper.ApplyPrimaryButtonStyle(btnUpdateTable);
+            UIStyleHelper.ApplyCancelButtonStyle(btnExit);
 
         }
         private void label4_Click(object sender, EventArgs e)
@@ -30,20 +31,16 @@ namespace RestaurantOrderingSystem
 
             var normal = new Font("Segoe UI", 10, FontStyle.Regular);
 
-            // ===== FORM BACKGROUND =====
             this.BackColor = Color.White;
-            // ===== TITLE =====
             lblTitle.Font = new Font("Segoe UI", 16, FontStyle.Bold);
             lblTitle.ForeColor = Color.FromArgb(30, 30, 30);
 
-            // ===== GROUPBOX (CARD STYLE) =====
             this.BackColor = Color.White;
 
             groupBox1.Font = new Font("Segoe UI", 10, FontStyle.Bold);
             groupBox1.ForeColor = Color.FromArgb(50, 50, 50);
             groupBox1.Padding = new Padding(10);
 
-            // ===== LABELS =====
             lblTabeNo.Font = normal;
             lblTabeNo.ForeColor = Color.FromArgb(60, 60, 60);
 
@@ -53,7 +50,6 @@ namespace RestaurantOrderingSystem
             lblStatus.Font = normal;
             lblStatus.ForeColor = Color.FromArgb(60, 60, 60);
 
-            // ===== INPUTS =====
             cmbTableNo.Font = normal;
             cmbTableNo.BackColor = Color.White;
 
@@ -63,20 +59,8 @@ namespace RestaurantOrderingSystem
             cmbStatus.Font = normal;
             cmbStatus.BackColor = Color.White;
 
-            // ===== BUTTONS =====
 
-            // Primary (Update)
-          
 
-            // Exit (secondary)
-            btnExit.FlatStyle = FlatStyle.Flat;
-            btnExit.BackColor = Color.LightGray;
-            btnExit.ForeColor = Color.Black;
-            btnExit.FlatAppearance.BorderSize = 0;
-            btnExit.Font = normal;
-            btnExit.FlatAppearance.MouseOverBackColor = Color.Gray;
-
-            // ===== INITIAL STATE =====
             btnUpdateTable.Enabled = false;
             numSeats.Enabled = false;
             cmbStatus.Enabled = false;
@@ -219,7 +203,7 @@ namespace RestaurantOrderingSystem
 
         private void backToolStripMenuItem_Click(object sender, EventArgs e)
         {
-                        this.Close();
+            this.Close();
         }
     }
 }

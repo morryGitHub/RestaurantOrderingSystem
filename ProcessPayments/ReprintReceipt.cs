@@ -18,6 +18,7 @@ namespace RestaurantOrderingSystem
             InitializeComponent();
             UIStyleHelper.ApplyDarkTheme(dgvOrderDetails);
             UIStyleHelper.ApplyPrimaryButtonStyle(btnReprint);
+            UIStyleHelper.ApplyCancelButtonStyle(btnCancel);
 
 
         }
@@ -31,28 +32,7 @@ namespace RestaurantOrderingSystem
         }
 
         // Helper method to maintain consistent button design across all forms
-        private void StyleButton(Button btn, bool isSecondary = false)
-        {
-            if (btn == null) return;
-
-            btn.FlatStyle = FlatStyle.Flat;
-            btn.FlatAppearance.BorderSize = 0;
-            btn.Font = new Font("Segoe UI", 10, FontStyle.Bold);
-
-            if (!isSecondary)
-            {
-                // Primary Blue Style
-                btn.BackColor = Color.FromArgb(0, 120, 215);
-                btn.ForeColor = Color.White;
-            }
-            else
-            {
-                // Secondary Gray Style
-                btn.BackColor = Color.LightGray;
-                btn.ForeColor = Color.Black;
-            }
-        }
-
+      
         private void dgvPayments_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
         }
