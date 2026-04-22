@@ -24,6 +24,7 @@ namespace RestaurantOrderingSystem
             try
             {
                 string seatingCheck = Validation.IsSeatingCapacityValid(numericSeatingCap.Value);
+                string location = tbLocation.Text;
 
                 if (seatingCheck != "Valid")
                 {
@@ -32,7 +33,17 @@ namespace RestaurantOrderingSystem
                 }
 
 
-                Table table = new Table(Convert.ToInt16(tableNum.Text), (int)numericSeatingCap.Value);
+                if (string.IsNullOrEmpty(location))
+                {
+                    MessageBox.Show("Please enter a table location.",
+                                    "Validation Error",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                    return;
+                }
+
+
+                Table table = new Table(Convert.ToInt16(tableNum.Text), (int)numericSeatingCap.Value, tbLocation.Text);
                 table.AddTable();
 
                 MessageBox.Show(

@@ -13,6 +13,7 @@ namespace RestaurantOrderingSystem
 
         private readonly int reservationID;
         private int tableID;
+        private int capacity = 0;
         public FrmUpdateReservation(int reservationID, int tableID)
         {
             InitializeComponent();
@@ -48,6 +49,7 @@ namespace RestaurantOrderingSystem
                     int tableID = Convert.ToInt32(row["TableID"]);
                     int resID = Convert.ToInt32(row["RESERVATIONID"]);
                     string status = row["STATUS"].ToString().Trim();
+                    int tableCapacity = Convert.ToInt32(row["CAPACITY"]);
 
                     string datePart = date.ToString("yyyy-MM-dd");     // only date
                     string timePart = date.ToString("HH:mm:ss");       // only time
@@ -61,6 +63,7 @@ namespace RestaurantOrderingSystem
                     tbTableNo.Text = tableNo.ToString();
                     numericNumOfGuests.Value = numOfGuest;
                     cmbStatus.SelectedItem = status;
+                    capacity = tableCapacity;
 
 
                 }
@@ -139,7 +142,7 @@ namespace RestaurantOrderingSystem
 
         private void numericNumOfGuests_ValueChanged(object sender, EventArgs e)
         {
-            dgvTables.Rows.Clear();
+            btnFindAvailableTables_Click(sender, e);
         }
 
         private void btnFindAvailableTables_Click(object sender, EventArgs e)
@@ -147,6 +150,7 @@ namespace RestaurantOrderingSystem
             try
             {
                 dgvTables.Rows.Clear();
+                lblErrorMsg.Visible = false;
 
                 dgvTables.Visible = true;
 
@@ -166,7 +170,7 @@ namespace RestaurantOrderingSystem
 
                 if (ds.Tables[0].Rows.Count == 0)
                 {
-                    //lblErrorMsg.Visible = true;
+                    lblErrorMsg.Visible = true;
                     dgvTables.Visible = false;
                 }
                 else
@@ -177,9 +181,9 @@ namespace RestaurantOrderingSystem
                         int tableID = Convert.ToInt32(row["TableID"]);
                         int tableNo = Convert.ToInt32(row["TableNo"]);
                         int capacity = Convert.ToInt32(row["Capacity"]);
-                        string status = row["Status"].ToString();
+                        string location = row["Location"].ToString();
 
-                        dgvTables.Rows.Add(tableID, tableNo, capacity, status);
+                        dgvTables.Rows.Add(tableID, tableNo, capacity, location);
                     }
                 }
 
@@ -200,9 +204,8 @@ namespace RestaurantOrderingSystem
                 DataGridViewRow row = dgvTables.Rows[e.RowIndex];
 
                 string tableNo = row.Cells["TableNo"].Value.ToString();
-                this.tableID = Convert.ToInt32(row.Cells["TableID"].Value);
-
                 tbTableNo.Text = tableNo;
+               
             }
         }
 
@@ -277,6 +280,16 @@ namespace RestaurantOrderingSystem
                 int numOfGuest = (int)numericNumOfGuests.Value;
                 string status = cmbStatus.SelectedItem.ToString();
 
+          
+
+                if (numOfGuest > capacity)
+                {
+                    MessageBox.Show($"No available tables for this criteria. (Maximum capacity for this table is {capacity} guests.)",
+                                    "Capacity Limit", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+            
+
                 Reservation reservation = new Reservation(
                    reservationID,
                    tableID,
@@ -308,9 +321,6 @@ namespace RestaurantOrderingSystem
 
         }
 
-        private void dgvTables_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
-        {
-        }
 
         private void datePicker_ValueChanged(object sender, EventArgs e)
         {

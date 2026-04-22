@@ -78,7 +78,7 @@ namespace RestaurantOrderingSystem
             try
             {
                 string sql = $@"
-                SELECT t.TableID, t.tableNo, t.Capacity, t.Status
+                SELECT t.TableID, t.tableNo, t.Capacity, t.Status, t.Location
                 FROM tablesinfo t
                 WHERE t.status = 'Available'
                   AND t.capacity >= {numOfGuest}
@@ -113,7 +113,7 @@ namespace RestaurantOrderingSystem
             try
             {
                 string sql = $@"
-                SELECT t.TABLENO, r.TableID, r.CUSTOMERNAME,  r.CUSTOMERPHONE, r.RESERVATIONDATETIMESTART, r.NUMBEROFGUESTS, r.RESERVATIONID, r.STATUS
+                SELECT t.TABLENO, t.Capacity, r.TableID, r.CUSTOMERNAME,  r.CUSTOMERPHONE, r.RESERVATIONDATETIMESTART, r.NUMBEROFGUESTS, r.RESERVATIONID, r.STATUS
                 FROM RESERVATIONS r
                 JOIN tablesinfo t ON r.TABLEID = t.TableID
                 WHERE r.STATUS = 'BOOKED'";

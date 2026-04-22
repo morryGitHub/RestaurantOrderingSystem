@@ -174,7 +174,7 @@ namespace RestaurantOrderingSystem
             dgvOrderItems.Rows.Clear();
             lblTotal.Text = "€0.00";
 
-            if (cmbAvailableTables.Text.Equals("Select the Table"))
+            if (cmbAvailableTables.Text.Equals("Select the Table") || cmbItems.Text.Equals("Select the Item"))
             {
                 btnAddItem.Enabled = false;
                 btnConfirm.Enabled = false;
@@ -283,7 +283,7 @@ namespace RestaurantOrderingSystem
 
         private void CmbItems_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cmbItems.SelectedIndex == 0)
+            if (cmbAvailableTables.Text.Equals("Select the Table") || cmbItems.Text.Equals("Select the Item"))
             {
                 btnAddItem.Enabled = false;
                 btnConfirm.Enabled = false;

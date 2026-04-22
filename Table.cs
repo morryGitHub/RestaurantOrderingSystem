@@ -20,6 +20,7 @@ namespace RestaurantOrderingSystem
         public int TableNumber { get; set; }
         public int Capacity { get; set; }
         public string Status { get; set; } = "Available";
+        public string Location { get; set; }
 
 
         public Table()
@@ -27,12 +28,13 @@ namespace RestaurantOrderingSystem
             Status = "Available";
 
         }
-        public Table(int tableId = 0, int tableNumber = 0, int capacity = 0, string status = "Available")
+        public Table(int tableId, int tableNumber , int capacity, string status, string location)
         {
             TableId = tableId;
             TableNumber = tableNumber;
             Capacity = capacity;
             Status = status;
+            Location = location;
         }
 
         public Table(int tableID, int tableNumber, int capacity)
@@ -42,17 +44,26 @@ namespace RestaurantOrderingSystem
             Capacity = capacity;
         }
 
-        public Table(int tableNumber, int capacity, string status)
+        public Table(int tableNumber, int capacity, string status, string location)
         {
             TableNumber = tableNumber;
             Capacity = capacity;
             Status = status;
+            Location = location;
         }
 
         public Table(int tableNumber, int capacity)
         {
             TableNumber = tableNumber;
             Capacity = capacity;
+            Status = Status;
+        }
+
+        public Table(int tableNumber, int capacity, string location)
+        {
+            TableNumber = tableNumber;
+            Capacity = capacity;
+            Location = location;
             Status = Status;
         }
 
@@ -66,8 +77,8 @@ namespace RestaurantOrderingSystem
             try
             {
                 string sql = $@"
-                                 INSERT INTO tablesinfo (TABLENO, CAPACITY, STATUS)
-                                 VALUES ({TableNumber}, {Capacity}, '{Status}')
+                                 INSERT INTO tablesinfo (TABLENO, CAPACITY, STATUS, LOCATION)
+                                 VALUES ({TableNumber}, {Capacity}, '{Status}', '{Location}')
                              ";
 
                 Database.ExecuteNonQuery(sql);
@@ -83,7 +94,7 @@ namespace RestaurantOrderingSystem
             try
             {
                 string sql = $@"
-                    SELECT TABLEID, TABLENO, CAPACITY
+                    SELECT TABLEID, TABLENO, CAPACITY, Location
                     FROM tablesinfo
                     WHERE TABLEID = {TableId}
                     ";
@@ -126,7 +137,7 @@ namespace RestaurantOrderingSystem
             {
                 //Define the SQL query to be executed
                 string sql = @"
-                SELECT TABLEID, TABLENO, CAPACITY, STATUS
+                SELECT TABLEID, TABLENO, CAPACITY, STATUS, LOCATION
                 FROM tablesinfo
                 ORDER BY TABLENO";
 
@@ -145,7 +156,7 @@ namespace RestaurantOrderingSystem
             {
                 //Define the SQL query to be executed
                 string sql = @"
-                SELECT t.TABLEID, t.TABLENO, t.CAPACITY, t.STATUS, o.Status
+                SELECT t.TABLEID, t.TABLENO, t.CAPACITY, t.STATUS, t.Location, o.Status
                 FROM tablesinfo t
                 LEFT JOIN ORDERS o 
                     ON t.TableID = o.TableID
@@ -167,10 +178,11 @@ namespace RestaurantOrderingSystem
         {
             try
             {
-                string sqlQuery = "UPDATE tablesinfo SET " +
-               "CAPACITY = '" + Capacity + "'," +
-               "STATUS = '" + Status + "' " +
-               "WHERE TABLENO = " + TableNumber;
+                string sqlQuery = $@"UPDATE tablesinfo SET
+                     CAPACITY = {Capacity},
+                     STATUS = '{Status}',
+                     LOCATION = '{Location}'
+                     WHERE TABLENO = {TableNumber}";
 
                 //Execute the SQL query
                 Database.ExecuteNonQuery(sqlQuery);
@@ -246,7 +258,8 @@ namespace RestaurantOrderingSystem
                         Convert.ToInt32(row["TABLEID"]),
                         Convert.ToInt32(row["TABLENO"]),
                         Convert.ToInt32(row["CAPACITY"]),
-                        row["STATUS"].ToString()
+                        row["STATUS"].ToString(),
+                        row["LOCATION"].ToString()
                     ));
                 }
 
@@ -273,7 +286,8 @@ namespace RestaurantOrderingSystem
                         Convert.ToInt32(row["TABLEID"]),
                         Convert.ToInt32(row["TABLENO"]),
                         Convert.ToInt32(row["CAPACITY"]),
-                        row["STATUS"].ToString()
+                        row["STATUS"].ToString(),
+                        row["Location"].ToString()
                     ));
                 }
 

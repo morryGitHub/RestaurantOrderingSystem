@@ -39,14 +39,21 @@ namespace RestaurantOrderingSystem
             decimal total = 0.00m;
             lblTotal.Text = $"€{total:F2}";
 
-            if (cmbOrders.Text.Equals("Select the Order"))
+            if (cmbItems.Text.Equals("Select the Item") || cmbOrders.Text.Equals("Select the Order"))
             {
-                btnCancel.Enabled = false;
+                btnConfirm.Enabled = false;
+                btnDeleteItem.Enabled = false;
+                btnAddButton.Enabled = false;
+                btnEditItem.Enabled = false;    
                 return;
 
             }
 
-            btnCancel.Enabled = true;
+            btnConfirm.Enabled = true;
+            btnConfirm.Enabled = true;
+            btnDeleteItem.Enabled = true;
+            btnAddButton.Enabled = true;
+            btnEditItem.Enabled = true;
             cmbOrders.Items.Remove("Select the Order");
 
             try
@@ -168,7 +175,7 @@ namespace RestaurantOrderingSystem
             }
             else
             {
-                throw new Exception("Error");
+                return;
             }
 
             numQty.Value = qty;
@@ -190,14 +197,21 @@ namespace RestaurantOrderingSystem
 
         private void cmbItems_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cmbItems.Text.Equals("Select the Item"))
+            if (cmbItems.Text.Equals("Select the Item") || cmbOrders.Text.Equals("Select the Order"))
             {
-                btnCancel.Enabled = false;
+                btnConfirm.Enabled = false;
+                btnDeleteItem.Enabled = false;
+                btnAddButton.Enabled = false;
+                btnEditItem.Enabled = false;
                 return;
 
             }
 
-            btnCancel.Enabled = true;
+            btnConfirm.Enabled = true;
+            btnConfirm.Enabled = true;
+            btnDeleteItem.Enabled = true;
+            btnAddButton.Enabled = true;
+            btnEditItem.Enabled = true;
             cmbItems.Items.Remove("Select the Item");
             numQty.Value = 1;
         }

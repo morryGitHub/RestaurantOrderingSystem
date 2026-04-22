@@ -40,6 +40,8 @@
             this.lblTitle = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.backToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lblLocation = new System.Windows.Forms.Label();
+            this.tbLocation = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numSeats)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -74,6 +76,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.tbLocation);
+            this.groupBox1.Controls.Add(this.lblLocation);
             this.groupBox1.Controls.Add(this.cmbTableNo);
             this.groupBox1.Controls.Add(this.numSeats);
             this.groupBox1.Controls.Add(this.lblCapacity);
@@ -85,7 +89,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBox1.Size = new System.Drawing.Size(316, 188);
+            this.groupBox1.Size = new System.Drawing.Size(316, 228);
             this.groupBox1.TabIndex = 14;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Table Details";
@@ -142,7 +146,7 @@
             // btnExit
             // 
             this.btnExit.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExit.Location = new System.Drawing.Point(39, 296);
+            this.btnExit.Location = new System.Drawing.Point(36, 332);
             this.btnExit.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(100, 36);
@@ -154,7 +158,7 @@
             // btnUpdateTable
             // 
             this.btnUpdateTable.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUpdateTable.Location = new System.Drawing.Point(211, 296);
+            this.btnUpdateTable.Location = new System.Drawing.Point(211, 332);
             this.btnUpdateTable.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnUpdateTable.Name = "btnUpdateTable";
             this.btnUpdateTable.Size = new System.Drawing.Size(100, 36);
@@ -195,11 +199,31 @@
             this.backToolStripMenuItem.Text = "Back";
             this.backToolStripMenuItem.Click += new System.EventHandler(this.backToolStripMenuItem_Click);
             // 
+            // lblLocation
+            // 
+            this.lblLocation.AutoSize = true;
+            this.lblLocation.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.lblLocation.Location = new System.Drawing.Point(16, 185);
+            this.lblLocation.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblLocation.Name = "lblLocation";
+            this.lblLocation.Size = new System.Drawing.Size(69, 21);
+            this.lblLocation.TabIndex = 14;
+            this.lblLocation.Text = "Location";
+            this.lblLocation.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // tbLocation
+            // 
+            this.tbLocation.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbLocation.Location = new System.Drawing.Point(152, 179);
+            this.tbLocation.Name = "tbLocation";
+            this.tbLocation.Size = new System.Drawing.Size(143, 29);
+            this.tbLocation.TabIndex = 15;
+            // 
             // FrmUpdateTable
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(346, 366);
+            this.ClientSize = new System.Drawing.Size(346, 404);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnUpdateTable);
@@ -232,5 +256,7 @@
         private System.Windows.Forms.ComboBox cmbTableNo;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem backToolStripMenuItem;
+        private System.Windows.Forms.Label lblLocation;
+        private System.Windows.Forms.TextBox tbLocation;
     }
 }

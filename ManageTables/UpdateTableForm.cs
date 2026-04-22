@@ -18,6 +18,7 @@ namespace RestaurantOrderingSystem
             InitializeComponent();
             UIStyleHelper.ApplyPrimaryButtonStyle(btnUpdateTable);
 
+
         }
         private void label4_Click(object sender, EventArgs e)
         {
@@ -62,6 +63,9 @@ namespace RestaurantOrderingSystem
 
             cmbStatus.Font = normal;
             cmbStatus.BackColor = Color.White;
+
+            tbLocation.Font = normal;
+            tbLocation.BackColor  = Color.White;
 
             // ===== BUTTONS =====
 
@@ -114,10 +118,11 @@ namespace RestaurantOrderingSystem
             _ = selectedTable.TableId;
             string status = selectedTable.Status;
             int seats = selectedTable.Capacity;
+            string location = selectedTable.Location;
 
             cmbStatus.SelectedItem = status;
             numSeats.Value = seats;
-
+            tbLocation.Text = location;
         }
 
         private void btnUpdateTable_Click(object sender, EventArgs e)
@@ -134,6 +139,7 @@ namespace RestaurantOrderingSystem
             int tableNo = selectedTable.TableNumber;
             int seatingCapacity = (int)numSeats.Value;
             string status = cmbStatus.Text;
+            string location = tbLocation.Text;
 
             string seatingCheck = Validation.IsSeatingCapacityValid(numSeats.Value);
             if (seatingCheck != "Valid")
@@ -154,12 +160,17 @@ namespace RestaurantOrderingSystem
                 return;
             }
 
-            Table table = new Table
+            if (string.IsNullOrEmpty(location))
             {
-                Capacity = seatingCapacity,
-                Status = status,
-                TableNumber = tableNo
-            };
+                MessageBox.Show("Please enter a table location.",
+                                "Validation Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+                return;
+            }
+
+            Table table = new Table(seatingCapacity, tableNo, status, location);
+           
 
             table.UpdateTable();
 
@@ -167,7 +178,8 @@ namespace RestaurantOrderingSystem
             MessageBox.Show(
                 $"Table {tableNo} was successfully updated!\n\n" +
                 $"New seating capacity: {seatingCapacity}\n" +
-                $"New status: {status}",
+                $"New status: {status}\n" +
+                $"New loaction: {location}\n",
                 "Success",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information
@@ -231,6 +243,11 @@ namespace RestaurantOrderingSystem
         private void backToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -71,7 +71,13 @@ namespace RestaurantOrderingSystem
         {
 
             Order order = cmbOrders.SelectedItem as Order;
-            if (order == null) return;
+            if (order == null)
+            {
+                MessageBox.Show("It looks like no order is selected. Just click on the order you'd like to reprint from the list above.",
+                                "No Selection Made", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
 
             try
             {

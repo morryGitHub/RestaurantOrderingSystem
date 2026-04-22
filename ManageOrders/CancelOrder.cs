@@ -16,6 +16,7 @@ namespace RestaurantOrderingSystem
         {
             InitializeComponent();
             UIStyleHelper.ApplyDarkTheme(dgvOrderItems);
+            UIStyleHelper.Apply;
 
         }
 

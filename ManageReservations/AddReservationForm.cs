@@ -240,9 +240,9 @@ namespace RestaurantOrderingSystem
                         int tableID = Convert.ToInt32(row["TableID"]);
                         int tableNo = Convert.ToInt32(row["TableNo"]);
                         int capacity = Convert.ToInt32(row["Capacity"]);
-                        string status = row["Status"].ToString();
+                        string location = row["Location"].ToString();
 
-                        dgvTables.Rows.Add(tableID, tableNo, capacity, status);
+                        dgvTables.Rows.Add(tableID, tableNo, capacity, location);
                     }
                 }
             }

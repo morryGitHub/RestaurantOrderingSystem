@@ -38,6 +38,8 @@
             this.tableNum = new System.Windows.Forms.TextBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.backToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lblLocation = new System.Windows.Forms.Label();
+            this.tbLocation = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericSeatingCap)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -64,7 +66,7 @@
             this.lblTableNo.Location = new System.Drawing.Point(21, 52);
             this.lblTableNo.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblTableNo.Name = "lblTableNo";
-            this.lblTableNo.Size = new System.Drawing.Size(134, 28);
+            this.lblTableNo.Size = new System.Drawing.Size(107, 21);
             this.lblTableNo.TabIndex = 1;
             this.lblTableNo.Text = "Table Number";
             // 
@@ -75,7 +77,7 @@
             this.lblCapacity.Location = new System.Drawing.Point(21, 107);
             this.lblCapacity.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblCapacity.Name = "lblCapacity";
-            this.lblCapacity.Size = new System.Drawing.Size(158, 28);
+            this.lblCapacity.Size = new System.Drawing.Size(125, 21);
             this.lblCapacity.TabIndex = 2;
             this.lblCapacity.Text = "Seating Capacity";
             // 
@@ -86,14 +88,14 @@
             this.numericSeatingCap.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.numericSeatingCap.Name = "numericSeatingCap";
             this.numericSeatingCap.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.numericSeatingCap.Size = new System.Drawing.Size(123, 30);
+            this.numericSeatingCap.Size = new System.Drawing.Size(123, 26);
             this.numericSeatingCap.TabIndex = 4;
             this.numericSeatingCap.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // btnAddTable
             // 
             this.btnAddTable.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddTable.Location = new System.Drawing.Point(244, 302);
+            this.btnAddTable.Location = new System.Drawing.Point(244, 327);
             this.btnAddTable.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.btnAddTable.Name = "btnAddTable";
             this.btnAddTable.Size = new System.Drawing.Size(114, 34);
@@ -105,7 +107,7 @@
             // btnCancel
             // 
             this.btnCancel.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancel.Location = new System.Drawing.Point(55, 302);
+            this.btnCancel.Location = new System.Drawing.Point(55, 327);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(114, 34);
@@ -116,6 +118,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.tbLocation);
+            this.groupBox1.Controls.Add(this.lblLocation);
             this.groupBox1.Controls.Add(this.tableNum);
             this.groupBox1.Controls.Add(this.numericSeatingCap);
             this.groupBox1.Controls.Add(this.lblCapacity);
@@ -125,7 +129,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(5, 6, 5, 6);
-            this.groupBox1.Size = new System.Drawing.Size(358, 176);
+            this.groupBox1.Size = new System.Drawing.Size(358, 205);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Table Details";
@@ -137,7 +141,7 @@
             this.tableNum.Location = new System.Drawing.Point(205, 51);
             this.tableNum.Name = "tableNum";
             this.tableNum.ReadOnly = true;
-            this.tableNum.Size = new System.Drawing.Size(123, 30);
+            this.tableNum.Size = new System.Drawing.Size(123, 26);
             this.tableNum.TabIndex = 5;
             this.tableNum.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.tableNum.TextChanged += new System.EventHandler(this.tableNum_TextChanged);
@@ -150,7 +154,7 @@
             this.backToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(428, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(428, 24);
             this.menuStrip1.TabIndex = 15;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -160,13 +164,32 @@
             this.backToolStripMenuItem.Name = "backToolStripMenuItem";
             this.backToolStripMenuItem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.backToolStripMenuItem.RightToLeftAutoMirrorImage = true;
-            this.backToolStripMenuItem.Size = new System.Drawing.Size(54, 24);
+            this.backToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.backToolStripMenuItem.Text = "Back";
             this.backToolStripMenuItem.Click += new System.EventHandler(this.backToolStripMenuItem_Click);
             // 
+            // lblLocation
+            // 
+            this.lblLocation.AutoSize = true;
+            this.lblLocation.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.lblLocation.Location = new System.Drawing.Point(21, 164);
+            this.lblLocation.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblLocation.Name = "lblLocation";
+            this.lblLocation.Size = new System.Drawing.Size(69, 21);
+            this.lblLocation.TabIndex = 6;
+            this.lblLocation.Text = "Location";
+            // 
+            // tbLocation
+            // 
+            this.tbLocation.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbLocation.Location = new System.Drawing.Point(205, 156);
+            this.tbLocation.Name = "tbLocation";
+            this.tbLocation.Size = new System.Drawing.Size(123, 29);
+            this.tbLocation.TabIndex = 7;
+            // 
             // FrmAddTable
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 37F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 30F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(428, 376);
             this.Controls.Add(this.groupBox1);
@@ -201,5 +224,7 @@
         private System.Windows.Forms.TextBox tableNum;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem backToolStripMenuItem;
+        private System.Windows.Forms.TextBox tbLocation;
+        private System.Windows.Forms.Label lblLocation;
     }
 }

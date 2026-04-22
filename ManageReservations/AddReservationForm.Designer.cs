@@ -45,10 +45,6 @@
             this.numericNumOfGuests = new System.Windows.Forms.NumericUpDown();
             this.datePicker = new System.Windows.Forms.DateTimePicker();
             this.dgvTables = new System.Windows.Forms.DataGridView();
-            this.TableID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TableNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Capacity = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tbEmail = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -60,6 +56,10 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.backToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.TableID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TableNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Capacity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Location = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.numericNumOfGuests)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTables)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -125,9 +125,9 @@
             // btnFindAvailableTables
             // 
             this.btnFindAvailableTables.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnFindAvailableTables.Location = new System.Drawing.Point(12, 32);
+            this.btnFindAvailableTables.Location = new System.Drawing.Point(17, 32);
             this.btnFindAvailableTables.Name = "btnFindAvailableTables";
-            this.btnFindAvailableTables.Size = new System.Drawing.Size(310, 30);
+            this.btnFindAvailableTables.Size = new System.Drawing.Size(346, 30);
             this.btnFindAvailableTables.TabIndex = 5;
             this.btnFindAvailableTables.Text = "Find Available Tables";
             this.btnFindAvailableTables.UseVisualStyleBackColor = true;
@@ -178,7 +178,7 @@
             this.datePicker.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.datePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.datePicker.Location = new System.Drawing.Point(154, 40);
-            this.datePicker.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.datePicker.Margin = new System.Windows.Forms.Padding(2);
             this.datePicker.Name = "datePicker";
             this.datePicker.Size = new System.Drawing.Size(108, 26);
             this.datePicker.TabIndex = 15;
@@ -206,7 +206,7 @@
             this.TableID,
             this.TableNo,
             this.Capacity,
-            this.Status});
+            this.Location});
             this.dgvTables.Cursor = System.Windows.Forms.Cursors.Default;
             dataGridViewCellStyle29.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle29.BackColor = System.Drawing.SystemColors.Window;
@@ -218,7 +218,7 @@
             this.dgvTables.DefaultCellStyle = dataGridViewCellStyle29;
             this.dgvTables.EnableHeadersVisualStyles = false;
             this.dgvTables.Location = new System.Drawing.Point(13, 74);
-            this.dgvTables.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dgvTables.Margin = new System.Windows.Forms.Padding(2);
             this.dgvTables.MultiSelect = false;
             this.dgvTables.Name = "dgvTables";
             this.dgvTables.ReadOnly = true;
@@ -230,40 +230,9 @@
             this.dgvTables.RowsDefaultCellStyle = dataGridViewCellStyle30;
             this.dgvTables.RowTemplate.Height = 24;
             this.dgvTables.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvTables.Size = new System.Drawing.Size(310, 251);
+            this.dgvTables.Size = new System.Drawing.Size(359, 251);
             this.dgvTables.TabIndex = 16;
             this.dgvTables.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTables_CellContentClick);
-            // 
-            // TableID
-            // 
-            this.TableID.HeaderText = "TableID";
-            this.TableID.MinimumWidth = 6;
-            this.TableID.Name = "TableID";
-            this.TableID.ReadOnly = true;
-            this.TableID.Visible = false;
-            // 
-            // TableNo
-            // 
-            dataGridViewCellStyle28.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TableNo.DefaultCellStyle = dataGridViewCellStyle28;
-            this.TableNo.HeaderText = "TableNo";
-            this.TableNo.MinimumWidth = 6;
-            this.TableNo.Name = "TableNo";
-            this.TableNo.ReadOnly = true;
-            // 
-            // Capacity
-            // 
-            this.Capacity.HeaderText = "Capacity";
-            this.Capacity.MinimumWidth = 6;
-            this.Capacity.Name = "Capacity";
-            this.Capacity.ReadOnly = true;
-            // 
-            // Status
-            // 
-            this.Status.HeaderText = "Status";
-            this.Status.MinimumWidth = 6;
-            this.Status.Name = "Status";
-            this.Status.ReadOnly = true;
             // 
             // groupBox1
             // 
@@ -275,9 +244,9 @@
             this.groupBox1.Controls.Add(this.lblCustName);
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(22, 68);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox1.Size = new System.Drawing.Size(274, 170);
             this.groupBox1.TabIndex = 17;
             this.groupBox1.TabStop = false;
@@ -311,9 +280,9 @@
             this.groupBox2.Controls.Add(this.numericNumOfGuests);
             this.groupBox2.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(22, 243);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox2.Size = new System.Drawing.Size(274, 171);
             this.groupBox2.TabIndex = 18;
             this.groupBox2.TabStop = false;
@@ -336,7 +305,7 @@
             this.timePicker.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.timePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.timePicker.Location = new System.Drawing.Point(154, 81);
-            this.timePicker.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.timePicker.Margin = new System.Windows.Forms.Padding(2);
             this.timePicker.Name = "timePicker";
             this.timePicker.ShowUpDown = true;
             this.timePicker.Size = new System.Drawing.Size(108, 26);
@@ -345,15 +314,15 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.lblErrorMsg);
             this.groupBox3.Controls.Add(this.btnFindAvailableTables);
             this.groupBox3.Controls.Add(this.dgvTables);
+            this.groupBox3.Controls.Add(this.lblErrorMsg);
             this.groupBox3.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox3.Location = new System.Drawing.Point(320, 68);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.groupBox3.Size = new System.Drawing.Size(327, 345);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox3.Size = new System.Drawing.Size(376, 345);
             this.groupBox3.TabIndex = 19;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Availbale Tables";
@@ -361,12 +330,12 @@
             // lblErrorMsg
             // 
             this.lblErrorMsg.ForeColor = System.Drawing.Color.Red;
-            this.lblErrorMsg.Location = new System.Drawing.Point(14, 76);
+            this.lblErrorMsg.Location = new System.Drawing.Point(12, 74);
             this.lblErrorMsg.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblErrorMsg.Name = "lblErrorMsg";
-            this.lblErrorMsg.Size = new System.Drawing.Size(307, 34);
+            this.lblErrorMsg.Size = new System.Drawing.Size(360, 251);
             this.lblErrorMsg.TabIndex = 17;
-            this.lblErrorMsg.Text = "No Available Tables For This Date";
+            this.lblErrorMsg.Text = "No availability matches your selected criteria.";
             this.lblErrorMsg.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblErrorMsg.Visible = false;
             // 
@@ -388,7 +357,7 @@
             this.backToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(672, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(723, 24);
             this.menuStrip1.TabIndex = 22;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -402,11 +371,47 @@
             this.backToolStripMenuItem.Text = "Back";
             this.backToolStripMenuItem.Click += new System.EventHandler(this.backToolStripMenuItem_Click);
             // 
+            // TableID
+            // 
+            this.TableID.HeaderText = "TableID";
+            this.TableID.MinimumWidth = 6;
+            this.TableID.Name = "TableID";
+            this.TableID.ReadOnly = true;
+            this.TableID.Visible = false;
+            // 
+            // TableNo
+            // 
+            this.TableNo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridViewCellStyle28.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TableNo.DefaultCellStyle = dataGridViewCellStyle28;
+            this.TableNo.HeaderText = "TableNo";
+            this.TableNo.MinimumWidth = 6;
+            this.TableNo.Name = "TableNo";
+            this.TableNo.ReadOnly = true;
+            this.TableNo.Width = 110;
+            // 
+            // Capacity
+            // 
+            this.Capacity.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.Capacity.HeaderText = "Capacity";
+            this.Capacity.MinimumWidth = 6;
+            this.Capacity.Name = "Capacity";
+            this.Capacity.ReadOnly = true;
+            this.Capacity.Width = 112;
+            // 
+            // Location
+            // 
+            this.Location.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Location.HeaderText = "Location";
+            this.Location.MinimumWidth = 6;
+            this.Location.Name = "Location";
+            this.Location.ReadOnly = true;
+            // 
             // FrmAddReservation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(672, 537);
+            this.ClientSize = new System.Drawing.Size(723, 537);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -452,13 +457,13 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Label lblErrorMsg;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TableID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TableNo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Capacity;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Status;
         private System.Windows.Forms.TextBox tbEmail;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem backToolStripMenuItem;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TableID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TableNo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Capacity;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Location;
     }
 }
