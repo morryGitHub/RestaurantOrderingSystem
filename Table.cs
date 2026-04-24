@@ -16,8 +16,8 @@ namespace RestaurantOrderingSystem
     class Table
     {
 
-        public int TableId { get; set; }     // DB ID
-        public int TableNumber { get; set; }
+        public int TableId { get; set; }     // DB TableId
+        public int Number { get; set; }
         public int Capacity { get; set; }
         public string Status { get; set; } = "Available";
         public string Location { get; set; } = "Main Hall";
@@ -27,7 +27,7 @@ namespace RestaurantOrderingSystem
         public Table(int tableId, int tableNumber, int capacity, string status, string location)
         {
             TableId = tableId;
-            TableNumber = tableNumber;
+            Number = tableNumber;
             Capacity = capacity;
             Status = status;
             Location = location;
@@ -35,7 +35,7 @@ namespace RestaurantOrderingSystem
 
         public Table(int tableNumber, int capacity, string status, string location)
         {
-            TableNumber = tableNumber;
+            Number = tableNumber;
             Capacity = capacity;
             Status = status;
             Location = location;
@@ -44,13 +44,13 @@ namespace RestaurantOrderingSystem
         public Table(int tableID, int tableNumber, int capacity)
         {
             TableId = tableID;
-            TableNumber = tableNumber;
+            Number = tableNumber;
             Capacity = capacity;
         }
 
         public Table(int tableNumber, int capacity, string location)
         {
-            TableNumber = tableNumber;
+            Number = tableNumber;
             Capacity = capacity;
             Location = location;
         }
@@ -58,7 +58,7 @@ namespace RestaurantOrderingSystem
 
         public Table(int tableNumber, int capacity)
         {
-            TableNumber = tableNumber;
+            Number = tableNumber;
             Capacity = capacity;
         }
 
@@ -70,7 +70,7 @@ namespace RestaurantOrderingSystem
 
         public override string ToString()
         {
-            return $"Table #{TableNumber} ({Capacity} seats)";
+            return $"Table #{Number} ({Capacity} seats)";
         }
         public void AddTable()
         {
@@ -78,14 +78,14 @@ namespace RestaurantOrderingSystem
             {
                 string sql = $@"
                                  INSERT INTO tablesinfo (TABLENO, CAPACITY, STATUS, LOCATION)
-                                 VALUES ({TableNumber}, {Capacity}, '{Status}', '{Location}')
+                                 VALUES ({Number}, {Capacity}, '{Status}', '{Location}')
                              ";
 
                 Database.ExecuteNonQuery(sql);
             }
             catch (OracleException ex)
             {
-                throw new Exception(ex.Message);
+                throw new Exception($"[Table.AddTable] Database error! Code: {ex.Number}. \nMessage: {ex.Message}");
             }
         }
 
@@ -104,7 +104,7 @@ namespace RestaurantOrderingSystem
             }
             catch (OracleException ex)
             {
-                throw new Exception(ex.Message);
+                throw new Exception($"[Table.GetTableData] Failed to fetch table {TableId}.\nMessage: {ex.Message}");
             }
         }
 
@@ -156,21 +156,24 @@ namespace RestaurantOrderingSystem
             {
                 //Define the SQL query to be executed
                 string sql = @"
-                SELECT t.TABLEID, t.TABLENO, t.CAPACITY, t.STATUS, t.Location, o.Status
-                FROM tablesinfo t
-                LEFT JOIN ORDERS o 
-                    ON t.TableID = o.TableID
-                WHERE t.STATUS = 'Available' 
-                    AND (o.Status IS NULL or o.STATUS != 'Active')
-                ORDER BY TABLENO
-            ";
+                    SELECT t.TABLEID, t.TABLENO, t.CAPACITY, t.STATUS, t.LOCATION
+                    FROM tablesinfo t
+                    WHERE t.STATUS = 'Available'
+                      AND NOT EXISTS (
+                          SELECT 1 
+                          FROM ORDERS o 
+                          WHERE o.TableId = t.TableId 
+                            AND o.STATUS = 'Active'
+                      )
+                    ORDER BY t.TABLENO";
 
                 //Execute the SQL query
                 return Database.ExecuteMultiRowQuery(sql);
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                throw new Exception($"[Table.LoadAvailableTables] Failed to load available tables list. " +
+                                            $"\nMessage: {ex.Message}");
             }
         }
 
@@ -182,14 +185,14 @@ namespace RestaurantOrderingSystem
                      CAPACITY = {Capacity},
                      STATUS = '{Status}',
                      LOCATION = '{Location}'
-                     WHERE TABLENO = {TableNumber}";
+                     WHERE TABLENO = {Number}";
 
                 //Execute the SQL query
                 Database.ExecuteNonQuery(sqlQuery);
             }
             catch (OracleException ex)
             {
-                throw new Exception(ex.Message);
+                throw new Exception($"[Table.UpdateTable] Update failed for table No: {Number}. \nMessage: {ex.Message}");
             }
         }
 
@@ -201,7 +204,7 @@ namespace RestaurantOrderingSystem
                 string sqlQuery = $@"
                     UPDATE tablesinfo
                     SET STATUS = 'Unavailable' 
-                    WHERE TABLENO = {TableNumber}";
+                    WHERE TABLENO = {Number}";
 
 
                 //Execute the SQL query
@@ -209,7 +212,7 @@ namespace RestaurantOrderingSystem
             }
             catch (OracleException ex)
             {
-                throw new Exception(ex.Message);
+                throw new Exception($"[Table.DeleteTable] Could not set status to 'Unavailable' for table {Number}. \nMessage: {ex.Message}");
             }
         }
 
@@ -227,9 +230,7 @@ namespace RestaurantOrderingSystem
 
                         if (!reader.IsDBNull(0))
                         {
-                            Debug.WriteLine("newTableNo");
                             int newTableNo = Convert.ToInt32(reader.GetValue(0)) + 1;
-                            Debug.WriteLine(newTableNo);
                             reader.Close();
                             return newTableNo;
                         }
@@ -241,7 +242,7 @@ namespace RestaurantOrderingSystem
             }
             catch (OracleException ex)
             {
-                throw new Exception(ex.Message);
+                throw new Exception($"[Table.GetLastTableID] Failed to get MAX(TABLENO). \nMessage: {ex.Message}");
             }
         }
 

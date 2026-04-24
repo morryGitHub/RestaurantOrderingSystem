@@ -26,14 +26,18 @@ namespace RestaurantOrderingSystem
         {
             if (cmbOrders.SelectedItem.ToString() == "Select the Order")
             {
-                MessageBox.Show("Please select an order.");
-                return;
+                MessageBox.Show("Please select an order from the list to proceed.",
+                                "Selection Required",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information); return;
             }
 
             if (cmbMethod.SelectedIndex == -1)
             {
-                MessageBox.Show("Please select a payment method.");
-                return;
+                MessageBox.Show("Please select a payment method (e.g., Cash or Card) to complete the transaction.",
+                                "Selection Required",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information); return;
             }
 
             try
@@ -95,13 +99,23 @@ namespace RestaurantOrderingSystem
             cmbOrders.Items.Clear();
             List<Order> orders = Order.LoadOrders();
 
-            cmbOrders.Items.Add("Select the Order");
-            cmbOrders.SelectedIndex = 0;
+           
 
             foreach (Order order in orders)
             {
                 cmbOrders.Items.Add(order);
             }
+
+            if (cmbOrders.Items.Count == 0)
+            {
+                cmbOrders.Items.Insert(0, "-- No Active Orders --");
+                cmbOrders.SelectedIndex = 0;
+                cmbOrders.Enabled = false;
+
+            }
+
+            cmbOrders.Items.Insert(0, "-- Select the Order --");
+            cmbOrders.SelectedIndex = 0;
 
         }
 
@@ -119,20 +133,24 @@ namespace RestaurantOrderingSystem
             dgvOrderItems.Rows.Clear();
             lblAmount.Text = "€0.00";
 
-            if (cmbOrders.Text.Equals("Select the Order"))
+
+            if (!(cmbOrders.SelectedItem is Order selectedOrder))
             {
+                btnPay.Enabled = false;
                 return;
             }
 
-            btnCancel.Enabled = true;
-            cmbOrders.Items.Remove("Select the Order");
+            btnPay.Enabled = true;
 
+            if (cmbOrders.Items.Contains("-- Select the Order --"))
+            {
+                cmbOrders.Items.Remove("-- Select the Order --");
+            }
 
             try
             {
-                Order order = cmbOrders.SelectedItem as Order;
-                OrderItem orderItem = new OrderItem(order);
-                DataSet dsActive = orderItem.GetMenuItemsFromOrder();
+                OrderItem orderItem = new OrderItem(selectedOrder.Id);
+                DataSet dsActive = orderItem.GetMenuItemsFromOrder("Active");
 
 
                 foreach (DataRow row in dsActive.Tables[0].Rows)

@@ -33,10 +33,9 @@ namespace RestaurantOrderingSystem
 
         }
 
-        public OrderItem(Order order)
+        public OrderItem(int orderID)
         {
-            OrderID = order.ID;
-            OrderStatus = order.Status;
+            OrderID = orderID;
         }
 
         public override string ToString()
@@ -44,49 +43,30 @@ namespace RestaurantOrderingSystem
             return $"OrderID: {OrderID}, MenuItemID: {MenuItemID}, Quantity: {Quantity}";
         }
 
-        public void AddOrderItems(bool isEditMode = false)
+        public void AddOrderItems()
         {
             try
             {
                 string checkSql = $"SELECT COUNT(*) FROM OrderItems WHERE orderid = {OrderID} AND menuitemid = {MenuItemID}";
                 DataSet ds = Database.ExecuteMultiRowQuery(checkSql);
 
-                int count = Convert.ToInt32(ds.Tables[0].Rows[0][0]);
-
-                string finalSql;
-                if (count > 0)
-                {
-                    if (isEditMode)
-                    {
-
-                        finalSql = $@"UPDATE OrderItems SET quantity = {Quantity} 
-                        WHERE orderid = {OrderID} AND menuitemid = {MenuItemID}";
-                    }
-                    else
-                    {
-                        finalSql = $@"UPDATE OrderItems SET quantity = quantity + {Quantity} 
-                        WHERE orderid = {OrderID} AND menuitemid = {MenuItemID}";
-                    }
-
-                }
-                else
-                {
-                    finalSql = $@"INSERT INTO OrderItems (orderid, menuitemid, quantity) 
+                string finalSql = $@"INSERT INTO OrderItems (orderid, menuitemid, quantity) 
                         VALUES ({OrderID}, {MenuItemID}, {Quantity})";
-                }
+
 
                 Database.ExecuteNonQuery(finalSql);
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error adding/updating order item: {ex.Message}");
+                throw new Exception($"[OrderItem.AddOrderItems] Failed to add ItemID {MenuItemID} to Order #{OrderID}. " +
+            $" \nMessage: {ex.Message}");
             }
         }
         public static int GetLastOrderID()
         {
             try
             {
-                string sql = "SELECT MAX(orderID) FROM Orders";
+                string sql = $"SELECT MAX(OrderID) FROM Orders";
 
                 OracleDataReader reader = Database.ExecuteSingleRowQuery(sql);
 
@@ -108,11 +88,12 @@ namespace RestaurantOrderingSystem
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error retrieving last order ID: {ex.Message}");
+                throw new Exception($"[OrderItem.AddOrderItems] Failed to add ItemID to Order . " +
+                            $"\nMessage: {ex.Message}");
             }
         }
 
-        public DataSet GetMenuItemsFromOrder()
+        public DataSet GetMenuItemsFromOrder(string orderStatus)
         {
             try
             {
@@ -127,19 +108,20 @@ namespace RestaurantOrderingSystem
                         m.UnitPrice AS UnitPrice
                     FROM Orders o
                     JOIN tablesinfo t 
-                        ON o.TableID = t.TableID
+                        ON o.TableId = t.TableId
                     JOIN OrderItems oi 
                         ON o.OrderID = oi.OrderID
                     JOIN MenuItems m 
                         ON oi.MenuItemID = m.MenuItemID
-                    WHERE o.Status = '{OrderStatus}' AND o.OrderID = {OrderID}";
+                    WHERE o.Status = '{orderStatus}' AND o.OrderID = {OrderID}";
 
 
                 return Database.ExecuteMultiRowQuery(sql);
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error retrieving order items: {ex.Message}");
+                throw new Exception($"[OrderItem.GetMenuItemsFromOrder] Failed to load items for Order #{OrderID} ({orderStatus}). " +
+                            $"\nCheck JOINs or Column Names. \nMessage: {ex.Message}");
             }
         }
 
@@ -153,7 +135,20 @@ namespace RestaurantOrderingSystem
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error deleting item: {ex.Message}");
+                throw new Exception($"[OrderItem.DeleteAllItem] Failed to clear Order #{OrderID}. \nMessage: {ex.Message}");
+            }
+        }
+
+        public void DeleteAllItemsFromOrder()
+        {
+            try
+            {
+                string deleteAllSql = $@"DELETE FROM ORDERITEMS WHERE orderid = {OrderID}";
+                Database.ExecuteNonQuery(deleteAllSql);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"[OrderItem.DeleteAllItems] Failed to clear Order #{OrderID}. \nMessage: {ex.Message}");
             }
         }
     }

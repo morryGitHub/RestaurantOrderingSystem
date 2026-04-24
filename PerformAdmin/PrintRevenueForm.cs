@@ -65,7 +65,10 @@ namespace RestaurantOrderingSystem
             lblTotal.Font = new Font("Segoe UI", 14, FontStyle.Bold);
             lblTotal.ForeColor = Color.FromArgb(50, 50, 50);
 
+
             FillYearsComboBox();
+
+
         }
 
         public void FillYearsComboBox()
@@ -79,6 +82,16 @@ namespace RestaurantOrderingSystem
                 {
                     cmbYear.Items.Add(year);
 
+                }
+
+              
+
+                if (cmbYear.Items.Count == 0)
+                {
+                    cmbYear.Items.Add("-- No Years Available --");
+                    cmbYear.SelectedIndex = 0;
+                    cmbYear.Enabled = false;
+                    return;
                 }
             }
             catch (Exception ex)
@@ -209,6 +222,8 @@ namespace RestaurantOrderingSystem
         {
             this.Close();
         }
+
+        
     }
 
 

@@ -12,7 +12,7 @@ namespace RestaurantOrderingSystem
 {
     public partial class FrmNewOrder : Form
     {
-        public int TableID { get; set; }
+        internal int _tableId = -1;
 
         public FrmNewOrder()
         {
@@ -26,7 +26,7 @@ namespace RestaurantOrderingSystem
         internal FrmNewOrder(Table table)
         {
             InitializeComponent();
-            TableID = table.TableId;
+            _tableId = table.TableId;
             UIStyleHelper.ApplyDarkTheme(dgvOrderItems);
             UIStyleHelper.ApplyPrimaryButtonStyle(btnAddItem);
             UIStyleHelper.ApplyPrimaryButtonStyle(btnConfirm);
@@ -37,7 +37,7 @@ namespace RestaurantOrderingSystem
         {
             LoadTables();
 
-            if (TableID != 0)
+            if (_tableId != -1)
             {
                 LoadBookedTable();
             }
@@ -50,22 +50,30 @@ namespace RestaurantOrderingSystem
 
         private void BtnConfirm_Click(object sender, EventArgs e)
         {
-            if (cmbAvailableTables.SelectedIndex == -1)
+
+            if (!(cmbAvailableTables.SelectedItem is Table selectedTable))
             {
-                MessageBox.Show("Please select a table.");
-                return;
+                MessageBox.Show("Please select a table from the list to continue.",
+                                "Selection Required",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information); return;
             }
 
             if (dgvOrderItems.Rows.Count == 0)
             {
-                MessageBox.Show("Order cannot be empty.");
+                MessageBox.Show("Your order is empty. Please add at least one item before proceeding.",
+                                "Empty Order",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
                 return;
             }
+
+            btnConfirm.Enabled = dgvOrderItems.RowCount > 0;
+
 
             try
             {
 
-                Table selectedTable = cmbAvailableTables.SelectedItem as Table;
                 DateTime dateTime = DateTime.Now;
                 decimal total = Convert.ToDecimal(lblTotal.Text.Split('€')[1]);
 
@@ -118,13 +126,12 @@ namespace RestaurantOrderingSystem
 
         private void BtnAddItem_Click_1(object sender, EventArgs e)
         {
-            if (cmbItems.SelectedIndex == -1)
+            if (!(cmbItems.SelectedItem is MenuItem menuItem))
             {
-                MessageBox.Show("Please select a menu item first.");
+                MessageBox.Show("Please select a valid menu item from the list.",
+                         "Selection Required", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-
-            MenuItem menuItem = cmbItems.SelectedItem as MenuItem;
 
             string itemName = menuItem.Name;
             decimal unitPrice = menuItem.Price;
@@ -134,7 +141,10 @@ namespace RestaurantOrderingSystem
 
             if (qty <= 0)
             {
-                MessageBox.Show("Quantity must be at least 1.");
+                MessageBox.Show("Please enter a valid quantity (at least 1).",
+                         "Invalid Quantity",
+                         MessageBoxButtons.OK,
+                         MessageBoxIcon.Warning);
                 return;
             }
 
@@ -169,6 +179,7 @@ namespace RestaurantOrderingSystem
 
             cmbItems.SelectedIndex = -1;
             numQty.Value = numQty.Minimum;
+
         }
 
         private void CmbTables_SelectedIndexChanged(object sender, EventArgs e)
@@ -176,27 +187,26 @@ namespace RestaurantOrderingSystem
             dgvOrderItems.Rows.Clear();
             lblTotal.Text = "€0.00";
 
-            if (cmbAvailableTables.Text.Equals("Select the Table") || cmbItems.Text.Equals("Select the Item"))
+            if (!(cmbAvailableTables.SelectedItem is Table))
             {
-                btnAddItem.Enabled = false;
-                btnConfirm.Enabled = false;
                 return;
-
             }
 
-            btnAddItem.Enabled = false;
-            btnConfirm.Enabled = false;
-            cmbAvailableTables.Items.Remove("Select the Table");
+
+            if (cmbAvailableTables.Items.Contains("-- Select the Table --"))
+            {
+                cmbAvailableTables.Items.Remove("-- Select the Table --");
+            }
         }
 
         private void DgvOrderItems_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
             var result = MessageBox.Show(
-            "Remove this item?",
-            "Confirm",
-            MessageBoxButtons.YesNo,
-            MessageBoxIcon.Warning);
+                "Are you sure you want to remove this item from the order?",
+                "Confirm Removal",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning);
 
 
 
@@ -215,29 +225,37 @@ namespace RestaurantOrderingSystem
         {
             try
             {
-                cmbAvailableTables.Items.Clear();
-
                 List<Table> tables = Table.GetAvailableTables();
 
-                if (tables.Count == 0)
+                if (tables == null || tables.Count == 0)
                 {
-                    cmbAvailableTables.Items.Add("No Tables Available");
+                    cmbAvailableTables.Items.Add("-- No Tables Available --");
                     cmbAvailableTables.SelectedIndex = 0;
                     cmbAvailableTables.Enabled = false;
                     return;
                 }
 
-                cmbAvailableTables.Items.Add("Select the Table");
-                cmbAvailableTables.SelectedIndex = 0;
-
                 foreach (Table table in tables)
                 {
                     cmbAvailableTables.Items.Add(table);
                 }
+
+                if (cmbAvailableTables.Items.Count == 0)
+                {
+                    cmbAvailableTables.Items.Add("-- No Tables Available --");
+                    cmbAvailableTables.SelectedIndex = 0;
+                    cmbAvailableTables.Enabled = false;
+                }
+
+                cmbAvailableTables.Items.Insert(0, "-- Select the Table --");
+                cmbAvailableTables.SelectedIndex = 0;
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error loading tables: " + ex.Message);
+                MessageBox.Show($"An error occurred while loading the tables:\n\n{ex.Message}",
+                                "Database Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
             }
         }
 
@@ -251,23 +269,27 @@ namespace RestaurantOrderingSystem
 
                 if (menuItems.Count == 0)
                 {
-                    cmbItems.Items.Add("No Items Available");
+                    cmbItems.Items.Add("-- No Items Available --");
                     cmbItems.SelectedIndex = 0;
                     cmbItems.Enabled = false;
                     return;
                 }
 
-                cmbItems.Items.Add("Select the Item");
-                cmbItems.SelectedIndex = 0;
-
                 foreach (MenuItem item in menuItems)
                 {
                     cmbItems.Items.Add(item);
                 }
+
+                cmbItems.Items.Insert(0, "-- Select the Item --");
+                cmbItems.SelectedIndex = 0;
+
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error loading menu items: " + ex.Message);
+                MessageBox.Show($"An error occurred while loading the menu items:\n\n{ex.Message}",
+                                "Loading Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
             }
         }
 
@@ -275,17 +297,20 @@ namespace RestaurantOrderingSystem
 
         private void CmbItems_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cmbAvailableTables.Text.Equals("Select the Table") || cmbItems.Text.Equals("Select the Item"))
+            if (!(cmbItems.SelectedItem is MenuItem))
             {
                 btnAddItem.Enabled = false;
-                btnConfirm.Enabled = false;
                 return;
-
             }
 
+
             btnAddItem.Enabled = true;
-            btnConfirm.Enabled = true;
-            cmbItems.Items.Remove("Select the Item");  // removes the placeholder
+
+
+            if (cmbItems.Items.Contains("-- Select the Item --"))
+            {
+                cmbItems.Items.Remove("-- Select the Item --");
+            }
 
         }
 
@@ -295,14 +320,17 @@ namespace RestaurantOrderingSystem
             try
             {
                 cmbAvailableTables.Items.Clear();
-                Table bookedTable = new Table { TableId = TableID }.GetTable();
+                Table bookedTable = new Table { TableId = _tableId }.GetTable();
                 cmbAvailableTables.Items.Add(bookedTable);
                 cmbAvailableTables.SelectedIndex = 0;
                 cmbAvailableTables.Enabled = false;
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error loading booked table: " + ex.Message);
+                MessageBox.Show($"An error occurred while loading the booked tables:\n\n{ex.Message}",
+                                "Database Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
             }
         }
 
@@ -310,5 +338,8 @@ namespace RestaurantOrderingSystem
         {
             this.Close();
         }
+
+
+
     }
 }

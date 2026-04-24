@@ -23,11 +23,10 @@ namespace RestaurantOrderingSystem
 
         private void BtnExit_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(
-                "Table deletion cancelled.",
-                "Cancelled",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information);
+            MessageBox.Show("The table deletion process has been cancelled.",
+                 "Operation Cancelled",
+                 MessageBoxButtons.OK,
+                 MessageBoxIcon.Information);
 
             this.Close();
         }
@@ -39,42 +38,39 @@ namespace RestaurantOrderingSystem
             {
                 return;
             }
-            int tableId = selectedTable.TableNumber;
+            int tableNo = selectedTable.Number;
 
             if (cmbTableNo.SelectedIndex == -1)
             {
-                MessageBox.Show("Please select a table number.",
-                                "Validation Error",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Error);
+                MessageBox.Show("Please select a table number from the list to continue.",
+                 "Selection Required",
+                 MessageBoxButtons.OK,
+                 MessageBoxIcon.Warning);
                 return;
             }
 
             var confirm = MessageBox.Show(
-                $"Are you sure you want to delete Table #{tableId}?",
+                $"Are you sure you want to delete Table #{tableNo}?",
                 "Confirm Deletion",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Warning);
 
             if (confirm != DialogResult.Yes)
             {
-                MessageBox.Show(
-                    "Table deletion was cancelled.",
-                    "Cancelled",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
+                MessageBox.Show("The table deletion process has been cancelled.",
+                 "Operation Cancelled",
+                 MessageBoxButtons.OK,
+                 MessageBoxIcon.Information);
 
                 this.Close();
                 return;
             }
+            MessageBox.Show($"Table #{tableNo} has been deleted successfully.",
+                            "Success",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
 
-            MessageBox.Show(
-                $"Table #{tableId} was deleted successfully!",
-                "Success",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information);
-
-            Table tableToDelete = new Table { TableNumber = tableId };
+            Table tableToDelete = new Table { Number = tableNo };
 
             tableToDelete.DeleteTable();
 
@@ -83,17 +79,22 @@ namespace RestaurantOrderingSystem
 
         private void CmbTableNo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cmbTableNo.SelectedIndex == 0)
+            if (!(cmbTableNo.SelectedItem is Table selectedTable))
             {
-                // placeholder selected → invalid
                 btnRemoveTable.Enabled = false;
+
                 return;
             }
 
-            cmbTableNo.Items.Remove("Select the Table");
+
+            if (cmbTableNo.Items.Contains("-- Select the Table --"))
+            {
+                cmbTableNo.Items.Remove("-- Select the Table --");
+            }
+
+           
             btnRemoveTable.Enabled = true;
 
-            Table selectedTable = cmbTableNo.SelectedItem as Table;
             string location = selectedTable.Location;
             tbLocation.Text = location;
         }
@@ -131,19 +132,19 @@ namespace RestaurantOrderingSystem
 
                 if (tables.Count == 0)
                 {
-                    cmbTableNo.Items.Add("No Tables Available");
+                    cmbTableNo.Items.Add("-- No Tables Available --");
                     cmbTableNo.SelectedIndex = 0;
                     cmbTableNo.Enabled = false;
                     return;
-                }
-
-                cmbTableNo.Items.Add("Select the Table");
-                cmbTableNo.SelectedIndex = 0;
+                }         
 
                 foreach (Table table in tables)
                 {
                     cmbTableNo.Items.Add(table);
                 }
+
+                cmbTableNo.Items.Insert(0, "-- Select the Table --");
+                cmbTableNo.SelectedIndex = 0;
             }
             catch (Exception ex)
             {

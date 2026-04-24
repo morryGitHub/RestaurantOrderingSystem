@@ -52,7 +52,8 @@ namespace RestaurantOrderingSystem
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                throw new Exception($"[MenuItem.LoadAllMenuItems] Failed to load menu. " +
+             $" \nMessage: {ex.Message}");
             }
         }
 

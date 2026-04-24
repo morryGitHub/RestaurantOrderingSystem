@@ -23,23 +23,30 @@ namespace RestaurantOrderingSystem
             if (rbCustName.Checked)
             {
                 name = tbCustName.Text;
-                if (Validation.IsNameValid(name) != "Valid")
+                string nameResult = Validation.IsNameValid(name);
+
+                if (nameResult != "Valid")
                 {
-                    MessageBox.Show("Error Name");
+                    MessageBox.Show(nameResult,
+                                    "Customer Name Error",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Warning);
                     resInfo.Visible = true;
                     return;
-
                 }
             }
             else
             {
                 phone = tbPhoneNum.Text;
-                if (Validation.IsPhoneValid(phone) != "Valid")
+                string phoneResult = Validation.IsPhoneValid(phone); 
+                if (phoneResult != "Valid")
                 {
-                    MessageBox.Show("Error Phone");
+                    MessageBox.Show(phoneResult,
+                                    "Phone Number Error",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Warning);
                     resInfo.Visible = true;
                     return;
-
                 }
             }
 
@@ -56,12 +63,12 @@ namespace RestaurantOrderingSystem
 
                     foreach (DataRow row in ds.Tables[0].Rows)
                     {
-                        string custName = row["CUSTOMERNAME"]?.ToString() ?? "";
-                        string custPhone = row["CUSTOMERPHONE"]?.ToString() ?? "";
-                        string date = row["RESERVATIONDATETIMESTART"]?.ToString() ?? "";
+                        string custName = row["CUSTOMERNAME"]?.ToString().Trim() ?? "";
+                        string custPhone = row["CUSTOMERPHONE"]?.ToString().Trim() ?? "";
+                        string date = row["RESERVATIONDATETIMESTART"]?.ToString().Trim() ?? "";
                         int numOfGuest = Convert.ToInt32(row["NUMBEROFGUESTS"]);
                         int tableNo = Convert.ToInt32(row["TableNo"]);
-                        int tableID = Convert.ToInt32(row["TableID"]);
+                        int tableID = Convert.ToInt32(row["TableId"]);
                         int resID = Convert.ToInt32(row["RESERVATIONID"]);
 
                         dgvMatchingReservation.Rows.Add(
@@ -97,13 +104,14 @@ namespace RestaurantOrderingSystem
             string startStr = start.ToString("dd-MM-yyyy HH:mm");
             string endStr = endDateTime.ToString("dd-MM-yyyy HH:mm");
 
-            DataSet ds = Reservation.GetAvailableTablesForReservation(guests, startStr, endStr);
+            Reservation reservation = new Reservation(startStr, endStr, guests);
+            DataSet ds = reservation.GetAvailableTablesForReservation();
             List<Table> availableTables = new List<Table>();
 
             foreach (DataRow row in ds.Tables[0].Rows)
             {
                 availableTables.Add(new Table(
-                    Convert.ToInt32(row["TableID"]),
+                    Convert.ToInt32(row["TableId"]),
                     Convert.ToInt32(row["TableNo"]),
                     Convert.ToInt32(row["Capacity"]),
                     "Available", // Default status

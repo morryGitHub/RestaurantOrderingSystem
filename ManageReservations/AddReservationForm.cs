@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
 namespace RestaurantOrderingSystem
 {
@@ -32,7 +33,7 @@ namespace RestaurantOrderingSystem
 
         }
 
- 
+
 
 
         private void BtnAddReservation_Click(object sender, EventArgs e)
@@ -70,14 +71,14 @@ namespace RestaurantOrderingSystem
             }
 
             // Validate Guests
-            string guestCheck = Validation.IsGuestsValid((int)numericNumOfGuests.Value);
+            string guestCheck = Validation.IsSeatingCapacityValid((int)numericNumOfGuests.Value);
             if (guestCheck != "Valid")
             {
                 MessageBox.Show(guestCheck, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            // Validate Table Selection
+            // Validate TableId Selection
             string tableCheck = Validation.IsGridSelected(dgvAddTables, "Table");
             if (tableCheck != "Valid")
             {
@@ -87,7 +88,7 @@ namespace RestaurantOrderingSystem
             try
             {
                 DataGridViewRow row = dgvAddTables.SelectedRows[0];
-                int tableID = Convert.ToInt32(row.Cells["TableID"].Value);
+                int tableID = Convert.ToInt32(row.Cells["TableId"].Value);
 
                 int numOfGuest = (int)numericNumOfGuests.Value;
                 DateTime startDateTime = datePicker.Value.Date
@@ -101,8 +102,8 @@ namespace RestaurantOrderingSystem
 
                 string end = endDateTime.ToString("dd-MM-yyyy HH:mm");
 
-                string customerName = tbCustName.Text;
-                string customerPhone = tbPhoneNumber.Text;
+                string customerName = tbCustName.Text.Trim();
+                string customerPhone = tbPhoneNumber.Text.Trim();
 
                 Reservation reservation = new Reservation(
                     tableID,
@@ -123,13 +124,13 @@ namespace RestaurantOrderingSystem
                     MessageBoxIcon.Information
                 );
 
-                string recipientEmail = tbEmail.Text;
-                string emailSubject = "Your Table Reservation is Confirmed!";
+                string recipientEmail = tbEmail.Text.Trim();
+                string emailSubject = "Your Reservation is Confirmed!";
                 string emailBody = $"<h1>Hello {customerName}!</h1>" +
                        $"<p>Thank you for booking with us. Your reservation is confirmed.</p>" +
                        $"<p><strong>Reservation Details:</strong></p>" +
                        $"<table border='1' cellpadding='5'>" +
-                       $"<tr><td>Table</td><td>{row.Cells["TableNo"].Value}</td></tr>" +
+                       $"<tr><td>TableId</td><td>{row.Cells["TableNo"].Value}</td></tr>" +
                        $"<tr><td>Guests</td><td>{numOfGuest}</td></tr>" +
                        $"<tr><td>From</td><td>{start}</td></tr>" +
                        $"<tr><td>To</td><td>{end}</td></tr>" +
@@ -165,20 +166,33 @@ namespace RestaurantOrderingSystem
             try
             {
                 dgvAddTables.Rows.Clear();
+
                 DateTime selectedStart = datePicker.Value.Date + timePicker.Value.TimeOfDay;
 
-                int hour = selectedStart.Hour;
-                if (hour < 8 || hour >= 23)
+
+                string timeCheck = Validation.IsReservationTimeValid(selectedStart);
+                if (timeCheck != "Valid")
                 {
-                    MessageBox.Show("Reservations are only available between 08:00 and 23:00.",
-                                    "Invalid Time", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(timeCheck, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    lblErrorMsg.Visible = true;
                     return;
                 }
 
-                string guestCheck = Validation.IsGuestsValid((int)numericNumOfGuests.Value);
+                string dateCheck = Validation.IsDateValid(datePicker.Value, timePicker.Value);
+                if (dateCheck != "Valid")
+                {
+                    MessageBox.Show(dateCheck, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    lblErrorMsg.Visible = true;
+
+                    return;
+                }
+
+                string guestCheck = Validation.IsSeatingCapacityValid((int)numericNumOfGuests.Value);
                 if (guestCheck != "Valid")
                 {
                     MessageBox.Show(guestCheck, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    lblErrorMsg.Visible = true;
+
                     return;
                 }
 
@@ -196,13 +210,18 @@ namespace RestaurantOrderingSystem
 
                     tables.ForEach(row =>
                     {
-                        dgvAddTables.Rows.Add(row.TableId, row.TableNumber, row.Capacity, row.Location);
+                        dgvAddTables.Rows.Add(row.TableId, row.Number, row.Capacity, row.Location);
                     });
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error: " + ex.Message);
+                MessageBox.Show($"An unexpected error occurred while searching for tables:\n\n{ex.Message}",
+                                        "Search Error",
+                                        MessageBoxButtons.OK,
+                                        MessageBoxIcon.Error);
+                lblErrorMsg.Visible = true;
+                return;
             }
         }
 
@@ -252,7 +271,7 @@ namespace RestaurantOrderingSystem
             this.Close();
         }
 
-       
+
 
         private void ApplyReservationDesign()
         {

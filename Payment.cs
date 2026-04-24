@@ -34,7 +34,7 @@ namespace RestaurantOrderingSystem
 
         public string DisplayOrders()
         {
-            return $"Table #{Order.Table.TableId} — Order {Order.ID}";
+            return $"TableNo #{Order.Table.Number} — Order {Order.Id}";
         }
 
         public void MakePayment()
@@ -45,11 +45,11 @@ namespace RestaurantOrderingSystem
                     BEGIN 
 
                         INSERT INTO PAYMENTS(orderID, amount, methodType, paymentDate)
-                        VALUES({Order.ID},{Amount},'{MethodType}',TO_DATE('{PaymentDate}', 'DD-MM-YYYY HH24:MI'));
+                        VALUES({Order.Id},{Amount},'{MethodType}',TO_DATE('{PaymentDate}', 'DD-MM-YYYY HH24:MI'));
 
                         UPDATE ORDERS
                         SET STATUS = 'Completed'
-                        WHERE OrderID = {Order.ID};
+                        WHERE OrderID = {Order.Id};
                     
                     END;
                 ";
@@ -58,7 +58,8 @@ namespace RestaurantOrderingSystem
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error processing payment: {ex.Message}");
+                throw new Exception($"[Payment.MakePayment] Transaction failed for Order #{Order.Id}. " +
+                            $"\nAmount: {Amount} \nMessage: {ex.Message}");
             }
         }
 
@@ -82,7 +83,7 @@ namespace RestaurantOrderingSystem
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error retrieving paid payments: {ex.Message}");
+                throw new Exception($"[Payment.GetPaidPayments] Failed to load list. \nMessage: {ex.Message}");
             }
         }
 
@@ -116,7 +117,8 @@ namespace RestaurantOrderingSystem
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error retrieving payment method: {ex.Message}");
+                throw new Exception($"[Payment.GetPaymentMethodByOrder] Failed for OrderID: {orderID}. " +
+                            $" \nMessage: {ex.Message}");
             }
         }
 
@@ -140,7 +142,8 @@ namespace RestaurantOrderingSystem
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error retrieving payment details: {ex.Message}");
+                throw new Exception($"[Payment.GetCompletedOrderDetails] Could not retrieve data for OrderID: {orderID}. " +
+                            $"\nMessage: {ex.Message}");
             }
         }
 
@@ -156,7 +159,7 @@ namespace RestaurantOrderingSystem
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error processing refund: {ex.Message}");
+                throw new Exception($"[Payment.RefundPayment] Could not update status to 'Refunded' for Payment ID: {id}. \nMessage: {ex.Message}");
             }
         }
         public static List<Order> LoadPaidOrders()
@@ -171,7 +174,7 @@ namespace RestaurantOrderingSystem
                     orders.Add(new Order(
                         Convert.ToInt32(row["OrderID"]),
                         table: new Table(
-                            Convert.ToInt32(row["TableID"]),
+                            Convert.ToInt32(row["TableId"]),
                             Convert.ToInt32(row["TableNo"])
                             )
                     ));
@@ -181,7 +184,10 @@ namespace RestaurantOrderingSystem
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error loading paid orders: {ex.Message}");
+                MessageBox.Show($"An error occurred while loading paid orders:\n\n{ex.Message}",
+                                "Database Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
                 return new List<Order>();
             }
         }

@@ -10,8 +10,11 @@ using System.Windows.Forms;
 
 namespace RestaurantOrderingSystem
 {
+
+ 
     public partial class FrmCancelOrder : Form
     {
+
         public FrmCancelOrder()
         {
             InitializeComponent();
@@ -31,21 +34,24 @@ namespace RestaurantOrderingSystem
             dgvOrderItems.Rows.Clear();
             lblTotal.Text = "€{0.00}";
 
-            if (cmbOrders.Text.Equals("Select the Order"))
-            {
-                btnCancelOrder.Enabled = false;
-                return;
 
+            if (!(cmbOrders.SelectedItem is Order selectedOrder))
+            {
+                return;
+            }
+
+
+            if (cmbOrders.Items.Contains("-- Select the Order --"))
+            {
+                cmbOrders.Items.Remove("-- Select the Order --");
             }
 
             btnCancelOrder.Enabled = true;
-            cmbOrders.Items.Remove("Select the Order");
 
             try
             {
-                Order order = cmbOrders.SelectedItem as Order;
-                OrderItem orderItem = new OrderItem(order);
-                DataSet dsActive = orderItem.GetMenuItemsFromOrder();
+                OrderItem orderItem = new OrderItem(selectedOrder.Id);
+                DataSet dsActive = orderItem.GetMenuItemsFromOrder("Active");
 
                 foreach (DataRow row in dsActive.Tables[0].Rows)
                 {
@@ -75,17 +81,17 @@ namespace RestaurantOrderingSystem
         }
         private void BtnCancel_Click(object sender, EventArgs e)
         {
-            if (cmbOrders.SelectedIndex == -1)
+            if (!(cmbOrders.SelectedItem is Order order))
             {
-                MessageBox.Show("Please select an order to cancel.");
+                MessageBox.Show("To get started, please select an order from the list.",
+                         "Selection Required",
+                         MessageBoxButtons.OK,
+                         MessageBoxIcon.Information);
                 return;
             }
 
-            var order = cmbOrders.SelectedItem as Order;
-            int orderID = order.ID;
-
             DialogResult result = MessageBox.Show(
-                $"Are you sure you want to cancel {orderID}?",
+                $"Are you sure you want to cancel {order.Id}?",
                 "Confirm Cancellation",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Warning
@@ -94,17 +100,26 @@ namespace RestaurantOrderingSystem
             if (result != DialogResult.Yes)
                 return;
 
-            order.CancelOrder();
+            try
+            {
+
+                order.CancelOrder();
 
 
-            MessageBox.Show(
-                $"Order {orderID} was successfully cancelled.\nTable is now available.",
-                "Success",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information
-            );
+                MessageBox.Show(
+                    $"Order {order.Id} was successfully cancelled.\nTable is now available.",
+                    "Success",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
 
-            this.Close();
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while cancelling the order: {ex.Message}",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void BtnExit_Click(object sender, EventArgs e)
@@ -122,14 +137,24 @@ namespace RestaurantOrderingSystem
             cmbOrders.Items.Clear();
             List<Order> orders = Order.LoadOrders();
 
-            cmbOrders.Items.Add("Select the Order");
-            cmbOrders.SelectedIndex = 0;
+          
 
             foreach (Order order in orders)
             {
                 cmbOrders.Items.Add(order);
 
             }
+
+            if(cmbOrders.Items.Count == 0)
+            {
+                cmbOrders.Items.Insert(0, "-- No Active Orders --");
+                cmbOrders.SelectedIndex = 0;
+                cmbOrders.Enabled = false;
+                return; 
+            }
+
+            cmbOrders.Items.Insert(0, "-- Select the Order --");
+            cmbOrders.SelectedIndex = 0;
         }
 
         private void BackToolStripMenuItem_Click(object sender, EventArgs e)

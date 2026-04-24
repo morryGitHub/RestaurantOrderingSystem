@@ -40,9 +40,7 @@ namespace RestaurantOrderingSystem
 
         private void BtnRefund_Click(object sender, EventArgs e)
         {
-
-            Order order = cmbOrders.SelectedItem as Order;
-            if (order == null)
+            if (!(cmbOrders.SelectedItem is Order order))
             {
                 MessageBox.Show("It looks like no order is selected. Just click on the order you'd like to reprint from the list above.",
                                 "No Selection Made", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -54,10 +52,10 @@ namespace RestaurantOrderingSystem
             {
                 string orderName = order.ToString();
 
-                string paymentMethod = Payment.GetPaymentMethodByOrder(order.ID) ?? "Unspecified";
+                string paymentMethod = Payment.GetPaymentMethodByOrder(order.Id) ?? "Unspecified";
 
-                OrderItem orderItem = new OrderItem(order);
-                DataSet dsItems = orderItem.GetMenuItemsFromOrder();
+                OrderItem orderItem = new OrderItem(order.Id);
+                DataSet dsItems = orderItem.GetMenuItemsFromOrder("Completed");
                 decimal total = 0;
                 foreach (DataRow row in dsItems.Tables[0].Rows)
                 {
@@ -71,7 +69,10 @@ namespace RestaurantOrderingSystem
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"An error occurred while reprinting the receipt: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"An error occurred while reprinting the receipt:\n\n{ex.Message}",
+                                "Reprinting Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
             }
         }
 
@@ -89,6 +90,17 @@ namespace RestaurantOrderingSystem
             }
 
 
+            if (cmbOrders.Items.Count == 0)
+            {
+                cmbOrders.Items.Insert(0, "-- No Paid Orders --");
+                cmbOrders.SelectedIndex = 0;
+                cmbOrders.Enabled = false;
+            }
+
+            cmbOrders.Items.Insert(0, "-- Select the Order --");
+            cmbOrders.SelectedIndex = 0;
+
+
         }
 
         private void CmbOrders_SelectedIndexChanged(object sender, EventArgs e)
@@ -96,19 +108,24 @@ namespace RestaurantOrderingSystem
             dgvOrderDetails.Rows.Clear();
             lblTotal.Text = "€0.00";
 
-            if (cmbOrders.Text.Equals("Select the Order"))
+            if (!(cmbOrders.SelectedItem is Order selectedOrder))
             {
+                btnReprint.Enabled = false;
                 return;
             }
 
-            btnCancel.Enabled = true;
-            cmbOrders.Items.Remove("Select the Order");
+            btnReprint.Enabled = true;
+
+
+            if (!cmbOrders.Items.Contains("-- Select the Order --"))
+            {
+                cmbOrders.Items.Insert(0, "-- Select the Order --");
+            }
 
             try
             {
-                Order order = cmbOrders.SelectedItem as Order;
-                OrderItem orderItem = new OrderItem(order);
-                DataSet dsCompleted = orderItem.GetMenuItemsFromOrder();
+                OrderItem orderItem = new OrderItem(selectedOrder.Id);
+                DataSet dsCompleted = orderItem.GetMenuItemsFromOrder("Completed");
 
                 foreach (DataRow row in dsCompleted.Tables[0].Rows)
                 {
@@ -133,7 +150,10 @@ namespace RestaurantOrderingSystem
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"An error occurred while loading order details: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"An error occurred while loading the order details from the database:\n\n{ex.Message}",
+                                "Loading Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
             }
         }
 

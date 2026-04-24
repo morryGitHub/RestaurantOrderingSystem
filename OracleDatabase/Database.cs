@@ -13,7 +13,7 @@ namespace RestaurantOrderingSystem.OracleDatabase
     public static class Database
     {
         private static readonly string _connectionString =
-            ConfigurationManager.ConnectionStrings["OracleRemote"].ConnectionString;
+            ConfigurationManager.ConnectionStrings["OracleLocal"].ConnectionString;
 
         public static OracleConnection GetConnection()
         {
@@ -25,7 +25,11 @@ namespace RestaurantOrderingSystem.OracleDatabase
             }
             catch (Exception ex)
             {
-                MessageBox.Show("No Oracle Connection\n" + ex.Message);
+                MessageBox.Show($"Unable to establish a connection to the Oracle database:\n\n{ex.Message}",
+                                "Connection Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+                //Application.Exit();
                 return null;
             }
         }

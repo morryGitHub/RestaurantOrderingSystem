@@ -137,22 +137,11 @@ namespace RestaurantOrderingSystem
                 this.Close();
             }
         }
-
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void FindReservationToolStripMenuItem_Click(object sender, EventArgs e)
         {
             UserSession.ReservationAction = "Find";
             FrmFindReservation frmFindReservation = new FrmFindReservation();
             frmFindReservation.ShowDialog();
-
-        }
-
-        private void ordersToolStripMenuItem_Click(object sender, EventArgs e)
-        {
 
         }
 

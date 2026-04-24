@@ -36,7 +36,7 @@
             this.cmbOrders = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.btnAddButton = new System.Windows.Forms.Button();
+            this.btnAddItem = new System.Windows.Forms.Button();
             this.btnEditItem = new System.Windows.Forms.Button();
             this.btnDeleteItem = new System.Windows.Forms.Button();
             this.numQty = new System.Windows.Forms.NumericUpDown();
@@ -49,13 +49,13 @@
             this.lblTotalText = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.dgvOrderItems = new System.Windows.Forms.DataGridView();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.backToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ItemName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.UnitPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Qty = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Subtotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MenuItemID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.backToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numQty)).BeginInit();
@@ -68,10 +68,9 @@
             // 
             this.lblTitle.AutoSize = true;
             this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.Location = new System.Drawing.Point(249, 17);
-            this.lblTitle.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblTitle.Location = new System.Drawing.Point(332, 21);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(245, 30);
+            this.lblTitle.Size = new System.Drawing.Size(306, 38);
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "Update Existing Order";
             // 
@@ -80,11 +79,11 @@
             this.groupBox1.Controls.Add(this.cmbOrders);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(30, 77);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Location = new System.Drawing.Point(40, 95);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.groupBox1.Size = new System.Drawing.Size(245, 78);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox1.Size = new System.Drawing.Size(345, 96);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Select Order";
@@ -93,14 +92,14 @@
             // 
             this.cmbOrders.CausesValidation = false;
             this.cmbOrders.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbOrders.DropDownWidth = 150;
+            this.cmbOrders.DropDownWidth = 200;
             this.cmbOrders.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbOrders.FormattingEnabled = true;
-            this.cmbOrders.Location = new System.Drawing.Point(69, 32);
-            this.cmbOrders.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbOrders.Location = new System.Drawing.Point(92, 39);
+            this.cmbOrders.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cmbOrders.Name = "cmbOrders";
             this.cmbOrders.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.cmbOrders.Size = new System.Drawing.Size(134, 25);
+            this.cmbOrders.Size = new System.Drawing.Size(237, 29);
             this.cmbOrders.TabIndex = 1;
             this.cmbOrders.SelectedIndexChanged += new System.EventHandler(this.CmdOrders_SelectedIndexChanged);
             // 
@@ -108,16 +107,15 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.label1.Location = new System.Drawing.Point(9, 32);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Location = new System.Drawing.Point(12, 39);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(54, 21);
+            this.label1.Size = new System.Drawing.Size(67, 28);
             this.label1.TabIndex = 0;
             this.label1.Text = "Order:";
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.btnAddButton);
+            this.groupBox2.Controls.Add(this.btnAddItem);
             this.groupBox2.Controls.Add(this.btnEditItem);
             this.groupBox2.Controls.Add(this.btnDeleteItem);
             this.groupBox2.Controls.Add(this.numQty);
@@ -125,34 +123,34 @@
             this.groupBox2.Controls.Add(this.cmbItems);
             this.groupBox2.Controls.Add(this.lblSelectItems);
             this.groupBox2.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold);
-            this.groupBox2.Location = new System.Drawing.Point(30, 176);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox2.Location = new System.Drawing.Point(40, 217);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.groupBox2.Size = new System.Drawing.Size(245, 193);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox2.Size = new System.Drawing.Size(345, 238);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Menu Items";
             // 
-            // btnAddButton
+            // btnAddItem
             // 
-            this.btnAddButton.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddButton.Location = new System.Drawing.Point(124, 158);
-            this.btnAddButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.btnAddButton.Name = "btnAddButton";
-            this.btnAddButton.Size = new System.Drawing.Size(106, 29);
-            this.btnAddButton.TabIndex = 9;
-            this.btnAddButton.Text = "Add Item";
-            this.btnAddButton.UseVisualStyleBackColor = true;
-            this.btnAddButton.Click += new System.EventHandler(this.BtnAddButton_Click);
+            this.btnAddItem.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAddItem.Location = new System.Drawing.Point(175, 193);
+            this.btnAddItem.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnAddItem.Name = "btnAddItem";
+            this.btnAddItem.Size = new System.Drawing.Size(141, 36);
+            this.btnAddItem.TabIndex = 9;
+            this.btnAddItem.Text = "Add Item";
+            this.btnAddItem.UseVisualStyleBackColor = true;
+            this.btnAddItem.Click += new System.EventHandler(this.BtnAddButton_Click);
             // 
             // btnEditItem
             // 
             this.btnEditItem.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEditItem.Location = new System.Drawing.Point(16, 125);
-            this.btnEditItem.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnEditItem.Location = new System.Drawing.Point(31, 144);
+            this.btnEditItem.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnEditItem.Name = "btnEditItem";
-            this.btnEditItem.Size = new System.Drawing.Size(214, 29);
+            this.btnEditItem.Size = new System.Drawing.Size(285, 36);
             this.btnEditItem.TabIndex = 8;
             this.btnEditItem.Text = "Edit Item";
             this.btnEditItem.UseVisualStyleBackColor = true;
@@ -161,10 +159,10 @@
             // btnDeleteItem
             // 
             this.btnDeleteItem.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDeleteItem.Location = new System.Drawing.Point(13, 158);
-            this.btnDeleteItem.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnDeleteItem.Location = new System.Drawing.Point(31, 193);
+            this.btnDeleteItem.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnDeleteItem.Name = "btnDeleteItem";
-            this.btnDeleteItem.Size = new System.Drawing.Size(107, 29);
+            this.btnDeleteItem.Size = new System.Drawing.Size(143, 36);
             this.btnDeleteItem.TabIndex = 7;
             this.btnDeleteItem.Text = "Delete Item";
             this.btnDeleteItem.UseVisualStyleBackColor = true;
@@ -173,10 +171,10 @@
             // numQty
             // 
             this.numQty.Font = new System.Drawing.Font("Segoe UI", 10.2F);
-            this.numQty.Location = new System.Drawing.Point(89, 75);
-            this.numQty.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.numQty.Location = new System.Drawing.Point(114, 95);
+            this.numQty.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.numQty.Name = "numQty";
-            this.numQty.Size = new System.Drawing.Size(114, 26);
+            this.numQty.Size = new System.Drawing.Size(152, 30);
             this.numQty.TabIndex = 5;
             this.numQty.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -184,23 +182,22 @@
             // 
             this.lblQty.AutoSize = true;
             this.lblQty.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.lblQty.Location = new System.Drawing.Point(12, 75);
-            this.lblQty.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblQty.Location = new System.Drawing.Point(16, 92);
             this.lblQty.Name = "lblQty";
-            this.lblQty.Size = new System.Drawing.Size(73, 21);
+            this.lblQty.Size = new System.Drawing.Size(92, 28);
             this.lblQty.TabIndex = 4;
             this.lblQty.Text = "Quantity:";
             // 
             // cmbItems
             // 
             this.cmbItems.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbItems.DropDownWidth = 200;
+            this.cmbItems.DropDownWidth = 230;
             this.cmbItems.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbItems.FormattingEnabled = true;
-            this.cmbItems.Location = new System.Drawing.Point(69, 35);
-            this.cmbItems.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbItems.Location = new System.Drawing.Point(92, 43);
+            this.cmbItems.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cmbItems.Name = "cmbItems";
-            this.cmbItems.Size = new System.Drawing.Size(134, 25);
+            this.cmbItems.Size = new System.Drawing.Size(237, 29);
             this.cmbItems.TabIndex = 3;
             this.cmbItems.SelectedIndexChanged += new System.EventHandler(this.CmbItems_SelectedIndexChanged);
             // 
@@ -208,20 +205,19 @@
             // 
             this.lblSelectItems.AutoSize = true;
             this.lblSelectItems.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.lblSelectItems.Location = new System.Drawing.Point(12, 36);
-            this.lblSelectItems.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblSelectItems.Location = new System.Drawing.Point(16, 44);
             this.lblSelectItems.Name = "lblSelectItems";
-            this.lblSelectItems.Size = new System.Drawing.Size(51, 21);
+            this.lblSelectItems.Size = new System.Drawing.Size(63, 28);
             this.lblSelectItems.TabIndex = 0;
             this.lblSelectItems.Text = "Items:";
             // 
             // btnConfirm
             // 
             this.btnConfirm.Font = new System.Drawing.Font("Segoe UI", 10.8F);
-            this.btnConfirm.Location = new System.Drawing.Point(655, 391);
-            this.btnConfirm.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnConfirm.Location = new System.Drawing.Point(873, 481);
+            this.btnConfirm.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnConfirm.Name = "btnConfirm";
-            this.btnConfirm.Size = new System.Drawing.Size(155, 33);
+            this.btnConfirm.Size = new System.Drawing.Size(207, 41);
             this.btnConfirm.TabIndex = 4;
             this.btnConfirm.Text = "Update Order";
             this.btnConfirm.UseVisualStyleBackColor = true;
@@ -230,10 +226,10 @@
             // btnCancel
             // 
             this.btnCancel.Font = new System.Drawing.Font("Segoe UI", 10.8F);
-            this.btnCancel.Location = new System.Drawing.Point(30, 391);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnCancel.Location = new System.Drawing.Point(40, 481);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(114, 33);
+            this.btnCancel.Size = new System.Drawing.Size(152, 41);
             this.btnCancel.TabIndex = 5;
             this.btnCancel.Text = "Exit";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -243,10 +239,9 @@
             // 
             this.lblTotal.AutoSize = true;
             this.lblTotal.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.lblTotal.Location = new System.Drawing.Point(63, 258);
-            this.lblTotal.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblTotal.Location = new System.Drawing.Point(84, 318);
             this.lblTotal.Name = "lblTotal";
-            this.lblTotal.Size = new System.Drawing.Size(49, 21);
+            this.lblTotal.Size = new System.Drawing.Size(60, 28);
             this.lblTotal.TabIndex = 7;
             this.lblTotal.Text = "€0.00";
             // 
@@ -254,10 +249,9 @@
             // 
             this.lblTotalText.AutoSize = true;
             this.lblTotalText.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalText.Location = new System.Drawing.Point(6, 258);
-            this.lblTotalText.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblTotalText.Location = new System.Drawing.Point(8, 318);
             this.lblTotalText.Name = "lblTotalText";
-            this.lblTotalText.Size = new System.Drawing.Size(56, 21);
+            this.lblTotalText.Size = new System.Drawing.Size(70, 28);
             this.lblTotalText.TabIndex = 6;
             this.lblTotalText.Text = "Total: ";
             // 
@@ -267,11 +261,11 @@
             this.groupBox3.Controls.Add(this.lblTotal);
             this.groupBox3.Controls.Add(this.lblTotalText);
             this.groupBox3.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold);
-            this.groupBox3.Location = new System.Drawing.Point(311, 77);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox3.Location = new System.Drawing.Point(415, 95);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.groupBox3.Size = new System.Drawing.Size(512, 292);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox3.Size = new System.Drawing.Size(683, 359);
             this.groupBox3.TabIndex = 8;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Order Summary";
@@ -306,8 +300,8 @@
             dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvOrderItems.DefaultCellStyle = dataGridViewCellStyle5;
             this.dgvOrderItems.EnableHeadersVisualStyles = false;
-            this.dgvOrderItems.Location = new System.Drawing.Point(10, 32);
-            this.dgvOrderItems.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dgvOrderItems.Location = new System.Drawing.Point(13, 39);
+            this.dgvOrderItems.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgvOrderItems.MultiSelect = false;
             this.dgvOrderItems.Name = "dgvOrderItems";
             this.dgvOrderItems.ReadOnly = true;
@@ -323,32 +317,11 @@
             this.dgvOrderItems.RowHeadersWidth = 25;
             this.dgvOrderItems.RowTemplate.Height = 24;
             this.dgvOrderItems.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvOrderItems.Size = new System.Drawing.Size(489, 224);
+            this.dgvOrderItems.Size = new System.Drawing.Size(652, 276);
             this.dgvOrderItems.TabIndex = 8;
-            this.dgvOrderItems.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvOrderItems_CellContentClick);
+            this.dgvOrderItems.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvOrderItems_CellContentClick);
             this.dgvOrderItems.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.DgvOrderItems_RowsAdded);
             this.dgvOrderItems.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.DgvOrderItems_RowsRemoved);
-            // 
-            // menuStrip1
-            // 
-            this.menuStrip1.BackColor = System.Drawing.Color.Transparent;
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.backToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(834, 24);
-            this.menuStrip1.TabIndex = 15;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // backToolStripMenuItem
-            // 
-            this.backToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.backToolStripMenuItem.Name = "backToolStripMenuItem";
-            this.backToolStripMenuItem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.backToolStripMenuItem.RightToLeftAutoMirrorImage = true;
-            this.backToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.backToolStripMenuItem.Text = "Back";
-            this.backToolStripMenuItem.Click += new System.EventHandler(this.BackToolStripMenuItem_Click);
             // 
             // ItemName
             // 
@@ -365,7 +338,7 @@
             this.UnitPrice.MinimumWidth = 6;
             this.UnitPrice.Name = "UnitPrice";
             this.UnitPrice.ReadOnly = true;
-            this.UnitPrice.Width = 119;
+            this.UnitPrice.Width = 143;
             // 
             // Qty
             // 
@@ -374,7 +347,7 @@
             this.Qty.MinimumWidth = 6;
             this.Qty.Name = "Qty";
             this.Qty.ReadOnly = true;
-            this.Qty.Width = 114;
+            this.Qty.Width = 137;
             // 
             // Subtotal
             // 
@@ -383,7 +356,7 @@
             this.Subtotal.MinimumWidth = 6;
             this.Subtotal.Name = "Subtotal";
             this.Subtotal.ReadOnly = true;
-            this.Subtotal.Width = 113;
+            this.Subtotal.Width = 135;
             // 
             // MenuItemID
             // 
@@ -393,11 +366,33 @@
             this.MenuItemID.ReadOnly = true;
             this.MenuItemID.Visible = false;
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.BackColor = System.Drawing.Color.Transparent;
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.backToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1112, 28);
+            this.menuStrip1.TabIndex = 15;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // backToolStripMenuItem
+            // 
+            this.backToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.backToolStripMenuItem.Name = "backToolStripMenuItem";
+            this.backToolStripMenuItem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.backToolStripMenuItem.RightToLeftAutoMirrorImage = true;
+            this.backToolStripMenuItem.Size = new System.Drawing.Size(54, 24);
+            this.backToolStripMenuItem.Text = "Back";
+            this.backToolStripMenuItem.Click += new System.EventHandler(this.BackToolStripMenuItem_Click);
+            // 
             // FrmUpdateOrder
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(834, 448);
+            this.ClientSize = new System.Drawing.Size(1112, 551);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnConfirm);
@@ -405,7 +400,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.menuStrip1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "FrmUpdateOrder";
             this.Text = "Update Exisitng Order";
             this.Load += new System.EventHandler(this.FrmUpdateOrder_Load);
@@ -443,7 +438,7 @@
         private System.Windows.Forms.DataGridView dgvOrderItems;
         private System.Windows.Forms.Button btnDeleteItem;
         private System.Windows.Forms.Button btnEditItem;
-        private System.Windows.Forms.Button btnAddButton;
+        private System.Windows.Forms.Button btnAddItem;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem backToolStripMenuItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn ItemName;

@@ -37,14 +37,28 @@ namespace RestaurantOrderingSystem
             FillPaidPaymentsComboBox();
         }
 
-     
+
         private void CmbOrders_SelectedIndexChanged(object sender, EventArgs e)
         {
             dgvPayments.Rows.Clear();
+
+            if (!(cmbOrders.SelectedItem is Order selectedOrder))
+            {
+                btnRefund.Enabled = false;
+                return;
+            }
+
+            btnRefund.Enabled = true;
+
+            if (cmbOrders.Items.Contains("-- Select the Order --"))
+            {
+                cmbOrders.Items.Remove("-- Select the Order --");
+            }
+
+
             try
             {
-                Order order = cmbOrders.SelectedItem as Order;
-                DataSet ds = Payment.GetCompletedOrderDetails(order.ID);
+                DataSet ds = Payment.GetCompletedOrderDetails(selectedOrder.Id);
 
                 foreach (DataRow row in ds.Tables[0].Rows)
                 {
@@ -87,14 +101,14 @@ namespace RestaurantOrderingSystem
             }
             try
             {
-                int paymentID = Convert.ToInt32(dgvPayments.SelectedRows[0].Cells["ID"].Value);
+                int paymentID = Convert.ToInt32(dgvPayments.SelectedRows[0].Cells["TableId"].Value);
                 string amount = dgvPayments.SelectedRows[0].Cells["Amount"].Value.ToString();
 
                 Payment.RefundPayment(paymentID);
 
                 MessageBox.Show(
                     $"Refund processed successfully.\n" +
-                    $"Payment ID: {paymentID}\n" +
+                    $"Payment TableId: {paymentID}\n" +
                     $"Refund Amount: €{amount:F2}",
                     "Refund Success",
                     MessageBoxButtons.OK,
@@ -116,14 +130,25 @@ namespace RestaurantOrderingSystem
 
         public void FillPaidPaymentsComboBox()
         {
-            List<Order> orders = Payment.LoadPaidOrders();
 
             cmbOrders.Items.Clear();
+            List<Order> orders = Payment.LoadPaidOrders();
 
             foreach (Order order in orders)
             {
                 cmbOrders.Items.Add(order);
             }
+
+            if (cmbOrders.Items.Count == 0)
+            {
+                cmbOrders.Items.Add("-- No paid orders --");
+                cmbOrders.SelectedIndex = 0;
+                cmbOrders.Enabled = false;
+            }
+
+
+            cmbOrders.Items.Insert(0, "-- Select the Order --");
+            cmbOrders.SelectedIndex = 0;
 
 
         }

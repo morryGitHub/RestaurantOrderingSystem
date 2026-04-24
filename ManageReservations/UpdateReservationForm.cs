@@ -5,15 +5,16 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
 namespace RestaurantOrderingSystem
 {
     public partial class FrmUpdateReservation : Form
     {
 
-        private readonly int reservationID;
-        private readonly int tableID;
-        private int capacity = 0;
+        private readonly int _reservationID;
+        private int _tableID;
+        private int _lastValidValue = 1;
         public FrmUpdateReservation(int reservationID, int tableID)
         {
             InitializeComponent();
@@ -23,8 +24,8 @@ namespace RestaurantOrderingSystem
 
             UIStyleHelper.ApplyCancelButtonStyle(btnCancel);
 
-            this.reservationID = reservationID;
-            this.tableID = tableID;
+            this._reservationID = reservationID;
+            this._tableID = tableID;
         }
 
         private void FillComboBoxStatus()
@@ -38,11 +39,11 @@ namespace RestaurantOrderingSystem
             FillComboBoxStatus();
             ApplyReservationDesign();
 
-           
+
 
             try
             {
-                DataSet ds = Reservation.GetReservationDetails(reservationID);
+                DataSet ds = Reservation.GetReservationDetails(_reservationID);
 
                 if (ds != null)
                 {
@@ -53,7 +54,7 @@ namespace RestaurantOrderingSystem
                     DateTime date = Convert.ToDateTime(row["RESERVATIONDATETIMESTART"]);
                     int numOfGuest = Convert.ToInt32(row["NUMBEROFGUESTS"]);
                     int tableNo = Convert.ToInt32(row["TableNo"]);
-                    int tableID = Convert.ToInt32(row["TableID"]);
+                    int tableID = Convert.ToInt32(row["TableId"]);
                     int resID = Convert.ToInt32(row["RESERVATIONID"]);
                     string status = row["STATUS"].ToString().Trim();
                     int tableCapacity = Convert.ToInt32(row["CAPACITY"]);
@@ -70,7 +71,7 @@ namespace RestaurantOrderingSystem
                     tbTableNo.Text = tableNo.ToString();
                     numericNumOfGuests.Value = numOfGuest;
                     cmbStatus.SelectedItem = status;
-                    capacity = tableCapacity;
+                    tbTableCapacity.Text = tableCapacity.ToString();
 
 
                 }
@@ -107,6 +108,7 @@ namespace RestaurantOrderingSystem
             lblTime.Font = normalFont;
             lblTableText.Font = normalFont;
             lblStatus.Font = normalFont;
+            lblTableCapacity.Font = normalFont;
 
             tbCustName.Font = normalFont;
             tbPhoneNumber.Font = normalFont;
@@ -115,6 +117,7 @@ namespace RestaurantOrderingSystem
             timePicker.Font = normalFont;
             cmbStatus.Font = normalFont;
             tbTableNo.Font = normalFont;
+            tbTableCapacity.Font = normalFont;
         }
 
         private void BtnCancel_Click(object sender, EventArgs e)
@@ -133,7 +136,20 @@ namespace RestaurantOrderingSystem
 
         private void NumericNumOfGuests_ValueChanged(object sender, EventArgs e)
         {
-            BtnFindAvailableTables_Click(sender, e);
+            string guestCheck = Validation.IsSeatingCapacityValid((int)numericNumOfGuests.Value);
+            if (guestCheck != "Valid")
+            {
+
+                MessageBox.Show(guestCheck, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                numericNumOfGuests.Value = _lastValidValue;
+
+                return;
+            }
+            else
+            {
+                _lastValidValue = (int)numericNumOfGuests.Value;
+                BtnFindAvailableTables_Click(sender, e);
+            }
         }
 
         private void BtnFindAvailableTables_Click(object sender, EventArgs e)
@@ -141,18 +157,31 @@ namespace RestaurantOrderingSystem
             try
             {
                 dgvTables.Rows.Clear();
-                DateTime selectedStart = datePicker.Value.Date + timePicker.Value.TimeOfDay;
 
-                string guestCheck = Validation.IsGuestsValid((int)numericNumOfGuests.Value);
-                if (guestCheck != "Valid")
+                string dateCheck = Validation.IsDateValid(datePicker.Value, timePicker.Value);
+                if (dateCheck != "Valid")
                 {
-                    MessageBox.Show(guestCheck, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(dateCheck, "Invalid Reservation Date", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    datePicker.Value = DateTime.Now.Date;
+                    timePicker.Value = DateTime.Now + TimeSpan.FromHours(1);
                     return;
                 }
 
-                var tables = ReservationManager.GetAvailableTablesList((int)numericNumOfGuests.Value, selectedStart);
+                DateTime selectedStart = datePicker.Value.Date + timePicker.Value.TimeOfDay;
 
-                if (tables.Count == 0)
+
+                string timeCheck = Validation.IsReservationTimeValid(selectedStart);
+                if (timeCheck != "Valid")
+                {
+                    MessageBox.Show(timeCheck, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    lblErrorMsg.Visible = true;
+                    return;
+                }
+
+
+                var tables = ReservationManager.GetAvailableTablesList(_lastValidValue, selectedStart);
+
+                if (tables == null || tables.Count == 0)
                 {
                     lblErrorMsg.Visible = true;
                     dgvTables.Visible = false;
@@ -164,14 +193,20 @@ namespace RestaurantOrderingSystem
 
                     tables.ForEach(row =>
                     {
-                        dgvTables.Rows.Add(row.TableId, row.TableNumber, row.Capacity, row.Location);
+                        dgvTables.Rows.Add(row.TableId, row.Number, row.Capacity, row.Location);
                     });
                 }
             }
+
             catch (Exception ex)
             {
-                MessageBox.Show("Error: " + ex.Message);
+                MessageBox.Show($"An error occurred while searching for tables:\n\n{ex.Message}",
+                                        "Search Error",
+                                        MessageBoxButtons.OK,
+                                        MessageBoxIcon.Error);
             }
+
+            dgvTables.ClearSelection();
         }
 
         private void DgvTables_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -183,16 +218,35 @@ namespace RestaurantOrderingSystem
                 string tableNo = row.Cells["TableNo"].Value.ToString();
                 tbTableNo.Text = tableNo;
 
+                string capacity = row.Cells["Capacity"].Value.ToString();
+                tbTableCapacity.Text = capacity;
+
+                _tableID = Convert.ToInt32(row.Cells["TableId"].Value);
             }
         }
 
         private void BtnUpdateReservation_Click(object sender, EventArgs e)
         {
+            if (_tableID == -1)
+            {
+                MessageBox.Show("Time changed! Please pick a new table from the list.",
+                               "Selection Required", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
             // Validate Name
             string nameCheck = Validation.IsNameValid(tbCustName.Text);
             if (nameCheck != "Valid")
             {
-                MessageBox.Show(nameCheck, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(nameCheck, "Name Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            DateTime selectedStart = datePicker.Value.Date + timePicker.Value.TimeOfDay;
+            string timeCheck = Validation.IsReservationTimeValid(selectedStart);
+            if (timeCheck != "Valid")
+            {
+                MessageBox.Show(timeCheck, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                lblErrorMsg.Visible = true;
                 return;
             }
 
@@ -200,7 +254,7 @@ namespace RestaurantOrderingSystem
             string phoneCheck = Validation.IsPhoneValid(tbPhoneNumber.Text);
             if (phoneCheck != "Valid")
             {
-                MessageBox.Show(phoneCheck, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(phoneCheck, "Phone Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -208,16 +262,19 @@ namespace RestaurantOrderingSystem
             string dateCheck = Validation.IsDateValid(datePicker.Value, timePicker.Value);
             if (dateCheck != "Valid")
             {
-                MessageBox.Show(dateCheck, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(dateCheck, "Invalid Reservation Date", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             // Validate Guests
-            if (numericNumOfGuests.Value <= 0)
+            string guestCheck = Validation.IsSeatingCapacityValid((int)numericNumOfGuests.Value);
+            if (guestCheck != "Valid")
             {
-                MessageBox.Show("Guests must be at least 1.");
+                MessageBox.Show(guestCheck, "Guest Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+
+
 
             try
             {
@@ -232,24 +289,30 @@ namespace RestaurantOrderingSystem
                 string start = startDateTime.ToString("yyyy-MM-dd HH:mm:ss");
                 string end = endDateTime.ToString("yyyy-MM-dd HH:mm:ss");
 
-                string customerName = tbCustName.Text;
+                string customerName = tbCustName.Text.Trim();
                 string customerPhone = tbPhoneNumber.Text;
                 int numOfGuest = (int)numericNumOfGuests.Value;
                 string status = cmbStatus.SelectedItem.ToString();
+                int capacity = int.Parse(tbTableCapacity.Text);
+
 
 
 
                 if (numOfGuest > capacity)
                 {
-                    MessageBox.Show($"No available tables for this criteria. (Maximum capacity for this table is {capacity} guests.)",
-                                    "Capacity Limit", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show($"There are no available tables for this group size.\n\n" +
+                 $"The maximum capacity for the selected table is {capacity} guests. " +
+                 "Please choose another table.",
+                 "Capacity Limit Exceeded",
+                 MessageBoxButtons.OK,
+                 MessageBoxIcon.Warning);
                     return;
                 }
 
 
                 Reservation reservation = new Reservation(
-                   reservationID,
-                   tableID,
+                   _reservationID,
+                   _tableID,
                    customerName,
                    customerPhone,
                    start,
@@ -259,7 +322,6 @@ namespace RestaurantOrderingSystem
 
                 reservation.UpdateReservationDetails();
 
-                // Success message
                 MessageBox.Show("The reservation was successfully updated!",
                     "Update Complete",
                     MessageBoxButtons.OK,
@@ -282,16 +344,39 @@ namespace RestaurantOrderingSystem
         private void DatePicker_ValueChanged(object sender, EventArgs e)
         {
             dgvTables.Rows.Clear();
+
+            if (!datePicker.Focused) return;
+
+            _tableID = -1;
+            tbTableNo.Clear();
+            tbTableCapacity.Clear();
+            dgvTables.Rows.Clear();
+
+           
         }
 
         private void TimePicker_ValueChanged(object sender, EventArgs e)
         {
             dgvTables.Rows.Clear();
+
+            if (!timePicker.Focused) return;
+
+            _tableID = -1;
+            tbTableNo.Clear();
+            tbTableCapacity.Clear();
+            dgvTables.Rows.Clear();
+
+
         }
 
         private void BackToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void tbCustName_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -29,7 +29,10 @@ namespace RestaurantOrderingSystem
 
                 if (seatingCheck != "Valid")
                 {
-                    MessageBox.Show(seatingCheck, "Validation Error");
+                    MessageBox.Show(seatingCheck,
+                                    "Seating Capacity Error",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Warning);
                     return;
                 }
 
@@ -68,7 +71,7 @@ namespace RestaurantOrderingSystem
         private void BtnCancel_Click(object sender, EventArgs e)
         {
             MessageBox.Show(
-                "Table creation was cancelled.",
+                "TableNo creation was cancelled.",
                 "Cancelled",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);

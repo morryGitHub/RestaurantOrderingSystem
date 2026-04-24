@@ -25,10 +25,11 @@ namespace RestaurantOrderingSystem
         {
 
             this.BackColor = Color.White;
-
-            // TITLE
             lblTitle.Font = new Font("Segoe UI", 16, FontStyle.Bold);
             lblTitle.ForeColor = Color.FromArgb(30, 30, 30);
+
+            
+
 
 
         }
@@ -150,7 +151,11 @@ namespace RestaurantOrderingSystem
             }
             catch (Exception ex)
             {
-                MessageBox.Show("An error occurred while generating statistics: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"An error occurred while generating the statistics report:\n\n{ex.Message}",
+                                "Statistics Generation Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+                return;
             }
         }
 
@@ -163,5 +168,7 @@ namespace RestaurantOrderingSystem
         {
             this.Close();
         }
+
+        
     }
 }

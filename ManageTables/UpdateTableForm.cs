@@ -18,8 +18,6 @@ namespace RestaurantOrderingSystem
             InitializeComponent();
             UIStyleHelper.ApplyPrimaryButtonStyle(btnUpdateTable);
             UIStyleHelper.ApplyCancelButtonStyle(btnExit);
-
-
         }
    
 
@@ -69,20 +67,18 @@ namespace RestaurantOrderingSystem
 
         private void BtnExit_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(
-                "Table updating cancelled.",
-                "Cancelled",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information);
+            MessageBox.Show("The table update process has been cancelled.",
+                 "Operation Cancelled",
+                 MessageBoxButtons.OK,
+                 MessageBoxIcon.Information);
 
             this.Close();
         }
 
         private void CmbTableNo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cmbTableNo.SelectedIndex == 0)
+            if (!(cmbTableNo.SelectedItem is Table selectedTable))
             {
-                // placeholder selected → invalid
                 btnUpdateTable.Enabled = false;
                 numSeats.Enabled = false;
                 cmbStatus.Enabled = false;
@@ -90,12 +86,18 @@ namespace RestaurantOrderingSystem
                 return;
             }
 
+
+            if (cmbTableNo.Items.Contains("-- Select the Table --"))
+            {
+                cmbTableNo.Items.Remove("-- Select the Table --");
+            }
+
             btnUpdateTable.Enabled = true;
             numSeats.Enabled = true;
             cmbStatus.Enabled = true;
             tbLocation.Enabled = true;
 
-            Table selectedTable = cmbTableNo.SelectedItem as Table;
+           
             _ = selectedTable.TableId;
             string status = selectedTable.Status;
             int seats = selectedTable.Capacity;
@@ -117,7 +119,7 @@ namespace RestaurantOrderingSystem
                 return;
             }
             Table selectedTable = cmbTableNo.SelectedItem as Table;
-            int tableNo = selectedTable.TableNumber;
+            int tableNo = selectedTable.Number;
             int seatingCapacity = (int)numSeats.Value;
             string status = cmbStatus.Text;
             string location = tbLocation.Text;
@@ -166,8 +168,6 @@ namespace RestaurantOrderingSystem
                 MessageBoxIcon.Information
             );
 
-            //LoadTables();
-
             this.Close();
         }
 
@@ -183,20 +183,19 @@ namespace RestaurantOrderingSystem
 
                 if (tables.Count == 0)
                 {
-                    cmbTableNo.Items.Add("No Tables Available");
+                    cmbTableNo.Items.Add("-- No Tables Available --");
                     cmbTableNo.SelectedIndex = 0;
                     cmbTableNo.Enabled = false;
                     return;
                 }
 
-                cmbTableNo.Items.Add("Select the table");
-                cmbTableNo.SelectedIndex = 0;
-
-
                 foreach (Table table in tables)
                 {
                     cmbTableNo.Items.Add(table);
                 }
+
+                cmbTableNo.Items.Insert(0, "-- Select the Table --");
+                cmbTableNo.SelectedIndex = 0;
             }
             catch (Exception ex)
             {

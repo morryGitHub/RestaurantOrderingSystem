@@ -11,30 +11,29 @@ namespace RestaurantOrderingSystem
 {
     internal class Order
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
         public Table Table { get; set; }
         public DateTime OrderDate { get; set; }
         public decimal TotalAmount { get; set; }
-        public string Status { get; set; }
+        public string Status { get; set; } = "Active";
 
         public Order(Table table, DateTime orderDate, decimal totalAmount)
         {
             Table = table;
             OrderDate = orderDate;
             TotalAmount = totalAmount;
-            Status = "Active";
         }
 
         public Order(int orderID, Table table)
         {
-            ID = orderID;
+            Id = orderID;
             Table = table;
         }
 
 
         public override string ToString()
         {
-            return $"Order #{ID} — Table {Table.TableNumber}";
+            return $"Order #{Id} — Table {Table.Number}";
         }
 
         public void AddOrder()
@@ -42,14 +41,16 @@ namespace RestaurantOrderingSystem
             try
             {
                 string sql = $@"
-                INSERT INTO ORDERS(TableID, OrderDate, TotalAmount, Status)
+                INSERT INTO ORDERS(TableId, OrderDate, TotalAmount, Status)
                 VALUES({Table.TableId}, TO_DATE('{OrderDate:yyyy-MM-dd HH:mm:ss}', 'YYYY-MM-DD HH24:MI:SS'), {TotalAmount}, '{Status}')";
 
                 Database.ExecuteNonQuery(sql);
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error adding order: {ex.Message}");
+                throw new Exception($"[Order.AddOrder] Failed to create order for Table ID: {Table.TableId}. " +
+                            $"\nAmount: {TotalAmount}, Status: {Status} " +
+                            $"\nMessage: {ex.Message}");
             }
         }
 
@@ -60,13 +61,13 @@ namespace RestaurantOrderingSystem
                 string sql = $@"
                 UPDATE ORDERS
                 SET STATUS = 'Cancelled'
-                WHERE ORDERID = {ID}";
+                WHERE ORDERID = {Id}";
 
                 Database.ExecuteNonQuery(sql);
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error cancelling order: {ex.Message}");
+                throw new Exception($"[Order.CancelOrder] Failed to cancel order #{Id}. \nMessage: {ex.Message}");
             }
         }
 
@@ -78,18 +79,19 @@ namespace RestaurantOrderingSystem
                 string sql = $@"
                     SELECT
                          o.OrderID,
-                         t.TableID,
+                         t.TableId,
                          t.TableNo   
                         
                     FROM Orders o
-                    JOIN tablesinfo t ON o.TableID = t.TableID
+                    JOIN tablesinfo t ON o.TableId = t.TableId
                     WHERE o.Status = 'Active'";
 
                 return Database.ExecuteMultiRowQuery(sql);
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error retrieving active orders: {ex.Message}");
+                throw new Exception($"[Order.GetActiveOrders] Failed to retrieve active orders list. " +
+            $"\nMessage: {ex.Message}");
             }
         }
 
@@ -105,7 +107,7 @@ namespace RestaurantOrderingSystem
                     orders.Add(new Order(
                         Convert.ToInt32(row["OrderID"]),
                         table: new Table(
-                            Convert.ToInt32(row["TableID"]),
+                            Convert.ToInt32(row["TableId"]),
                             Convert.ToInt32(row["TableNo"])
                             )
                     ));

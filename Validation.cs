@@ -32,6 +32,7 @@ namespace RestaurantOrderingSystem
 
         public static string IsPhoneValid(string phone)
         {
+            phone = phone.Trim();
             string pattern = @"^\+?\d{10,15}$";
             Regex reg = new Regex(pattern);
             Match match = reg.Match(phone);
@@ -46,10 +47,9 @@ namespace RestaurantOrderingSystem
         }
 
 
-
-
         public static string IsEmailValid(string email)
         {
+            email = email.Trim();
             string pattern = "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$";
             Regex reg = new Regex(pattern);
             Match match = reg.Match(email);
@@ -61,17 +61,6 @@ namespace RestaurantOrderingSystem
             {
                 return "Invalid email address. Example of valid format: example@domain.com";
             }
-        }
-
-        public static string IsGuestsValid(decimal num)
-        {
-            if (num <= 0)
-                return "Number of guests must be greater than 0.";
-
-            if (num > 20)
-                return "Number of guests exceeds restaurant limit (max 20).";
-
-            return "Valid";
         }
 
         public static string IsDateValid(DateTime date, DateTime time)
@@ -89,51 +78,43 @@ namespace RestaurantOrderingSystem
 
         public static string IsComboBoxSelected(ComboBox combo, string fieldName)
         {
-            if (combo.SelectedIndex == -1 || string.IsNullOrWhiteSpace(combo.Text))
+            if (combo == null || combo.SelectedIndex == -1 || string.IsNullOrWhiteSpace(combo.Text))
                 return $"{fieldName} must be selected.";
 
             return "Valid";
         }
 
-        public static string IsGridSelected(DataGridView dataGrid, string fieldName)
+        public static string IsGridSelected(DataGridView grid, string fieldName = "Item")
         {
-            if (dataGrid.SelectedRows.Count == 0)
-                return $"{fieldName} must be selected.";
-
-            return "Valid";
-        }
-
-
-        public static string IsGridSelected(DataGridView grid)
-        {
-            if (grid == null)
-                return "Grid is not initialized.";
+            if (grid == null) return "Grid is not initialized.";
 
             if (grid.SelectedRows.Count == 0)
-                return "Please select a reservation first.";
+                return $"Please select a {fieldName.ToLower()} first.";
 
             return "Valid";
         }
 
         public static string IsSeatingCapacityValid(decimal num)
         {
-            if (num <= 0)
-                return "Seating capacity must be at least 1.";
-
-            if (num > 20)
-                return "Seating capacity cannot exceed 20.";
-
+            if (num.Equals("")) return "Please enter the number of guests.";
+            if (num <= 0) return "The number of guests must be at least 1.";
+            if (num > 20) return "Our largest table can accommodate up to 20 guests. For larger groups, please contact us directly.";
             return "Valid";
         }
-        public static string IsTableNumberValid(decimal tableNo)
+
+       
+
+        public static string IsReservationTimeValid(DateTime selectedStart)
         {
-
-            if (tableNo == 0)
-                return "Table number must be greater tahn zero.";
-
-
+            int hour = selectedStart.Hour;
+            if (hour < 8 || hour >= 23)
+            {
+                return "Reservations are only available between 08:00 and 23:00.";
+            }
             return "Valid";
         }
+               
+ 
 
         public static decimal GetTotalAmount(DataGridView gridView)
         {

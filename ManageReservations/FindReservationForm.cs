@@ -26,7 +26,7 @@ namespace RestaurantOrderingSystem
         }
 
 
-        private void BtnSearch_Click_1(object sender, EventArgs e)
+        private void BtnSearch_Click(object sender, EventArgs e)
         {
             ReservationManager.GetReservations(dgvMatchingReservation, rbCustName, tbCustName, tbPhoneNum, lblResInfo);
 
@@ -107,8 +107,9 @@ namespace RestaurantOrderingSystem
 
                 if (row != null)
                 {
-                    int tableID = Convert.ToInt32(row.Cells["TableID"].Value);
+                    int tableID = Convert.ToInt32(row.Cells["TableId"].Value);
                     int resID = Convert.ToInt32(row.Cells["ResID"].Value);
+                    int tableNum = Convert.ToInt32(row.Cells["TableNo"].Value);
                     switch (nextPage)
                     {
 
@@ -118,7 +119,7 @@ namespace RestaurantOrderingSystem
                             this.Close();
                             FrmNewOrder newOrder = new FrmNewOrder(tableObj);
                             newOrder.ShowDialog();
-                            
+
                             break;
 
                         case ("Update"):
@@ -134,11 +135,10 @@ namespace RestaurantOrderingSystem
 
                             Reservation reservation = new Reservation(resID);
                             reservation.DeleteReservation();
-                            MessageBox.Show(
-                                "Done! The table is now marked as available.",
-                                "Success",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Information);
+                            MessageBox.Show($"Success! Table #{tableNum} is now marked as available.",
+                                    "Table Updated",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Information);
 
                             this.Close();
 
@@ -149,7 +149,11 @@ namespace RestaurantOrderingSystem
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error cancelling reservation: {ex.Message}");
+                MessageBox.Show($"An error occurred while trying to select the reservation:\n\n{ex.Message}",
+                                "Selection Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+                return;
             }
         }
 
@@ -172,14 +176,14 @@ namespace RestaurantOrderingSystem
 
             rbCustName.Font = normalFont;
             rbPhoneNum.Font = normalFont;
-          
+
 
             tbCustName.Font = normalFont;
             tbPhoneNum.Font = normalFont;
-           
-           
 
-         
+
+
+
         }
 
 

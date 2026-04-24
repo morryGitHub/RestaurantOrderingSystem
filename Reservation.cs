@@ -12,48 +12,55 @@ namespace RestaurantOrderingSystem
 {
     internal class Reservation
     {
-        public int ReservationID { get; set; }
-        public int TableID { get; set; }
+        public int ReservationId { get; set; }
+        public int TableId { get; set; }
         public string CustomerName { get; set; }
         public string CustomerPhone { get; set; }
         public string ReservationDateStart { get; set; }
         public string ReservationDateEnd { get; set; }
-        public int NumOfGuest { get; set; }
+        public int GuestCount { get; set; }
         public string Status { get; set; }
 
-        public Reservation(int reservationID, int tableID, string customerName, string customerPhone, string reservationDateStart, string reservationDateEnd, int numOfGuest, string status)
+        public Reservation(int id, int tableId, string customerName, string customerPhone, string reservationDateStart, string reservationDateEnd, int guestCount, string status)
         {
-            ReservationID = reservationID;
-            TableID = tableID;
+            ReservationId = id;
+            TableId = tableId;
             CustomerName = customerName;
             CustomerPhone = customerPhone;
             ReservationDateStart = reservationDateStart;
             ReservationDateEnd = reservationDateEnd;
-            NumOfGuest = numOfGuest;
+            GuestCount = guestCount;
             Status = status;
         }
 
-        public Reservation(int tableID, string customerName, string customerPhone, string reservationDateStart, string reservationDateEnd, int numOfGuest)
+        public Reservation(int tableId, string customerName, string customerPhone, string reservationDateStart, string reservationDateEnd, int guestCount)
         {
-            TableID = tableID;
+            TableId = tableId;
             CustomerName = customerName;
             CustomerPhone = customerPhone;
             ReservationDateStart = reservationDateStart;
             ReservationDateEnd = reservationDateEnd;
-            NumOfGuest = numOfGuest;
+            GuestCount = guestCount;
         }
-        public Reservation(int tableID, string customerName, string customerPhone, string reservationDateStart, int numOfGuest)
+        public Reservation(int tableId, string customerName, string customerPhone, string reservationDateStart, int guestCount)
         {
-            TableID = tableID;
+            TableId = tableId;
             CustomerName = customerName;
             CustomerPhone = customerPhone;
             ReservationDateStart = reservationDateStart;
-            NumOfGuest = numOfGuest;
+            GuestCount = guestCount;
         }
 
-        public Reservation(int reservationID)
+        public Reservation(string reservationDateStart, string reservationDateEnd, int guestCount)
         {
-            ReservationID = reservationID;
+            ReservationDateStart = reservationDateStart;
+            ReservationDateEnd = reservationDateEnd;
+            GuestCount = guestCount;
+        }
+
+        public Reservation(int id)
+        {
+            ReservationId = id;
         }
 
         public void DeleteReservation()
@@ -63,38 +70,39 @@ namespace RestaurantOrderingSystem
                 string sql = $@"
                     UPDATE RESERVATIONS
                     SET STATUS = 'CANCELLED'
-                    WHERE RESERVATIONID = {ReservationID}";
+                    WHERE RESERVATIONID = {ReservationId}";
 
                 Database.ExecuteNonQuery(sql);
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                throw new Exception($"[Reservation.DeleteReservation] Failed to cancel reservation #{ReservationId}. \nMessage: {ex.Message}");
             }
         }
 
-        public static DataSet GetAvailableTablesForReservation(int numOfGuest, string start, string end)
+        public DataSet GetAvailableTablesForReservation()
         {
             try
             {
                 string sql = $@"
-                SELECT t.TableID, t.tableNo, t.Capacity, t.Status, t.Location
+                SELECT t.tableId, t.tableNo, t.Capacity, t.Status, t.Location
                 FROM tablesinfo t
                 WHERE t.status = 'Available'
-                  AND t.capacity >= {numOfGuest}
+                  AND t.capacity >= {GuestCount}
                   AND NOT EXISTS (
                       SELECT 1
                       FROM Reservations r
-                      WHERE r.tableID = t.tableID
-                        AND TO_DATE('{start}', 'DD-MM-YYYY HH24:MI') < r.reservationDateTimeEnd
-                        AND TO_DATE('{end}', 'DD-MM-YYYY HH24:MI') > r.reservationDateTimeStart
+                      WHERE r.tableId = t.tableId
+                        AND r.status != 'CANCELLED'
+                        AND TO_DATE('{ReservationDateStart}', 'DD-MM-YYYY HH24:MI') < r.reservationDateTimeEnd
+                        AND TO_DATE('{ReservationDateEnd}', 'DD-MM-YYYY HH24:MI') > r.reservationDateTimeStart
                     )
                 ORDER BY t.Capacity";
                 return Database.ExecuteMultiRowQuery(sql);
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                throw new Exception($"[Reservation.GetAvailableTables] Error finding tables for {GuestCount} guests. \nStart: {ReservationDateStart} \nMessage: {ex.Message}");
             }
         }
 
@@ -113,9 +121,9 @@ namespace RestaurantOrderingSystem
             try
             {
                 string sql = $@"
-                SELECT t.TABLENO, t.Capacity, r.TableID, r.CUSTOMERNAME,  r.CUSTOMERPHONE, r.RESERVATIONDATETIMESTART, r.NUMBEROFGUESTS, r.RESERVATIONID, r.STATUS
+                SELECT t.TABLENO, t.Capacity, r.TableId, r.CUSTOMERNAME,  r.CUSTOMERPHONE, r.RESERVATIONDATETIMESTART, r.NUMBEROFGUESTS, r.RESERVATIONID, r.STATUS
                 FROM RESERVATIONS r
-                JOIN tablesinfo t ON r.TABLEID = t.TableID
+                JOIN tablesinfo t ON r.TABLEID = t.TableId
                 WHERE r.STATUS = 'BOOKED'";
 
                 if (id.HasValue)
@@ -142,7 +150,7 @@ namespace RestaurantOrderingSystem
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                throw new Exception($"[Reservation.GetDetails] Search failed. Parameters: ID={id}, Phone={phone}, Name={name}. \nMessage: {ex.Message}");
             }
         }
 
@@ -156,17 +164,17 @@ namespace RestaurantOrderingSystem
                     CUSTOMERPHONE = '{CustomerPhone}',
                     RESERVATIONDATETIMESTART = TO_DATE('{ReservationDateStart}', 'YYYY-MM-DD HH24:MI:SS'),
                     RESERVATIONDATETIMEEND = TO_DATE('{ReservationDateEnd}', 'YYYY-MM-DD HH24:MI:SS'),
-                    NUMBEROFGUESTS = {NumOfGuest},
-                    TABLEID = {TableID},
+                    NUMBEROFGUESTS = {GuestCount},
+                    TABLEID = {TableId},
                     STATUS = '{Status}'
-                WHERE RESERVATIONID = {ReservationID}";
+                WHERE RESERVATIONID = {ReservationId}";
 
 
                 Database.ExecuteNonQuery(sql);
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                throw new Exception($"[Reservation.UpdateDetails] Failed to update reservation #{ReservationId} \nMessage: {ex.Message}");
             }
         }
 
@@ -176,15 +184,15 @@ namespace RestaurantOrderingSystem
             {
 
                 string sql = $@"
-                INSERT INTO Reservations(tableID, customerName, customerPhone, reservationDateTimeStart, reservationDateTimeEnd, numberOfGuests, status)
-                Values({TableID}, '{CustomerName}', '{CustomerPhone}', TO_DATE('{ReservationDateStart}', 'DD-MM-YYYY HH24:MI'), TO_DATE('{ReservationDateEnd}', 'DD-MM-YYYY HH24:MI'), {NumOfGuest}, 'BOOKED')
+                INSERT INTO Reservations(tableId, customerName, customerPhone, reservationDateTimeStart, reservationDateTimeEnd, numberOfGuests, status)
+                Values({TableId}, '{CustomerName}', '{CustomerPhone}', TO_DATE('{ReservationDateStart}', 'DD-MM-YYYY HH24:MI'), TO_DATE('{ReservationDateEnd}', 'DD-MM-YYYY HH24:MI'), {GuestCount}, 'BOOKED')
                 ";
 
                 Database.ExecuteNonQuery(sql);
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                throw new Exception($"[Reservation.AddReservation] \nMessage: {ex.Message}");
             }
         }
     }
